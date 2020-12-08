@@ -1,5 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 
+enum currencyType {
+  chaos,
+  exalt
+}
+
+enum leagues {
+  heist,
+  heistHC,
+  standard,
+  standardHC
+}
+
 @Component({
   selector: 'app-shoppinglist',
   templateUrl: './shoppinglist.component.html',
