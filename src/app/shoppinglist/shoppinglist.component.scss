@@ -1,0 +1,56 @@
+@import '../../styles.scss';
+
+#shoppinglist-maincontainer {
+    color: mat-color($pathofshopping-accent, 50);
+    height: 100%;
+    width: 100%;
+    background-color: mat-color($pathofshopping-primary, 800);
+
+    #top-bg-image-container {
+        position: relative;
+        background-position: center;
+        background-size: cover;
+        background-image: linear-gradient(to top, mat-color($pathofshopping-primary, 800) 5%, rgba(0,0,0,0)), 
+                            url('../../assets/topBgImage.jpg');
+        height: 350px;
+
+        #top-title {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+        }
+    }
+
+    #shoppinglist-settings-bar {
+        width: 90%;
+        margin: auto;
+        transform: translateY(calc(-50% - (300px * 0.1)));
+        background-color: mat-color($pathofshopping-primary, 500);
+        min-height: 65px;
+        border-radius: 10px;
+    }
+
+    #shoppinglist-contents-container {  
+        border-radius: 10px;
+        width: 90%;
+        margin: auto;
+        margin-bottom: 50px;
+        height: 100%;
+        background-color: mat-color($pathofshopping-primary, 600);
+
+        #shoppinglist-contents-top-bar {
+            border-radius: 10px 10px 0 0;
+            height: 60px;
+            width: 100%;
+            background-color: mat-color($pathofshopping-primary, 500);
+        }
+
+        #shopping-list-contents {
+            width: 90%;
+            margin: auto;
+        }
+
+    }
+}
