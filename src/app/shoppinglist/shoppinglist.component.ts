@@ -19,11 +19,11 @@ enum leagues {
 })
 export class ShoppinglistComponent implements OnInit {
 
-  private budget: number = 0;                                   //Users budget
-  private estCost: number = 0;                                  //Estimated Cost of the items
-  private budgetCurrencyType = null;                            //Type of currency to use for items
-  private shoppingListName: string = "Your Shopping List";      //Name of the shopping list
-  private league = null;                                        //League to use for indexing items
+  private budget: number = 0;                                       //Users budget
+  private estCost: number = 0;                                      //Estimated Cost of the items
+  private budgetCurrencyType: currencyType = currencyType.chaos;    //Type of currency to use for items
+  private shoppingListName: string = "Your Shopping List";          //Name of the shopping list
+  private league: leagues = leagues.heist;                          //League to use for indexing items
 
   constructor() { }
 
