@@ -77,7 +77,18 @@ $pathofshopping-theme: mat-light-theme((
   )
 ));
 
+$pathofshopping-typography: mat-typography-config(
+  $font-family: 'Poppins',
+  $headline: mat-typography-level(45px, 45px, 600),
+  $title: mat-typography-level(35px, 35px, 400),
+  $subheading-2: mat-typography-level(24px, 24px, 400),
+  $body-1: mat-typography-level(18px, 18px, 300),
+  $caption: mat-typography-level(16px, 16px, 300),
+);
+
 @include angular-material-theme($pathofshopping-theme);
+
+@include angular-material-typography($pathofshopping-typography);
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
