@@ -13,6 +13,7 @@ import { MatInputModule } from '@angular/material/input';
 //Feather Import
 import { FeatherModule } from 'angular-feather';
 import { ChevronDown, ChevronUp, Save, Download, Trash2, PlusCircle } from 'angular-feather/icons';
+import { DigitsonlyDirective } from './digitsonly.directive';
 
 const icons = {         //Feather Icons
   ChevronDown,
@@ -26,7 +27,8 @@ const icons = {         //Feather Icons
 @NgModule({
   declarations: [
     AppComponent,
-    ShoppinglistComponent
+    ShoppinglistComponent,
+    DigitsonlyDirective
   ],
   imports: [
     BrowserModule,
