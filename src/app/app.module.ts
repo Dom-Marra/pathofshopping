@@ -6,6 +6,10 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ShoppinglistComponent } from './shoppinglist/shoppinglist.component';
 
+//Material Imports
+import { MatSelectModule } from '@angular/material/select';
+import { MatInputModule } from '@angular/material/input';
+
 //Feather Import
 import { FeatherModule } from 'angular-feather';
 import { ChevronDown, ChevronUp, Save, Download, Trash2, PlusCircle } from 'angular-feather/icons';
@@ -28,7 +32,9 @@ const icons = {         //Feather Icons
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    FeatherModule.pick(icons)
+    FeatherModule.pick(icons),
+    MatSelectModule,
+    MatInputModule
   ],
   exports: [
     FeatherModule
