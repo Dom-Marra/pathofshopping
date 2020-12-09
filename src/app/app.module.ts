@@ -6,6 +6,19 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ShoppinglistComponent } from './shoppinglist/shoppinglist.component';
 
+//Feather Import
+import { FeatherModule } from 'angular-feather';
+import { ChevronDown, ChevronUp, Save, Download, Trash2, PlusCircle } from 'angular-feather/icons';
+
+const icons = {         //Feather Icons
+  ChevronDown,
+  ChevronUp,
+  Save,
+  Download,
+  Trash2,
+  PlusCircle
+}
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -14,7 +27,11 @@ import { ShoppinglistComponent } from './shoppinglist/shoppinglist.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    FeatherModule.pick(icons)
+  ],
+  exports: [
+    FeatherModule
   ],
   providers: [],
   bootstrap: [AppComponent]
