@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 
 enum currencyType {
-  chaos,
-  exalt
+  chaos = "Chaos",
+  exalt = "Exalt"
 }
 
 enum leagues {
-  heist,
-  heistHC,
-  standard,
-  standardHC
+  heist = "Heist",
+  heistHC = "Heist HC",
+  standard = "Standard",
+  standardHC = "Standard HC"
 }
 
 @Component({
@@ -18,6 +18,9 @@ enum leagues {
   styleUrls: ['./shoppinglist.component.scss']
 })
 export class ShoppinglistComponent implements OnInit {
+
+  public readonly LEAGUES = leagues;                                //Used for iterating over leagues
+  public readonly CURRENCY_TYPES = currencyType;                    //Used fro iterating over currency types
 
   private budget: number = 0;                                       //Users budget
   private estCost: number = 0;                                      //Estimated Cost of the items
