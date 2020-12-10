@@ -9,6 +9,7 @@ import { ShoppinglistComponent } from './shoppinglist/shoppinglist.component';
 //Material Imports
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 
 //Feather Import
 import { FeatherModule } from 'angular-feather';
@@ -36,7 +37,8 @@ const icons = {         //Feather Icons
     BrowserAnimationsModule,
     FeatherModule.pick(icons),
     MatSelectModule,
-    MatInputModule
+    MatInputModule,
+    MatButtonModule
   ],
   exports: [
     FeatherModule
