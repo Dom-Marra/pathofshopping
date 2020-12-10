@@ -1,5 +1,13 @@
 @import '../../styles.scss';
 
+.mat-select-panel {
+    background-color: mat-color($pathofshopping-primary, 400);
+
+    .mat-option-text {
+        color: white;
+    }
+}
+
 #shoppinglist-maincontainer {
     color: mat-color($pathofshopping-accent, 50);
     min-height: 100%;
@@ -28,10 +36,65 @@
     #shoppinglist-settings-bar {
         width: 90%;
         margin: auto;
-        transform: translateY(calc(-50% - (300px * 0.1)));
+        transform: translateY(calc(-30px - (300px * 0.1)));
         background-color: mat-color($pathofshopping-primary, 500);
-        min-height: 65px;
+        min-height: 60px;
         border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        font-size: 14px;
+
+        #est-cost-container {
+            h4 {
+                margin: 0;
+                font-weight: 300;
+            }
+        }
+        
+        #save-import-options {
+            .mat-flat-button {
+                margin: 0 0.25em;
+                color: white;
+                background-color: mat-color($pathofshopping-primary, 800);
+            }
+
+            i-feather {
+                position: relative;
+                transform: translate(-5px, -20%);
+                stroke-width: 1px;
+                height: 20px;
+                width: 20px;
+            }
+        }
+
+        .mat-form-field, .mat-flat-button { 
+            font-weight: 300;
+        }
+
+        .mat-form-field, #est-cost-container, #save-import-options { 
+            margin: 1em;
+        }
+
+        .mat-form-field {
+
+            mat-label, .mat-input-element, .mat-select-value-text {
+                color: white;
+            }
+
+            .mat-select-arrow {
+                color: mat-color($pathofshopping-primary, 800);
+            }
+
+            .mat-form-field-underline, .mat-form-field-ripple {
+                background-color: mat-color($pathofshopping-primary, 800);
+            }
+
+            .mat-form-field-wrapper {
+                margin-bottom: -1.25em;
+            }
+        }
     }
 
     #shoppinglist-contents-container {  
@@ -55,4 +118,23 @@
         }
 
     }
+}
+
+@media only screen and (max-width: 886px) {
+
+    #shoppinglist-maincontainer {
+    
+        #shoppinglist-settings-bar {
+
+            .mat-form-field, #est-cost-container, #save-import-options { 
+                width: 100%;
+            }
+
+            #save-import-options {
+                display: flex;
+                justify-content: center;
+            }
+        }
+    }
+
 }
