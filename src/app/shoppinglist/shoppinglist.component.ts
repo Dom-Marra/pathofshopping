@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
 enum currencyType {
   chaos = "Chaos",
@@ -15,7 +15,8 @@ enum leagues {
 @Component({
   selector: 'app-shoppinglist',
   templateUrl: './shoppinglist.component.html',
-  styleUrls: ['./shoppinglist.component.scss']
+  styleUrls: ['./shoppinglist.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class ShoppinglistComponent implements OnInit {
 
