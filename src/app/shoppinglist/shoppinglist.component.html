@@ -21,7 +21,7 @@
         </mat-form-field>
         <div id="est-cost-container">
             <h4>Estimated Cost: {{ getEstCost() }}</h4>
-
+            <img [src]="getBudgetCurrencyType() == CURRENCY_TYPES.chaos ? 'assets/chaosOrb.png' : 'assets/exaltedOrb.png'" />
         </div>
         <div id="save-import-options">
             <button type="button" mat-flat-button><i-feather name="save"></i-feather> Save</button>
