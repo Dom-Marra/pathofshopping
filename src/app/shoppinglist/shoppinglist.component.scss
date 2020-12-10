@@ -47,9 +47,18 @@
         font-size: 14px;
 
         #est-cost-container {
+            display: flex;
+            align-items: center;
+
             h4 {
                 margin: 0;
                 font-weight: 300;
+            }
+
+            img {
+                height: 30px;
+                width: auto;
+                margin-left: 0.5em;
             }
         }
         
@@ -120,7 +129,7 @@
     }
 }
 
-@media only screen and (max-width: 886px) {
+@media only screen and (max-width: 926px) {
 
     #shoppinglist-maincontainer {
     
