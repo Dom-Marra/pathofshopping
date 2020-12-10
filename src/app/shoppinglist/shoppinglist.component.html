@@ -3,18 +3,18 @@
         <h2 id="top-title">Path of Shopping</h2>
     </div>
     <div id="shoppinglist-settings-bar">
-        <mat-form-field appearance="fill">
+        <mat-form-field>
             <mat-label>League</mat-label>
             <mat-select (selectionChange)="setLeague($event.value)" [value]="getLeague()">
                 <mat-option *ngFor="let league of LEAGUES | keyvalue" [value]="league.value" >{{league.value}}</mat-option>
             </mat-select>
         </mat-form-field>
-        <mat-form-field appearance="fill">
+        <mat-form-field>
             <mat-label>Budget</mat-label>
             <input matInput digitsonly float='true' [value]="getBudget()" type="text" (change)="setBudget($event.target.value)">
         </mat-form-field>
-        <mat-form-field appearance="fill">
-            <mat-label>Currency Type</mat-label>
+        <mat-form-field id="currency-type-form-field">
+            <mat-label>Currency</mat-label>
             <mat-select [value]="getBudgetCurrencyType()" (selectionChange)="setBudgetCurrencyType($event.value)">
                 <mat-option *ngFor="let types of CURRENCY_TYPES | keyvalue" [value]="types.value">{{types.value}}</mat-option>
             </mat-select>
