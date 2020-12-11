@@ -34,7 +34,6 @@ export class DigitsonlyDirective {
 
     if (this.float) {                                 //Parse the value of the input to float
       this.el.nativeElement.value = parseFloat(input);
-      console.log('here');
     } else {                                          //Parse the value of the input to an Int
       this.el.nativeElement.value = parseInt(input);
     }
