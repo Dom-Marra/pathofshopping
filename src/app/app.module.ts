@@ -13,7 +13,7 @@ import { MatButtonModule } from '@angular/material/button';
 
 //Feather Import
 import { FeatherModule } from 'angular-feather';
-import { ChevronDown, ChevronUp, Save, Download, Trash2, PlusCircle } from 'angular-feather/icons';
+import { ChevronDown, ChevronUp, Save, Download, Trash2, PlusCircle, Edit2, X } from 'angular-feather/icons';
 import { DigitsonlyDirective } from './digitsonly.directive';
 
 const icons = {         //Feather Icons
@@ -22,7 +22,9 @@ const icons = {         //Feather Icons
   Save,
   Download,
   Trash2,
-  PlusCircle
+  PlusCircle,
+  Edit2,
+  X
 }
 
 @NgModule({
