@@ -30,7 +30,10 @@
     </div>
     <div id="shoppinglist-contents-container">
         <div id="shoppinglist-contents-top-bar">
-
+            <mat-form-field>
+                <i-feather matSuffix [name]="!getEditShoppingListName() ? 'edit-2' : 'X'" (click)="setEditShoppingListName(!getEditShoppingListName())"></i-feather>
+                <input matInput [value]="getShoppingListName()" type="text" [disabled]="!getEditShoppingListName()" (blur)="setEditShoppingListName(false)" (keyup.enter)="setEditShoppingListName(false)" (change)="setShoppingListName($event.target.value)">
+            </mat-form-field>
         </div>
         <div id="shopping-list-contents">
 
