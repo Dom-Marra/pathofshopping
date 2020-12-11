@@ -23,6 +23,8 @@ export class ShoppinglistComponent implements OnInit {
   public readonly LEAGUES = leagues;                                //Used for iterating over leagues
   public readonly CURRENCY_TYPES = currencyType;                    //Used fro iterating over currency types
 
+  private editShoppingListName: boolean = false;                    //Whether the shopping list input is disabled or not
+
   private budget: number = 0;                                       //Users budget
   private estCost: number = 0;                                      //Estimated Cost of the items
   private budgetCurrencyType: currencyType = currencyType.chaos;    //Type of currency to use for items
@@ -112,6 +114,26 @@ export class ShoppinglistComponent implements OnInit {
    */
   public setShoppingListName(name: string) {
     this.shoppingListName = name;
+  }
+
+  /**
+   * Returns whether the shopping list name is in edit mode or not
+   * 
+   * @returns
+   *        Boolean
+   */
+  public getEditShoppingListName() {
+    return this.editShoppingListName;
+  }
+
+  /**
+   * Sets whether the shopping list name is editable or not
+   * 
+   * @param edit 
+   *        Boolean
+   */
+  public setEditShoppingListName(edit: boolean) {
+    this.editShoppingListName = edit;
   }
 
   /**
