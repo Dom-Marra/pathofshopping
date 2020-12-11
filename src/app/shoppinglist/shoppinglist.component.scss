@@ -119,6 +119,23 @@
             height: 60px;
             width: 100%;
             background-color: mat-color($pathofshopping-primary, 500);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            .mat-form-field {
+                text-align: center;
+                font-weight: 300;
+                width: 30%;
+
+                .mat-form-field-underline, .mat-form-field-ripple {
+                    background-color: mat-color($pathofshopping-primary, 800);
+                }
+
+                .mat-form-field-wrapper {
+                    margin-bottom: -1.25em;
+                }
+            }
         }
 
         #shopping-list-contents {
