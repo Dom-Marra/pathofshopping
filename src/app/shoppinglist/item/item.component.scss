@@ -1,0 +1,63 @@
+@import '../../../styles.scss';
+
+.mat-expansion-panel {
+    margin: 1.25em 0 !important;
+    background-color: mat-color($pathofshopping-primary, 300);
+    box-shadow: none !important;
+
+    .mat-expansion-panel-header {
+        padding: 0 0 !important;
+        background-color: mat-color($pathofshopping-primary, 400);
+
+        &:hover {
+            background-color: mat-color($pathofshopping-primary, 400) !important;
+        }
+
+        &.mat-expansion-panel-header.mat-expanded {
+            height: 48px;
+            background-color: mat-color($pathofshopping-primary, 400);
+            border-radius: 4px 4px 0 0;
+        }
+    
+        .mat-content {
+            height: 100%;
+
+            .mat-expansion-panel-header-title {
+                flex-grow: 0;
+
+                .item-delete {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    width: 48px;
+                    height: 100%;
+                    background-color: mat-color($pathofshopping-warn, 800);
+                    transition: 0.15s background-color ease-in-out;
+
+                    &:hover {
+                        background-color: mat-color($pathofshopping-warn, 600);
+                    }
+
+                    i-feather {
+                        color: white;
+                    } 
+                }
+            }
+        }
+
+        .mat-form-field {
+            flex-grow: 0.6;
+            margin: auto;
+            height: 100%;
+            text-align: center;
+        }
+
+        .mat-expansion-indicator {
+            margin-right: 10px;
+        }
+    }
+}
+
+
+
+
