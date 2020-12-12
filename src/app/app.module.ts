@@ -10,6 +10,7 @@ import { ShoppinglistComponent } from './shoppinglist/shoppinglist.component';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 //Feather Import
 import { FeatherModule } from 'angular-feather';
@@ -42,7 +43,8 @@ const icons = {         //Feather Icons
     FeatherModule.pick(icons),
     MatSelectModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    MatExpansionModule
   ],
   exports: [
     FeatherModule
