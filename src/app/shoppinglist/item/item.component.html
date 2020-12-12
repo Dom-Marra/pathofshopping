@@ -1,1 +1,15 @@
-<p>item works!</p>
+<mat-expansion-panel [expanded]="'true'" [disabled]="getDisableExpansion()">
+    <mat-expansion-panel-header>
+        <mat-panel-title>
+            <div class="item-delete" (click)="$event.stopImmediatePropagation()">
+                <i-feather name="trash-2"></i-feather>
+            </div>
+        </mat-panel-title>
+        <mat-form-field>
+            <input matInput (keydown.Space)="$event.stopImmediatePropagation()" (focus)="setDisableExpansion(true)" (blur)="setDisableExpansion(false)" type="text" autocomplete="off">
+        </mat-form-field>
+    </mat-expansion-panel-header>
+    <div class="item-contents">
+
+    </div>
+</mat-expansion-panel>
