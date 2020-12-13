@@ -34,8 +34,13 @@
                 <input matInput [value]="getShoppingListName()" type="text" (change)="setShoppingListName($event.target.value)" autocomplete="off">
             </mat-form-field>
         </div>
+        <div id="shoppinglist-actions">
+            <button type="button" mat-button (click)="addItem()">Add</button>
+            <button type="button" mat-button>Collapse All</button>
+            <button type="button" mat-button>Expand All</button>
+        </div>
         <div id="shopping-list-contents">
-            <app-item></app-item>
+            <ng-template #itemContainerRef></ng-template>
         </div>
     </div>
 </div>
