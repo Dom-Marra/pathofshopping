@@ -51,7 +51,8 @@ export class ShoppinglistComponent implements OnInit {
   public addItem(itemData?: Item) {
     const newItemComp = this.compResolver.resolveComponentFactory(ItemComponent);
     const componentRef = this.itemContainerRef.createComponent(newItemComp);
-
+    
+    componentRef.instance.setViewRef(componentRef.hostView);
     //TODO: Add item data
     //if (item) componentRef.instance;
   }
