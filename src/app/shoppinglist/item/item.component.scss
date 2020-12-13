@@ -23,13 +23,14 @@
             height: 100%;
 
             .mat-expansion-panel-header-title {
-                flex-grow: 0;
+                flex-grow: 0.3;
+                max-width: 48px;
 
                 .item-delete {
                     display: flex;
                     justify-content: center;
                     align-items: center;
-                    width: 48px;
+                    width: 100%;
                     height: 100%;
                     background-color: mat-color($pathofshopping-warn, 800);
                     transition: 0.15s background-color ease-in-out;
@@ -47,6 +48,9 @@
 
         .mat-form-field {
             flex-grow: 0.6;
+            flex-shrink: 1;
+            min-width: 0;
+            max-width: 70%;
             margin: auto;
             height: 100%;
             text-align: center;
@@ -66,7 +70,7 @@
         }
 
         .mat-expansion-indicator {
-            margin-right: 10px;
+            margin: 0 20px;
         }
     }
 }
