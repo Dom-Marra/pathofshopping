@@ -50,6 +50,19 @@
             margin: auto;
             height: 100%;
             text-align: center;
+            font-weight: 300;
+
+            mat-label, .mat-input-element {
+                color: white;
+            }
+
+            .mat-select-arrow {
+                color: mat-color($pathofshopping-primary, 500);
+            }
+
+            .mat-form-field-underline, .mat-form-field-ripple {
+                background-color: mat-color($pathofshopping-primary, 500);
+            }
         }
 
         .mat-expansion-indicator {
