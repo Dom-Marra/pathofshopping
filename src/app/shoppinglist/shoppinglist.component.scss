@@ -1,7 +1,7 @@
 @import '../../styles.scss';
 
 .mat-select-panel {
-    background-color: mat-color($pathofshopping-primary, 400);
+    background-color: mat-color($pathofshopping-primary, 400) !important;
 
     .mat-option-text {
         color: white;
