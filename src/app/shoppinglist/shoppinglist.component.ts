@@ -1,4 +1,6 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, ComponentFactoryResolver, OnInit, ViewChild, ViewContainerRef, ViewEncapsulation } from '@angular/core';
+import { Item } from './item';
+import { ItemComponent } from './item/item.component';
 
 enum currencyType {
   chaos = "Chaos",
@@ -20,6 +22,8 @@ enum leagues {
 })
 export class ShoppinglistComponent implements OnInit {
 
+  @ViewChild('itemContainerRef', {read: ViewContainerRef}) itemContainerRef: ViewContainerRef;    //Container Ref for adding item components
+
   public readonly LEAGUES = leagues;                                //Used for iterating over leagues
   public readonly CURRENCY_TYPES = currencyType;                    //Used fro iterating over currency types
 
@@ -31,9 +35,23 @@ export class ShoppinglistComponent implements OnInit {
   private shoppingListName: string = "Your Shopping List";          //Name of the shopping list
   private league: leagues = leagues.heist;                          //League to use for indexing items
 
-  constructor() { }
+  constructor(private compResolver: ComponentFactoryResolver) { }
 
   ngOnInit(): void {
+  }
+
+  /**
+   * Adds a new Item Component
+   * 
+   * @param itemData 
+   *        Item: data to bind when creating the item
+   */
+  public addItem(itemData?: Item) {
+    const newItemComp = this.compResolver.resolveComponentFactory(ItemComponent);
+    const componentRef = this.itemContainerRef.createComponent(newItemComp);
+
+    //TODO: Add item data
+    //if (item) componentRef.instance;
   }
 
   /**
