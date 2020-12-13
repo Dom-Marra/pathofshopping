@@ -36,11 +36,13 @@
         </div>
         <div id="shoppinglist-actions">
             <button type="button" mat-button (click)="addItem()">Add</button>
-            <button type="button" mat-button>Collapse All</button>
-            <button type="button" mat-button>Expand All</button>
+            <button type="button" mat-button (click)="accordion.openAll()">Expand All</button>
+            <button type="button" mat-button (click)="accordion.closeAll()">Collapse All</button>
         </div>
         <div id="shopping-list-contents">
-            <ng-template #itemContainerRef></ng-template>
+            <mat-accordion multi>
+                <ng-template #itemContainerRef></ng-template>
+            </mat-accordion>
         </div>
     </div>
 </div>
