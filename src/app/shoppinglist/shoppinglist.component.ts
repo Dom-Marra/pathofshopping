@@ -1,4 +1,5 @@
 import { Component, ComponentFactoryResolver, OnInit, ViewChild, ViewContainerRef, ViewEncapsulation } from '@angular/core';
+import { MatAccordion } from '@angular/material/expansion';
 import { Item } from './item';
 import { ItemComponent } from './item/item.component';
 
@@ -23,6 +24,7 @@ enum leagues {
 export class ShoppinglistComponent implements OnInit {
 
   @ViewChild('itemContainerRef', {read: ViewContainerRef}) itemContainerRef: ViewContainerRef;    //Container Ref for adding item components
+  @ViewChild(MatAccordion) accordion: MatAccordion;                                               //Accordion component which wraps the item components
 
   public readonly LEAGUES = leagues;                                //Used for iterating over leagues
   public readonly CURRENCY_TYPES = currencyType;                    //Used fro iterating over currency types
