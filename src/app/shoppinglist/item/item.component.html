@@ -6,8 +6,8 @@
                     <i-feather name="trash-2"></i-feather>
                 </div>
             </mat-panel-title>
-            <mat-form-field>
-                <input matInput (keydown.Space)="$event.stopImmediatePropagation()" (focus)="setDisableExpansion(true)" (blur)="setDisableExpansion(false)" type="text" autocomplete="off">
+            <mat-form-field [floatLabel]="'never'">
+                <input matInput (keydown.Space)="$event.stopImmediatePropagation()" (focus)="setDisableExpansion(true)" (blur)="setDisableExpansion(false)" type="text" autocomplete="off" placeholder="Item Name"  formControlName="itemName">
             </mat-form-field>
         </mat-expansion-panel-header>
         <div class="item-contents">
