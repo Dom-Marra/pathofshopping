@@ -43,14 +43,29 @@ export class ItemComponent implements OnInit {
     return this.disableExpansion;
   }
 
+  /**
+   * Sets the View Ref variable
+   * 
+   * @param ref
+   *        ViewRef: The view of this component 
+   */
   public setViewRef(ref: ViewRef) {
     this.viewRef = ref;
   }
 
+  /**
+   * Returns the view ref
+   * 
+   * @returns
+   *        ViewRef: The view of this component
+   */
   public getViewRef(): ViewRef {
     return this.viewRef;
   }
 
+  /**
+   * Destroys this component
+   */
   public remove() {
     this.viewRef.destroy();
   }
