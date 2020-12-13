@@ -4,7 +4,7 @@
     background-color: mat-color($pathofshopping-primary, 400) !important;
 
     .mat-option-text {
-        color: white;
+        color: mat-color($pathofshopping-accent, 50);
     }
 }
 
@@ -65,7 +65,7 @@
         #save-import-options {
             button {
                 margin: 0 0.25em;
-                color: white;
+                color: mat-color($pathofshopping-accent, 50);
                 background-color: mat-color($pathofshopping-primary, 800);
             }
 
@@ -92,7 +92,7 @@
         .mat-form-field {
 
             mat-label, .mat-input-element, .mat-select-value-text {
-                color: white;
+                color: mat-color($pathofshopping-accent, 50);
             }
 
             .mat-select-arrow {
@@ -148,7 +148,7 @@
             margin: auto;
 
             button {
-                color: white;
+                color: mat-color($pathofshopping-accent, 50);
                 font-weight: 300;
                 margin: 1em;
                 flex-grow: 1;
