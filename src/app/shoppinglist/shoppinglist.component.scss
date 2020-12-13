@@ -1,6 +1,6 @@
 @import '../../styles.scss';
 
-.mat-select-panel {
+.topbar-select {
     background-color: mat-color($pathofshopping-primary, 400) !important;
 
     .mat-option-text {
@@ -70,7 +70,6 @@
             }
 
             i-feather {
-                stroke-width: 1px;
                 height: 18px;
                 width: 18px;
                 padding: 5px;
@@ -93,6 +92,7 @@
 
             mat-label, .mat-input-element, .mat-select-value-text {
                 color: mat-color($pathofshopping-accent, 50);
+                line-height: normal;
             }
 
             .mat-select-arrow {
@@ -128,15 +128,17 @@
 
             .mat-form-field {
                 text-align: center;
-                font-weight: 300;
-                width: 30%;
+                flex: 0.4;
+                max-width: 95%;
+                height: 100%;
+                
+                .mat-input-element {
+                    font-weight: 300;
+                    line-height: normal;
+                }
 
                 .mat-form-field-underline, .mat-form-field-ripple {
                     background-color: mat-color($pathofshopping-primary, 800);
-                }
-
-                .mat-form-field-wrapper {
-                    margin-bottom: -1.25em;
                 }
             }
         }
