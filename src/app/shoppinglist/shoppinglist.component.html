@@ -35,9 +35,9 @@
             </mat-form-field>
         </div>
         <div id="shoppinglist-actions">
-            <button type="button" mat-button (click)="addItem()" id="add-item">Add Item <i-feather name="plus-circle"></i-feather></button>
-            <button type="button" mat-button (click)="accordion.openAll()" id="expand-items">Expand All <i-feather name="plus"></i-feather></button>
-            <button type="button" mat-button (click)="accordion.closeAll()" id="collapse-items">Collapse All <i-feather name="minus"></i-feather></button>
+            <button type="button" mat-flat-button (click)="addItem()" id="add-item">Add Item <i-feather name="plus-circle"></i-feather></button>
+            <button type="button" mat-flat-button (click)="accordion.openAll()" id="expand-items">Expand All <i-feather name="plus"></i-feather></button>
+            <button type="button" mat-flat-button (click)="accordion.closeAll()" id="collapse-items">Collapse All <i-feather name="minus"></i-feather></button>
         </div>
         <div id="shopping-list-contents">
             <mat-accordion multi>
