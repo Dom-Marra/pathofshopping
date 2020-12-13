@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-item',
@@ -7,6 +8,10 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
   encapsulation: ViewEncapsulation.None
 })
 export class ItemComponent implements OnInit {
+
+  public itemForm = new FormGroup({
+    itemName: new FormControl('New Item')
+  });
 
   private disableExpansion: boolean = false;          //Disable state of the expansion of the item
 
