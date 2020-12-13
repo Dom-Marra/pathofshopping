@@ -15,7 +15,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 
 //Feather Import
 import { FeatherModule } from 'angular-feather';
-import { ChevronDown, ChevronUp, Save, Download, Trash2, PlusCircle, Edit2, X } from 'angular-feather/icons';
+import { ChevronDown, ChevronUp, Save, Download, Trash2, PlusCircle, Edit2, X, Plus, Minus } from 'angular-feather/icons';
 import { DigitsonlyDirective } from './digitsonly.directive';
 import { ItemComponent } from './shoppinglist/item/item.component';
 
@@ -27,7 +27,9 @@ const icons = {         //Feather Icons
   Trash2,
   PlusCircle,
   Edit2,
-  X
+  X,
+  Plus,
+  Minus
 }
 
 @NgModule({
