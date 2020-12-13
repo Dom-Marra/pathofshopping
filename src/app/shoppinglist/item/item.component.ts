@@ -1,6 +1,5 @@
-import { Component, OnInit, Output, ViewEncapsulation, ViewRef } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ViewRef } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
-import { EventEmitter } from 'events';
 
 @Component({
   selector: 'app-item',
