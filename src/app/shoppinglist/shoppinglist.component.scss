@@ -138,6 +138,36 @@
             }
         }
 
+        #shoppinglist-actions {
+            display: flex;
+            flex-wrap: wrap;
+            width: 90%;
+            margin: auto;
+
+            button {
+                font-weight: 300;
+                margin: 1em;
+                flex-grow: 1;
+
+                i-feather {
+                    height: 16px;
+                    width: 16px;
+
+                    svg {
+                        vertical-align: top;
+                    }
+                }
+                
+                &#add-item {
+                    background-color: rgb(55, 150, 55);
+                }
+
+                &#expand-items, &#collapse-items {
+                    background-color: mat-color($pathofshopping-primary, 800);
+                } 
+            }
+        }
+
         #shopping-list-contents {
             width: 90%;
             margin: auto;
