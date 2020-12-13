@@ -1,5 +1,6 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, Output, ViewEncapsulation, ViewRef } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
+import { EventEmitter } from 'events';
 
 @Component({
   selector: 'app-item',
@@ -8,6 +9,8 @@ import { FormGroup, FormControl } from '@angular/forms';
   encapsulation: ViewEncapsulation.None
 })
 export class ItemComponent implements OnInit {
+
+  private viewRef: ViewRef = null;                    //Reference of the view, used when deleting the component
 
   public itemForm = new FormGroup({
     itemName: new FormControl('New Item')
@@ -40,4 +43,15 @@ export class ItemComponent implements OnInit {
     return this.disableExpansion;
   }
 
+  public setViewRef(ref: ViewRef) {
+    this.viewRef = ref;
+  }
+
+  public getViewRef(): ViewRef {
+    return this.viewRef;
+  }
+
+  public remove() {
+    this.viewRef.destroy();
+  }
 }
