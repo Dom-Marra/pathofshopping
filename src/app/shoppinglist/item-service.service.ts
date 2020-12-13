@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { Item } from './item';
 
 @Injectable({
@@ -7,7 +7,7 @@ import { Item } from './item';
 })
 export class ItemServiceService {
 
-  private items: Observable<Array<Item>> = new Observable();
+  private items: Array<Item> = [];
 
   constructor() { }
 
@@ -18,9 +18,7 @@ export class ItemServiceService {
    *        Item: the item to add 
    */
   public addItem(item: Item) {
-    this.items.subscribe(items => {
-      items.push(item);
-    })
+    this.items.push(item);
   }
 
   /**
@@ -30,6 +28,6 @@ export class ItemServiceService {
    *        Observable<Array<Item>>: the items
    */
   public getItems(): Observable<Array<Item>> {
-    return this.items;
+    return of(this.items);
   }
 }
