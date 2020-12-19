@@ -1,5 +1,5 @@
 <form [formGroup]="itemForm">
-    <mat-expansion-panel [expanded]="'true'" [disabled]="getDisableExpansion()">
+    <mat-expansion-panel [expanded]="'true'">
 
         <mat-expansion-panel-header>
             <mat-panel-title>
@@ -8,7 +8,7 @@
                 </div>
             </mat-panel-title>
             <mat-form-field [floatLabel]="'never'">
-                <input matInput (keydown.Space)="$event.stopImmediatePropagation()" (focus)="setDisableExpansion(true)" (blur)="setDisableExpansion(false)" type="text" autocomplete="off" placeholder="Item Name"  formControlName="itemName">
+                <input matInput (click)="$event.stopImmediatePropagation();" (keydown.Space)="$event.stopImmediatePropagation()" type="text" autocomplete="off" placeholder="Item Name"  formControlName="itemName">
             </mat-form-field>
         </mat-expansion-panel-header>
 
