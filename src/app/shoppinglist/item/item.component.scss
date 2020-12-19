@@ -7,15 +7,16 @@
 
     .mat-expansion-panel-header {
         padding: 0 0 !important;
-        background-color: mat-color($pathofshopping-primary, 300);
+        background-color: mat-color($pathofshopping-primary, 400);
 
         &:hover {
-            background-color: mat-color($pathofshopping-primary, 300) !important;
+            background-color: mat-color($pathofshopping-primary, 400) !important;
         }
 
         &.mat-expansion-panel-header.mat-expanded {
             height: 48px;
-            background-color: mat-color($pathofshopping-primary, 300);
+            background-color: mat-color($pathofshopping-primary, 400);
+            border-bottom: 1px dashed mat-color($pathofshopping-primary, 500);
             border-radius: 4px 4px 0 0;
         }
     
@@ -56,7 +57,11 @@
             text-align: center;
 
             .mat-form-field-underline, .mat-form-field-ripple {
-                background-color: mat-color($pathofshopping-primary, 400);
+                background-color: transparent;
+            }
+
+            .mat-form-field-label {
+                color: mat-color($pathofshopping-accent, 50);
             }
         }
 
@@ -93,24 +98,20 @@
         .mat-expansion-panel-header {
             color: mat-color($pathofshopping-accent, 50);
             font-weight: 300;
-            background-color: mat-color($pathofshopping-primary, 400);
-            border-bottom: 1px solid mat-color($pathofshopping-primary, 500);
-            border-radius: 0 !important;
-    
-            &:hover {
-                background-color: mat-color($pathofshopping-primary, 400) !important;
-            }
+            background-color: mat-color($pathofshopping-primary, 300);
     
             &.mat-expansion-panel-header.mat-expanded {
-                height: 48px;
-                background-color: mat-color($pathofshopping-primary, 400);
-                border-bottom: 1px solid mat-color($pathofshopping-primary, 700);
+                background-color: mat-color($pathofshopping-primary, 300);
+                border-bottom: 1px dashed mat-color($pathofshopping-primary, 400);
+            }
+
+            &:hover {
+                background-color: mat-color($pathofshopping-primary, 300) !important;
             }
         }
 
         .mat-expansion-panel-body {
-            background-color: mat-color($pathofshopping-primary, 500);
-            border-radius: 0 0 4px 4px;
+            background-color: mat-color($pathofshopping-primary, 300);
         }
 
         .mat-content {
@@ -121,11 +122,11 @@
         }
 
         .mat-select-arrow {
-            color: mat-color($pathofshopping-primary, 600);
+            color: mat-color($pathofshopping-primary, 400);
         }
 
         .mat-form-field-underline, .mat-form-field-ripple {
-            background-color: mat-color($pathofshopping-primary, 700);
+            background-color: mat-color($pathofshopping-primary, 400);
         }
     }
 
