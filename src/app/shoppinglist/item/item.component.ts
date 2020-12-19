@@ -12,7 +12,10 @@ export class ItemComponent implements OnInit {
   private viewRef: ViewRef = null;                    //Reference of the view, used when deleting the component
 
   public itemForm = new FormGroup({
-    itemName: new FormControl('New Item')
+    itemName: new FormControl('New Item'),
+    itemSearch: new FormControl(''),
+    itemCategory: new FormControl('All'),
+    itemRarity: new FormControl('All')
   });
 
   private disableExpansion: boolean = false;          //Disable state of the expansion of the item
