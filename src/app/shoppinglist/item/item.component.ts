@@ -18,31 +18,9 @@ export class ItemComponent implements OnInit {
     itemRarity: new FormControl('All')
   });
 
-  private disableExpansion: boolean = false;          //Disable state of the expansion of the item
-
   constructor() { }
 
   ngOnInit(): void {
-  }
-
-  /**
-   * Sets the disable state of the expansion of the item contents
-   * 
-   * @param disable
-   *        boolean 
-   */
-  public setDisableExpansion(disable: boolean) {
-    this.disableExpansion = disable;
-  }
-
-  /**
-   * Returns the disable state of the expansion of the item contents
-   * 
-   * @returns
-   *        disableExpansion: boolean 
-   */
-  public getDisableExpansion(): boolean {
-    return this.disableExpansion;
   }
 
   /**
