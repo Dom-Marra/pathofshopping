@@ -40,7 +40,7 @@
                     }
 
                     i-feather {
-                        color: white;
+                        color: mat-color($pathofshopping-accent, 50);
                     } 
                 }
             }
@@ -54,15 +54,6 @@
             margin: auto;
             height: 100%;
             text-align: center;
-            font-weight: 300;
-
-            mat-label, .mat-input-element {
-                color: white;
-            }
-
-            .mat-select-arrow {
-                color: mat-color($pathofshopping-primary, 500);
-            }
 
             .mat-form-field-underline, .mat-form-field-ripple {
                 background-color: mat-color($pathofshopping-primary, 500);
@@ -71,7 +62,61 @@
 
         .mat-expansion-indicator {
             margin: 0 20px;
+
+            &:after {
+                color: rgba(0, 0, 0, 0.3);
+            }
         }
+    }
+
+
+    .mat-form-field {
+        font-weight: 300;
+
+        mat-label, .mat-input-element {
+            color: mat-color($pathofshopping-accent, 50);
+        }
+
+        .mat-select-arrow {
+            color: mat-color($pathofshopping-primary, 400);
+        }
+
+        .mat-form-field-underline, .mat-form-field-ripple {
+            background-color: mat-color($pathofshopping-primary, 400);
+        }
+    }
+
+    .item-contents {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        align-items: flex-start;
+        margin-top: 0.75em;
+
+        .field-wrapper {
+            width: 100%;
+            font-size: 14px;
+            display: flex;
+            flex-wrap: wrap;
+    
+            .mat-form-field {
+                padding-left: 0.75em;
+                padding-right: 0.75em;
+                flex: 1;
+            }
+
+            #search-field {
+                flex: 4;
+            }
+        }
+    }
+}
+
+.item-form-select {
+    background-color: mat-color($pathofshopping-primary, 200) !important;
+
+    .mat-option-text {
+        color: mat-color($pathofshopping-accent, 50);
     }
 }
 
