@@ -16,8 +16,8 @@
         &.mat-expansion-panel-header.mat-expanded {
             height: 48px;
             background-color: mat-color($pathofshopping-primary, 400);
-            border-bottom: 1px dashed mat-color($pathofshopping-primary, 500);
             border-radius: 4px 4px 0 0;
+            border-bottom: 1px dashed mat-color($pathofshopping-primary, 500);
         }
     
         .mat-content {
@@ -48,19 +48,19 @@
         }
 
         .mat-form-field {
+            font-size: 100%;
             flex-grow: 0.6;
             flex-shrink: 1;
             min-width: 0;
             max-width: 70%;
             margin: auto;
-            height: 100%;
             text-align: center;
 
             .mat-form-field-underline, .mat-form-field-ripple {
-                background-color: transparent;
+                background-color: mat-color($pathofshopping-primary, 500);
             }
 
-            .mat-form-field-label {
+            .mat-form-field-label, i-feather {
                 color: mat-color($pathofshopping-accent, 50);
             }
         }
