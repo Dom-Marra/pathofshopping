@@ -8,5 +8,12 @@ import { catchError, retry } from 'rxjs/operators';
 })
 export class ItemsearchService {
 
-  constructor(private http: HttpClient) { }
+  private items: Array<Object> = [];
+  private api = "http://localhost:4200/api/trade/data/items";
+
+  constructor(private http: HttpClient) { 
+    this.http.get(this.api).subscribe(data => {
+      console.log(data)
+    })
+  }
 }
