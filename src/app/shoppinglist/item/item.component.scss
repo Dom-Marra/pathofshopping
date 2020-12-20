@@ -47,6 +47,33 @@
             }
         }
 
+        .item-name {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: auto;
+            max-width: 70%;
+            height: 100%;
+            color: mat-color($pathofshopping-accent, 50);
+            font-weight: 300;
+
+            p {
+                overflow: hidden;
+                max-width: calc(100% - (16px + 1.5em));
+                margin: 0;
+            }
+
+            i-feather {
+                height: 16px;
+                width: 16px;
+                padding: 0.75em;
+
+                svg {
+                    vertical-align: top;
+                }
+            }
+        }
+
         .mat-form-field {
             font-size: 100%;
             flex-grow: 0.6;
@@ -54,7 +81,6 @@
             min-width: 0;
             max-width: 70%;
             margin: auto;
-            text-align: center;
 
             .mat-form-field-underline, .mat-form-field-ripple {
                 background-color: mat-color($pathofshopping-primary, 500);
