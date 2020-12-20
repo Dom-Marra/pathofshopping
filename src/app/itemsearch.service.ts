@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 
@@ -8,5 +8,5 @@ import { catchError, retry } from 'rxjs/operators';
 })
 export class ItemsearchService {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 }
