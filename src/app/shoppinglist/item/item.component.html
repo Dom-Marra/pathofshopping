@@ -7,8 +7,8 @@
                     <i-feather name="trash-2"></i-feather>
                 </div>
             </mat-panel-title>
-            <mat-form-field [floatLabel]="'never'">
-                <input matInput (click)="$event.stopImmediatePropagation();" (keydown.Space)="$event.stopImmediatePropagation()" type="text" autocomplete="off" placeholder="Item Name"  formControlName="itemName">
+            <mat-form-field [floatLabel]="'never'" (click)="$event.stopImmediatePropagation();" >
+                <input matInput (keydown.Space)="$event.stopImmediatePropagation()" type="text" autocomplete="off" placeholder="Item Name"  formControlName="itemName">
             </mat-form-field>
         </mat-expansion-panel-header>
 
