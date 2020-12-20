@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation, ViewRef } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnInit, QueryList, ViewChildren, ViewEncapsulation, ViewRef } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
@@ -9,6 +9,10 @@ import { FormGroup, FormControl } from '@angular/forms';
 })
 export class ItemComponent implements OnInit {
 
+  @ViewChildren("itemNameInput") itemNameInput: QueryList<ElementRef>;    //Item name input element
+
+  private editName: boolean = false;                  //Whether name is in edit mode or not
+
   private viewRef: ViewRef = null;                    //Reference of the view, used when deleting the component
 
   public itemForm = new FormGroup({
@@ -18,9 +22,39 @@ export class ItemComponent implements OnInit {
     itemRarity: new FormControl('All')
   });
 
-  constructor() { }
+  constructor(private cd: ChangeDetectorRef) { }
+
+  ngAfterViewInit() {
+    this.itemNameInput.changes.subscribe(() => {        //focus name input element after processed by ngIf
+      
+      if (this.editName) {
+        this.itemNameInput.first.nativeElement.focus();
+        this.cd.detectChanges();
+      }
+    })
+  }
 
   ngOnInit(): void {
+  }
+
+  /**
+   * Sets editName
+   * 
+   * @param edit
+   *        boolean: whether to edit or not 
+   */
+  public setEditName(edit: boolean) {
+    this.editName = edit;
+  }
+
+  /**
+   * Retursn editName
+   * 
+   * @returns
+   *        boolean: whether to edit or not
+   */
+  public getEditName(): boolean {
+    return this.editName;
   }
 
   /**
