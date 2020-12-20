@@ -1,17 +1,62 @@
 <form [formGroup]="itemForm">
-    <mat-expansion-panel [expanded]="'true'" [disabled]="getDisableExpansion()">
+    <mat-expansion-panel [expanded]="'true'">
+
         <mat-expansion-panel-header>
             <mat-panel-title>
                 <div class="item-delete" (click)="$event.stopImmediatePropagation(); remove()">
                     <i-feather name="trash-2"></i-feather>
                 </div>
             </mat-panel-title>
-            <mat-form-field [floatLabel]="'never'">
-                <input matInput (keydown.Space)="$event.stopImmediatePropagation()" (focus)="setDisableExpansion(true)" (blur)="setDisableExpansion(false)" type="text" autocomplete="off" placeholder="Item Name"  formControlName="itemName">
+            <div *ngIf="!this.getEditName()" class="item-name" 
+                (click)="$event.stopImmediatePropagation(); this.setEditName(true)" 
+                role="button" aria-label="Edit item name">
+                <p>{{itemForm.value.itemName}}</p>
+                <i-feather name="edit-2"></i-feather>
+            </div>
+            <mat-form-field *ngIf="this.getEditName()" [floatLabel]="'never'" (click)="$event.stopImmediatePropagation();" >
+                <input #itemNameInput matInput 
+                    (keydown.Space)="$event.stopImmediatePropagation()" 
+                    (keydown.enter)="$event.stopImmediatePropagation(); $event.target.blur()"
+                    (blur)="this.setEditName(false)" type="text" autocomplete="off" placeholder="Item Name"  formControlName="itemName">
             </mat-form-field>
         </mat-expansion-panel-header>
+
         <div class="item-contents">
-    
+            <div id="item-type-fields" class="field-wrapper">
+                <mat-form-field id="search-field">
+                    <mat-label>Search Items</mat-label>
+                    <input matInput type="text" autocomplete="off" formControlName="itemSearch">
+                    <button mat-button *ngIf="this.itemForm.value.itemSearch != ''" matSuffix mat-icon-button aria-label="Clear" (click)="this.itemForm.patchValue({'itemSearch': ''})">
+                        <i-feather name="X"></i-feather>
+                    </button>
+                </mat-form-field>
+                <mat-form-field id="type-field">
+                    <mat-label>Item Type</mat-label>
+                    <mat-select panelClass="item-form-select" formControlName="itemCategory">
+                        <mat-option>All</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field id="rarity-field">
+                    <mat-label>Item Rarity</mat-label>
+                    <mat-select panelClass="item-form-select" formControlName="itemRarity">
+                        <mat-option>All</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <mat-expansion-panel class="sub-item-expansion">
+                <mat-expansion-panel-header>
+                        Weapon Filters
+                </mat-expansion-panel-header>
+                <div class="item-contents">
+                    <div id="item-type-fields" class="field-wrapper">
+                        <mat-form-field>
+                            <mat-label>Placeholder</mat-label>
+                            <input matInput type="text" autocomplete="off">
+                        </mat-form-field>
+                    </div>
+                </div>
+            </mat-expansion-panel>
         </div>
     </mat-expansion-panel>
 </form>

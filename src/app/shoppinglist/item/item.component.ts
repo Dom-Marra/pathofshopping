@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation, ViewRef } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnInit, QueryList, ViewChildren, ViewEncapsulation, ViewRef } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
@@ -9,37 +9,52 @@ import { FormGroup, FormControl } from '@angular/forms';
 })
 export class ItemComponent implements OnInit {
 
+  @ViewChildren("itemNameInput") itemNameInput: QueryList<ElementRef>;    //Item name input element
+
+  private editName: boolean = false;                  //Whether name is in edit mode or not
+
   private viewRef: ViewRef = null;                    //Reference of the view, used when deleting the component
 
   public itemForm = new FormGroup({
-    itemName: new FormControl('New Item')
+    itemName: new FormControl('New Item'),
+    itemSearch: new FormControl(''),
+    itemCategory: new FormControl('All'),
+    itemRarity: new FormControl('All')
   });
 
-  private disableExpansion: boolean = false;          //Disable state of the expansion of the item
+  constructor(private cd: ChangeDetectorRef) { }
 
-  constructor() { }
+  ngAfterViewInit() {
+    this.itemNameInput.changes.subscribe(() => {        //focus name input element after processed by ngIf
+      
+      if (this.editName) {
+        this.itemNameInput.first.nativeElement.focus();
+        this.cd.detectChanges();
+      }
+    })
+  }
 
   ngOnInit(): void {
   }
 
   /**
-   * Sets the disable state of the expansion of the item contents
+   * Sets editName
    * 
-   * @param disable
-   *        boolean 
+   * @param edit
+   *        boolean: whether to edit or not 
    */
-  public setDisableExpansion(disable: boolean) {
-    this.disableExpansion = disable;
+  public setEditName(edit: boolean) {
+    this.editName = edit;
   }
 
   /**
-   * Returns the disable state of the expansion of the item contents
+   * Retursn editName
    * 
    * @returns
-   *        disableExpansion: boolean 
+   *        boolean: whether to edit or not
    */
-  public getDisableExpansion(): boolean {
-    return this.disableExpansion;
+  public getEditName(): boolean {
+    return this.editName;
   }
 
   /**
