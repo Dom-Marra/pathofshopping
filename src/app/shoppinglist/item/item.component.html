@@ -27,7 +27,7 @@
                     <mat-label>Search Items</mat-label>
                     <input matInput type="text" autocomplete="off" [matAutocomplete]="searchableItems" formControlName="itemSearch">
                     <button mat-button *ngIf="this.itemForm.value.itemSearch != ''" matSuffix mat-icon-button aria-label="Clear" (click)="this.itemForm.patchValue({'itemSearch': ''})">
-                        <i-feather name="X"></i-feather>
+                        <i-feather name="X" class="feather-suffix"></i-feather>
                     </button>
 
                     <mat-autocomplete #searchableItems="matAutocomplete" [class]="'autocomplete-panel'">
