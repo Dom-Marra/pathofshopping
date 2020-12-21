@@ -3,7 +3,6 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { ItemsearchService, searchItem } from '../../itemsearch.service';
 import {map, startWith} from 'rxjs/operators';
-import { KeyValue } from '@angular/common';
 
 export const filterSearch = (items: Array<string>, searchText: string): Array<string> => {    //Filters items by search text
   const text = searchText.toLowerCase();
@@ -48,7 +47,7 @@ export class ItemComponent implements OnInit {
     itemName: new FormControl('New Item'),
     itemSearch: new FormControl(''),
     itemCategory: new FormControl('All'),
-    itemRarity: new FormControl('All')
+    itemRarity: new FormControl('all')
   });
 
   constructor(private cd: ChangeDetectorRef, private itemSearch: ItemsearchService) { 
