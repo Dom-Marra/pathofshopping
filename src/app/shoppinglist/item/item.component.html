@@ -25,10 +25,18 @@
             <div id="item-type-fields" class="field-wrapper">
                 <mat-form-field id="search-field">
                     <mat-label>Search Items</mat-label>
-                    <input matInput type="text" autocomplete="off" formControlName="itemSearch">
+                    <input matInput type="text" autocomplete="off" [matAutocomplete]="searchableItems" formControlName="itemSearch">
                     <button mat-button *ngIf="this.itemForm.value.itemSearch != ''" matSuffix mat-icon-button aria-label="Clear" (click)="this.itemForm.patchValue({'itemSearch': ''})">
-                        <i-feather name="X"></i-feather>
+                        <i-feather name="X" class="feather-suffix"></i-feather>
                     </button>
+
+                    <mat-autocomplete #searchableItems="matAutocomplete" [class]="'autocomplete-panel'">
+                        <mat-optgroup *ngFor="let search of getFilteredItems() | async" [label]="search.category">
+                            <mat-option *ngFor="let item of search.items | slice:0:25;" [value]="item">
+                                {{item}}
+                            </mat-option>
+                        </mat-optgroup>
+                    </mat-autocomplete>
                 </mat-form-field>
                 <mat-form-field id="type-field">
                     <mat-label>Item Type</mat-label>

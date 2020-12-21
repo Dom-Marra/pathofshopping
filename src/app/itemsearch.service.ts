@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-interface searchItem {
+export interface searchItem {
   category: string,
-  name: string
+  items: Array<string>
 }
 
 @Injectable({
@@ -20,10 +20,17 @@ export class ItemsearchService {
       data['result'].forEach(entry => {                         //Traverse each category
         entry['entries'].forEach(item => {                      //Traverse each entry per category
 
-          this.items.push({                                     //push the item
-            category: entry['label'],
-            name: item['text']
-          })
+          let searchItem = this.items.find(item => item.category == entry['label']);    //Get search item if it exists
+
+          if (searchItem != null) {               //push item to category if it exists
+            searchItem.items.push(item['text']);
+          } else {                                //if not push new category with the item
+            this.items.push({
+              category: entry['label'],
+              items: [item['text']]
+            });
+          }
+
         });
       });
     });
