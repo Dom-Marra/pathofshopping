@@ -3,11 +3,22 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { ItemsearchService, searchItem } from '../../itemsearch.service';
 import {map, startWith} from 'rxjs/operators';
+import { KeyValue } from '@angular/common';
 
 export const filterSearch = (items: Array<string>, searchText: string): Array<string> => {    //Filters items by search text
   const text = searchText.toLowerCase();
 
   return items.filter(item => item.toLowerCase().indexOf(text) != -1);
+}
+
+enum itemRarities {
+  all = 'All',
+  normal = 'Normal',
+  magic = 'Magic',
+  rare = 'Rare',
+  unique = 'Unique',
+  uniqueFoil = 'Unique Relic',
+  nonunique = 'Non Unique'
 }
 
 @Component({
@@ -18,14 +29,20 @@ export const filterSearch = (items: Array<string>, searchText: string): Array<st
 })
 export class ItemComponent implements OnInit {
 
+  public readonly originalOrder = (): number => {                         //Keeps enums in original order
+    return 0;
+  }
+
+  public readonly ITEM_RARITIES: typeof itemRarities = itemRarities;      //Used for item rarity selection
+
   @ViewChildren("itemNameInput") itemNameInput: QueryList<ElementRef>;    //Item name input element
 
-  private editName: boolean = false;                      //Whether name is in edit mode or not
+  private editName: boolean = false;                        //Whether name is in edit mode or not
 
-  private viewRef: ViewRef = null;                        //Reference of the view, used when deleting the component
+  private viewRef: ViewRef = null;                          //Reference of the view, used when deleting the component
 
-  private itemsToSearch: Array<searchItem> = [];          //POE items
-  private filteredItems: Observable<Array<searchItem>>;   //Filtered results of the items
+  private itemsToSearch: Array<searchItem> = [];            //POE items
+  private filteredItems: Observable<Array<searchItem>>;     //Filtered results of the items
 
   public itemForm = new FormGroup({
     itemName: new FormControl('New Item'),
