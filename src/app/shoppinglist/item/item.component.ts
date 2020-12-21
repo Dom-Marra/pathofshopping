@@ -1,5 +1,6 @@
 import { ChangeDetectorRef, Component, ElementRef, OnInit, QueryList, ViewChildren, ViewEncapsulation, ViewRef } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
+import { ItemsearchService, searchItem } from '../../itemsearch.service';
 
 @Component({
   selector: 'app-item',
@@ -15,6 +16,8 @@ export class ItemComponent implements OnInit {
 
   private viewRef: ViewRef = null;                    //Reference of the view, used when deleting the component
 
+  private itemsToSearch: Array<searchItem> = [];
+
   public itemForm = new FormGroup({
     itemName: new FormControl('New Item'),
     itemSearch: new FormControl(''),
@@ -22,7 +25,9 @@ export class ItemComponent implements OnInit {
     itemRarity: new FormControl('All')
   });
 
-  constructor(private cd: ChangeDetectorRef) { }
+  constructor(private cd: ChangeDetectorRef, private itemSearch: ItemsearchService) { 
+    this.itemsToSearch = this.itemSearch.getItems();
+  }
 
   ngAfterViewInit() {
     this.itemNameInput.changes.subscribe(() => {        //focus name input element after processed by ngIf
