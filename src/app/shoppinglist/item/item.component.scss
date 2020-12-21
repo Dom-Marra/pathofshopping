@@ -190,6 +190,25 @@
     }
 }
 
+.autocomplete-panel {
+    background-color: mat-color($pathofshopping-primary, 200);
+    
+    .mat-optgroup {
+
+        .mat-optgroup-label {
+            color: mat-color($pathofshopping-primary, 500);
+        }
+    }
+
+    .mat-option {
+
+        .mat-option-text {
+            font-size: 14px;
+            font-weight: 300;
+            color: mat-color($pathofshopping-accent, 50);
+        }
+    }
+}
 
 
 
