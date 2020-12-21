@@ -47,7 +47,7 @@
                 <mat-form-field id="rarity-field">
                     <mat-label>Item Rarity</mat-label>
                     <mat-select panelClass="item-form-select" formControlName="itemRarity">
-                        <mat-option>All</mat-option>
+                        <mat-option *ngFor="let rarity of ITEM_RARITIES | keyvalue: originalOrder">{{ rarity.value }}</mat-option>
                     </mat-select>
                 </mat-form-field>
             </div>
