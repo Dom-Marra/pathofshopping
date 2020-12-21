@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-interface searchItem {
+export interface searchItem {
   category: string,
   name: string
 }
