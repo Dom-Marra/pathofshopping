@@ -13,6 +13,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 //Feather Import
 import { FeatherModule } from 'angular-feather';
@@ -51,7 +52,8 @@ const icons = {         //Feather Icons
     MatExpansionModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatAutocompleteModule
   ],
   exports: [
     FeatherModule
