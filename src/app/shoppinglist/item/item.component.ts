@@ -20,6 +20,65 @@ enum itemRarities {
   nonunique = 'Non Unique'
 }
 
+enum itemTypes {
+  all = 'All',
+  weapon = 'All Weapons',
+  'weapon.one' = 'One-Handed Weapon',
+  'weapon.onemelee' = 'One-Handed Melee Weapon',
+  'weapon.twomelee' = 'Two-Handed Melee Weapon',
+  'weapon.bow' = 'Bow',
+  'weapon.claw' = 'Claw',
+  'weapon.dagger' = 'All Daggers',
+  'weapon.basedagger' = 'Base Dagger',
+  'weapon.runicdagger' = 'Runic Dagger',
+  'weapon.oneaxe' = 'One-Handed Axe',
+  'weapon.onemace' = 'One-Handed Mace',
+  'weapon.onesword' = 'One-Handed Sword',
+  'weapon.sceptre' = 'Sceptre',
+  'weapon.staff' = 'All Staffs',
+  'weapon.basestaff' = 'Base Staffs',
+  'weapon.warstaff' = 'War Staffs',
+  'weapon.twoaxe' = 'Two-Handed Axe',
+  'weapon.twosword' = 'Two-Handed Sword',
+  'weapon.wand' = 'Wand',
+  'weapon.rod' = 'Rod',
+  'armour' = 'All Armour',
+  'armour.chest' = 'Body Armour',
+  'armour.boots' = 'Boots',
+  'armour.gloves' = 'Gloves',
+  'armour.helmet' = 'Helmet',
+  'armour.shield' = 'Shield',
+  'armour.quiver' = 'Quiver',
+  'accessory' = 'Accessory',
+  'accessory.amulet' = 'Amulet',
+  'accessory.belt' = 'Belt',
+  'accessory.ring' = 'Ring',
+  'accessory.trinket' = 'Trinket',
+  'gem' = 'All Gems',
+  'gem.activegem' = 'Skill Gem',
+  'gem.supportgem' = 'Support Gem',
+  'gem.supportgemplus' = 'Awakened Support Gem',
+  'jewel' = 'All Jewels',
+  'jewel.base' = 'Base Jewel',
+  'jewel.abyss' = 'Abyss Jewel',
+  'jewel.cluster' = 'Cluster Jewel',
+  'flask' = 'Flask',
+  'map' = 'Map',
+  'map.fragment' = 'Map Fragment',
+  'map.scarab' = 'Scarab',
+  'watchstone' = 'Watchstone',
+  'leaguestone' = 'Leaguestone',
+  'prophecy' = 'Prophecy',
+  'card' = 'Divination Card',
+  'monster.beast' = 'Beast',
+  'monster.sample' = 'Metamorph Sample',
+  'currency' = 'All Currencies',
+  'currency.piece' = 'Unique Fragment',
+  'currency.resonator' = 'Resonator',
+  'currency.fossil' = 'Fossil',
+  'currency.incubator' = 'Incubator',
+}
+
 @Component({
   selector: 'app-item',
   templateUrl: './item.component.html',
@@ -31,6 +90,8 @@ export class ItemComponent implements OnInit {
   public readonly originalOrder = (): number => {                         //Keeps enums in original order
     return 0;
   }
+
+  public readonly ITEM_TYPES: typeof itemTypes = itemTypes;               //Used for item type selection
 
   public readonly ITEM_RARITIES: typeof itemRarities = itemRarities;      //Used for item rarity selection
 
@@ -46,7 +107,7 @@ export class ItemComponent implements OnInit {
   public itemForm = new FormGroup({
     itemName: new FormControl('New Item'),
     itemSearch: new FormControl(''),
-    itemCategory: new FormControl('All'),
+    itemCategory: new FormControl('all'),
     itemRarity: new FormControl('all')
   });
 
