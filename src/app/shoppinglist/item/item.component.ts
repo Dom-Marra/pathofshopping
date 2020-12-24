@@ -10,6 +10,75 @@ export const filterSearch = (items: Array<string>, searchText: string): Array<st
   return items.filter(item => item.toLowerCase().indexOf(text) != -1);
 }
 
+enum itemRarities {
+  all = 'All',
+  normal = 'Normal',
+  magic = 'Magic',
+  rare = 'Rare',
+  unique = 'Unique',
+  uniqueFoil = 'Unique Relic',
+  nonunique = 'Non Unique'
+}
+
+enum itemTypes {
+  all = 'All',
+  weapon = 'All Weapons',
+  'weapon.one' = 'One-Handed Weapon',
+  'weapon.onemelee' = 'One-Handed Melee Weapon',
+  'weapon.twomelee' = 'Two-Handed Melee Weapon',
+  'weapon.bow' = 'Bow',
+  'weapon.claw' = 'Claw',
+  'weapon.dagger' = 'All Daggers',
+  'weapon.basedagger' = 'Base Dagger',
+  'weapon.runicdagger' = 'Runic Dagger',
+  'weapon.oneaxe' = 'One-Handed Axe',
+  'weapon.onemace' = 'One-Handed Mace',
+  'weapon.onesword' = 'One-Handed Sword',
+  'weapon.sceptre' = 'Sceptre',
+  'weapon.staff' = 'All Staffs',
+  'weapon.basestaff' = 'Base Staffs',
+  'weapon.warstaff' = 'War Staffs',
+  'weapon.twoaxe' = 'Two-Handed Axe',
+  'weapon.twosword' = 'Two-Handed Sword',
+  'weapon.wand' = 'Wand',
+  'weapon.rod' = 'Rod',
+  'armour' = 'All Armour',
+  'armour.chest' = 'Body Armour',
+  'armour.boots' = 'Boots',
+  'armour.gloves' = 'Gloves',
+  'armour.helmet' = 'Helmet',
+  'armour.shield' = 'Shield',
+  'armour.quiver' = 'Quiver',
+  'accessory' = 'Accessory',
+  'accessory.amulet' = 'Amulet',
+  'accessory.belt' = 'Belt',
+  'accessory.ring' = 'Ring',
+  'accessory.trinket' = 'Trinket',
+  'gem' = 'All Gems',
+  'gem.activegem' = 'Skill Gem',
+  'gem.supportgem' = 'Support Gem',
+  'gem.supportgemplus' = 'Awakened Support Gem',
+  'jewel' = 'All Jewels',
+  'jewel.base' = 'Base Jewel',
+  'jewel.abyss' = 'Abyss Jewel',
+  'jewel.cluster' = 'Cluster Jewel',
+  'flask' = 'Flask',
+  'map' = 'Map',
+  'map.fragment' = 'Map Fragment',
+  'map.scarab' = 'Scarab',
+  'watchstone' = 'Watchstone',
+  'leaguestone' = 'Leaguestone',
+  'prophecy' = 'Prophecy',
+  'card' = 'Divination Card',
+  'monster.beast' = 'Beast',
+  'monster.sample' = 'Metamorph Sample',
+  'currency' = 'All Currencies',
+  'currency.piece' = 'Unique Fragment',
+  'currency.resonator' = 'Resonator',
+  'currency.fossil' = 'Fossil',
+  'currency.incubator' = 'Incubator',
+}
+
 @Component({
   selector: 'app-item',
   templateUrl: './item.component.html',
@@ -18,20 +87,30 @@ export const filterSearch = (items: Array<string>, searchText: string): Array<st
 })
 export class ItemComponent implements OnInit {
 
+  public readonly originalOrder = (): number => {                         //Keeps enums in original order
+    return 0;
+  }
+
+  public readonly ITEM_TYPES: typeof itemTypes = itemTypes;               //Used for item type selection
+
+  public readonly ITEM_RARITIES: typeof itemRarities = itemRarities;      //Used for item rarity selection
+
   @ViewChildren("itemNameInput") itemNameInput: QueryList<ElementRef>;    //Item name input element
 
-  private editName: boolean = false;                      //Whether name is in edit mode or not
+  private editName: boolean = false;                        //Whether name is in edit mode or not
 
-  private viewRef: ViewRef = null;                        //Reference of the view, used when deleting the component
+  private viewRef: ViewRef = null;                          //Reference of the view, used when deleting the component
 
-  private itemsToSearch: Array<searchItem> = [];          //POE items
-  private filteredItems: Observable<Array<searchItem>>;   //Filtered results of the items
+  private itemsToSearch: Array<searchItem> = [];            //POE items
+  private filteredItems: Observable<Array<searchItem>>;     //Filtered results of the items
+  public filteredTypes: Array<typeof itemTypes>;           //Filtered item types
+  public filteredRarities: Array<typeof itemRarities>;     //Filtered item rarities
 
   public itemForm = new FormGroup({
     itemName: new FormControl('New Item'),
     itemSearch: new FormControl(''),
-    itemCategory: new FormControl('All'),
-    itemRarity: new FormControl('All')
+    itemCategory: new FormControl(this.ITEM_TYPES.all),
+    itemRarity: new FormControl(this.ITEM_RARITIES.all)
   });
 
   constructor(private cd: ChangeDetectorRef, private itemSearch: ItemsearchService) { 
@@ -54,6 +133,20 @@ export class ItemComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  /**
+   * Filters enumeration objects based on search text
+   * 
+   * @param searchText
+   *        string: search text 
+   * @param enumToFilter 
+   *        typeof enum: the enumeration to filter
+   */
+  public filterEnums(searchText: string, enumToFilter: any): Array<any> {
+    const text = searchText.toLowerCase();
+
+    return Object.values(enumToFilter).filter((enumValue: string) => enumValue.toLowerCase().indexOf(text) != -1);
   }
 
   /**

@@ -208,6 +208,10 @@
             color: mat-color($pathofshopping-accent, 50);
         }
     }
+
+    .mat-option.mat-selected:not(.mat-active):not(:hover) {
+        background-color: rgba(0, 0, 0, 0.1);
+    }
 }
 
 
