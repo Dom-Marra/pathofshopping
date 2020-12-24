@@ -40,9 +40,23 @@
                 </mat-form-field>
                 <mat-form-field id="type-field">
                     <mat-label>Item Type</mat-label>
-                    <mat-select panelClass="item-form-select" formControlName="itemCategory">
-                        <mat-option *ngFor="let type of ITEM_TYPES | keyvalue: originalOrder" [value]="type.key">{{ type.value }}</mat-option>
-                    </mat-select>
+                    <input #itemTypesInput matInput type="text"  autocomplete="off" 
+                            [matAutocomplete]="searchableItemTypes" 
+                            [placeholder]="itemForm.value.itemCategory"
+                            (input)="filteredTypes = filterEnums($event.target.value, this.ITEM_TYPES)"
+                            [matAutocompletePosition]="'below'"
+                            [value]="itemForm.value.itemCategory"
+                            (focus)="$event.target.value = ''; filteredTypes = filterEnums('', this.ITEM_TYPES)"
+                            (blur)="$event.target.value = itemForm.value.itemCategory">
+
+                    <mat-autocomplete #searchableItemTypes="matAutocomplete" 
+                                    [class]="'autocomplete-panel'" 
+                                    autoActiveFirstOption="'true'"
+                                    (optionSelected)="itemForm.controls.itemCategory.patchValue($event.option.value); itemTypesInput.blur()">
+                        <mat-option *ngFor="let type of filteredTypes" [class.mat-selected]="type == itemForm.value.itemCategory" [value]="type">
+                            {{type}}
+                        </mat-option>
+                    </mat-autocomplete>
                 </mat-form-field>
                 <mat-form-field id="rarity-field">
                     <mat-label>Item Rarity</mat-label>
