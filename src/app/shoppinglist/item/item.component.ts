@@ -104,12 +104,13 @@ export class ItemComponent implements OnInit {
   private itemsToSearch: Array<searchItem> = [];            //POE items
   private filteredItems: Observable<Array<searchItem>>;     //Filtered results of the items
   public filteredTypes: Array<typeof itemTypes>;           //Filtered item types
+  public filteredRarities: Array<typeof itemRarities>;     //Filtered item rarities
 
   public itemForm = new FormGroup({
     itemName: new FormControl('New Item'),
     itemSearch: new FormControl(''),
     itemCategory: new FormControl(this.ITEM_TYPES.all),
-    itemRarity: new FormControl('all')
+    itemRarity: new FormControl(this.ITEM_RARITIES.all)
   });
 
   constructor(private cd: ChangeDetectorRef, private itemSearch: ItemsearchService) { 
