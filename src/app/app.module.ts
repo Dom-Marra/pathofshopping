@@ -17,23 +17,10 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatIconModule } from '@angular/material/icon';
 
 //Feather Import
-import { FeatherModule } from 'angular-feather';
-import { ChevronDown, ChevronUp, Save, Download, Trash2, PlusCircle, Edit2, X, Plus, Minus } from 'angular-feather/icons';
 import { DigitsonlyDirective } from './digitsonly.directive';
 import { ItemComponent } from './shoppinglist/item/item.component';
 
-const icons = {         //Feather Icons
-  ChevronDown,
-  ChevronUp,
-  Save,
-  Download,
-  Trash2,
-  PlusCircle,
-  Edit2,
-  X,
-  Plus,
-  Minus
-}
+
 
 @NgModule({
   declarations: [
@@ -46,7 +33,6 @@ const icons = {         //Feather Icons
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    FeatherModule.pick(icons),
     MatSelectModule,
     MatInputModule,
     MatButtonModule,
@@ -57,9 +43,7 @@ const icons = {         //Feather Icons
     MatAutocompleteModule,
     MatIconModule
   ],
-  exports: [
-    FeatherModule
-  ],
+  exports: [ ],
   providers: [],
   bootstrap: [AppComponent]
 })
