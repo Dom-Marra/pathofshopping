@@ -104,7 +104,7 @@
     .mat-form-field {
         font-weight: 300;
 
-        mat-label, .mat-input-element {
+        mat-label, .mat-input-element, .feather-suffix {
             color: mat-color($pathofshopping-accent, 50);
         }
 
@@ -190,6 +190,29 @@
     }
 }
 
+.autocomplete-panel {
+    background-color: mat-color($pathofshopping-primary, 200);
+    
+    .mat-optgroup {
+
+        .mat-optgroup-label {
+            color: mat-color($pathofshopping-primary, 500);
+        }
+    }
+
+    .mat-option {
+
+        .mat-option-text {
+            font-size: 14px;
+            font-weight: 300;
+            color: mat-color($pathofshopping-accent, 50);
+        }
+    }
+
+    .mat-option.mat-selected:not(.mat-active):not(:hover) {
+        background-color: rgba(0, 0, 0, 0.1);
+    }
+}
 
 
 
