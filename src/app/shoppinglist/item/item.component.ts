@@ -103,11 +103,12 @@ export class ItemComponent implements OnInit {
 
   private itemsToSearch: Array<searchItem> = [];            //POE items
   private filteredItems: Observable<Array<searchItem>>;     //Filtered results of the items
+  public filteredTypes: Array<typeof itemTypes>;           //Filtered item types
 
   public itemForm = new FormGroup({
     itemName: new FormControl('New Item'),
     itemSearch: new FormControl(''),
-    itemCategory: new FormControl('all'),
+    itemCategory: new FormControl(this.ITEM_TYPES.all),
     itemRarity: new FormControl('all')
   });
 
@@ -131,6 +132,20 @@ export class ItemComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  /**
+   * Filters enumeration objects based on search text
+   * 
+   * @param searchText
+   *        string: search text 
+   * @param enumToFilter 
+   *        typeof enum: the enumeration to filter
+   */
+  public filterEnums(searchText: string, enumToFilter: any): Array<any> {
+    const text = searchText.toLowerCase();
+
+    return Object.values(enumToFilter).filter((enumValue: string) => enumValue.toLowerCase().indexOf(text) != -1);
   }
 
   /**
