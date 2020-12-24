@@ -68,16 +68,6 @@
                 color: mat-color($pathofshopping-accent, 50);
                 background-color: mat-color($pathofshopping-primary, 800);
             }
-
-            i-feather {
-                height: 18px;
-                width: 18px;
-                padding: 5px;
-
-                svg {
-                    vertical-align: top;
-                }
-            }
         }
 
         .mat-form-field, .mat-flat-button { 
@@ -154,15 +144,6 @@
                 font-weight: 300;
                 margin: 1em;
                 flex-grow: 1;
-
-                i-feather {
-                    height: 16px;
-                    width: 16px;
-
-                    svg {
-                        vertical-align: top;
-                    }
-                }
                 
                 &#add-item {
                     background-color: rgb(55, 150, 55);
