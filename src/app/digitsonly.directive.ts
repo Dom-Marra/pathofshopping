@@ -6,6 +6,7 @@ import { Directive, ElementRef, HostListener, Input } from '@angular/core';
 export class DigitsonlyDirective {
 
   @Input() float: boolean = false;                //Whether to accept floats or not
+  @Input() defaultZero: boolean = false;          //Whether the default value shall be zero after input
 
   private lastInput: number;                      //The last input                
 
@@ -18,7 +19,7 @@ export class DigitsonlyDirective {
   onInput() {
     let input = this.el.nativeElement.value;          //Set the inputs value
 
-    if (isNaN(input)) {                               //If the input is NaN reset it to the previous value
+    if (isNaN(input) && !(input != '' && !this.defaultZero)) {    //If the input is NaN reset it to the previous value
       this.el.nativeElement.value = this.lastInput;
     } 
   }
@@ -27,9 +28,11 @@ export class DigitsonlyDirective {
   onChange() {
     let input = this.el.nativeElement.value;          //Set the inputs value
 
-    if (input == '') {                                //If the input is empty set it to 0, and the input var to 0
+    if (input == '' && this.defaultZero) {            //If the input is empty set it to 0, and the input var to 0
       this.el.nativeElement.value = 0;
       input = 0;
+    } else {
+      return;
     }
 
     if (this.float) {                                 //Parse the value of the input to float

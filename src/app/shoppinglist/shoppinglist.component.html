@@ -11,7 +11,7 @@
         </mat-form-field>
         <mat-form-field>
             <mat-label>Budget</mat-label>
-            <input matInput digitsonly float='true' [value]="getBudget()" type="text" (change)="setBudget($event.target.value)">
+            <input matInput digitsonly float='true' defaultZero='true' [value]="getBudget()" type="text" (change)="setBudget($event.target.value)">
         </mat-form-field>
         <mat-form-field id="currency-type-form-field">
             <mat-label>Currency</mat-label>
@@ -24,8 +24,8 @@
             <img [src]="getBudgetCurrencyType() == CURRENCY_TYPES.chaos ? 'assets/chaosOrb.png' : 'assets/exaltedOrb.png'" />
         </div>
         <div id="save-import-options">
-            <button type="button" mat-flat-button><i-feather name="save"></i-feather> Save</button>
-            <button type="button" mat-flat-button><i-feather name="download"></i-feather> Import</button>
+            <button type="button" mat-flat-button><mat-icon class="icon-light">save</mat-icon> Save</button>
+            <button type="button" mat-flat-button><mat-icon class="icon-light">save_alt</mat-icon> Import</button>
         </div>
     </div>
     <div id="shoppinglist-contents-container">
@@ -35,9 +35,9 @@
             </mat-form-field>
         </div>
         <div id="shoppinglist-actions">
-            <button type="button" mat-flat-button (click)="addItem()" id="add-item">Add Item <i-feather name="plus-circle"></i-feather></button>
-            <button type="button" mat-flat-button (click)="accordion.openAll()" id="expand-items">Expand All <i-feather name="plus"></i-feather></button>
-            <button type="button" mat-flat-button (click)="accordion.closeAll()" id="collapse-items">Collapse All <i-feather name="minus"></i-feather></button>
+            <button type="button" mat-flat-button (click)="addItem()" id="add-item">Add Item <mat-icon class="icon-light">add</mat-icon></button>
+            <button type="button" mat-flat-button (click)="accordion.openAll()" id="expand-items">Expand All <mat-icon class="icon-light">fullscreen</mat-icon></button>
+            <button type="button" mat-flat-button (click)="accordion.closeAll()" id="collapse-items">Collapse All <mat-icon class="icon-light">fullscreen_exit</mat-icon></button>
         </div>
         <div id="shopping-list-contents">
             <mat-accordion multi>
