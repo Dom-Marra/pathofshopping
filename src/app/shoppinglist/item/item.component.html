@@ -159,6 +159,61 @@
                     </div>
                 </div>
             </mat-expansion-panel>
+
+             <!-- ARMOUR FILTERS -->
+             <mat-expansion-panel class="sub-item-expansion">
+                <mat-expansion-panel-header>
+                        Armour Filters
+                </mat-expansion-panel-header>
+                <div class="item-contents">
+                    <div id="item-type-fields" class="field-wrapper" formGroupName="armourFilters">
+                        <div class="min-max-field" formGroupName="armour">
+                            <p class="min-max-field-label">Armour</p>
+                            <mat-form-field>
+                                <mat-label>Min</mat-label>
+                                <input digitsonly [float]="'true'" matInput type="text" autocomplete="off" formControlName="min">
+                            </mat-form-field>
+                            <mat-form-field>
+                                <mat-label>Max</mat-label>
+                                <input digitsonly [float]="'true'" matInput type="text" autocomplete="off" formControlName="max">
+                            </mat-form-field>
+                        </div>
+                        <div class="min-max-field" formGroupName="energyShield">
+                            <p class="min-max-field-label">Energy Shield</p>
+                            <mat-form-field>
+                                <mat-label>Min</mat-label>
+                                <input digitsonly [float]="'true'" matInput type="text" autocomplete="off" formControlName="min">
+                            </mat-form-field>
+                            <mat-form-field>
+                                <mat-label>Max</mat-label>
+                                <input digitsonly [float]="'true'" matInput type="text" autocomplete="off" formControlName="max">
+                            </mat-form-field>
+                        </div>
+                        <div class="min-max-field" formGroupName="evasion">
+                            <p class="min-max-field-label">Evasion</p>
+                            <mat-form-field>
+                                <mat-label>Min</mat-label>
+                                <input digitsonly [float]="'true'" matInput type="text" autocomplete="off" formControlName="min">
+                            </mat-form-field>
+                            <mat-form-field>
+                                <mat-label>Max</mat-label>
+                                <input digitsonly [float]="'true'" matInput type="text" autocomplete="off" formControlName="max">
+                            </mat-form-field>
+                        </div>
+                        <div class="min-max-field" formGroupName="blockChance">
+                            <p class="min-max-field-label">Block Chance</p>
+                            <mat-form-field>
+                                <mat-label>Min</mat-label>
+                                <input digitsonly [float]="'true'" matInput type="text" autocomplete="off" formControlName="min">
+                            </mat-form-field>
+                            <mat-form-field>
+                                <mat-label>Max</mat-label>
+                                <input digitsonly [float]="'true'" matInput type="text" autocomplete="off" formControlName="max">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+            </mat-expansion-panel>
         </div>
     </mat-expansion-panel>
 </form>
