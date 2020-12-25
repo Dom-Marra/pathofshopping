@@ -87,11 +87,79 @@
                         Weapon Filters
                 </mat-expansion-panel-header>
                 <div class="item-contents">
-                    <div id="item-type-fields" class="field-wrapper">
-                        <mat-form-field>
-                            <mat-label>Placeholder</mat-label>
-                            <input matInput type="text" autocomplete="off">
-                        </mat-form-field>
+                    <div id="item-type-fields" class="field-wrapper" formGroupName="weaponFilters">
+                        <div class="min-max-field" formGroupName="damage">
+                            <p class="min-max-field-label">Damage</p>
+                            <mat-form-field>
+                                <mat-label>Min</mat-label>
+                                <input digitsonly [float]="'true'" matInput type="text" autocomplete="off" formControlName="min">
+                            </mat-form-field>
+                            <mat-form-field>
+                                <mat-label>Max</mat-label>
+                                <input digitsonly [float]="'true'" matInput type="text" autocomplete="off" formControlName="max">
+                            </mat-form-field>
+                        </div>
+
+                        <div class="min-max-field" formGroupName="APS">
+                            <p class="min-max-field-label">Attacks Per Second</p>
+                            <mat-form-field>
+                                <mat-label>Min</mat-label>
+                                <input digitsonly [float]="'true'" matInput type="text" autocomplete="off" formControlName="min">
+                            </mat-form-field>
+                            <mat-form-field>
+                                <mat-label>Max</mat-label>
+                                <input digitsonly [float]="'true'" matInput type="text" autocomplete="off" formControlName="max">
+                            </mat-form-field>
+                        </div>
+
+                        <div class="min-max-field" formGroupName="criticalStrikeChance">
+                            <p class="min-max-field-label">Critical Strike Chance</p>
+                            <mat-form-field>
+                                <mat-label>Min</mat-label>
+                                <input digitsonly [float]="'true'" matInput type="text" autocomplete="off" formControlName="min">
+                            </mat-form-field>
+                            <mat-form-field>
+                                <mat-label>Max</mat-label>
+                                <input digitsonly [float]="'true'" matInput type="text" autocomplete="off" formControlName="max">
+                            </mat-form-field>
+                        </div>
+
+                        <div class="min-max-field" formGroupName="totalDPS">
+                            <p class="min-max-field-label">Total DPS</p>
+                            <mat-form-field>
+                                <mat-label>Min</mat-label>
+                                <input digitsonly [float]="'true'" matInput type="text" autocomplete="off" formControlName="min">
+                            </mat-form-field>
+                            <mat-form-field>
+                                <mat-label>Max</mat-label>
+                                <input digitsonly [float]="'true'" matInput type="text" autocomplete="off" formControlName="max">
+                            </mat-form-field>
+                        </div>
+
+                        <div class="min-max-field" formGroupName="pDPS">
+                            <p class="min-max-field-label">Physcial DPS</p>
+                            <mat-form-field>
+                                <mat-label>Min</mat-label>
+                                <input digitsonly [float]="'true'" matInput type="text" autocomplete="off" formControlName="min">
+                            </mat-form-field>
+                            <mat-form-field>
+                                <mat-label>Max</mat-label>
+                                <input digitsonly [float]="'true'" matInput type="text" autocomplete="off" formControlName="max">
+                            </mat-form-field>
+                        </div>
+
+                        <div class="min-max-field" formGroupName="eDPS">
+                            <p class="min-max-field-label">Elemental DPS</p>
+                            <mat-form-field>
+                                <mat-label>Min</mat-label>
+                                <input digitsonly [float]="'true'" matInput type="text" autocomplete="off" formControlName="min">
+                            </mat-form-field>
+                            <mat-form-field>
+                                <mat-label>Max</mat-label>
+                                <input digitsonly [float]="'true'" matInput type="text" autocomplete="off" formControlName="max">
+                            </mat-form-field>
+                        </div>
+                        
                     </div>
                 </div>
             </mat-expansion-panel>
