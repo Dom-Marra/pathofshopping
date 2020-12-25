@@ -11,7 +11,7 @@
         </mat-form-field>
         <mat-form-field>
             <mat-label>Budget</mat-label>
-            <input matInput digitsonly float='true' [value]="getBudget()" type="text" (change)="setBudget($event.target.value)">
+            <input matInput digitsonly float='true' defaultZero='true' [value]="getBudget()" type="text" (change)="setBudget($event.target.value)">
         </mat-form-field>
         <mat-form-field id="currency-type-form-field">
             <mat-label>Currency</mat-label>
