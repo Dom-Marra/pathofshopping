@@ -110,7 +110,33 @@ export class ItemComponent implements OnInit {
     itemName: new FormControl('New Item'),
     itemSearch: new FormControl(''),
     itemCategory: new FormControl(this.ITEM_TYPES.all),
-    itemRarity: new FormControl(this.ITEM_RARITIES.all)
+    itemRarity: new FormControl(this.ITEM_RARITIES.all),
+    weaponFilters: new FormGroup({
+      damage: new FormGroup({
+        min: new FormControl(''),
+        max: new FormControl('')
+      }),
+      APS: new FormGroup({
+        min: new FormControl(''),
+        max: new FormControl('')
+      }),
+      criticalStrikeChance: new FormGroup({
+        min: new FormControl(''),
+        max: new FormControl('')
+      }),
+      totalDPS: new FormGroup({
+        min: new FormControl(''),
+        max: new FormControl('')
+      }),
+      pDPS: new FormGroup({
+        min: new FormControl(''),
+        max: new FormControl('')
+      }),
+      eDPS: new FormGroup({
+        min: new FormControl(''),
+        max: new FormControl('')
+      }),
+    })
   });
 
   constructor(private cd: ChangeDetectorRef, private itemSearch: ItemsearchService) { 
