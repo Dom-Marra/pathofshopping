@@ -214,6 +214,79 @@
                     </div>
                 </div>
             </mat-expansion-panel>
+
+            <!-- ARMOUR FILTERS -->
+            <mat-expansion-panel class="sub-item-expansion">
+                <mat-expansion-panel-header>
+                        Socket Filters
+                </mat-expansion-panel-header>
+                <div class="item-contents">
+                    <div appEqualflex id="item-type-fields" class="field-wrapper" formGroupName="socketFilters">
+                        <div class="min-max-field" formGroupName="sockets">
+                            <p class="min-max-field-label">Sockets</p>
+                            <div class="sub-min-max-fields">
+                                <mat-form-field class="socket-input-r">
+                                    <mat-label>Red</mat-label>
+                                    <input digitsonly matInput type="text" autocomplete="off" formControlName="red">
+                                </mat-form-field>
+                                <mat-form-field class="socket-input-g">
+                                    <mat-label>Green</mat-label>
+                                    <input digitsonly matInput type="text" autocomplete="off" formControlName="green">
+                                </mat-form-field>
+                                <mat-form-field class="socket-input-b">
+                                    <mat-label>Blue</mat-label>
+                                    <input digitsonly matInput type="text" autocomplete="off" formControlName="blue">
+                                </mat-form-field>
+                                <mat-form-field class="socket-input-w">
+                                    <mat-label>White</mat-label>
+                                    <input digitsonly matInput type="text" autocomplete="off" formControlName="white">
+                                </mat-form-field>
+                            </div>
+                            <div class="min-max-fields">
+                                <mat-form-field>
+                                    <mat-label>Min</mat-label>
+                                    <input digitsonly matInput type="text" autocomplete="off" formControlName="min">
+                                </mat-form-field>
+                                <mat-form-field>
+                                    <mat-label>Max</mat-label>
+                                    <input digitsonly matInput type="text" autocomplete="off" formControlName="max">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="min-max-field" formGroupName="links">
+                            <p class="min-max-field-label">Links</p>
+                            <div class="sub-min-max-fields">
+                                <mat-form-field class="socket-input-r">
+                                    <mat-label>Red</mat-label>
+                                    <input digitsonly matInput type="text" autocomplete="off" formControlName="red">
+                                </mat-form-field>
+                                <mat-form-field class="socket-input-g">
+                                    <mat-label>Green</mat-label>
+                                    <input digitsonly matInput type="text" autocomplete="off" formControlName="green">
+                                </mat-form-field>
+                                <mat-form-field class="socket-input-b">
+                                    <mat-label>Blue</mat-label>
+                                    <input digitsonly matInput type="text" autocomplete="off" formControlName="blue">
+                                </mat-form-field>
+                                <mat-form-field class="socket-input-w">
+                                    <mat-label>White</mat-label>
+                                    <input digitsonly matInput type="text" autocomplete="off" formControlName="white">
+                                </mat-form-field>
+                            </div>
+                            <div class="min-max-fields">
+                                <mat-form-field>
+                                    <mat-label>Min</mat-label>
+                                    <input digitsonly matInput type="text" autocomplete="off" formControlName="min">
+                                </mat-form-field>
+                                <mat-form-field>
+                                    <mat-label>Max</mat-label>
+                                    <input digitsonly matInput type="text" autocomplete="off" formControlName="max">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </mat-expansion-panel>
         </div>
     </mat-expansion-panel>
 </form>
