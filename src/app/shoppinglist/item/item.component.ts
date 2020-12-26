@@ -154,6 +154,24 @@ export class ItemComponent implements OnInit {
         min: new FormControl(''),
         max: new FormControl('')
       })
+    }),
+    socketFilters: new FormGroup({
+      sockets: new FormGroup({
+        red: new FormControl(''),
+        green: new FormControl(''),
+        blue: new FormControl(''),
+        white: new FormControl(''),
+        min: new FormControl(''),
+        max: new FormControl('')
+      }),
+      links: new FormGroup({
+        red: new FormControl(''),
+        green: new FormControl(''),
+        blue: new FormControl(''),
+        white: new FormControl(''),
+        min: new FormControl(''),
+        max: new FormControl('')
+      })
     })
   });
 
