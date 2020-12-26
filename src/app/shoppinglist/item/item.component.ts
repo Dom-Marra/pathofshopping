@@ -136,6 +136,24 @@ export class ItemComponent implements OnInit {
         min: new FormControl(''),
         max: new FormControl('')
       }),
+    }),
+    armourFilters: new FormGroup({
+      armour: new FormGroup({
+        min: new FormControl(''),
+        max: new FormControl('')
+      }),
+      energyShield: new FormGroup({
+        min: new FormControl(''),
+        max: new FormControl('')
+      }),
+      evasion: new FormGroup({
+        min: new FormControl(''),
+        max: new FormControl('')
+      }),
+      blockChance: new FormGroup({
+        min: new FormControl(''),
+        max: new FormControl('')
+      })
     })
   });
 
