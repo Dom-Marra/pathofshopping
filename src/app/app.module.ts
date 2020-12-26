@@ -19,6 +19,7 @@ import { MatIconModule } from '@angular/material/icon';
 //Feather Import
 import { DigitsonlyDirective } from './digitsonly.directive';
 import { ItemComponent } from './shoppinglist/item/item.component';
+import { EqualflexDirective } from './equalflex.directive';
 
 
 
@@ -27,7 +28,8 @@ import { ItemComponent } from './shoppinglist/item/item.component';
     AppComponent,
     ShoppinglistComponent,
     DigitsonlyDirective,
-    ItemComponent
+    ItemComponent,
+    EqualflexDirective
   ],
   imports: [
     BrowserModule,
