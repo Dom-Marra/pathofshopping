@@ -172,6 +172,24 @@ export class ItemComponent implements OnInit {
         min: new FormControl(''),
         max: new FormControl('')
       })
+    }),
+    requirementFilters: new FormGroup({
+      level: new FormGroup({
+        min: new FormControl(''),
+        max: new FormControl('')
+      }),
+      strength: new FormGroup({
+        min: new FormControl(''),
+        max: new FormControl('')
+      }),
+      dexterity: new FormGroup({
+        min: new FormControl(''),
+        max: new FormControl('')
+      }),
+      intelligence: new FormGroup({
+        min: new FormControl(''),
+        max: new FormControl('')
+      })
     })
   });
 
