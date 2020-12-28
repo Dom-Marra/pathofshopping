@@ -342,6 +342,176 @@
                     </div>
                 </div>
             </mat-expansion-panel>
+
+            <!-- MAP FILTERS -->
+            <mat-expansion-panel class="sub-item-expansion">
+                <mat-expansion-panel-header>
+                        Map Filters
+                </mat-expansion-panel-header>
+                <div class="item-contents">
+                    <div appEqualflex id="item-type-fields" class="field-wrapper" formGroupName="mapFilters">
+                        <div class="min-max-field">
+                            <p class="min-max-field-label">Region</p>
+                            <mat-form-field floatLabel="never">
+                                <input #mapRegionInput matInput type="text"  autocomplete="off" 
+                                        [matAutocomplete]="searchableMapRegions" 
+                                        [placeholder]="itemForm.value.mapFilters.region"
+                                        (input)="filteredMapRegion = filterEnums($event.target.value, MAP_REGION)"
+                                        [matAutocompletePosition]="'below'"
+                                        [value]="itemForm.value.mapFilters.region"
+                                        (focus)="$event.target.value = ''; filteredMapRegion = filterEnums('', MAP_REGION)"
+                                        (blur)="$event.target.value = itemForm.value.mapFilters.region">
+            
+                                <mat-icon matSuffix class="icon-dark" [class.rotate]="searchableMapRegions.isOpen">arrow_drop_down</mat-icon>
+                                <mat-autocomplete #searchableMapRegions="matAutocomplete" 
+                                                [class]="'autocomplete-panel'" 
+                                                autoActiveFirstOption="'true'"
+                                                (optionSelected)="itemForm.get('mapFilters.region').patchValue($event.option.value); mapRegionInput.blur()">
+                                    <mat-option *ngFor="let region of filteredMapRegion" [class.mat-selected]="region == itemForm.value.mapFilters.region" [value]="region">
+                                        {{region}}
+                                    </mat-option>
+                                </mat-autocomplete>
+                            </mat-form-field>
+                        </div>
+                        <div class="min-max-field">
+                            <p class="min-max-field-label">Series</p>
+                            <mat-form-field floatLabel="never">
+                                <input #mapSeriesInput matInput type="text"  autocomplete="off" 
+                                        [matAutocomplete]="searchableMapSeries" 
+                                        [placeholder]="itemForm.value.mapFilters.series"
+                                        (input)="filteredMapSeries = filterEnums($event.target.value, MAP_SERIES)"
+                                        [matAutocompletePosition]="'below'"
+                                        [value]="itemForm.value.mapFilters.series"
+                                        (focus)="$event.target.value = ''; filteredMapSeries = filterEnums('', MAP_SERIES)"
+                                        (blur)="$event.target.value = itemForm.value.mapFilters.series">
+            
+                                <mat-icon matSuffix class="icon-dark" [class.rotate]="searchableMapSeries.isOpen">arrow_drop_down</mat-icon>
+                                <mat-autocomplete #searchableMapSeries="matAutocomplete" 
+                                                [class]="'autocomplete-panel'" 
+                                                autoActiveFirstOption="'true'"
+                                                (optionSelected)="itemForm.get('mapFilters.series').patchValue($event.option.value); mapSeriesInput.blur()">
+                                    <mat-option *ngFor="let series of filteredMapSeries" [class.mat-selected]="series == itemForm.value.mapFilters.series" [value]="series">
+                                        {{series}}
+                                    </mat-option>
+                                </mat-autocomplete>
+                            </mat-form-field>
+                        </div>
+                        <div class="min-max-field">
+                            <p class="min-max-field-label">Shaped</p>
+                            <mat-form-field floatLabel="never">
+                                <input #mapShapedInput matInput type="text"  autocomplete="off" 
+                                        [matAutocomplete]="searchableShapedTrueFalse" 
+                                        [placeholder]="itemForm.value.mapFilters.shaped"
+                                        (input)="filteredTrueFalse = filterEnums($event.target.value, TRUE_FALSE)"
+                                        [matAutocompletePosition]="'below'"
+                                        [value]="itemForm.value.mapFilters.shaped"
+                                        (focus)="$event.target.value = ''; filteredTrueFalse = filterEnums('', TRUE_FALSE)"
+                                        (blur)="$event.target.value = itemForm.value.mapFilters.shaped">
+            
+                                <mat-icon matSuffix class="icon-dark" [class.rotate]="searchableShapedTrueFalse.isOpen">arrow_drop_down</mat-icon>
+                                <mat-autocomplete #searchableShapedTrueFalse="matAutocomplete" 
+                                                [class]="'autocomplete-panel'" 
+                                                autoActiveFirstOption="'true'"
+                                                (optionSelected)="itemForm.get('mapFilters.shaped').patchValue($event.option.value); mapShapedInput.blur()">
+                                    <mat-option *ngFor="let value of filteredTrueFalse" [class.mat-selected]="value == itemForm.value.mapFilters.shaped" [value]="value">
+                                        {{value}}
+                                    </mat-option>
+                                </mat-autocomplete>
+                            </mat-form-field>
+                        </div>
+                        <div class="min-max-field">
+                            <p class="min-max-field-label">Elder</p>
+                            <mat-form-field floatLabel="never">
+                                <input #mapElderInput matInput type="text"  autocomplete="off" 
+                                        [matAutocomplete]="searchableElderTrueFalse" 
+                                        [placeholder]="itemForm.value.mapFilters.elder"
+                                        (input)="filteredTrueFalse = filterEnums($event.target.value, TRUE_FALSE)"
+                                        [matAutocompletePosition]="'below'"
+                                        [value]="itemForm.value.mapFilters.elder"
+                                        (focus)="$event.target.value = ''; filteredTrueFalse = filterEnums('', TRUE_FALSE)"
+                                        (blur)="$event.target.value = itemForm.value.mapFilters.elder">
+            
+                                <mat-icon matSuffix class="icon-dark" [class.rotate]="searchableElderTrueFalse.isOpen">arrow_drop_down</mat-icon>
+                                <mat-autocomplete #searchableElderTrueFalse="matAutocomplete" 
+                                                [class]="'autocomplete-panel'" 
+                                                autoActiveFirstOption="'true'"
+                                                (optionSelected)="itemForm.get('mapFilters.elder').patchValue($event.option.value); mapElderInput.blur()">
+                                    <mat-option *ngFor="let value of filteredTrueFalse" [class.mat-selected]="value == itemForm.value.mapFilters.shaped" [value]="value">
+                                        {{value}}
+                                    </mat-option>
+                                </mat-autocomplete>
+                            </mat-form-field>
+                        </div>
+                        <div class="min-max-field">
+                            <p class="min-max-field-label">Blighted</p>
+                            <mat-form-field floatLabel="never">
+                                <input #mapBlightedInput matInput type="text"  autocomplete="off" 
+                                        [matAutocomplete]="searchableBlightedTrueFalse" 
+                                        [placeholder]="itemForm.value.mapFilters.blighted"
+                                        (input)="filteredTrueFalse = filterEnums($event.target.value, TRUE_FALSE)"
+                                        [matAutocompletePosition]="'below'"
+                                        [value]="itemForm.value.mapFilters.blighted"
+                                        (focus)="$event.target.value = ''; filteredTrueFalse = filterEnums('', TRUE_FALSE)"
+                                        (blur)="$event.target.value = itemForm.value.mapFilters.blighted">
+            
+                                <mat-icon matSuffix class="icon-dark" [class.rotate]="searchableBlightedTrueFalse.isOpen">arrow_drop_down</mat-icon>
+                                <mat-autocomplete #searchableBlightedTrueFalse="matAutocomplete" 
+                                                [class]="'autocomplete-panel'" 
+                                                autoActiveFirstOption="'true'"
+                                                (optionSelected)="itemForm.get('mapFilters.blighted').patchValue($event.option.value); mapBlightedInput.blur()">
+                                    <mat-option *ngFor="let value of filteredTrueFalse" [class.mat-selected]="value == itemForm.value.mapFilters.shaped" [value]="value">
+                                        {{value}}
+                                    </mat-option>
+                                </mat-autocomplete>
+                            </mat-form-field>
+                        </div>
+                        <div class="min-max-field" formGroupName="tier">
+                            <p class="min-max-field-label">Tier</p>
+                            <mat-form-field>
+                                <mat-label>Min</mat-label>
+                                <input digitsonly matInput type="text" autocomplete="off" formControlName="min">
+                            </mat-form-field>
+                            <mat-form-field>
+                                <mat-label>Max</mat-label>
+                                <input digitsonly matInput type="text" autocomplete="off" formControlName="max">
+                            </mat-form-field>
+                        </div>
+                        <div class="min-max-field" formGroupName="packsize">
+                            <p class="min-max-field-label">Packsize</p>
+                            <mat-form-field>
+                                <mat-label>Min</mat-label>
+                                <input digitsonly matInput type="text" autocomplete="off" formControlName="min">
+                            </mat-form-field>
+                            <mat-form-field>
+                                <mat-label>Max</mat-label>
+                                <input digitsonly matInput type="text" autocomplete="off" formControlName="max">
+                            </mat-form-field>
+                        </div>
+                        <div class="min-max-field" formGroupName="iiq">
+                            <p class="min-max-field-label">IIQ</p>
+                            <mat-form-field>
+                                <mat-label>Min</mat-label>
+                                <input digitsonly matInput type="text" autocomplete="off" formControlName="min">
+                            </mat-form-field>
+                            <mat-form-field>
+                                <mat-label>Max</mat-label>
+                                <input digitsonly matInput type="text" autocomplete="off" formControlName="max">
+                            </mat-form-field>
+                        </div>
+                        <div class="min-max-field" formGroupName="iir">
+                            <p class="min-max-field-label">IIR</p>
+                            <mat-form-field>
+                                <mat-label>Min</mat-label>
+                                <input digitsonly matInput type="text" autocomplete="off" formControlName="min">
+                            </mat-form-field>
+                            <mat-form-field>
+                                <mat-label>Max</mat-label>
+                                <input digitsonly matInput type="text" autocomplete="off" formControlName="max">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+            </mat-expansion-panel>
         </div>
     </mat-expansion-panel>
 </form>
