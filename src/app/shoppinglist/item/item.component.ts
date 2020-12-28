@@ -16,6 +16,26 @@ enum trueFlase {
   false = 'No'
 }
 
+enum mapSeries {
+  all = 'All',
+  current = 'Current',
+  harvest = 'Harvest',
+  delirium = 'Delirium',
+  metamorph = 'Metamorph',
+  blight = 'Blight',
+  legion = 'Legion',
+  synthesis = 'Synthesis',
+  betrayal = 'Betrayal',
+  worfortheatlas = 'War for The Atlas',
+  atlasofworlds = 'Atlas of Worlds',
+  theawakening = 'The Awakening',
+  legacy = 'Legacy'
+}
+
+enum mapRegion {
+
+}
+
 enum itemRarities {
   all = 'All',
   normal = 'Normal',
