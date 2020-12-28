@@ -121,10 +121,6 @@ enum itemTypes {
 })
 export class ItemComponent implements OnInit {
 
-  public readonly originalOrder = (): number => {                         //Keeps enums in original order
-    return 0;
-  }
-
   public readonly MAP_REGION: typeof mapRegion = mapRegion;               //Used for map region selection
 
   public readonly MAP_SERIES: typeof mapSeries = mapSeries;               //used for map series selection
