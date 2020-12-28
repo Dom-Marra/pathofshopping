@@ -169,6 +169,12 @@
                 margin: 0.25em;
                 border-radius: 4px;
                 border: 1px solid mat-color($pathofshopping-primary, 500);
+            }
+
+            .min-max-field, .group-filter-input {
+                flex: 1 0 400px;
+                max-width: 100%;
+                margin: 0.25em;
 
                 .min-max-field-label {
                     padding: 1em;
