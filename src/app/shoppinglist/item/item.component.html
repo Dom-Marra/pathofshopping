@@ -436,7 +436,7 @@
                                                 [class]="'autocomplete-panel'" 
                                                 autoActiveFirstOption="'true'"
                                                 (optionSelected)="itemForm.get('mapFilters.elder').patchValue($event.option.value); mapElderInput.blur()">
-                                    <mat-option *ngFor="let value of filteredTrueFalse" [class.mat-selected]="value == itemForm.value.mapFilters.shaped" [value]="value">
+                                    <mat-option *ngFor="let value of filteredTrueFalse" [class.mat-selected]="value == itemForm.value.mapFilters.elder" [value]="value">
                                         {{value}}
                                     </mat-option>
                                 </mat-autocomplete>
@@ -459,7 +459,7 @@
                                                 [class]="'autocomplete-panel'" 
                                                 autoActiveFirstOption="'true'"
                                                 (optionSelected)="itemForm.get('mapFilters.blighted').patchValue($event.option.value); mapBlightedInput.blur()">
-                                    <mat-option *ngFor="let value of filteredTrueFalse" [class.mat-selected]="value == itemForm.value.mapFilters.shaped" [value]="value">
+                                    <mat-option *ngFor="let value of filteredTrueFalse" [class.mat-selected]="value == itemForm.value.mapFilters.blighted" [value]="value">
                                         {{value}}
                                     </mat-option>
                                 </mat-autocomplete>
