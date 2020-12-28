@@ -10,6 +10,40 @@ export const filterSearch = (items: Array<string>, searchText: string): Array<st
   return items.filter(item => item.toLowerCase().indexOf(text) != -1);
 }
 
+enum trueFlase {
+  all = 'All',
+  true = 'Yes',
+  false = 'No'
+}
+
+enum mapSeries {
+  all = 'All',
+  current = 'Current',
+  harvest = 'Harvest',
+  delirium = 'Delirium',
+  metamorph = 'Metamorph',
+  blight = 'Blight',
+  legion = 'Legion',
+  synthesis = 'Synthesis',
+  betrayal = 'Betrayal',
+  worfortheatlas = 'War for The Atlas',
+  atlasofworlds = 'Atlas of Worlds',
+  theawakening = 'The Awakening',
+  legacy = 'Legacy'
+}
+
+enum mapRegion {
+  all = "All",
+  otl = "Haewark Hamlet",
+  itl = "Tirn's End",
+  itr = "Lex Proxima",
+  otr = "Lex Ejoris",
+  obl = "New Vastir",
+  ibl = "Glennach Cairn",
+  ibr = "Valdo's Rest",
+  obr = "Lira Arthain"
+}
+
 enum itemRarities {
   all = 'All',
   normal = 'Normal',
@@ -91,6 +125,12 @@ export class ItemComponent implements OnInit {
     return 0;
   }
 
+  public readonly MAP_REGION: typeof mapRegion = mapRegion;               //Used for map region selection
+
+  public readonly MAP_SERIES: typeof mapSeries = mapSeries;               //used for map series selection
+
+  public readonly TRUE_FALSE: typeof trueFlase = trueFlase;               //used for true false selection
+
   public readonly ITEM_TYPES: typeof itemTypes = itemTypes;               //Used for item type selection
 
   public readonly ITEM_RARITIES: typeof itemRarities = itemRarities;      //Used for item rarity selection
@@ -105,6 +145,9 @@ export class ItemComponent implements OnInit {
   private filteredItems: Observable<Array<searchItem>>;     //Filtered results of the items
   public filteredTypes: Array<typeof itemTypes>;           //Filtered item types
   public filteredRarities: Array<typeof itemRarities>;     //Filtered item rarities
+  public filteredMapSeries: Array<typeof mapSeries>;
+  public filteredMapRegion: Array<typeof mapRegion>;
+  public filteredTrueFalse: Array<typeof trueFlase>;
 
   public itemForm = new FormGroup({
     itemName: new FormControl('New Item'),
@@ -187,6 +230,29 @@ export class ItemComponent implements OnInit {
         max: new FormControl('')
       }),
       intelligence: new FormGroup({
+        min: new FormControl(''),
+        max: new FormControl('')
+      })
+    }),
+    mapFilters: new FormGroup({
+      region: new FormControl(this.MAP_REGION.all),
+      series: new FormControl(this.MAP_SERIES.all),
+      shaped: new FormControl(this.TRUE_FALSE.all),
+      elder: new FormControl(this.TRUE_FALSE.all),
+      blighted: new FormControl(this.TRUE_FALSE.all),
+      tier: new FormGroup({
+        min: new FormControl(''),
+        max: new FormControl('')
+      }),
+      packsize: new FormGroup({
+        min: new FormControl(''),
+        max: new FormControl('')
+      }),
+      iiq: new FormGroup({
+        min: new FormControl(''),
+        max: new FormControl('')
+      }),
+      iir: new FormGroup({
         min: new FormControl(''),
         max: new FormControl('')
       })
