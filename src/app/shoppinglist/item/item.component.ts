@@ -10,6 +10,12 @@ export const filterSearch = (items: Array<string>, searchText: string): Array<st
   return items.filter(item => item.toLowerCase().indexOf(text) != -1);
 }
 
+enum trueFlase {
+  all = 'All',
+  true = 'Yes',
+  false = 'No'
+}
+
 enum itemRarities {
   all = 'All',
   normal = 'Normal',
