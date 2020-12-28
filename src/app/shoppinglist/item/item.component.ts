@@ -33,7 +33,14 @@ enum mapSeries {
 }
 
 enum mapRegion {
-
+  otl = "Haewark Hamlet",
+  itl = "Tirn's End",
+  itr = "Lex Proxima",
+  otr = "Lex Ejoris",
+  obl = "New Vastir",
+  ibl = "Glennach Cairn",
+  ibr = "Valdo's Rest",
+  obr = "Lira Arthain"
 }
 
 enum itemRarities {
