@@ -33,6 +33,7 @@ enum mapSeries {
 }
 
 enum mapRegion {
+  all = "All",
   otl = "Haewark Hamlet",
   itl = "Tirn's End",
   itr = "Lex Proxima",
@@ -144,6 +145,9 @@ export class ItemComponent implements OnInit {
   private filteredItems: Observable<Array<searchItem>>;     //Filtered results of the items
   public filteredTypes: Array<typeof itemTypes>;           //Filtered item types
   public filteredRarities: Array<typeof itemRarities>;     //Filtered item rarities
+  public filteredMapSeries: Array<typeof mapSeries>;
+  public filteredMapRegion: Array<typeof mapRegion>;
+  public filteredTrueFalse: Array<typeof trueFlase>;
 
   public itemForm = new FormGroup({
     itemName: new FormControl('New Item'),
@@ -226,6 +230,29 @@ export class ItemComponent implements OnInit {
         max: new FormControl('')
       }),
       intelligence: new FormGroup({
+        min: new FormControl(''),
+        max: new FormControl('')
+      })
+    }),
+    mapFilters: new FormGroup({
+      region: new FormControl(this.MAP_REGION.all),
+      series: new FormControl(this.MAP_SERIES.all),
+      shaped: new FormControl(this.TRUE_FALSE.all),
+      elder: new FormControl(this.TRUE_FALSE.all),
+      blighted: new FormControl(this.TRUE_FALSE.all),
+      tier: new FormGroup({
+        min: new FormControl(''),
+        max: new FormControl('')
+      }),
+      packsize: new FormGroup({
+        min: new FormControl(''),
+        max: new FormControl('')
+      }),
+      iiq: new FormGroup({
+        min: new FormControl(''),
+        max: new FormControl('')
+      }),
+      iir: new FormGroup({
         min: new FormControl(''),
         max: new FormControl('')
       })
