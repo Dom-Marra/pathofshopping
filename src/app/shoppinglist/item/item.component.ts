@@ -124,6 +124,12 @@ export class ItemComponent implements OnInit {
     return 0;
   }
 
+  public readonly MAP_REGION: typeof mapRegion = mapRegion;               //Used for map region selection
+
+  public readonly MAP_SERIES: typeof mapSeries = mapSeries;               //used for map series selection
+
+  public readonly TRUE_FALSE: typeof trueFlase = trueFlase;               //used for true false selection
+
   public readonly ITEM_TYPES: typeof itemTypes = itemTypes;               //Used for item type selection
 
   public readonly ITEM_RARITIES: typeof itemRarities = itemRarities;      //Used for item rarity selection
