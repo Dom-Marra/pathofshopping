@@ -21,6 +21,7 @@ import { DigitsonlyDirective } from './digitsonly.directive';
 import { ItemComponent } from './shoppinglist/item/item.component';
 import { EqualflexDirective } from './equalflex.directive';
 import { FiltergroupselectComponent } from './shoppinglist/filtergroupselect/filtergroupselect.component';
+import { MinmaxinputComponent } from './shoppinglist/minmaxinput/minmaxinput.component';
 
 
 
@@ -31,7 +32,8 @@ import { FiltergroupselectComponent } from './shoppinglist/filtergroupselect/fil
     DigitsonlyDirective,
     ItemComponent,
     EqualflexDirective,
-    FiltergroupselectComponent
+    FiltergroupselectComponent,
+    MinmaxinputComponent
   ],
   imports: [
     BrowserModule,
