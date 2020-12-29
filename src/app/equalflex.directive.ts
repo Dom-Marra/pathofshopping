@@ -32,12 +32,13 @@ export class EqualflexDirective {
 
     if (totalChildWidth >= lastChildWidth) return;                                  //ignore if the size of the last element is already equal
 
-    multiplier = Math.round(lastChildWidth / totalChildWidth);                      //initiate multiplier
+    multiplier = Math.round(this.container.nativeElement.offsetWidth / totalChildWidth)   //initiate multiplier
+              - (this.children.length % Math.round(this.container.nativeElement.offsetWidth / totalChildWidth));                     
 
-    if (multiplier == this.children.length - 1) multiplier--;                       //Decrement multiplier, this is done because this means that the last child is the only one the current row
-
+    console.log(multiplier);
     lastChild.style.marginRight = parseFloat(getComputedStyle(lastChild).borderRight)     //set padding
                                   + parseFloat(getComputedStyle(lastChild).borderRight)
+                                  + parseFloat(getComputedStyle(lastChild).marginRight)
                                   + (totalChildWidth * multiplier) + 'px';
   }
 
