@@ -35,7 +35,6 @@ export class EqualflexDirective {
     multiplier = Math.round(this.container.nativeElement.offsetWidth / totalChildWidth)   //initiate multiplier
               - (this.children.length % Math.round(this.container.nativeElement.offsetWidth / totalChildWidth));                     
 
-    console.log(multiplier);
     lastChild.style.marginRight = parseFloat(getComputedStyle(lastChild).borderRight)     //set padding
                                   + parseFloat(getComputedStyle(lastChild).borderRight)
                                   + parseFloat(getComputedStyle(lastChild).marginRight)

@@ -14,10 +14,6 @@ export class FiltergroupselectComponent implements OnInit {
 
   public filter: Array<any>;                                //Filtered results
 
-  public readonly originalOrder = (): number => {           //Keeps enums in original order
-    return 0;
-  }
-
   constructor() { }
 
   ngOnInit(): void {
