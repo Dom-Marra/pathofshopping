@@ -281,7 +281,36 @@ export class ItemComponent implements OnInit {
         min: new FormControl(''),
         max: new FormControl('')
       })
-    })
+    }),
+    otherFilters: new FormGroup({
+      quality: new FormGroup({
+        min: new FormControl(''),
+        max: new FormControl('')
+      }),
+      itemLevel: new FormGroup({
+        min: new FormControl(''),
+        max: new FormControl('')
+      }),
+      talismanTier: new FormGroup({
+        min: new FormControl(''),
+        max: new FormControl('')
+      }),
+      storedExperience: new FormGroup({
+        min: new FormControl(''),
+        max: new FormControl('')
+      }),
+      stackSize: new FormGroup({
+        min: new FormControl(''),
+        max: new FormControl('')
+      }),
+      alternateArt: new FormControl(this.TRUE_FALSE.all),
+      identified: new FormControl(this.TRUE_FALSE.all),
+      corrupted: new FormControl(this.TRUE_FALSE.all),
+      mirrored: new FormControl(this.TRUE_FALSE.all),
+      crafted: new FormControl(this.TRUE_FALSE.all),
+      veiled: new FormControl(this.TRUE_FALSE.all),
+      enchanted: new FormControl(this.TRUE_FALSE.all),
+    }),
   });
 
   public socketLinksExtras: Array<minmaxExtras> = [                                                           //links extra input data
