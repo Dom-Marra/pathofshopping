@@ -182,6 +182,20 @@
                 </div>
             </mat-expansion-panel>
 
+            <!-- GEM FILTERS -->
+            <mat-expansion-panel class="sub-item-expansion">
+                <mat-expansion-panel-header>
+                        Gem Filters
+                </mat-expansion-panel-header>
+                <div class="item-contents">
+                    <div appEqualflex id="item-type-fields" class="field-wrapper">
+                        <app-minmaxinput class="min-max-field" inputName="Level" [group]="this.itemForm.get('gemFilters.level')"></app-minmaxinput>
+                        <app-minmaxinput class="min-max-field" inputName="Experience (%)" [group]="this.itemForm.get('gemFilters.experience')"></app-minmaxinput>
+                        <app-filtergroupselect class="group-filter-input" inputName='Quality Type' [control]="itemForm.get('gemFilters.qualityType')" [selectEnum]="GEM_QUALITY_TYPES"></app-filtergroupselect>
+                    </div>
+                </div>
+            </mat-expansion-panel>
+
         </div>
     </mat-expansion-panel>
 </form>
