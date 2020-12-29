@@ -9,7 +9,7 @@ import { AbstractControl } from '@angular/forms';
 export class FiltergroupselectComponent implements OnInit {
 
   @Input() inputName: string;                               //Name of the input
-  @Input() control: any;                                    //Form control of the input
+  @Input() control: AbstractControl;                        //Form control of the input
   @Input() selectEnum: any;                                 //Enum for values
 
   public filter: Array<any>;                                //Filtered results
