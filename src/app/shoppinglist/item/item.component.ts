@@ -17,6 +17,15 @@ enum trueFlase {
   false = 'No'
 }
 
+enum gemQualityTypes {
+  all = 'All',
+  '"0"' = 'Default',
+  'alternate' = 'Only Alternatives',
+  '"1"' = 'Anomalous',
+  '"2"' = 'Divergent',
+  '"3"' = 'Phantasmal',
+}
+
 enum mapSeries {
   all = 'All',
   current = 'Current',
@@ -132,6 +141,8 @@ export class ItemComponent implements OnInit {
 
   public readonly ITEM_RARITIES: typeof itemRarities = itemRarities;      //Used for item rarity selection
 
+  public readonly GEM_QUALITY_TYPES: typeof gemQualityTypes = gemQualityTypes; //Used for gem quality type selection
+
   @ViewChildren("itemNameInput") itemNameInput: QueryList<ElementRef>;    //Item name input element
 
   private editName: boolean = false;                        //Whether name is in edit mode or not
@@ -145,6 +156,7 @@ export class ItemComponent implements OnInit {
   public filteredMapSeries: Array<typeof mapSeries>;
   public filteredMapRegion: Array<typeof mapRegion>;
   public filteredTrueFalse: Array<typeof trueFlase>;
+  public filteredGemQTypes: Array<typeof gemQualityTypes>;
 
   public itemForm = new FormGroup({
     itemName: new FormControl('New Item'),
