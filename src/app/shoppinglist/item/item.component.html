@@ -162,6 +162,63 @@
                     </div>
                 </div>
             </mat-expansion-panel>
+
+            <!-- INFLUENCE & SPECIAL BASES FILTERS -->
+            <mat-expansion-panel class="sub-item-expansion">
+                <mat-expansion-panel-header>
+                        Influences & Special Bases
+                </mat-expansion-panel-header>
+                <div class="item-contents">
+                    <div appEqualflex id="item-type-fields" class="field-wrapper" formGroupName="mapFilters">
+                        <app-filtergroupselect class="group-filter-input" inputName='Shaper Influence' [control]="itemForm.get('influenceFilters.shaper')" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                        <app-filtergroupselect class="group-filter-input" inputName='Elder Influence' [control]="itemForm.get('influenceFilters.elder')" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                        <app-filtergroupselect class="group-filter-input" inputName='Crusader Influence' [control]="itemForm.get('influenceFilters.crusader')" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                        <app-filtergroupselect class="group-filter-input" inputName='Redeemer Influence' [control]="itemForm.get('influenceFilters.redeemer')" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                        <app-filtergroupselect class="group-filter-input" inputName='Hunter Influence' [control]="itemForm.get('influenceFilters.hunter')" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                        <app-filtergroupselect class="group-filter-input" inputName='Warlord Influence' [control]="itemForm.get('influenceFilters.warlord')" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                        <app-filtergroupselect class="group-filter-input" inputName='Fractured' [control]="itemForm.get('influenceFilters.fractured')" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                        <app-filtergroupselect class="group-filter-input" inputName='Synthesised' [control]="itemForm.get('influenceFilters.synthesised')" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                    </div>
+                </div>
+            </mat-expansion-panel>
+
+            <!-- GEM FILTERS -->
+            <mat-expansion-panel class="sub-item-expansion">
+                <mat-expansion-panel-header>
+                        Gem Filters
+                </mat-expansion-panel-header>
+                <div class="item-contents">
+                    <div appEqualflex id="item-type-fields" class="field-wrapper">
+                        <app-minmaxinput class="min-max-field" inputName="Level" [group]="this.itemForm.get('gemFilters.level')"></app-minmaxinput>
+                        <app-minmaxinput class="min-max-field" inputName="Experience (%)" [group]="this.itemForm.get('gemFilters.experience')"></app-minmaxinput>
+                        <app-filtergroupselect class="group-filter-input" inputName='Quality Type' [control]="itemForm.get('gemFilters.qualityType')" [selectEnum]="GEM_QUALITY_TYPES"></app-filtergroupselect>
+                    </div>
+                </div>
+            </mat-expansion-panel>
+
+            <!-- OTHER FILTERS -->
+            <mat-expansion-panel class="sub-item-expansion">
+                <mat-expansion-panel-header>
+                        Other
+                </mat-expansion-panel-header>
+                <div class="item-contents">
+                    <div appEqualflex id="item-type-fields" class="field-wrapper">
+                        <app-minmaxinput class="min-max-field" inputName="Quality" [group]="this.itemForm.get('otherFilters.quality')"></app-minmaxinput>
+                        <app-minmaxinput class="min-max-field" inputName="Item Level" [group]="this.itemForm.get('otherFilters.itemLevel')"></app-minmaxinput>
+                        <app-minmaxinput class="min-max-field" inputName="Talisman Tier" [group]="this.itemForm.get('otherFilters.talismanTier')"></app-minmaxinput>
+                        <app-minmaxinput class="min-max-field" inputName="Stored Experience" [group]="this.itemForm.get('otherFilters.storedExperience')"></app-minmaxinput>
+                        <app-minmaxinput class="min-max-field" inputName="Stack Size" [group]="this.itemForm.get('otherFilters.stackSize')"></app-minmaxinput>
+                        <app-filtergroupselect class="group-filter-input" inputName='Alternate Art' [control]="itemForm.get('otherFilters.alternateArt')" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                        <app-filtergroupselect class="group-filter-input" inputName='Identified' [control]="itemForm.get('otherFilters.identified')" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                        <app-filtergroupselect class="group-filter-input" inputName='Corrupted' [control]="itemForm.get('otherFilters.corrupted')" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                        <app-filtergroupselect class="group-filter-input" inputName='Mirrored' [control]="itemForm.get('otherFilters.mirrored')" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                        <app-filtergroupselect class="group-filter-input" inputName='Crafted' [control]="itemForm.get('otherFilters.crafted')" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                        <app-filtergroupselect class="group-filter-input" inputName='Veiled' [control]="itemForm.get('otherFilters.veiled')" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                        <app-filtergroupselect class="group-filter-input" inputName='Enchanted' [control]="itemForm.get('otherFilters.enchanted')" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                    </div>
+                </div>
+            </mat-expansion-panel>
+
         </div>
     </mat-expansion-panel>
 </form>
