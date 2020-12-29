@@ -253,6 +253,16 @@ export class ItemComponent implements OnInit {
         min: new FormControl(''),
         max: new FormControl('')
       })
+    }),
+    influenceFilters: new FormGroup({
+      shaper: new FormControl(this.TRUE_FALSE.all),
+      elder: new FormControl(this.TRUE_FALSE.all),
+      crusader: new FormControl(this.TRUE_FALSE.all),
+      redeemer: new FormControl(this.TRUE_FALSE.all),
+      hunter: new FormControl(this.TRUE_FALSE.all),
+      warlord: new FormControl(this.TRUE_FALSE.all),
+      fractured: new FormControl(this.TRUE_FALSE.all),
+      synthesised: new FormControl(this.TRUE_FALSE.all)
     })
   });
 
