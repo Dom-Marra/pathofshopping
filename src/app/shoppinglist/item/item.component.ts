@@ -17,6 +17,15 @@ enum trueFlase {
   false = 'No'
 }
 
+enum gemQualityTypes {
+  all = 'All',
+  '"0"' = 'Default',
+  'alternate' = 'Only Alternatives',
+  '"1"' = 'Anomalous',
+  '"2"' = 'Divergent',
+  '"3"' = 'Phantasmal',
+}
+
 enum mapSeries {
   all = 'All',
   current = 'Current',
@@ -132,6 +141,8 @@ export class ItemComponent implements OnInit {
 
   public readonly ITEM_RARITIES: typeof itemRarities = itemRarities;      //Used for item rarity selection
 
+  public readonly GEM_QUALITY_TYPES: typeof gemQualityTypes = gemQualityTypes; //Used for gem quality type selection
+
   @ViewChildren("itemNameInput") itemNameInput: QueryList<ElementRef>;    //Item name input element
 
   private editName: boolean = false;                        //Whether name is in edit mode or not
@@ -140,11 +151,8 @@ export class ItemComponent implements OnInit {
 
   private itemsToSearch: Array<searchItem> = [];            //POE items
   private filteredItems: Observable<Array<searchItem>>;     //Filtered results of the items
-  public filteredTypes: Array<typeof itemTypes>;           //Filtered item types
-  public filteredRarities: Array<typeof itemRarities>;     //Filtered item rarities
-  public filteredMapSeries: Array<typeof mapSeries>;
-  public filteredMapRegion: Array<typeof mapRegion>;
-  public filteredTrueFalse: Array<typeof trueFlase>;
+  public filteredTypes: Array<typeof itemTypes>;            //Filtered item types
+  public filteredRarities: Array<typeof itemRarities>;      //filtered item rarities
 
   public itemForm = new FormGroup({
     itemName: new FormControl('New Item'),
@@ -263,7 +271,47 @@ export class ItemComponent implements OnInit {
       warlord: new FormControl(this.TRUE_FALSE.all),
       fractured: new FormControl(this.TRUE_FALSE.all),
       synthesised: new FormControl(this.TRUE_FALSE.all)
-    })
+    }),
+    gemFilters: new FormGroup({
+      qualityType: new FormControl(this.GEM_QUALITY_TYPES.all),
+      level: new FormGroup({
+        min: new FormControl(''),
+        max: new FormControl('')
+      }),
+      experience: new FormGroup({
+        min: new FormControl(''),
+        max: new FormControl('')
+      })
+    }),
+    otherFilters: new FormGroup({
+      quality: new FormGroup({
+        min: new FormControl(''),
+        max: new FormControl('')
+      }),
+      itemLevel: new FormGroup({
+        min: new FormControl(''),
+        max: new FormControl('')
+      }),
+      talismanTier: new FormGroup({
+        min: new FormControl(''),
+        max: new FormControl('')
+      }),
+      storedExperience: new FormGroup({
+        min: new FormControl(''),
+        max: new FormControl('')
+      }),
+      stackSize: new FormGroup({
+        min: new FormControl(''),
+        max: new FormControl('')
+      }),
+      alternateArt: new FormControl(this.TRUE_FALSE.all),
+      identified: new FormControl(this.TRUE_FALSE.all),
+      corrupted: new FormControl(this.TRUE_FALSE.all),
+      mirrored: new FormControl(this.TRUE_FALSE.all),
+      crafted: new FormControl(this.TRUE_FALSE.all),
+      veiled: new FormControl(this.TRUE_FALSE.all),
+      enchanted: new FormControl(this.TRUE_FALSE.all),
+    }),
   });
 
   public socketLinksExtras: Array<minmaxExtras> = [                                                           //links extra input data
