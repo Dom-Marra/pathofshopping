@@ -3,11 +3,46 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { ItemsearchService, searchItem } from '../../itemsearch.service';
 import {map, startWith} from 'rxjs/operators';
+import { minmaxExtras } from '../minmaxinput/minmaxinput.component';
 
 export const filterSearch = (items: Array<string>, searchText: string): Array<string> => {    //Filters items by search text
   const text = searchText.toLowerCase();
 
   return items.filter(item => item.toLowerCase().indexOf(text) != -1);
+}
+
+enum trueFlase {
+  all = 'All',
+  true = 'Yes',
+  false = 'No'
+}
+
+enum mapSeries {
+  all = 'All',
+  current = 'Current',
+  harvest = 'Harvest',
+  delirium = 'Delirium',
+  metamorph = 'Metamorph',
+  blight = 'Blight',
+  legion = 'Legion',
+  synthesis = 'Synthesis',
+  betrayal = 'Betrayal',
+  worfortheatlas = 'War for The Atlas',
+  atlasofworlds = 'Atlas of Worlds',
+  theawakening = 'The Awakening',
+  legacy = 'Legacy'
+}
+
+enum mapRegion {
+  all = "All",
+  otl = "Haewark Hamlet",
+  itl = "Tirn's End",
+  itr = "Lex Proxima",
+  otr = "Lex Ejoris",
+  obl = "New Vastir",
+  ibl = "Glennach Cairn",
+  ibr = "Valdo's Rest",
+  obr = "Lira Arthain"
 }
 
 enum itemRarities {
@@ -87,9 +122,11 @@ enum itemTypes {
 })
 export class ItemComponent implements OnInit {
 
-  public readonly originalOrder = (): number => {                         //Keeps enums in original order
-    return 0;
-  }
+  public readonly MAP_REGION: typeof mapRegion = mapRegion;               //Used for map region selection
+
+  public readonly MAP_SERIES: typeof mapSeries = mapSeries;               //used for map series selection
+
+  public readonly TRUE_FALSE: typeof trueFlase = trueFlase;               //used for true false selection
 
   public readonly ITEM_TYPES: typeof itemTypes = itemTypes;               //Used for item type selection
 
@@ -105,6 +142,9 @@ export class ItemComponent implements OnInit {
   private filteredItems: Observable<Array<searchItem>>;     //Filtered results of the items
   public filteredTypes: Array<typeof itemTypes>;           //Filtered item types
   public filteredRarities: Array<typeof itemRarities>;     //Filtered item rarities
+  public filteredMapSeries: Array<typeof mapSeries>;
+  public filteredMapRegion: Array<typeof mapRegion>;
+  public filteredTrueFalse: Array<typeof trueFlase>;
 
   public itemForm = new FormGroup({
     itemName: new FormControl('New Item'),
@@ -154,8 +194,81 @@ export class ItemComponent implements OnInit {
         min: new FormControl(''),
         max: new FormControl('')
       })
+    }),
+    socketFilters: new FormGroup({
+      sockets: new FormGroup({
+        red: new FormControl(''),
+        green: new FormControl(''),
+        blue: new FormControl(''),
+        white: new FormControl(''),
+        min: new FormControl(''),
+        max: new FormControl('')
+      }),
+      links: new FormGroup({
+        red: new FormControl(''),
+        green: new FormControl(''),
+        blue: new FormControl(''),
+        white: new FormControl(''),
+        min: new FormControl(''),
+        max: new FormControl('')
+      })
+    }),
+    requirementFilters: new FormGroup({
+      level: new FormGroup({
+        min: new FormControl(''),
+        max: new FormControl('')
+      }),
+      strength: new FormGroup({
+        min: new FormControl(''),
+        max: new FormControl('')
+      }),
+      dexterity: new FormGroup({
+        min: new FormControl(''),
+        max: new FormControl('')
+      }),
+      intelligence: new FormGroup({
+        min: new FormControl(''),
+        max: new FormControl('')
+      })
+    }),
+    mapFilters: new FormGroup({
+      region: new FormControl(this.MAP_REGION.all),
+      series: new FormControl(this.MAP_SERIES.all),
+      shaped: new FormControl(this.TRUE_FALSE.all),
+      elder: new FormControl(this.TRUE_FALSE.all),
+      blighted: new FormControl(this.TRUE_FALSE.all),
+      tier: new FormGroup({
+        min: new FormControl(''),
+        max: new FormControl('')
+      }),
+      packsize: new FormGroup({
+        min: new FormControl(''),
+        max: new FormControl('')
+      }),
+      iiq: new FormGroup({
+        min: new FormControl(''),
+        max: new FormControl('')
+      }),
+      iir: new FormGroup({
+        min: new FormControl(''),
+        max: new FormControl('')
+      })
     })
   });
+
+  public socketLinksExtras: Array<minmaxExtras> = [                                                           //links extra input data
+    {label: 'Red', control: this.itemForm.get('socketFilters.links.red'), inputClass: 'socket-input-r'},
+    {label: 'Green', control: this.itemForm.get('socketFilters.links.green'), inputClass: 'socket-input-g'},
+    {label: 'Blue', control: this.itemForm.get('socketFilters.links.blue'), inputClass: 'socket-input-b'},
+    {label: 'White', control: this.itemForm.get('socketFilters.links.white'), inputClass: 'socket-input-w'}
+  ]
+
+  public socketSocketsExtras: Array<minmaxExtras> = [                                                         //sockets extra input data
+    {label: 'Red', control: this.itemForm.get('socketFilters.sockets.red'), inputClass: 'socket-input-r'},
+    {label: 'Green', control: this.itemForm.get('socketFilters.sockets.green'), inputClass: 'socket-input-g'},
+    {label: 'Blue', control: this.itemForm.get('socketFilters.sockets.blue'), inputClass: 'socket-input-b'},
+    {label: 'White', control: this.itemForm.get('socketFilters.sockets.white'), inputClass: 'socket-input-w'}
+  ]
 
   constructor(private cd: ChangeDetectorRef, private itemSearch: ItemsearchService) { 
     this.itemsToSearch = this.itemSearch.getItems();                            //Init items to search

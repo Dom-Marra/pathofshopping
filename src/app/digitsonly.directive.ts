@@ -19,7 +19,7 @@ export class DigitsonlyDirective {
   onInput() {
     let input = this.el.nativeElement.value;          //Set the inputs value
 
-    if (isNaN(input) && !(input != '' && !this.defaultZero)) {    //If the input is NaN reset it to the previous value
+    if (isNaN(input) && !(input == '' && !this.defaultZero)) {    //If the input is NaN reset it to the previous value
       this.el.nativeElement.value = this.lastInput;
     } 
   }
@@ -31,7 +31,7 @@ export class DigitsonlyDirective {
     if (input == '' && this.defaultZero) {            //If the input is empty set it to 0, and the input var to 0
       this.el.nativeElement.value = 0;
       input = 0;
-    } else {
+    } else if (input == '' && !this.defaultZero) {
       return;
     }
 

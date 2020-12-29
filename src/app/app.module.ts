@@ -20,6 +20,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { DigitsonlyDirective } from './digitsonly.directive';
 import { ItemComponent } from './shoppinglist/item/item.component';
 import { EqualflexDirective } from './equalflex.directive';
+import { FiltergroupselectComponent } from './shoppinglist/filtergroupselect/filtergroupselect.component';
+import { MinmaxinputComponent } from './shoppinglist/minmaxinput/minmaxinput.component';
 
 
 
@@ -29,7 +31,9 @@ import { EqualflexDirective } from './equalflex.directive';
     ShoppinglistComponent,
     DigitsonlyDirective,
     ItemComponent,
-    EqualflexDirective
+    EqualflexDirective,
+    FiltergroupselectComponent,
+    MinmaxinputComponent
   ],
   imports: [
     BrowserModule,

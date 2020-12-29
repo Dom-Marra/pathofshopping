@@ -1,4 +1,4 @@
-@import '../../../styles.scss';
+@import '../../../theme.scss';
 
 .mat-expansion-panel {
     margin: 1.25em 0 !important;
@@ -116,6 +116,7 @@
     }
 
     &.sub-item-expansion {
+        width: 100%;
 
         .mat-expansion-panel-header {
             color: mat-color($pathofshopping-accent, 50);
@@ -159,27 +160,33 @@
                 flex: 4;
             }
 
-            .min-max-field {
-                font-size: 12px;
-                display: flex;
-                flex-wrap: wrap;
-                flex: 1 0 22%;
+            .min-max-field, .group-filter-input {
+                flex: 1 0 400px;
+                max-width: 100%;
                 margin: 0.25em;
-                border-radius: 4px;
-                border: 1px solid mat-color($pathofshopping-primary, 500);
 
-                .min-max-field-label {
-                    padding: 1em;
-                    margin: 0;
-                    width: 100%;
-                    background-color: mat-color($pathofshopping-primary, 500);
-                    color: mat-color($pathofshopping-accent, 50);
+                .socket-input-g {
+                    .mat-form-field-underline, .mat-form-field-ripple {
+                        background-color: rgb(0, 163, 0);
+                    }
                 }
 
-                .mat-form-field {
-                    min-width: 50px;
-                    margin-bottom: -0.75em;
-                    margin-top: 0.25em;
+                .socket-input-r {
+                    .mat-form-field-underline, .mat-form-field-ripple {
+                        background-color: rgb(180, 0, 0);
+                    }
+                }
+
+                .socket-input-b {
+                    .mat-form-field-underline, .mat-form-field-ripple {
+                        background-color: rgb(0, 0, 196);
+                    }
+                }
+
+                .socket-input-w {
+                    .mat-form-field-underline, .mat-form-field-ripple {
+                        background-color: rgb(255, 255, 255);
+                    }
                 }
             }
         }

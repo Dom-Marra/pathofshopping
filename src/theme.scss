@@ -1,0 +1,87 @@
+@import '~@angular/material/theming';
+@include mat-core();
+
+$pathofshopping-primary: (
+    50 : #e8e9ec,
+    100 : #c5c9d0,
+    200 : #9fa5b1,
+    300 : #788192,
+    400 : #5b667a,
+    500 : #3e4b63,
+    600 : #38445b,
+    700 : #303b51,
+    800 : #283347,
+    900 : #1b2335,
+    A100 : #7aa2ff,
+    A200 : #477fff,
+    A400 : #145bff,
+    A700 : #004cf9,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #ffffff,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #ffffff,
+        A400 : #ffffff,
+        A700 : #ffffff,
+    )
+);
+
+$pathofshopping-accent: (
+    50 : #ffffff,
+    100 : #ffffff,
+    200 : #ffffff,
+    300 : #ffffff,
+    400 : #ffffff,
+    500 : #ffffff,
+    600 : #ffffff,
+    700 : #ffffff,
+    800 : #ffffff,
+    900 : #ffffff,
+    A100 : #ffffff,
+    A200 : #ffffff,
+    A400 : #ffffff,
+    A700 : #ffffff,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #000000,
+        500 : #000000,
+        600 : #000000,
+        700 : #000000,
+        800 : #000000,
+        900 : #000000,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+
+$pathofshopping-warn: mat-palette($mat-red);
+
+$pathofshopping-theme: mat-light-theme((
+  color: (
+    primary: $pathofshopping-primary,
+    accent: $pathofshopping-accent,
+    warn: $pathofshopping-warn,
+  )
+));
+
+$pathofshopping-typography: mat-typography-config(
+  $font-family: 'Poppins',
+  $headline: mat-typography-level(45px, normal, 600),
+  $title: mat-typography-level(35px, normal, 400),
+  $subheading-2: mat-typography-level(24px, normal, 400),
+  $body-1: mat-typography-level(18px, normal, 300),
+  $caption: mat-typography-level(16px, normal, 300),
+);

@@ -1,0 +1,23 @@
+<div class="formgroup-select">
+    <p class="formgroup-select-label">{{inputName}}</p>
+    <mat-form-field floatLabel="never">
+        <input #selectInput matInput type="text"  autocomplete="off" 
+                [matAutocomplete]="selectInputAutoComplete" 
+                [placeholder]="control.value"
+                (input)="filter = filterEnums($event.target.value, selectEnum)"
+                [matAutocompletePosition]="'below'"
+                [value]="control.value"
+                (focus)="$event.target.value = ''; filter = filterEnums('', selectEnum)"
+                (blur)="$event.target.value = control.value">
+
+        <mat-icon matSuffix class="icon-dark" [class.rotate]="selectInputAutoComplete.isOpen">arrow_drop_down</mat-icon>
+        <mat-autocomplete #selectInputAutoComplete="matAutocomplete" 
+                        [class]="'autocomplete-panel'" 
+                        autoActiveFirstOption="'true'"
+                        (optionSelected)="control.patchValue($event.option.value); selectInput.blur()">
+            <mat-option *ngFor="let value of filter" [class.mat-selected]="value == control.value" [value]="value">
+                {{value}}
+            </mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
+</div>
