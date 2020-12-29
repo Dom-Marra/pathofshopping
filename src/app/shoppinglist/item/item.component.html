@@ -89,73 +89,13 @@
                         Weapon Filters
                 </mat-expansion-panel-header>
                 <div class="item-contents">
-                    <div appEqualflex id="item-type-fields" class="field-wrapper" formGroupName="weaponFilters">
-                        <div class="min-max-field" formGroupName="damage">
-                            <p class="min-max-field-label">Damage</p>
-                            <mat-form-field>
-                                <mat-label>Min</mat-label>
-                                <input digitsonly [float]="'true'" matInput type="text" autocomplete="off" formControlName="min">
-                            </mat-form-field>
-                            <mat-form-field>
-                                <mat-label>Max</mat-label>
-                                <input digitsonly [float]="'true'" matInput type="text" autocomplete="off" formControlName="max">
-                            </mat-form-field>
-                        </div>
-                        <div class="min-max-field" formGroupName="APS">
-                            <p class="min-max-field-label">Attacks Per Second</p>
-                            <mat-form-field>
-                                <mat-label>Min</mat-label>
-                                <input digitsonly [float]="'true'" matInput type="text" autocomplete="off" formControlName="min">
-                            </mat-form-field>
-                            <mat-form-field>
-                                <mat-label>Max</mat-label>
-                                <input digitsonly [float]="'true'" matInput type="text" autocomplete="off" formControlName="max">
-                            </mat-form-field>
-                        </div>
-                        <div class="min-max-field" formGroupName="criticalStrikeChance">
-                            <p class="min-max-field-label">Critical Strike Chance</p>
-                            <mat-form-field>
-                                <mat-label>Min</mat-label>
-                                <input digitsonly [float]="'true'" matInput type="text" autocomplete="off" formControlName="min">
-                            </mat-form-field>
-                            <mat-form-field>
-                                <mat-label>Max</mat-label>
-                                <input digitsonly [float]="'true'" matInput type="text" autocomplete="off" formControlName="max">
-                            </mat-form-field>
-                        </div>
-                        <div class="min-max-field" formGroupName="totalDPS">
-                            <p class="min-max-field-label">Total DPS</p>
-                            <mat-form-field>
-                                <mat-label>Min</mat-label>
-                                <input digitsonly [float]="'true'" matInput type="text" autocomplete="off" formControlName="min">
-                            </mat-form-field>
-                            <mat-form-field>
-                                <mat-label>Max</mat-label>
-                                <input digitsonly [float]="'true'" matInput type="text" autocomplete="off" formControlName="max">
-                            </mat-form-field>
-                        </div>
-                        <div class="min-max-field" formGroupName="pDPS">
-                            <p class="min-max-field-label">Physcial DPS</p>
-                            <mat-form-field>
-                                <mat-label>Min</mat-label>
-                                <input digitsonly [float]="'true'" matInput type="text" autocomplete="off" formControlName="min">
-                            </mat-form-field>
-                            <mat-form-field>
-                                <mat-label>Max</mat-label>
-                                <input digitsonly [float]="'true'" matInput type="text" autocomplete="off" formControlName="max">
-                            </mat-form-field>
-                        </div>
-                        <div class="min-max-field" formGroupName="eDPS">
-                            <p class="min-max-field-label">Elemental DPS</p>
-                            <mat-form-field>
-                                <mat-label>Min</mat-label>
-                                <input digitsonly [float]="'true'" matInput type="text" autocomplete="off" formControlName="min">
-                            </mat-form-field>
-                            <mat-form-field>
-                                <mat-label>Max</mat-label>
-                                <input digitsonly [float]="'true'" matInput type="text" autocomplete="off" formControlName="max">
-                            </mat-form-field>
-                        </div>
+                    <div appEqualflex id="item-type-fields" class="field-wrapper">
+                        <app-minmaxinput class="min-max-field" inputName="Damage" [group]="this.itemForm.get('weaponFilters.damage')"></app-minmaxinput>
+                        <app-minmaxinput class="min-max-field" inputName="Attacks Per Second" [group]="this.itemForm.get('weaponFilters.APS')"></app-minmaxinput>
+                        <app-minmaxinput class="min-max-field" inputName="Critical Strike Chance" [group]="this.itemForm.get('weaponFilters.criticalStrikeChance')"></app-minmaxinput>
+                        <app-minmaxinput class="min-max-field" inputName="Total DPS" [group]="this.itemForm.get('weaponFilters.totalDPS')"></app-minmaxinput>
+                        <app-minmaxinput class="min-max-field" inputName="Physcial DPS" [group]="this.itemForm.get('weaponFilters.pDPS')"></app-minmaxinput>
+                        <app-minmaxinput class="min-max-field" inputName="Elemental DPS" [group]="this.itemForm.get('weaponFilters.eDPS')"></app-minmaxinput>
                     </div>
                 </div>
             </mat-expansion-panel>
@@ -166,51 +106,11 @@
                         Armour Filters
                 </mat-expansion-panel-header>
                 <div class="item-contents">
-                    <div appEqualflex id="item-type-fields" class="field-wrapper" formGroupName="armourFilters">
-                        <div class="min-max-field" formGroupName="armour">
-                            <p class="min-max-field-label">Armour</p>
-                            <mat-form-field>
-                                <mat-label>Min</mat-label>
-                                <input digitsonly [float]="'true'" matInput type="text" autocomplete="off" formControlName="min">
-                            </mat-form-field>
-                            <mat-form-field>
-                                <mat-label>Max</mat-label>
-                                <input digitsonly [float]="'true'" matInput type="text" autocomplete="off" formControlName="max">
-                            </mat-form-field>
-                        </div>
-                        <div class="min-max-field" formGroupName="energyShield">
-                            <p class="min-max-field-label">Energy Shield</p>
-                            <mat-form-field>
-                                <mat-label>Min</mat-label>
-                                <input digitsonly [float]="'true'" matInput type="text" autocomplete="off" formControlName="min">
-                            </mat-form-field>
-                            <mat-form-field>
-                                <mat-label>Max</mat-label>
-                                <input digitsonly [float]="'true'" matInput type="text" autocomplete="off" formControlName="max">
-                            </mat-form-field>
-                        </div>
-                        <div class="min-max-field" formGroupName="evasion">
-                            <p class="min-max-field-label">Evasion</p>
-                            <mat-form-field>
-                                <mat-label>Min</mat-label>
-                                <input digitsonly [float]="'true'" matInput type="text" autocomplete="off" formControlName="min">
-                            </mat-form-field>
-                            <mat-form-field>
-                                <mat-label>Max</mat-label>
-                                <input digitsonly [float]="'true'" matInput type="text" autocomplete="off" formControlName="max">
-                            </mat-form-field>
-                        </div>
-                        <div class="min-max-field" formGroupName="blockChance">
-                            <p class="min-max-field-label">Block Chance</p>
-                            <mat-form-field>
-                                <mat-label>Min</mat-label>
-                                <input digitsonly [float]="'true'" matInput type="text" autocomplete="off" formControlName="min">
-                            </mat-form-field>
-                            <mat-form-field>
-                                <mat-label>Max</mat-label>
-                                <input digitsonly [float]="'true'" matInput type="text" autocomplete="off" formControlName="max">
-                            </mat-form-field>
-                        </div>
+                    <div appEqualflex id="item-type-fields" class="field-wrapper">
+                        <app-minmaxinput class="min-max-field" inputName="Armour" [group]="this.itemForm.get('armourFilters.armour')"></app-minmaxinput>
+                        <app-minmaxinput class="min-max-field" inputName="Energy Shield" [group]="this.itemForm.get('armourFilters.energyShield')"></app-minmaxinput>
+                        <app-minmaxinput class="min-max-field" inputName="Evasion" [group]="this.itemForm.get('armourFilters.evasion')"></app-minmaxinput>
+                        <app-minmaxinput class="min-max-field" inputName="Block Chance" [group]="this.itemForm.get('armourFilters.blockChance')"></app-minmaxinput>
                     </div>
                 </div>
             </mat-expansion-panel>
@@ -221,69 +121,9 @@
                         Socket Filters
                 </mat-expansion-panel-header>
                 <div class="item-contents">
-                    <div appEqualflex id="item-type-fields" class="field-wrapper" formGroupName="socketFilters">
-                        <div class="min-max-field" formGroupName="sockets">
-                            <p class="min-max-field-label">Sockets</p>
-                            <div class="sub-min-max-fields">
-                                <mat-form-field class="socket-input-r">
-                                    <mat-label>Red</mat-label>
-                                    <input digitsonly matInput type="text" autocomplete="off" formControlName="red">
-                                </mat-form-field>
-                                <mat-form-field class="socket-input-g">
-                                    <mat-label>Green</mat-label>
-                                    <input digitsonly matInput type="text" autocomplete="off" formControlName="green">
-                                </mat-form-field>
-                                <mat-form-field class="socket-input-b">
-                                    <mat-label>Blue</mat-label>
-                                    <input digitsonly matInput type="text" autocomplete="off" formControlName="blue">
-                                </mat-form-field>
-                                <mat-form-field class="socket-input-w">
-                                    <mat-label>White</mat-label>
-                                    <input digitsonly matInput type="text" autocomplete="off" formControlName="white">
-                                </mat-form-field>
-                            </div>
-                            <div class="min-max-fields">
-                                <mat-form-field>
-                                    <mat-label>Min</mat-label>
-                                    <input digitsonly matInput type="text" autocomplete="off" formControlName="min">
-                                </mat-form-field>
-                                <mat-form-field>
-                                    <mat-label>Max</mat-label>
-                                    <input digitsonly matInput type="text" autocomplete="off" formControlName="max">
-                                </mat-form-field>
-                            </div>
-                        </div>
-                        <div class="min-max-field" formGroupName="links">
-                            <p class="min-max-field-label">Links</p>
-                            <div class="sub-min-max-fields">
-                                <mat-form-field class="socket-input-r">
-                                    <mat-label>Red</mat-label>
-                                    <input digitsonly matInput type="text" autocomplete="off" formControlName="red">
-                                </mat-form-field>
-                                <mat-form-field class="socket-input-g">
-                                    <mat-label>Green</mat-label>
-                                    <input digitsonly matInput type="text" autocomplete="off" formControlName="green">
-                                </mat-form-field>
-                                <mat-form-field class="socket-input-b">
-                                    <mat-label>Blue</mat-label>
-                                    <input digitsonly matInput type="text" autocomplete="off" formControlName="blue">
-                                </mat-form-field>
-                                <mat-form-field class="socket-input-w">
-                                    <mat-label>White</mat-label>
-                                    <input digitsonly matInput type="text" autocomplete="off" formControlName="white">
-                                </mat-form-field>
-                            </div>
-                            <div class="min-max-fields">
-                                <mat-form-field>
-                                    <mat-label>Min</mat-label>
-                                    <input digitsonly matInput type="text" autocomplete="off" formControlName="min">
-                                </mat-form-field>
-                                <mat-form-field>
-                                    <mat-label>Max</mat-label>
-                                    <input digitsonly matInput type="text" autocomplete="off" formControlName="max">
-                                </mat-form-field>
-                            </div>
-                        </div>
+                    <div appEqualflex id="item-type-fields" class="field-wrapper">
+                        <app-minmaxinput class="min-max-field" inputName="Sockets" [group]="this.itemForm.get('socketFilters.sockets')" [minmaxExtras]="socketSocketsExtras"></app-minmaxinput>
+                        <app-minmaxinput class="min-max-field" inputName="Links" [group]="this.itemForm.get('socketFilters.links')" [minmaxExtras]="socketLinksExtras"></app-minmaxinput>
                     </div>
                 </div>
             </mat-expansion-panel>
@@ -294,51 +134,11 @@
                         Requirements
                 </mat-expansion-panel-header>
                 <div class="item-contents">
-                    <div appEqualflex id="item-type-fields" class="field-wrapper" formGroupName="requirementFilters">
-                        <div class="min-max-field" formGroupName="level">
-                            <p class="min-max-field-label">Level</p>
-                            <mat-form-field>
-                                <mat-label>Min</mat-label>
-                                <input digitsonly matInput type="text" autocomplete="off" formControlName="min">
-                            </mat-form-field>
-                            <mat-form-field>
-                                <mat-label>Max</mat-label>
-                                <input digitsonly matInput type="text" autocomplete="off" formControlName="max">
-                            </mat-form-field>
-                        </div>
-                        <div class="min-max-field" formGroupName="strength">
-                            <p class="min-max-field-label">Strength</p>
-                            <mat-form-field>
-                                <mat-label>Min</mat-label>
-                                <input digitsonly matInput type="text" autocomplete="off" formControlName="min">
-                            </mat-form-field>
-                            <mat-form-field>
-                                <mat-label>Max</mat-label>
-                                <input digitsonly matInput type="text" autocomplete="off" formControlName="max">
-                            </mat-form-field>
-                        </div>
-                        <div class="min-max-field" formGroupName="intelligence">
-                            <p class="min-max-field-label">Intelligence</p>
-                            <mat-form-field>
-                                <mat-label>Min</mat-label>
-                                <input digitsonly matInput type="text" autocomplete="off" formControlName="min">
-                            </mat-form-field>
-                            <mat-form-field>
-                                <mat-label>Max</mat-label>
-                                <input digitsonly matInput type="text" autocomplete="off" formControlName="max">
-                            </mat-form-field>
-                        </div>
-                        <div class="min-max-field" formGroupName="dexterity">
-                            <p class="min-max-field-label">Dexterity</p>
-                            <mat-form-field>
-                                <mat-label>Min</mat-label>
-                                <input digitsonly matInput type="text" autocomplete="off" formControlName="min">
-                            </mat-form-field>
-                            <mat-form-field>
-                                <mat-label>Max</mat-label>
-                                <input digitsonly matInput type="text" autocomplete="off" formControlName="max">
-                            </mat-form-field>
-                        </div>
+                    <div appEqualflex id="item-type-fields" class="field-wrapper">
+                        <app-minmaxinput class="min-max-field" inputName="Level" [group]="this.itemForm.get('requirementFilters.level')"></app-minmaxinput>
+                        <app-minmaxinput class="min-max-field" inputName="Strength" [group]="this.itemForm.get('requirementFilters.strength')"></app-minmaxinput>
+                        <app-minmaxinput class="min-max-field" inputName="Intelligence" [group]="this.itemForm.get('requirementFilters.intelligence')"></app-minmaxinput>
+                        <app-minmaxinput class="min-max-field" inputName="Dexterity" [group]="this.itemForm.get('requirementFilters.dexterity')"></app-minmaxinput>
                     </div>
                 </div>
             </mat-expansion-panel>
@@ -355,50 +155,10 @@
                         <app-filtergroupselect class="group-filter-input" inputName='Shaped' [control]="itemForm.get('mapFilters.shaped')" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
                         <app-filtergroupselect class="group-filter-input" inputName='Elder' [control]="itemForm.get('mapFilters.elder')" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
                         <app-filtergroupselect class="group-filter-input" inputName='Blighted' [control]="itemForm.get('mapFilters.blighted')" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
-                        <div class="min-max-field" formGroupName="tier">
-                            <p class="min-max-field-label">Tier</p>
-                            <mat-form-field>
-                                <mat-label>Min</mat-label>
-                                <input digitsonly matInput type="text" autocomplete="off" formControlName="min">
-                            </mat-form-field>
-                            <mat-form-field>
-                                <mat-label>Max</mat-label>
-                                <input digitsonly matInput type="text" autocomplete="off" formControlName="max">
-                            </mat-form-field>
-                        </div>
-                        <div class="min-max-field" formGroupName="packsize">
-                            <p class="min-max-field-label">Packsize</p>
-                            <mat-form-field>
-                                <mat-label>Min</mat-label>
-                                <input digitsonly matInput type="text" autocomplete="off" formControlName="min">
-                            </mat-form-field>
-                            <mat-form-field>
-                                <mat-label>Max</mat-label>
-                                <input digitsonly matInput type="text" autocomplete="off" formControlName="max">
-                            </mat-form-field>
-                        </div>
-                        <div class="min-max-field" formGroupName="iiq">
-                            <p class="min-max-field-label">IIQ</p>
-                            <mat-form-field>
-                                <mat-label>Min</mat-label>
-                                <input digitsonly matInput type="text" autocomplete="off" formControlName="min">
-                            </mat-form-field>
-                            <mat-form-field>
-                                <mat-label>Max</mat-label>
-                                <input digitsonly matInput type="text" autocomplete="off" formControlName="max">
-                            </mat-form-field>
-                        </div>
-                        <div class="min-max-field" formGroupName="iir">
-                            <p class="min-max-field-label">IIR</p>
-                            <mat-form-field>
-                                <mat-label>Min</mat-label>
-                                <input digitsonly matInput type="text" autocomplete="off" formControlName="min">
-                            </mat-form-field>
-                            <mat-form-field>
-                                <mat-label>Max</mat-label>
-                                <input digitsonly matInput type="text" autocomplete="off" formControlName="max">
-                            </mat-form-field>
-                        </div>
+                        <app-minmaxinput class="min-max-field" inputName="Tier" [group]="this.itemForm.get('mapFilters.tier')"></app-minmaxinput>
+                        <app-minmaxinput class="min-max-field" inputName="Packsize" [group]="this.itemForm.get('mapFilters.packsize')"></app-minmaxinput>
+                        <app-minmaxinput class="min-max-field" inputName="IIQ" [group]="this.itemForm.get('mapFilters.iiq')"></app-minmaxinput>
+                        <app-minmaxinput class="min-max-field" inputName="IIR" [group]="this.itemForm.get('mapFilters.iir')"></app-minmaxinput>
                     </div>
                 </div>
             </mat-expansion-panel>

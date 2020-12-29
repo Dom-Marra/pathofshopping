@@ -1,0 +1,33 @@
+@import '../../../theme.scss';
+
+.min-max-container {
+    font-size: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    border-radius: 4px;
+    border: 1px solid mat-color($pathofshopping-primary, 500);
+
+    .min-max-label {
+        padding: 1em;
+        margin: 0;
+        width: 100%;
+        background-color: mat-color($pathofshopping-primary, 500);
+        color: mat-color($pathofshopping-accent, 50);
+    }
+
+    .mat-form-field {
+        min-width: 50px;
+        margin-bottom: -0.75em;
+        margin-top: 0.25em;
+
+        .mat-form-field-infix {
+            width: auto !important;
+          }
+    }
+
+    .sub-min-max-fields, .min-max-fields {
+        display: flex;
+        flex: 1 1 50%;
+        max-width: 100%;
+    }
+}

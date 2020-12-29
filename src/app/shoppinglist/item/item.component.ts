@@ -3,6 +3,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { ItemsearchService, searchItem } from '../../itemsearch.service';
 import {map, startWith} from 'rxjs/operators';
+import { minmaxExtras } from '../minmaxinput/minmaxinput.component';
 
 export const filterSearch = (items: Array<string>, searchText: string): Array<string> => {    //Filters items by search text
   const text = searchText.toLowerCase();
@@ -254,6 +255,20 @@ export class ItemComponent implements OnInit {
       })
     })
   });
+
+  public socketLinksExtras: Array<minmaxExtras> = [                                                           //links extra input data
+    {label: 'Red', control: this.itemForm.get('socketFilters.links.red'), inputClass: 'socket-input-r'},
+    {label: 'Green', control: this.itemForm.get('socketFilters.links.green'), inputClass: 'socket-input-g'},
+    {label: 'Blue', control: this.itemForm.get('socketFilters.links.blue'), inputClass: 'socket-input-b'},
+    {label: 'White', control: this.itemForm.get('socketFilters.links.white'), inputClass: 'socket-input-w'}
+  ]
+
+  public socketSocketsExtras: Array<minmaxExtras> = [                                                         //sockets extra input data
+    {label: 'Red', control: this.itemForm.get('socketFilters.sockets.red'), inputClass: 'socket-input-r'},
+    {label: 'Green', control: this.itemForm.get('socketFilters.sockets.green'), inputClass: 'socket-input-g'},
+    {label: 'Blue', control: this.itemForm.get('socketFilters.sockets.blue'), inputClass: 'socket-input-b'},
+    {label: 'White', control: this.itemForm.get('socketFilters.sockets.white'), inputClass: 'socket-input-w'}
+  ]
 
   constructor(private cd: ChangeDetectorRef, private itemSearch: ItemsearchService) { 
     this.itemsToSearch = this.itemSearch.getItems();                            //Init items to search
