@@ -152,11 +152,6 @@ export class ItemComponent implements OnInit {
   private itemsToSearch: Array<searchItem> = [];            //POE items
   private filteredItems: Observable<Array<searchItem>>;     //Filtered results of the items
   public filteredTypes: Array<typeof itemTypes>;           //Filtered item types
-  public filteredRarities: Array<typeof itemRarities>;     //Filtered item rarities
-  public filteredMapSeries: Array<typeof mapSeries>;
-  public filteredMapRegion: Array<typeof mapRegion>;
-  public filteredTrueFalse: Array<typeof trueFlase>;
-  public filteredGemQTypes: Array<typeof gemQualityTypes>;
 
   public itemForm = new FormGroup({
     itemName: new FormControl('New Item'),
@@ -275,6 +270,17 @@ export class ItemComponent implements OnInit {
       warlord: new FormControl(this.TRUE_FALSE.all),
       fractured: new FormControl(this.TRUE_FALSE.all),
       synthesised: new FormControl(this.TRUE_FALSE.all)
+    }),
+    gemFilters: new FormGroup({
+      qualityType: new FormControl(this.GEM_QUALITY_TYPES.all),
+      level: new FormGroup({
+        min: new FormControl(''),
+        max: new FormControl('')
+      }),
+      experience: new FormGroup({
+        min: new FormControl(''),
+        max: new FormControl('')
+      })
     })
   });
 
