@@ -1,17 +1,27 @@
-@import '../../../styles.scss';
+@import '../../../theme.scss';
 
 .formgroup-select {
     font-size: 12px;
     display: flex;
     flex-wrap: wrap;
     border-radius: 4px;
-    border: 1px solid mat-color($pathofshopping-primary, 500);
+    box-shadow: inset 0px 0px 0px 1px mat-color($pathofshopping-primary, 500);
 
     .formgroup-select-label {
+        border-radius: 4px 4px 0 0;
         padding: 1em;
         margin: 0;
         width: 100%;
         background-color: mat-color($pathofshopping-primary, 500);
         color: mat-color($pathofshopping-accent, 50);
+    }
+
+    .mat-form-field {
+        min-width: 50px;
+        margin-bottom: -0.75em;
+        margin-top: 0.25em;
+        padding-left: 0.75em;
+        padding-right: 0.75em;
+        flex: 1;
     }
 }

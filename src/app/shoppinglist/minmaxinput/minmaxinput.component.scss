@@ -5,9 +5,10 @@
     display: flex;
     flex-wrap: wrap;
     border-radius: 4px;
-    border: 1px solid mat-color($pathofshopping-primary, 500);
+    box-shadow: inset 0px 0px 0px 1px mat-color($pathofshopping-primary, 500);
 
     .min-max-label {
+        border-radius: 4px 4px 0 0;
         padding: 1em;
         margin: 0;
         width: 100%;
@@ -19,6 +20,9 @@
         min-width: 50px;
         margin-bottom: -0.75em;
         margin-top: 0.25em;
+        padding-left: 0.75em;
+        padding-right: 0.75em;
+        flex: 1;
 
         .mat-form-field-infix {
             width: auto !important;
