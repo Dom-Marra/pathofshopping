@@ -162,6 +162,26 @@
                     </div>
                 </div>
             </mat-expansion-panel>
+
+            <!-- INFLUENCE & SPECIAL BASES FILTERS -->
+            <mat-expansion-panel class="sub-item-expansion">
+                <mat-expansion-panel-header>
+                        Influences & Special Bases
+                </mat-expansion-panel-header>
+                <div class="item-contents">
+                    <div appEqualflex id="item-type-fields" class="field-wrapper" formGroupName="mapFilters">
+                        <app-filtergroupselect class="group-filter-input" inputName='Shaper Influence' [control]="itemForm.get('influenceFilters.shaper')" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                        <app-filtergroupselect class="group-filter-input" inputName='Elder Influence' [control]="itemForm.get('influenceFilters.elder')" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                        <app-filtergroupselect class="group-filter-input" inputName='Crusader Influence' [control]="itemForm.get('influenceFilters.crusader')" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                        <app-filtergroupselect class="group-filter-input" inputName='Redeemer Influence' [control]="itemForm.get('influenceFilters.redeemer')" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                        <app-filtergroupselect class="group-filter-input" inputName='Hunter Influence' [control]="itemForm.get('influenceFilters.hunter')" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                        <app-filtergroupselect class="group-filter-input" inputName='Warlord Influence' [control]="itemForm.get('influenceFilters.warlord')" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                        <app-filtergroupselect class="group-filter-input" inputName='Fractured' [control]="itemForm.get('influenceFilters.fractured')" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                        <app-filtergroupselect class="group-filter-input" inputName='Synthesised' [control]="itemForm.get('influenceFilters.synthesised')" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                    </div>
+                </div>
+            </mat-expansion-panel>
+
         </div>
     </mat-expansion-panel>
 </form>
