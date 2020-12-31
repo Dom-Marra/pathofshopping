@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, ViewRef } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -22,6 +22,7 @@ import { ItemComponent } from './shoppinglist/item/item.component';
 import { EqualflexDirective } from './equalflex.directive';
 import { FiltergroupselectComponent } from './shoppinglist/filtergroupselect/filtergroupselect.component';
 import { MinmaxinputComponent } from './shoppinglist/minmaxinput/minmaxinput.component';
+import { StatselectComponent } from './shoppinglist/statselect/statselect.component';
 
 
 
@@ -33,7 +34,8 @@ import { MinmaxinputComponent } from './shoppinglist/minmaxinput/minmaxinput.com
     ItemComponent,
     EqualflexDirective,
     FiltergroupselectComponent,
-    MinmaxinputComponent
+    MinmaxinputComponent,
+    StatselectComponent
   ],
   imports: [
     BrowserModule,
