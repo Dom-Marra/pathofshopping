@@ -1,0 +1,41 @@
+<div class="stat-select">
+
+    <div class="stat-selector">
+        <button *ngIf="statSelected" class="remove-stat-button" (click)="deleteStatFilter()" mat-flat-button><mat-icon class="stat-icon">remove</mat-icon></button>
+        <mat-form-field floatLabel="never">
+            <mat-label> Add Stat Filter</mat-label>
+            <input #statInput matInput type="text" autocomplete="off" 
+                [matAutocomplete]="searchableStats" 
+                [placeholder]="statGroup.controls.stat.value.text"
+                (input)="filteredStats = filterStats($event.target.value)"
+                [matAutocompletePosition]="'below'"
+                [value]="statGroup.controls.stat.value.text"
+                (focus)="$event.target.value = ''; filteredStats = filterStats('')"
+                (blur)="$event.target.value = statGroup.controls.stat.value">
+                
+            <mat-icon matSuffix class="icon-dark" [class.rotate]="searchableStats.isOpen">arrow_drop_down</mat-icon>
+            <mat-autocomplete #searchableStats="matAutocomplete" 
+                            [class]="'autocomplete-panel'"
+                            autoActiveFirstOption="'true'"
+                            (optionSelected)="setStat($event.option.value.id); statGroup.controls.stat.patchValue($event.option.value); statInput.blur();">
+                <mat-optgroup *ngFor="let search of filteredStats" [label]="search.category">
+                    <mat-option *ngFor="let item of search.stats | slice:0:25;" [value]="item">
+                        {{item.text}}
+                    </mat-option>
+                </mat-optgroup>
+            </mat-autocomplete>
+        </mat-form-field>
+    </div>
+    
+
+    <div *ngIf="statSelected" class="stat-min-max-fields">
+        <mat-form-field>
+            <mat-label>Min</mat-label>
+            <input digitsonly matInput type="text" autocomplete="off" [formControl]="statGroup.controls.min">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Max</mat-label>
+            <input digitsonly matInput type="text" autocomplete="off" [formControl]="statGroup.controls.max">
+        </mat-form-field>
+    </div>
+<div>
