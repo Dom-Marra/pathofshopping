@@ -1,10 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
 
 @Component({
   selector: 'app-filtergroupselect',
   templateUrl: './filtergroupselect.component.html',
-  styleUrls: ['./filtergroupselect.component.scss']
+  styleUrls: ['./filtergroupselect.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class FiltergroupselectComponent implements OnInit {
 

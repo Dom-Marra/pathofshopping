@@ -9,7 +9,6 @@
     overflow: hidden;
 
     .formgroup-select-label {
-        border-radius: 4px 4px 0 0;
         padding: 1em;
         margin: 0;
         flex: 1;
@@ -27,7 +26,7 @@
         flex: 4;
 
         .mat-form-field-underline, .mat-form-field-ripple {
-            background-color: mat-color($pathofshopping-primary, 900) !important;
+            background-color: mat-color($pathofshopping-primary, 900);
         }
     }
 }
