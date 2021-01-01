@@ -160,6 +160,11 @@
                 flex: 4;
             }
 
+            .stat-field {
+                flex: 1 1 100%; 
+                margin: 0.25em;
+            }
+
             .min-max-field, .group-filter-input {
                 flex: 1 0 400px;
                 max-width: 100%;

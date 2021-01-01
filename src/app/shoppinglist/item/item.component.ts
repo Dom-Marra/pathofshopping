@@ -1,9 +1,12 @@
-import { ChangeDetectorRef, Component, ElementRef, OnInit, QueryList, ViewChildren, ViewEncapsulation, ViewRef } from '@angular/core';
+import { ChangeDetectorRef, Component, ComponentFactoryResolver, ElementRef, OnInit, QueryList, Renderer2, ViewChild, ViewChildren, ViewEncapsulation, ViewRef } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { ItemsearchService, searchItem } from '../../itemsearch.service';
 import {map, startWith} from 'rxjs/operators';
 import { minmaxExtras } from '../minmaxinput/minmaxinput.component';
+import { statCategory } from 'src/app/statsearch.service';
+import { ViewContainerRef } from '@angular/core';
+import { StatselectComponent } from '../statselect/statselect.component'
 
 export const filterSearch = (items: Array<string>, searchText: string): Array<string> => {    //Filters items by search text
   const text = searchText.toLowerCase();
@@ -144,6 +147,8 @@ export class ItemComponent implements OnInit {
   public readonly GEM_QUALITY_TYPES: typeof gemQualityTypes = gemQualityTypes; //Used for gem quality type selection
 
   @ViewChildren("itemNameInput") itemNameInput: QueryList<ElementRef>;    //Item name input element
+
+  @ViewChild('statContainerRef', {read: ViewContainerRef}) statContainerRef: ViewContainerRef;  //stat contianer template ref
 
   private editName: boolean = false;                        //Whether name is in edit mode or not
 
@@ -312,6 +317,8 @@ export class ItemComponent implements OnInit {
       veiled: new FormControl(this.TRUE_FALSE.all),
       enchanted: new FormControl(this.TRUE_FALSE.all),
     }),
+    statFilters: new FormGroup({
+    })
   });
 
   public socketLinksExtras: Array<minmaxExtras> = [                                                           //links extra input data
@@ -328,7 +335,7 @@ export class ItemComponent implements OnInit {
     {label: 'White', control: this.itemForm.get('socketFilters.sockets.white'), inputClass: 'socket-input-w'}
   ]
 
-  constructor(private cd: ChangeDetectorRef, private itemSearch: ItemsearchService) { 
+  constructor(private cd: ChangeDetectorRef, private itemSearch: ItemsearchService, private compResolver: ComponentFactoryResolver, private renderer2: Renderer2) { 
     this.itemsToSearch = this.itemSearch.getItems();                            //Init items to search
 
     this.filteredItems = this.itemForm.controls.itemSearch.valueChanges.pipe(   //filter items when item search changes
@@ -344,10 +351,35 @@ export class ItemComponent implements OnInit {
         this.itemNameInput.first.nativeElement.focus();
         this.cd.detectChanges();
       }
-    })
+    });
+
+    this.addStatSelect();
+    this.cd.detectChanges();
   }
 
   ngOnInit(): void {
+  }
+
+  /**
+   * Adds a new Item Component
+   * 
+   * @param statData 
+   *        Item: data to bind when creating the item
+   */
+  public addStatSelect(statData?: statCategory) {
+    const newStatComp = this.compResolver.resolveComponentFactory(StatselectComponent);
+    
+    const componentRef = this.statContainerRef.createComponent(newStatComp);
+    
+    componentRef.instance.viewRef = componentRef.hostView;
+    componentRef.instance.group = this.itemForm.controls.statFilters as FormGroup;
+    componentRef.instance.newGroupCreated.subscribe(() => {
+      this.addStatSelect();
+    });
+
+    this.renderer2.addClass(componentRef.location.nativeElement, 'stat-field');
+
+    //TODO: Add stat data
   }
 
   /**
