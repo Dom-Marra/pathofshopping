@@ -11,37 +11,40 @@ export class WeaponfiltersComponent implements OnInit {
   @Input() itemForm: FormGroup;                                           //Main item form
 
   public weaponFilters: FormGroup = new FormGroup({
-    damage: new FormGroup({
-      min: new FormControl(''),
-      max: new FormControl('')
-    }),
-    APS: new FormGroup({
-      min: new FormControl(''),
-      max: new FormControl('')
-    }),
-    criticalStrikeChance: new FormGroup({
-      min: new FormControl(''),
-      max: new FormControl('')
-    }),
-    totalDPS: new FormGroup({
-      min: new FormControl(''),
-      max: new FormControl('')
-    }),
-    pDPS: new FormGroup({
-      min: new FormControl(''),
-      max: new FormControl('')
-    }),
-    eDPS: new FormGroup({
-      min: new FormControl(''),
-      max: new FormControl('')
-    }),
+    disabled: new FormControl(true),
+    filters: new FormGroup({
+      damage: new FormGroup({
+        min: new FormControl(''),
+        max: new FormControl('')
+      }),
+      aps: new FormGroup({
+        min: new FormControl(''),
+        max: new FormControl('')
+      }),
+      crit: new FormGroup({
+        min: new FormControl(''),
+        max: new FormControl('')
+      }),
+      dps: new FormGroup({
+        min: new FormControl(''),
+        max: new FormControl('')
+      }),
+      pdps: new FormGroup({
+        min: new FormControl(''),
+        max: new FormControl('')
+      }),
+      edps: new FormGroup({
+        min: new FormControl(''),
+        max: new FormControl('')
+      })
+    })
   });
 
   constructor() { 
   }
 
   ngOnInit(): void {
-    this.itemForm.addControl('weaponFilters', this.weaponFilters);    //Add filters to main form
+    this.itemForm.addControl('weapon_filters', this.weaponFilters);    //Add filters to main form
   }
 
 }
