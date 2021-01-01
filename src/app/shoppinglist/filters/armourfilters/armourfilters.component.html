@@ -1,0 +1,13 @@
+<mat-expansion-panel class="sub-item-expansion">
+    <mat-expansion-panel-header>
+            Armour Filters
+    </mat-expansion-panel-header>
+    <div class="item-contents">
+        <div appEqualflex class="field-wrapper">
+            <app-minmaxinput class="min-max-field" inputName="Armour" [group]="this.armourFilters.get('armour')"></app-minmaxinput>
+            <app-minmaxinput class="min-max-field" inputName="Energy Shield" [group]="this.armourFilters.get('energyShield')"></app-minmaxinput>
+            <app-minmaxinput class="min-max-field" inputName="Evasion" [group]="this.armourFilters.get('evasion')"></app-minmaxinput>
+            <app-minmaxinput class="min-max-field" inputName="Block Chance" [group]="this.armourFilters.get('blockChance')"></app-minmaxinput>
+        </div>
+    </div>
+</mat-expansion-panel>

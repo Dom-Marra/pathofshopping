@@ -1,0 +1,18 @@
+<mat-expansion-panel class="sub-item-expansion">
+    <mat-expansion-panel-header>
+            Map Filters
+    </mat-expansion-panel-header>
+    <div class="item-contents">
+        <div appEqualflex class="field-wrapper">
+            <app-filtergroupselect class="group-filter-input" inputName='Region' [control]="mapFilters.get('region')" [selectEnum]="MAP_REGION"></app-filtergroupselect>
+            <app-filtergroupselect class="group-filter-input" inputName='Series' [control]="mapFilters.get('series')" [selectEnum]="MAP_SERIES"></app-filtergroupselect>
+            <app-filtergroupselect class="group-filter-input" inputName='Shaped' [control]="mapFilters.get('shaped')" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+            <app-filtergroupselect class="group-filter-input" inputName='Elder' [control]="mapFilters.get('elder')" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+            <app-filtergroupselect class="group-filter-input" inputName='Blighted' [control]="mapFilters.get('blighted')" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+            <app-minmaxinput class="min-max-field" inputName="Tier" [group]="this.mapFilters.get('tier')"></app-minmaxinput>
+            <app-minmaxinput class="min-max-field" inputName="Packsize" [group]="this.mapFilters.get('packsize')"></app-minmaxinput>
+            <app-minmaxinput class="min-max-field" inputName="IIQ" [group]="this.mapFilters.get('iiq')"></app-minmaxinput>
+            <app-minmaxinput class="min-max-field" inputName="IIR" [group]="this.mapFilters.get('iir')"></app-minmaxinput>
+        </div>
+    </div>
+</mat-expansion-panel>

@@ -1,0 +1,59 @@
+<div class="type-filters" [formGroup]="typeFilters">
+    <mat-form-field id="search-field">
+        <mat-label>Search Items</mat-label>
+        <input matInput type="text" autocomplete="off" [matAutocomplete]="searchableItems" formControlName="itemSearch">
+        <button mat-button *ngIf="this.typeFilters.value.itemSearch != ''" matSuffix mat-icon-button aria-label="Clear" (click)="this.typeFilters.patchValue({'itemSearch': ''})">
+            <mat-icon class="icon-light">clear</mat-icon>
+        </button>
+
+        <mat-autocomplete #searchableItems="matAutocomplete" [class]="'autocomplete-panel'">
+            <mat-optgroup *ngFor="let search of filteredItems | async" [label]="search.category">
+                <mat-option *ngFor="let item of search.items | slice:0:25;" [value]="item">
+                    {{item}}
+                </mat-option>
+            </mat-optgroup>
+        </mat-autocomplete>
+    </mat-form-field>
+    <mat-form-field id="type-field">
+        <mat-label>Item Type</mat-label>
+        <input #itemTypesInput matInput type="text"  autocomplete="off" 
+                [matAutocomplete]="searchableItemTypes" 
+                [placeholder]="this.typeFilters.value.itemCategory"
+                (input)="filteredTypes = filterEnums($event.target.value, this.ITEM_TYPES)"
+                [matAutocompletePosition]="'below'"
+                [value]="this.typeFilters.value.itemCategory"
+                (focus)="$event.target.value = ''; filteredTypes = filterEnums('', this.ITEM_TYPES)"
+                (blur)="$event.target.value = this.typeFilters.value.itemCategory">
+
+        <mat-icon matSuffix class="icon-dark" [class.rotate]="searchableItemTypes.isOpen">arrow_drop_down</mat-icon>
+        <mat-autocomplete #searchableItemTypes="matAutocomplete" 
+                        [class]="'autocomplete-panel'" 
+                        autoActiveFirstOption="'true'"
+                        (optionSelected)="this.typeFilters.controls.itemCategory.patchValue($event.option.value); itemTypesInput.blur()">
+            <mat-option *ngFor="let type of filteredTypes" [class.mat-selected]="type == this.typeFilters.value.itemCategory" [value]="type">
+                {{type}}
+            </mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
+    <mat-form-field id="rarity-field">
+        <mat-label>Item Rarity</mat-label>
+        <input #itemRaritiesInput matInput type="text"  autocomplete="off" 
+                [matAutocomplete]="searchableItemRarities" 
+                [placeholder]="this.typeFilters.value.itemRarity"
+                (input)="filteredRarities = filterEnums($event.target.value, ITEM_RARITIES)"
+                [matAutocompletePosition]="'below'"
+                [value]="this.typeFilters.value.itemRarity"
+                (focus)="$event.target.value = ''; filteredRarities = filterEnums('', ITEM_RARITIES)"
+                (blur)="$event.target.value = this.typeFilters.value.itemRarity">
+
+        <mat-icon matSuffix class="icon-dark" [class.rotate]="searchableItemRarities.isOpen">arrow_drop_down</mat-icon>
+        <mat-autocomplete #searchableItemRarities="matAutocomplete" 
+                        [class]="'autocomplete-panel'" 
+                        autoActiveFirstOption="'true'"
+                        (optionSelected)="this.typeFilters.controls.itemRarity.patchValue($event.option.value); itemRaritiesInput.blur()">
+            <mat-option *ngFor="let rarity of filteredRarities" [class.mat-selected]="rarity == this.typeFilters.value.itemRarity" [value]="rarity">
+                {{rarity}}
+            </mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
+</div>

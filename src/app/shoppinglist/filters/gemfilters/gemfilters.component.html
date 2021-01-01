@@ -1,0 +1,12 @@
+<mat-expansion-panel class="sub-item-expansion">
+    <mat-expansion-panel-header>
+            Gem Filters
+    </mat-expansion-panel-header>
+    <div class="item-contents">
+        <div appEqualflex class="field-wrapper">
+            <app-minmaxinput class="min-max-field" inputName="Level" [group]="this.gemFilters.get('level')"></app-minmaxinput>
+            <app-minmaxinput class="min-max-field" inputName="Experience (%)" [group]="this.gemFilters.get('experience')"></app-minmaxinput>
+            <app-filtergroupselect class="group-filter-input" inputName='Quality Type' [control]="gemFilters.get('qualityType')" [selectEnum]="GEM_QUALITY_TYPES"></app-filtergroupselect>
+        </div>
+    </div>
+</mat-expansion-panel>
