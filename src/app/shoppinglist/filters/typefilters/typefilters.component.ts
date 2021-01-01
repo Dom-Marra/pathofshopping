@@ -120,7 +120,7 @@ export class TypefiltersComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    (this.itemForm.get('filters') as FormGroup).addControl('type_filters', this.typeFilters.get('cat_rar'));
+    (this.itemForm.get('query.filters') as FormGroup).addControl('type_filters', this.typeFilters.get('cat_rar'));
     this.itemForm.addControl('term', this.typeFilters.controls.term);
   }
 
