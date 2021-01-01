@@ -97,21 +97,27 @@ export class TypefiltersComponent implements OnInit {
   public filteredRarities: Array<typeof itemRarities>;     //filtered item rarities
 
   public typeFilters: FormGroup = new FormGroup({
-    itemSearch: new FormControl(''),
-    itemCategory: new FormControl(this.ITEM_TYPES.all),
-    itemRarity: new FormControl(this.ITEM_RARITIES.all)
-  })
+    term: new FormControl(''),
+    cat_rar: new FormGroup({
+      filters: new FormGroup({
+        category: new FormControl('all'),
+        rarity: new FormControl('all')
+      })
+    })
+  });
 
   constructor(private itemSearch: ItemsearchService) { 
     this.itemsToSearch = this.itemSearch.getItems();                            //Init items to search
 
-    this.filteredItems = this.typeFilters.controls.itemSearch.valueChanges.pipe(   //filter items when item search changes
+    this.filteredItems = this.typeFilters.controls.term.valueChanges.pipe(                   //filter items when item search changes
       startWith(''),
       map(searchText => this.filterGroups(searchText))
     );
   }
 
   ngOnInit(): void {
+    this.itemForm.addControl('type_filters', this.typeFilters.get('cat_rar'));
+    this.itemForm.addControl('term', this.typeFilters.controls.term);
   }
 
   /**
@@ -125,7 +131,7 @@ export class TypefiltersComponent implements OnInit {
   public filterEnums(searchText: string, enumToFilter: any): Array<any> {
     const text = searchText.toLowerCase();
 
-    return Object.values(enumToFilter).filter((enumValue: string) => enumValue.toLowerCase().indexOf(text) != -1);
+    return Object.keys(enumToFilter).filter(key => enumToFilter[key].toLowerCase().indexOf(text.toLocaleLowerCase()) != -1);
   }
 
   /**
