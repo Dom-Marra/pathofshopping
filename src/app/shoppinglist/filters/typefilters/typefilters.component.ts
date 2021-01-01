@@ -100,8 +100,12 @@ export class TypefiltersComponent implements OnInit {
     term: new FormControl(''),
     cat_rar: new FormGroup({
       filters: new FormGroup({
-        category: new FormControl('all'),
-        rarity: new FormControl('all')
+        category: new FormGroup({
+          option: new FormControl('all')
+        }),
+        rarity: new FormGroup({
+          option: new FormControl('all')
+        }),
       })
     })
   });
@@ -116,7 +120,7 @@ export class TypefiltersComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.itemForm.addControl('type_filters', this.typeFilters.get('cat_rar'));
+    (this.itemForm.get('filters') as FormGroup).addControl('type_filters', this.typeFilters.get('cat_rar'));
     this.itemForm.addControl('term', this.typeFilters.controls.term);
   }
 
