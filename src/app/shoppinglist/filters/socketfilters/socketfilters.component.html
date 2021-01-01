@@ -1,11 +1,11 @@
-<mat-expansion-panel class="sub-item-expansion">
+<mat-expansion-panel class="filter-expansion-panel">
     <mat-expansion-panel-header>
             Socket Filters
     </mat-expansion-panel-header>
     <div class="item-contents">
         <div appEqualflex class="field-wrapper">
-            <app-minmaxinput class="min-max-field" inputName="Sockets" [group]="this.socketFilters.get('sockets')" [minmaxExtras]="socketSocketsExtras"></app-minmaxinput>
-            <app-minmaxinput class="min-max-field" inputName="Links" [group]="this.socketFilters.get('links')" [minmaxExtras]="socketLinksExtras"></app-minmaxinput>
+            <app-minmaxinput class="field" inputName="Sockets" [group]="this.socketFilters.get('sockets')" [minmaxExtras]="socketSocketsExtras"></app-minmaxinput>
+            <app-minmaxinput class="field" inputName="Links" [group]="this.socketFilters.get('links')" [minmaxExtras]="socketLinksExtras"></app-minmaxinput>
         </div>
     </div>
 </mat-expansion-panel>

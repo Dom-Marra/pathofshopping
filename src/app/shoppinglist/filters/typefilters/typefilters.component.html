@@ -1,5 +1,5 @@
 <div class="type-filters" [formGroup]="typeFilters">
-    <mat-form-field id="search-field">
+    <mat-form-field class="search-field">
         <mat-label>Search Items</mat-label>
         <input matInput type="text" autocomplete="off" [matAutocomplete]="searchableItems" formControlName="itemSearch">
         <button mat-button *ngIf="this.typeFilters.value.itemSearch != ''" matSuffix mat-icon-button aria-label="Clear" (click)="this.typeFilters.patchValue({'itemSearch': ''})">
@@ -14,7 +14,7 @@
             </mat-optgroup>
         </mat-autocomplete>
     </mat-form-field>
-    <mat-form-field id="type-field">
+    <mat-form-field class="type-field">
         <mat-label>Item Type</mat-label>
         <input #itemTypesInput matInput type="text"  autocomplete="off" 
                 [matAutocomplete]="searchableItemTypes" 
@@ -35,7 +35,7 @@
             </mat-option>
         </mat-autocomplete>
     </mat-form-field>
-    <mat-form-field id="rarity-field">
+    <mat-form-field class="rarity-field">
         <mat-label>Item Rarity</mat-label>
         <input #itemRaritiesInput matInput type="text"  autocomplete="off" 
                 [matAutocomplete]="searchableItemRarities" 

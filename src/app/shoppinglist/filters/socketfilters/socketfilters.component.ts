@@ -1,11 +1,12 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { minmaxExtras } from '../../minmaxinput/minmaxinput.component';
 
 @Component({
   selector: 'app-socketfilters',
   templateUrl: './socketfilters.component.html',
-  styleUrls: ['./socketfilters.component.scss']
+  styleUrls: ['./socketfilters.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class SocketfiltersComponent implements OnInit {
 

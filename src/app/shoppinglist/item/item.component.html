@@ -21,17 +21,17 @@
             </mat-form-field>
         </mat-expansion-panel-header>
 
-        <div class="item-contents">
-            <app-typefilters [itemForm]="this.itemForm"></app-typefilters>
-            <app-weaponfilters [itemForm]="this.itemForm"></app-weaponfilters>
-            <app-armourfilters [itemForm]="this.itemForm"></app-armourfilters>
-            <app-socketfilters [itemForm]="this.itemForm"></app-socketfilters>
-            <app-requirements [itemForm]="this.itemForm"></app-requirements>
-            <app-mapfilters [itemForm]="this.itemForm"></app-mapfilters>
-            <app-specialbases [itemForm]="this.itemForm"></app-specialbases>
-            <app-gemfilters [itemForm]="this.itemForm"></app-gemfilters>
-            <app-otherfilters [itemForm]="this.itemForm"></app-otherfilters>
-            <app-statfilters [itemForm]="this.itemForm"></app-statfilters>
+        <div class="item-contents" appEqualFlex>
+            <app-typefilters class="filter full-width" [itemForm]="this.itemForm"></app-typefilters>
+            <app-weaponfilters class="filter" [itemForm]="this.itemForm"></app-weaponfilters>
+            <app-armourfilters class="filter" [itemForm]="this.itemForm"></app-armourfilters>
+            <app-socketfilters class="filter" [itemForm]="this.itemForm"></app-socketfilters>
+            <app-requirements class="filter" [itemForm]="this.itemForm"></app-requirements>
+            <app-mapfilters class="filter" [itemForm]="this.itemForm"></app-mapfilters>
+            <app-specialbases class="filter" [itemForm]="this.itemForm"></app-specialbases>
+            <app-gemfilters class="filter" [itemForm]="this.itemForm"></app-gemfilters>
+            <app-otherfilters class="filter" [itemForm]="this.itemForm"></app-otherfilters>
+            <app-statfilters class="filter" [itemForm]="this.itemForm"></app-statfilters>
         </div>
     </mat-expansion-panel>
 </form>
