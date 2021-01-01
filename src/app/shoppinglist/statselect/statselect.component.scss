@@ -6,18 +6,16 @@
     flex-wrap: wrap;
     border-radius: 4px;
     overflow: hidden;
-    box-shadow: inset 0px 0px 0px 1px mat-color($pathofshopping-primary, 500);
 
     .stat-selector {
-        height: 40px;
         display: flex;
         flex: 4;
         background-color: mat-color($pathofshopping-primary, 500)!important;
         color: mat-color($pathofshopping-accent, 50);
 
         .remove-stat-button {
-            width: 30px;
-            min-width: 30px;
+            width: 35px;
+            min-width: 35px;
             height: 100%;
             align-self: center;
             padding: 0;
@@ -36,16 +34,14 @@
         
 
         .mat-form-field {
+            padding: 0 0.75em;
             margin-bottom: -0.75em;
+            margin-top: 0.5em;
             min-width: 150px;
             flex: 1;
 
             .mat-form-field-underline, .mat-form-field-ripple {
-                background-color: mat-color($pathofshopping-primary, 700);
-            }
-    
-            .mat-form-field-label {
-                color: mat-color($pathofshopping-accent, 50);
+                background-color: mat-color($pathofshopping-primary, 800);
             }
 
             .mat-form-field-infix {
@@ -57,13 +53,18 @@
     .stat-min-max-fields {
         display: flex;
         flex: 1;
+        background-color: mat-color($pathofshopping-primary, 600);
 
         .mat-form-field {
             min-width: 50px;
             margin-bottom: -0.75em;
-            padding-left: 0.75em;
-            padding-right: 0.75em;
+            margin-top: 0.5em;
+            padding: 0 0.75em;
             flex: 1;
+
+            .mat-form-field-underline, .mat-form-field-ripple {
+                background-color: mat-color($pathofshopping-primary, 900);
+            }
 
             .mat-form-field-infix {
                 width: auto !important;

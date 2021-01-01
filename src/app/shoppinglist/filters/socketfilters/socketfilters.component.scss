@@ -1,0 +1,31 @@
+.field-wrapper.socket-field-wrapper {
+    
+    .field {
+        width: 100% !important;
+        flex: 1 0 100% !important;
+    }
+}
+
+.socket-input-g {
+    .mat-form-field-underline, .mat-form-field-ripple {
+        background-color: rgb(0, 163, 0) !important;
+    }
+}
+
+.socket-input-r {
+    .mat-form-field-underline, .mat-form-field-ripple {
+        background-color: rgb(180, 0, 0) !important;
+    }
+}
+
+.socket-input-b {
+    .mat-form-field-underline, .mat-form-field-ripple {
+        background-color: rgb(0, 0, 196) !important;
+    }
+}
+
+.socket-input-w {
+    .mat-form-field-underline, .mat-form-field-ripple {
+        background-color: rgb(255, 255, 255) !important;
+    }
+}

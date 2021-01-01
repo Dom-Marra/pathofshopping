@@ -1,0 +1,13 @@
+<mat-expansion-panel class="filter-expansion-panel">
+    <mat-expansion-panel-header>
+            Requirements
+    </mat-expansion-panel-header>
+    <div class="item-contents">
+        <div appEqualflex class="field-wrapper">
+            <app-minmaxinput class="field" inputName="Level" [group]="this.requirementFilters.get('level')"></app-minmaxinput>
+            <app-minmaxinput class="field" inputName="Strength" [group]="this.requirementFilters.get('strength')"></app-minmaxinput>
+            <app-minmaxinput class="field" inputName="Intelligence" [group]="this.requirementFilters.get('intelligence')"></app-minmaxinput>
+            <app-minmaxinput class="field" inputName="Dexterity" [group]="this.requirementFilters.get('dexterity')"></app-minmaxinput>
+        </div>
+    </div>
+</mat-expansion-panel>
