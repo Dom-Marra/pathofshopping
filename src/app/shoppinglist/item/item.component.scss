@@ -115,79 +115,18 @@
         }
     }
 
-    &.sub-item-expansion {
-        width: 100%;
-
-        .mat-expansion-panel-header {
-            color: mat-color($pathofshopping-accent, 50);
-            font-weight: 300;
-            border-bottom: 1px solid mat-color($pathofshopping-primary, 500);
-    
-            &.mat-expansion-panel-header.mat-expanded {
-                border-bottom-style: solid;
-            }
-        }
-
-        .mat-content {
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: flex-start;
-            padding: 0 1em;
-        }
-    }
-
     .item-contents {
         display: flex;
         flex-wrap: wrap;
         align-items: flex-start;
         margin-top: 0.75em;
 
-        .field-wrapper {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: flex-start;
-            width: 100%;
-            font-size: 14px;
-    
-            .mat-form-field {
-                padding-left: 0.75em;
-                padding-right: 0.75em;
-                flex: 1;
-            }
+        .filter {
+            margin: auto;
+            width: 98%;
 
-            #search-field {
-                flex: 4;
-            }
-
-            .min-max-field, .group-filter-input {
-                flex: 1 0 400px;
-                max-width: 100%;
-                margin: 0.25em;
-
-                .socket-input-g {
-                    .mat-form-field-underline, .mat-form-field-ripple {
-                        background-color: rgb(0, 163, 0);
-                    }
-                }
-
-                .socket-input-r {
-                    .mat-form-field-underline, .mat-form-field-ripple {
-                        background-color: rgb(180, 0, 0);
-                    }
-                }
-
-                .socket-input-b {
-                    .mat-form-field-underline, .mat-form-field-ripple {
-                        background-color: rgb(0, 0, 196);
-                    }
-                }
-
-                .socket-input-w {
-                    .mat-form-field-underline, .mat-form-field-ripple {
-                        background-color: rgb(255, 255, 255);
-                    }
-                }
+            &.full-width {
+                width: 100%;
             }
         }
     }

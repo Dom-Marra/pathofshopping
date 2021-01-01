@@ -1,0 +1,17 @@
+<mat-expansion-panel class="filter-expansion-panel">
+    <mat-expansion-panel-header>
+            Influences & Special Bases
+    </mat-expansion-panel-header>
+    <div class="item-contents">
+        <div appEqualflex class="field-wrapper">
+            <app-filtergroupselect class="field" inputName='Shaper Influence' [control]="influenceFilters.get('shaper')" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+            <app-filtergroupselect class="field" inputName='Elder Influence' [control]="influenceFilters.get('elder')" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+            <app-filtergroupselect class="field" inputName='Crusader Influence' [control]="influenceFilters.get('crusader')" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+            <app-filtergroupselect class="field" inputName='Redeemer Influence' [control]="influenceFilters.get('redeemer')" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+            <app-filtergroupselect class="field" inputName='Hunter Influence' [control]="influenceFilters.get('hunter')" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+            <app-filtergroupselect class="field" inputName='Warlord Influence' [control]="influenceFilters.get('warlord')" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+            <app-filtergroupselect class="field" inputName='Fractured' [control]="influenceFilters.get('fractured')" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+            <app-filtergroupselect class="field" inputName='Synthesised' [control]="influenceFilters.get('synthesised')" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+        </div>
+    </div>
+</mat-expansion-panel>

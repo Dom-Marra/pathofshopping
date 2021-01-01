@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, ViewRef } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -22,6 +22,17 @@ import { ItemComponent } from './shoppinglist/item/item.component';
 import { EqualflexDirective } from './equalflex.directive';
 import { FiltergroupselectComponent } from './shoppinglist/filtergroupselect/filtergroupselect.component';
 import { MinmaxinputComponent } from './shoppinglist/minmaxinput/minmaxinput.component';
+import { StatselectComponent } from './shoppinglist/statselect/statselect.component';
+import { WeaponfiltersComponent } from './shoppinglist/filters/weaponfilters/weaponfilters.component';
+import { ArmourfiltersComponent } from './shoppinglist/filters/armourfilters/armourfilters.component';
+import { SocketfiltersComponent } from './shoppinglist/filters/socketfilters/socketfilters.component';
+import { RequirementsComponent } from './shoppinglist/filters/requirements/requirements.component';
+import { MapfiltersComponent } from './shoppinglist/filters/mapfilters/mapfilters.component';
+import { SpecialbasesComponent } from './shoppinglist/filters/specialbases/specialbases.component';
+import { GemfiltersComponent } from './shoppinglist/filters/gemfilters/gemfilters.component';
+import { OtherfiltersComponent } from './shoppinglist/filters/otherfilters/otherfilters.component';
+import { StatfiltersComponent } from './shoppinglist/filters/statfilters/statfilters.component';
+import { TypefiltersComponent } from './shoppinglist/filters/typefilters/typefilters.component';
 
 
 
@@ -33,7 +44,18 @@ import { MinmaxinputComponent } from './shoppinglist/minmaxinput/minmaxinput.com
     ItemComponent,
     EqualflexDirective,
     FiltergroupselectComponent,
-    MinmaxinputComponent
+    MinmaxinputComponent,
+    StatselectComponent,
+    WeaponfiltersComponent,
+    ArmourfiltersComponent,
+    SocketfiltersComponent,
+    RequirementsComponent,
+    MapfiltersComponent,
+    SpecialbasesComponent,
+    GemfiltersComponent,
+    OtherfiltersComponent,
+    StatfiltersComponent,
+    TypefiltersComponent
   ],
   imports: [
     BrowserModule,

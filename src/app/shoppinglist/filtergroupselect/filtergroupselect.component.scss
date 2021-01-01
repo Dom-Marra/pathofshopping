@@ -5,23 +5,28 @@
     display: flex;
     flex-wrap: wrap;
     border-radius: 4px;
-    box-shadow: inset 0px 0px 0px 1px mat-color($pathofshopping-primary, 500);
+    background-color: mat-color($pathofshopping-primary, 600);
+    overflow: hidden;
 
     .formgroup-select-label {
-        border-radius: 4px 4px 0 0;
         padding: 1em;
         margin: 0;
-        width: 100%;
+        flex: 1;
+        min-width: 150px;
         background-color: mat-color($pathofshopping-primary, 500);
         color: mat-color($pathofshopping-accent, 50);
     }
 
     .mat-form-field {
-        min-width: 50px;
+        min-width: 150px;
         margin-bottom: -0.75em;
-        margin-top: 0.25em;
+        margin-top: 0.5em;
         padding-left: 0.75em;
         padding-right: 0.75em;
-        flex: 1;
+        flex: 4;
+
+        .mat-form-field-underline, .mat-form-field-ripple {
+            background-color: mat-color($pathofshopping-primary, 900);
+        }
     }
 }

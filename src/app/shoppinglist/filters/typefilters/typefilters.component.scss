@@ -1,0 +1,17 @@
+.type-filters {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+
+    .search-field, .type-field, .rarity-field {
+        margin: 00.25em;
+    }
+
+    .search-field {
+        flex: 4;
+    }
+
+    .type-field, .rarity-field {
+        flex: 1;
+    }
+}
