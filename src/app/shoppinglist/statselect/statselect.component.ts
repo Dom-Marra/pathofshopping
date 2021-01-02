@@ -21,18 +21,20 @@ export class StatselectComponent implements OnInit {
   @Input() array: FormArray;                                            //Group to add stats to
   
   public filteredStats: Array<statCategory>;                            //Filtered Stats
-
+  public filteredStatOptions: statCategory['stats'][0]['option'];       //Filtered Stat Options
   public statSelected: boolean = false;                                 //Whether a stat has been selected or not
 
   public viewRef: ViewRef;                                              //Ref of this component
 
-  public selectedStat: any = null;                             //the selected stat
+  public selectedStat: statCategory['stats'][0] = null;                 //the selected stat
+  public selectedStatOption: statCategory['stats'][0]['option'][0];     //the selected option
 
   public statGroup: FormGroup = new FormGroup({                         //holds stat data
     id: new FormControl(),
     value: new FormGroup({
       min: new FormControl(),
-      max: new FormControl()
+      max: new FormControl(),
+      option: new FormControl()
     })
   })
 
@@ -63,14 +65,35 @@ export class StatselectComponent implements OnInit {
   }
 
   /**
-   * Adds the stat form group to the stats filter array
+   * Filters stat options based on input
+   * 
+   * @param searchText 
+   *        string: text to filter by
+   */
+  public filterStatOptions(searchText: string) {
+    let statOptions = this.selectedStat.option.filter(stat => {
+      return stat.text.toLowerCase().indexOf(searchText.toLowerCase()) != -1;
+    });
+
+    return statOptions;
+  }
+
+  /**
+   * Pushes the new stat to the array if it is newly initiated, and resets other form values
    */
   public setStat() {
-    if (!this.statSelected) {             //No previous stat was selected
-      this.statSelected = true;           //Set stat selected to true
-      this.array.push(this.statGroup);    //Add stat group to main item form
-      this.newGroupCreated.emit(null);    //emmite event for group addition
-    } 
+    if (!this.statSelected) {                         //No previous stat was selected
+      this.statSelected = true;                       //Set stat selected to true
+      this.array.push(this.statGroup);                //Add stat group to main item form
+      this.newGroupCreated.emit(null);                //emmite event for group addition
+    } else if (this.selectedStat.option == null) {
+      this.statGroup.get('value.option').patchValue('');    //Reset value option field and selected stat option when a minmax option is selected
+      this.selectedStatOption = null;
+    } else {                                                //reset all value fields when a stat is selected that has options
+      this.statGroup.get('value.option').patchValue('');
+      this.statGroup.get('value.min').patchValue('');
+      this.statGroup.get('value.max').patchValue('');
+    }
   }
 
   /**
