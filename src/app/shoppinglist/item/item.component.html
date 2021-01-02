@@ -23,15 +23,17 @@
 
         <div class="item-contents" appEqualFlex>
             <app-typefilters class="filter full-width" [itemForm]="this.itemForm"></app-typefilters>
-            <app-weaponfilters class="filter" [itemForm]="this.itemForm"></app-weaponfilters>
-            <app-armourfilters class="filter" [itemForm]="this.itemForm"></app-armourfilters>
-            <app-socketfilters class="filter" [itemForm]="this.itemForm"></app-socketfilters>
-            <app-requirements class="filter" [itemForm]="this.itemForm"></app-requirements>
-            <app-mapfilters class="filter" [itemForm]="this.itemForm"></app-mapfilters>
-            <app-specialbases class="filter" [itemForm]="this.itemForm"></app-specialbases>
-            <app-gemfilters class="filter" [itemForm]="this.itemForm"></app-gemfilters>
-            <app-otherfilters class="filter" [itemForm]="this.itemForm"></app-otherfilters>
-            <app-statfilters class="filter" [itemForm]="this.itemForm"></app-statfilters>
+            <app-weaponfilters class="filter" [itemForm]="this.itemForm.get('query.filters')"></app-weaponfilters>
+            <app-armourfilters class="filter" [itemForm]="this.itemForm.get('query.filters')"></app-armourfilters>
+            <app-socketfilters class="filter" [itemForm]="this.itemForm.get('query.filters')"></app-socketfilters>
+            <app-requirements class="filter" [itemForm]="this.itemForm.get('query.filters')"></app-requirements>
+            <app-mapfilters class="filter" [itemForm]="this.itemForm.get('query.filters')"></app-mapfilters>
+            <app-specialbases class="filter" [itemForm]="this.misc_filters.get('filters')"></app-specialbases>
+            <app-gemfilters class="filter" [itemForm]="this.misc_filters.get('filters')"></app-gemfilters>
+            <app-otherfilters class="filter" [itemForm]="this.misc_filters.get('filters')"></app-otherfilters>
+            <app-statfilters class="filter" [itemForm]="this.itemForm.get('query.stats')"></app-statfilters>
+
+            <button type="button" (click)="fetchItems()">Build</button>
         </div>
     </mat-expansion-panel>
 </form>
