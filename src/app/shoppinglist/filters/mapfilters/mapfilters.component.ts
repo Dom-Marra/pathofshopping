@@ -44,26 +44,39 @@ export class MapfiltersComponent implements OnInit {
   @Input() itemForm: FormGroup;                                           //Main item form
 
   public mapFilters: FormGroup = new FormGroup({
-    region: new FormControl(this.MAP_REGION.all),
-    series: new FormControl(this.MAP_SERIES.all),
-    shaped: new FormControl(this.TRUE_FALSE.all),
-    elder: new FormControl(this.TRUE_FALSE.all),
-    blighted: new FormControl(this.TRUE_FALSE.all),
-    tier: new FormGroup({
-      min: new FormControl(''),
-      max: new FormControl('')
-    }),
-    packsize: new FormGroup({
-      min: new FormControl(''),
-      max: new FormControl('')
-    }),
-    iiq: new FormGroup({
-      min: new FormControl(''),
-      max: new FormControl('')
-    }),
-    iir: new FormGroup({
-      min: new FormControl(''),
-      max: new FormControl('')
+    disabled: new FormControl(false),
+    filters: new FormGroup({
+      map_region: new FormGroup(
+        {option: new FormControl('all')}
+      ),
+      map_series: new FormGroup(
+        {option: new FormControl('all')}
+      ),
+      map_shaped: new FormGroup(
+        {option: new FormControl('all')}
+      ),
+      map_elder: new FormGroup(
+        {option: new FormControl('all')}
+      ),
+      map_blighted: new FormGroup(
+        {option: new FormControl('all')}
+      ),
+      map_tier: new FormGroup({
+        min: new FormControl(''),
+        max: new FormControl('')
+      }),
+      map_packsize: new FormGroup({
+        min: new FormControl(''),
+        max: new FormControl('')
+      }),
+      map_iiq: new FormGroup({
+        min: new FormControl(''),
+        max: new FormControl('')
+      }),
+      map_iir: new FormGroup({
+        min: new FormControl(''),
+        max: new FormControl('')
+      })
     })
   })
 
@@ -71,7 +84,7 @@ export class MapfiltersComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.itemForm.addControl('mapFilters', this.mapFilters);
+    this.itemForm.addControl('map_filters', this.mapFilters);
   }
 
 }

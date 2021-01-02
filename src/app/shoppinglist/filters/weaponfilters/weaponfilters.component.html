@@ -4,12 +4,12 @@
     </mat-expansion-panel-header>
     <div class="item-contents">
         <div appEqualflex class="field-wrapper">
-            <app-minmaxinput class="field" inputName="Damage" [group]="this.weaponFilters.get('damage')"></app-minmaxinput>
-            <app-minmaxinput class="field" inputName="Attacks Per Second" [group]="this.weaponFilters.get('APS')"></app-minmaxinput>
-            <app-minmaxinput class="field" inputName="Critical Strike Chance" [group]="this.weaponFilters.get('criticalStrikeChance')"></app-minmaxinput>
-            <app-minmaxinput class="field" inputName="Total DPS" [group]="this.weaponFilters.get('totalDPS')"></app-minmaxinput>
-            <app-minmaxinput class="field" inputName="Physcial DPS" [group]="this.weaponFilters.get('pDPS')"></app-minmaxinput>
-            <app-minmaxinput class="field" inputName="Elemental DPS" [group]="this.weaponFilters.get('eDPS')"></app-minmaxinput>
+            <app-minmaxinput class="field" inputName="Damage" [group]="this.weaponFilters.get('filters.damage')"></app-minmaxinput>
+            <app-minmaxinput class="field" inputName="Attacks Per Second" [group]="this.weaponFilters.get('filters.aps')"></app-minmaxinput>
+            <app-minmaxinput class="field" inputName="Critical Strike Chance" [group]="this.weaponFilters.get('filters.crit')"></app-minmaxinput>
+            <app-minmaxinput class="field" inputName="Total DPS" [group]="this.weaponFilters.get('filters.dps')"></app-minmaxinput>
+            <app-minmaxinput class="field" inputName="Physcial DPS" [group]="this.weaponFilters.get('filters.pdps')"></app-minmaxinput>
+            <app-minmaxinput class="field" inputName="Elemental DPS" [group]="this.weaponFilters.get('filters.edps')"></app-minmaxinput>
         </div>
     </div>
 </mat-expansion-panel>

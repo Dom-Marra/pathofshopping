@@ -14,21 +14,39 @@ export class SpecialbasesComponent implements OnInit {
   @Input() itemForm: FormGroup;                                           //Main item form
   
   public influenceFilters: FormGroup = new FormGroup({                    //influence filters             
-    shaper: new FormControl(this.TRUE_FALSE.all),
-    elder: new FormControl(this.TRUE_FALSE.all),
-    crusader: new FormControl(this.TRUE_FALSE.all),
-    redeemer: new FormControl(this.TRUE_FALSE.all),
-    hunter: new FormControl(this.TRUE_FALSE.all),
-    warlord: new FormControl(this.TRUE_FALSE.all),
-    fractured: new FormControl(this.TRUE_FALSE.all),
-    synthesised: new FormControl(this.TRUE_FALSE.all)
+    shaper_item: new FormGroup({
+      option: new FormControl('all')
+    }),
+    elder_item: new FormGroup({
+      option: new FormControl('all')
+    }),
+    crusader_item: new FormGroup({
+      option: new FormControl('all')
+    }),
+    redeemer_item: new FormGroup({
+      option: new FormControl('all')
+    }),
+    hunter_item: new FormGroup({
+      option: new FormControl('all')
+    }),
+    warlord_item: new FormGroup({
+      option: new FormControl('all')
+    }),
+    fractured_item: new FormGroup({
+      option: new FormControl('all')
+    }),
+    synthesised_item: new FormGroup({
+      option: new FormControl('all')
+    })
   })
 
   constructor() {
   }  
 
   ngOnInit(): void {
-    this.itemForm.addControl('influenceFilters', this.influenceFilters);    //Add filters to main form
+    Object.keys(this.influenceFilters.controls).forEach(key => {      //add controls to misc filters
+      this.itemForm.addControl(key, this.influenceFilters.get(key));
+    });
   }
 
 }

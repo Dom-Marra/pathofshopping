@@ -22,12 +22,14 @@ export class GemfiltersComponent implements OnInit {
   @Input() itemForm: FormGroup;                                                 //Main item form
 
   public gemFilters: FormGroup = new FormGroup({
-    qualityType: new FormControl(this.GEM_QUALITY_TYPES.all),
-    level: new FormGroup({
+    gem_alternate_quality: new FormGroup({
+      option: new FormControl('all')
+    }),
+    gem_level: new FormGroup({
       min: new FormControl(''),
       max: new FormControl('')
     }),
-    experience: new FormGroup({
+    gem_level_progress: new FormGroup({
       min: new FormControl(''),
       max: new FormControl('')
     })
@@ -37,7 +39,9 @@ export class GemfiltersComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.itemForm.addControl('gemFilters', this.gemFilters);                    //add gem filter to main item form
+    Object.keys(this.gemFilters.controls).forEach(key => {        //add controls to misc filters
+      this.itemForm.addControl(key, this.gemFilters.get(key));
+    });
   }
 
 }
