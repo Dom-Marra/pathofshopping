@@ -15,8 +15,7 @@ export class StatfiltersComponent implements OnInit {
 
   public statFilters = new FormGroup({
     type: new FormControl('and'),
-    filters: new FormArray([]),
-    disabled: new FormControl(true)
+    filters: new FormArray([])
   })
 
   constructor(private cd: ChangeDetectorRef, private compResolver: ComponentFactoryResolver, private renderer2: Renderer2) {
