@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, ComponentFactoryResolver, Input, OnInit, Renderer2, ViewChild, ViewContainerRef } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { statCategory } from 'src/app/statsearch.service';
 import { StatselectComponent } from '../../statselect/statselect.component';
 
@@ -11,16 +11,19 @@ import { StatselectComponent } from '../../statselect/statselect.component';
 export class StatfiltersComponent implements OnInit {
 
   @ViewChild('statContainerRef', {read: ViewContainerRef}) statContainerRef: ViewContainerRef;  //stat contianer template ref
-  @Input() itemForm: FormGroup;                                                                 //Main item form
+  @Input() itemForm: FormArray;                                                                 //Main item form
 
-  public statFilters: FormGroup = new FormGroup({
+  public statFilters = new FormGroup({
+    type: new FormControl('and'),
+    filters: new FormArray([]),
+    disabled: new FormControl(true)
   })
 
   constructor(private cd: ChangeDetectorRef, private compResolver: ComponentFactoryResolver, private renderer2: Renderer2) {
   }
 
   ngOnInit(): void { 
-    this.itemForm.addControl('statFilters', this.statFilters);
+    this.itemForm.push(this.statFilters);
   }
 
   ngAfterViewInit(): void {
@@ -40,7 +43,7 @@ export class StatfiltersComponent implements OnInit {
     const componentRef = this.statContainerRef.createComponent(newStatComp);
     
     componentRef.instance.viewRef = componentRef.hostView;
-    componentRef.instance.group = this.itemForm.controls.statFilters as FormGroup;
+    componentRef.instance.array = this.statFilters.get('filters') as FormArray;
     componentRef.instance.newGroupCreated.subscribe(() => {
       this.addStatSelect();
     });
