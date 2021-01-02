@@ -47,19 +47,19 @@ export class MapfiltersComponent implements OnInit {
     disabled: new FormControl(true),
     filters: new FormGroup({
       map_region: new FormGroup(
-        {option: new FormControl(this.MAP_SERIES.all)}
+        {option: new FormControl('all')}
       ),
       map_series: new FormGroup(
-        {option: new FormControl(this.MAP_SERIES.all)}
+        {option: new FormControl('all')}
       ),
       map_shaped: new FormGroup(
-        {option: new FormControl(this.TRUE_FALSE.all)}
+        {option: new FormControl('all')}
       ),
       map_elder: new FormGroup(
-        {option: new FormControl(this.TRUE_FALSE.all)}
+        {option: new FormControl('all')}
       ),
       map_blighted: new FormGroup(
-        {option: new FormControl(this.TRUE_FALSE.all)}
+        {option: new FormControl('all')}
       ),
       map_tier: new FormGroup({
         min: new FormControl(''),

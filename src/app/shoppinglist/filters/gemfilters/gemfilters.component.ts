@@ -23,7 +23,7 @@ export class GemfiltersComponent implements OnInit {
 
   public gemFilters: FormGroup = new FormGroup({
     gem_alternate_quality: new FormGroup({
-      option: new FormControl(this.GEM_QUALITY_TYPES.all)
+      option: new FormControl('all')
     }),
     gem_level: new FormGroup({
       min: new FormControl(''),

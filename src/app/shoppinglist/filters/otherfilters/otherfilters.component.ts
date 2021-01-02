@@ -35,25 +35,25 @@ export class OtherfiltersComponent implements OnInit {
       max: new FormControl('')
     }),
     alternate_art: new FormGroup({ 
-      option: new FormControl(this.TRUE_FALSE.all)
+      option: new FormControl('all')
     }),
     identified: new FormGroup({ 
-      option: new FormControl(this.TRUE_FALSE.all)
+      option: new FormControl('all')
     }),
     corrupted: new FormGroup({ 
-      option: new FormControl(this.TRUE_FALSE.all)
+      option: new FormControl('all')
     }),
     mirrored: new FormGroup({ 
-      option: new FormControl(this.TRUE_FALSE.all)
+      option: new FormControl('all')
     }),
     crafted: new FormGroup({ 
-      option: new FormControl(this.TRUE_FALSE.all)
+      option: new FormControl('all')
     }),
     veiled: new FormGroup({ 
-      option: new FormControl(this.TRUE_FALSE.all)
+      option: new FormControl('all')
     }),
     enchanted: new FormGroup({ 
-      option: new FormControl(this.TRUE_FALSE.all)
+      option: new FormControl('all')
     }),
   })
 
