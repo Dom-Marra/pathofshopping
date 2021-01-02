@@ -44,7 +44,7 @@ export class MapfiltersComponent implements OnInit {
   @Input() itemForm: FormGroup;                                           //Main item form
 
   public mapFilters: FormGroup = new FormGroup({
-    disabled: new FormControl(true),
+    disabled: new FormControl(false),
     filters: new FormGroup({
       map_region: new FormGroup(
         {option: new FormControl('all')}

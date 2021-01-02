@@ -11,7 +11,7 @@ export class WeaponfiltersComponent implements OnInit {
   @Input() itemForm: FormGroup;                                           //Main item form
 
   public weaponFilters: FormGroup = new FormGroup({
-    disabled: new FormControl(true),
+    disabled: new FormControl(false),
     filters: new FormGroup({
       damage: new FormGroup({
         min: new FormControl(''),

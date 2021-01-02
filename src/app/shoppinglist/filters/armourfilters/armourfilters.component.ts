@@ -11,7 +11,7 @@ export class ArmourfiltersComponent implements OnInit {
   @Input() itemForm: FormGroup;                             //Item Form
 
   public armourFilters: FormGroup = new FormGroup({         //Armor Filters
-    disabled: new FormControl(true),
+    disabled: new FormControl(false),
     filters: new FormGroup({
       ar: new FormGroup({
         min: new FormControl(''),

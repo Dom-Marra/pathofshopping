@@ -11,7 +11,7 @@ export class RequirementsComponent implements OnInit {
   @Input() itemForm: FormGroup;                                           //Main item form
   
   public requirementFilters: FormGroup = new FormGroup({                  //Requirement filters
-    disabled: new FormControl(true),
+    disabled: new FormControl(false),
     filters: new FormGroup({
       lvl: new FormGroup({
         min: new FormControl(''),

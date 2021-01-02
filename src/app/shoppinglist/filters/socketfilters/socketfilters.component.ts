@@ -13,7 +13,7 @@ export class SocketfiltersComponent implements OnInit {
   @Input() itemForm: FormGroup;                                           //Main item form
 
   public socketFilters: FormGroup = new FormGroup({                       //Socket filters
-    disabled: new FormControl(true),
+    disabled: new FormControl(false),
     filters: new FormGroup({
       sockets: new FormGroup({
         r: new FormControl(''),
