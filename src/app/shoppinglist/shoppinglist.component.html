@@ -5,23 +5,23 @@
     <div id="shoppinglist-settings-bar">
         <mat-form-field>
             <mat-label>League</mat-label>
-            <mat-select (selectionChange)="setLeague($event.value)" [value]="getLeague()" panelClass="topbar-select">
-                <mat-option *ngFor="let league of LEAGUES | keyvalue" [value]="league.value" >{{league.value}}</mat-option>
+            <mat-select panelClass="topbar-select" [formControl]="this.shoppingList.controls.league" disableOptionCentering="true">
+                <mat-option *ngFor="let league of LEAGUES | keyvalue" [value]="league.key" >{{league.value}}</mat-option>
             </mat-select>
         </mat-form-field>
         <mat-form-field>
             <mat-label>Budget</mat-label>
-            <input matInput digitsonly float='true' defaultZero='true' [value]="getBudget()" type="text" (change)="setBudget($event.target.value)">
+            <input matInput digitsonly float='true' defaultZero='true' type="text" [formControl]="this.shoppingList.controls.budget">
         </mat-form-field>
         <mat-form-field id="currency-type-form-field">
             <mat-label>Currency</mat-label>
-            <mat-select [value]="getBudgetCurrencyType()" (selectionChange)="setBudgetCurrencyType($event.value)" panelClass="topbar-select">
-                <mat-option *ngFor="let types of CURRENCY_TYPES | keyvalue" [value]="types.value">{{types.value}}</mat-option>
+            <mat-select [formControl]="this.shoppingList.controls.currency" panelClass="topbar-select" disableOptionCentering="true">
+                <mat-option *ngFor="let types of CURRENCY_TYPES | keyvalue" [value]="types.key">{{types.value}}</mat-option>
             </mat-select>
         </mat-form-field>
         <div id="est-cost-container">
-            <h4>Estimated Cost: {{ getEstCost() }}</h4>
-            <img [src]="getBudgetCurrencyType() == CURRENCY_TYPES.chaos ? 'assets/chaosOrb.png' : 'assets/exaltedOrb.png'" />
+            <h4>Estimated Cost: {{ estCost }}</h4>
+            <img [src]="this.shoppingList.value.currency == 'chaos' ? 'assets/chaosOrb.png' : 'assets/exaltedOrb.png'" />
         </div>
         <div id="save-import-options">
             <button type="button" mat-flat-button><mat-icon class="icon-light">save</mat-icon> Save</button>
@@ -30,9 +30,15 @@
     </div>
     <div id="shoppinglist-contents-container">
         <div id="shoppinglist-contents-top-bar">
-            <mat-form-field>
-                <input matInput [value]="getShoppingListName()" type="text" (change)="setShoppingListName($event.target.value)" autocomplete="off">
+            <mat-form-field *ngIf="editShoppingListName" floatLabel="never">
+                <input #shoppingListNameInput matInput [formControl]="this.shoppingList.controls.name"
+                       type="text" autocomplete="off" placeholder="Your Shopping List Name"
+                       (blur)="editShoppingListName = false" (keydown.enter)="shoppingListNameInput.blur()">
             </mat-form-field>
+            <div id="shoppinglist-name-output-wrapper" *ngIf="!editShoppingListName">
+                <h3 id="shoppinglist-name-output">{{ this.shoppingList.value.name.length > 0 ? this.shoppingList.value.name : 'Your Shopping List' }}</h3>
+                <mat-icon (click)="editShoppingListName = true">edit</mat-icon>
+            </div>
         </div>
         <div id="shoppinglist-actions">
             <button type="button" mat-flat-button (click)="addItem()" id="add-item">Add Item <mat-icon class="icon-light">add</mat-icon></button>
