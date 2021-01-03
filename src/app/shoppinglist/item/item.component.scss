@@ -114,32 +114,44 @@
     .item-contents {
         display: flex;
         flex-wrap: wrap;
-        align-items: flex-start;
         margin-top: 0.75em;
+        width: 100%;
 
-        .filter {
-            margin: auto;
-            width: 98%;
+        .filters {
+            display: flex;
+            flex-wrap: wrap;
+            flex: 1 1 500px;
 
-            &.full-width {
-                width: 100%;
+            .filter {
+                margin: auto;
+                width: 98%;
+    
+                &.full-width {
+                    margin: 0;
+                    width: 100%;
+                }
+            }
+
+            .query-buttons {
+                width: 98%;
+                display: flex;
+                margin: 1.5em auto;
+    
+                .query-button {
+                    color: mat-color($pathofshopping-accent, 50);
+                    background-color: mat-color($pathofshopping-primary, 500);
+    
+                    &.search {
+                        margin-left: auto;
+                        background-color: rgb(55, 150, 55);
+                    }
+                }
             }
         }
 
-        .query-buttons {
-            width: 100%;
-            display: flex;
-            margin: 1.5em 0;
-
-            .query-button {
-                margin-left: auto;
-                color: mat-color($pathofshopping-accent, 50);
-                background-color: mat-color($pathofshopping-primary, 500);
-
-                &.search {
-                    background-color: rgb(55, 150, 55);
-                }
-            }
+        .results {
+            flex: 1 1 500px;
+            height: 600px;
         }
     }
 }
