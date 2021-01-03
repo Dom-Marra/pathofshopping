@@ -2,48 +2,29 @@
     <div id="top-bg-image-container">
         <h2 id="top-title">Path of Shopping</h2>
     </div>
-    <div id="shoppinglist-settings-bar">
-        <mat-form-field>
-            <mat-label>League</mat-label>
-            <mat-select panelClass="topbar-select" [formControl]="this.shoppingList.controls.league" disableOptionCentering="true">
-                <mat-option *ngFor="let league of LEAGUES | keyvalue" [value]="league.key" >{{league.value}}</mat-option>
-            </mat-select>
+    <div id="shoppinglist-name-bar">
+        <mat-form-field *ngIf="editShoppingListName" floatLabel="never">
+            <input #shoppingListNameInput matInput [formControl]="this.shoppingList.controls.name"
+                   type="text" autocomplete="off" placeholder="Shopping List Name"
+                   (blur)="editShoppingListName = false" (keydown.enter)="shoppingListNameInput.blur()">
         </mat-form-field>
-        <mat-form-field>
-            <mat-label>Budget</mat-label>
-            <input matInput digitsonly float='true' defaultZero='true' type="text" [formControl]="this.shoppingList.controls.budget">
-        </mat-form-field>
-        <mat-form-field id="currency-type-form-field">
-            <mat-label>Currency</mat-label>
-            <mat-select [formControl]="this.shoppingList.controls.currency" panelClass="topbar-select" disableOptionCentering="true">
-                <mat-option *ngFor="let types of CURRENCY_TYPES | keyvalue" [value]="types.key">{{types.value}}</mat-option>
-            </mat-select>
-        </mat-form-field>
-        <div id="est-cost-container">
-            <h4>Estimated Cost: {{ estCost }}</h4>
-            <img [src]="this.shoppingList.value.currency == 'chaos' ? 'assets/chaosOrb.png' : 'assets/exaltedOrb.png'" />
-        </div>
-        <div id="save-import-options">
-            <button type="button" mat-flat-button><mat-icon class="icon-light">save</mat-icon> Save</button>
-            <button type="button" mat-flat-button><mat-icon class="icon-light">save_alt</mat-icon> Import</button>
+        <div id="shoppinglist-name-output-wrapper" *ngIf="!editShoppingListName">
+            <h3 id="shoppinglist-name-output">{{ this.shoppingList.value.name.length > 0 ? this.shoppingList.value.name : 'Your Shopping List' }}</h3>
+            <mat-icon (click)="editShoppingListName = true">edit</mat-icon>
         </div>
     </div>
     <div id="shoppinglist-contents-container">
         <div id="shoppinglist-contents-top-bar">
-            <mat-form-field *ngIf="editShoppingListName" floatLabel="never">
-                <input #shoppingListNameInput matInput [formControl]="this.shoppingList.controls.name"
-                       type="text" autocomplete="off" placeholder="Shopping List Name"
-                       (blur)="editShoppingListName = false" (keydown.enter)="shoppingListNameInput.blur()">
+            <mat-form-field>
+                <mat-label>League</mat-label>
+                <mat-select panelClass="topbar-select" [formControl]="this.shoppingList.controls.league" disableOptionCentering="true">
+                    <mat-option *ngFor="let league of LEAGUES | keyvalue" [value]="league.key" >{{league.value}}</mat-option>
+                </mat-select>
             </mat-form-field>
-            <div id="shoppinglist-name-output-wrapper" *ngIf="!editShoppingListName">
-                <h3 id="shoppinglist-name-output">{{ this.shoppingList.value.name.length > 0 ? this.shoppingList.value.name : 'Your Shopping List' }}</h3>
-                <mat-icon (click)="editShoppingListName = true">edit</mat-icon>
-            </div>
-        </div>
-        <div id="shoppinglist-actions">
-            <button type="button" mat-flat-button (click)="addItem()" id="add-item">Add Item <mat-icon class="icon-light">add</mat-icon></button>
-            <button type="button" mat-flat-button (click)="accordion.openAll()" id="expand-items">Expand All <mat-icon class="icon-light">fullscreen</mat-icon></button>
-            <button type="button" mat-flat-button (click)="accordion.closeAll()" id="collapse-items">Collapse All <mat-icon class="icon-light">fullscreen_exit</mat-icon></button>
+            <button type="button" mat-flat-button (click)="addItem()" id="add-item" class="action-button">Add Item <mat-icon class="icon-light">add</mat-icon></button>
+            <button type="button" mat-flat-button (click)="accordion.openAll()" id="expand-items" class="action-button">Expand All <mat-icon class="icon-light">fullscreen</mat-icon></button>
+            <button type="button" mat-flat-button (click)="accordion.closeAll()" id="collapse-items" class="action-button">Collapse All <mat-icon class="icon-light">fullscreen_exit</mat-icon></button>
+            <button type="button" mat-flat-button class="action-button"><mat-icon class="icon-light">save</mat-icon> Save</button>
         </div>
         <div id="shopping-list-contents">
             <mat-accordion multi>
