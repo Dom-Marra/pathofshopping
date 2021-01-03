@@ -10,7 +10,7 @@
                 (input)="filteredStats = filterStats($event.target.value)"
                 [value]="selectedStat?.text ? selectedStat.text : 'Add Stat Filter'"
                 (focus)="$event.target.value = ''; filteredStats = filterStats('')"
-                (blur)="$event.target.value = selectedStat?.text">
+                (blur)="$event.target.value = selectedStat?.text ? selectedStat.text : 'Add Stat Filter'">
                 
             <mat-icon matSuffix class="icon-dark" [class.rotate]="searchableStats.isOpen">arrow_drop_down</mat-icon>
             <mat-autocomplete #searchableStats="matAutocomplete" 
@@ -48,7 +48,7 @@
                     (input)="filteredStatOptions = filterStatOptions($event.target.value)"
                     [value]="selectedStatOption?.text ? selectedStatOption.text : 'Select Option'"
                     (focus)="$event.target.value = ''; filteredStatOptions = filterStatOptions('')"
-                    (blur)="$event.target.value = selectedStatOption?.text">
+                    (blur)="$event.target.value = selectedStatOption?.text ? selectedStatOption.text : 'Select Option'">
     
             <mat-icon matSuffix class="icon-dark" [class.rotate]="searchableStatOptions.isOpen">arrow_drop_down</mat-icon>
             <mat-autocomplete #searchableStatOptions="matAutocomplete" 
