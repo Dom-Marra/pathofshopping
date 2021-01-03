@@ -21,21 +21,24 @@
             </mat-form-field>
         </mat-expansion-panel-header>
 
-        <div class="item-contents" appEqualFlex>
-            <app-typefilters class="filter full-width" [itemForm]="this.itemForm"></app-typefilters>
-            <app-weaponfilters class="filter" [itemForm]="this.itemForm.get('query.filters')"></app-weaponfilters>
-            <app-armourfilters class="filter" [itemForm]="this.itemForm.get('query.filters')"></app-armourfilters>
-            <app-socketfilters class="filter" [itemForm]="this.itemForm.get('query.filters')"></app-socketfilters>
-            <app-requirements class="filter" [itemForm]="this.itemForm.get('query.filters')"></app-requirements>
-            <app-mapfilters class="filter" [itemForm]="this.itemForm.get('query.filters')"></app-mapfilters>
-            <app-specialbases class="filter" [itemForm]="this.misc_filters.get('filters')"></app-specialbases>
-            <app-gemfilters class="filter" [itemForm]="this.misc_filters.get('filters')"></app-gemfilters>
-            <app-otherfilters class="filter" [itemForm]="this.misc_filters.get('filters')"></app-otherfilters>
-            <app-statfilters class="filter" [itemForm]="this.itemForm.get('query.stats')"></app-statfilters>
-
-            <div class="query-buttons">
-                <button class="query-button search" mat-flat-button type="button" (click)="fetchItems()">Search</button>
+        <div class="item-contents">
+            <div class="filters">
+                <app-typefilters class="filter full-width" [itemForm]="this.itemForm"></app-typefilters>
+                <app-weaponfilters class="filter" [itemForm]="this.itemForm.get('query.filters')"></app-weaponfilters>
+                <app-armourfilters class="filter" [itemForm]="this.itemForm.get('query.filters')"></app-armourfilters>
+                <app-socketfilters class="filter" [itemForm]="this.itemForm.get('query.filters')"></app-socketfilters>
+                <app-requirements class="filter" [itemForm]="this.itemForm.get('query.filters')"></app-requirements>
+                <app-mapfilters class="filter" [itemForm]="this.itemForm.get('query.filters')"></app-mapfilters>
+                <app-specialbases class="filter" [itemForm]="this.misc_filters.get('filters')"></app-specialbases>
+                <app-gemfilters class="filter" [itemForm]="this.misc_filters.get('filters')"></app-gemfilters>
+                <app-otherfilters class="filter" [itemForm]="this.misc_filters.get('filters')"></app-otherfilters>
+                <app-statfilters class="filter" [itemForm]="this.itemForm.get('query.stats')"></app-statfilters>
+                <div class="query-buttons">
+                    <button class="query-button" mat-flat-button type="button" (click)="fetchItems()">Hide Results</button>
+                    <button class="query-button search" mat-flat-button type="button" (click)="fetchItems()">Search</button>
+                </div>
             </div>
+            <app-results class="results results-hidden"></app-results>
         </div>
     </mat-expansion-panel>
 </form>
