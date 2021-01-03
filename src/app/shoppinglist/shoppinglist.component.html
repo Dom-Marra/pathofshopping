@@ -32,7 +32,7 @@
         <div id="shoppinglist-contents-top-bar">
             <mat-form-field *ngIf="editShoppingListName" floatLabel="never">
                 <input #shoppingListNameInput matInput [formControl]="this.shoppingList.controls.name"
-                       type="text" autocomplete="off" placeholder="Your Shopping List Name"
+                       type="text" autocomplete="off" placeholder="Shopping List Name"
                        (blur)="editShoppingListName = false" (keydown.enter)="shoppingListNameInput.blur()">
             </mat-form-field>
             <div id="shoppinglist-name-output-wrapper" *ngIf="!editShoppingListName">
