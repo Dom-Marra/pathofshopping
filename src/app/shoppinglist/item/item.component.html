@@ -33,7 +33,9 @@
             <app-otherfilters class="filter" [itemForm]="this.misc_filters.get('filters')"></app-otherfilters>
             <app-statfilters class="filter" [itemForm]="this.itemForm.get('query.stats')"></app-statfilters>
 
-            <button type="button" (click)="fetchItems()">Build</button>
+            <div class="query-buttons">
+                <button class="query-button search" mat-flat-button type="button" (click)="fetchItems()">Build</button>
+            </div>
         </div>
     </mat-expansion-panel>
 </form>
