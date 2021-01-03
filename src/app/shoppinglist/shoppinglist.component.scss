@@ -39,7 +39,7 @@
         transform: translateY(calc(-30px - (300px * 0.1)));
         background-color: mat-color($pathofshopping-primary, 500);
         min-height: 60px;
-        border-radius: 10px;
+        border-radius: 5px;
         display: flex;
         align-items: center;
         justify-content: space-around;
@@ -100,7 +100,7 @@
     }
 
     #shoppinglist-contents-container {  
-        border-radius: 10px;
+        border-radius: 5px;
         width: 90%;
         margin: auto;
         min-height: 500px;
@@ -109,23 +109,38 @@
         background-color: mat-color($pathofshopping-primary, 600);
 
         #shoppinglist-contents-top-bar {
-            border-radius: 10px 10px 0 0;
+            border-radius: 5px 5px 0 0;
             height: 60px;
             width: 100%;
             background-color: mat-color($pathofshopping-primary, 500);
             display: flex;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
+
+            #shoppinglist-name-output-wrapper {
+                display: flex;
+                max-width: 100%;
+
+                #shoppinglist-name-output {
+                    margin: 0;
+                    padding: 0 0.25em;
+                    white-space: nowrap;
+                }
+
+                mat-icon {
+                    padding: 0 0.5em;
+                    
+                    &:hover {
+                        cursor: pointer;
+                    }
+                }
+            }
 
             .mat-form-field {
-                text-align: center;
-                flex: 0.4;
-                max-width: 95%;
-                height: 100%;
+                font-size: 16px;
                 
                 .mat-input-element {
                     font-weight: 300;
-                    line-height: normal;
                 }
 
                 .mat-form-field-underline, .mat-form-field-ripple {
@@ -160,7 +175,6 @@
             width: 95%;
             margin: auto;
         }
-
     }
 }
 
