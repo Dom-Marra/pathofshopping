@@ -23,7 +23,7 @@
                 [matAutocompletePosition]="'below'"
                 [value]="ITEM_TYPES[this.typeFilters.get('cat_rar.filters.category.option').value]"
                 (focus)="$event.target.value = ''; filteredTypes = filterEnums('', this.ITEM_TYPES)"
-                (blur)="$event.target.value = this.typeFilters.get('cat_rar.filters.category.option').value">
+                (blur)="$event.target.value = ITEM_TYPES[this.typeFilters.get('cat_rar.filters.category.option').value]">
 
         <mat-icon matSuffix class="icon-dark" [class.rotate]="searchableItemTypes.isOpen">arrow_drop_down</mat-icon>
         <mat-autocomplete #searchableItemTypes="matAutocomplete" 
@@ -44,7 +44,7 @@
                 [matAutocompletePosition]="'below'"
                 [value]="ITEM_RARITIES[this.typeFilters.get('cat_rar.filters.rarity.option').value]"
                 (focus)="$event.target.value = ''; filteredRarities = filterEnums('', ITEM_RARITIES)"
-                (blur)="$event.target.value = this.typeFilters.get('cat_rar.filters.rarity.option').value">
+                (blur)="$event.target.value = ITEM_RARITIES[this.typeFilters.get('cat_rar.filters.rarity.option').value]">
 
         <mat-icon matSuffix class="icon-dark" [class.rotate]="searchableItemRarities.isOpen">arrow_drop_down</mat-icon>
         <mat-autocomplete #searchableItemRarities="matAutocomplete" 
