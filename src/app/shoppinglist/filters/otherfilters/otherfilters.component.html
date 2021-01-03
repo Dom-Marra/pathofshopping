@@ -5,17 +5,17 @@
     <div class="item-contents">
         <div appEqualflex class="field-wrapper">
             <app-minmaxinput class="field" inputName="Quality" [group]="this.otherFilters.get('quality')"></app-minmaxinput>
-            <app-minmaxinput class="field" inputName="Item Level" [group]="this.otherFilters.get('itemLevel')"></app-minmaxinput>
-            <app-minmaxinput class="field" inputName="Talisman Tier" [group]="this.otherFilters.get('talismanTier')"></app-minmaxinput>
-            <app-minmaxinput class="field" inputName="Stored Experience" [group]="this.otherFilters.get('storedExperience')"></app-minmaxinput>
-            <app-minmaxinput class="field" inputName="Stack Size" [group]="this.otherFilters.get('stackSize')"></app-minmaxinput>
-            <app-filtergroupselect class="field" inputName='Alternate Art' [control]="this.otherFilters.get('alternateArt')" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
-            <app-filtergroupselect class="field" inputName='Identified' [control]="this.otherFilters.get('identified')" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
-            <app-filtergroupselect class="field" inputName='Corrupted' [control]="this.otherFilters.get('corrupted')" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
-            <app-filtergroupselect class="field" inputName='Mirrored' [control]="this.otherFilters.get('mirrored')" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
-            <app-filtergroupselect class="field" inputName='Crafted' [control]="this.otherFilters.get('crafted')" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
-            <app-filtergroupselect class="field" inputName='Veiled' [control]="this.otherFilters.get('veiled')" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
-            <app-filtergroupselect class="field" inputName='Enchanted' [control]="this.otherFilters.get('enchanted')" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+            <app-minmaxinput class="field" inputName="Item Level" [group]="this.otherFilters.get('ilvl')"></app-minmaxinput>
+            <app-minmaxinput class="field" inputName="Talisman Tier" [group]="this.otherFilters.get('talisman_tier')"></app-minmaxinput>
+            <app-minmaxinput class="field" inputName="Stored Experience" [group]="this.otherFilters.get('stored_experience')"></app-minmaxinput>
+            <app-minmaxinput class="field" inputName="Stack Size" [group]="this.otherFilters.get('stack_size')"></app-minmaxinput>
+            <app-filtergroupselect class="field" inputName='Alternate Art' [control]="this.otherFilters.get('alternate_art.option')" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+            <app-filtergroupselect class="field" inputName='Identified' [control]="this.otherFilters.get('identified.option')" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+            <app-filtergroupselect class="field" inputName='Corrupted' [control]="this.otherFilters.get('corrupted.option')" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+            <app-filtergroupselect class="field" inputName='Mirrored' [control]="this.otherFilters.get('mirrored.option')" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+            <app-filtergroupselect class="field" inputName='Crafted' [control]="this.otherFilters.get('crafted.option')" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+            <app-filtergroupselect class="field" inputName='Veiled' [control]="this.otherFilters.get('veiled.option')" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+            <app-filtergroupselect class="field" inputName='Enchanted' [control]="this.otherFilters.get('enchanted.option')" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
         </div>
     </div>
 </mat-expansion-panel>

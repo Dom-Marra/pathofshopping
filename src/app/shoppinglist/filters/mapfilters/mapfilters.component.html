@@ -4,15 +4,15 @@
     </mat-expansion-panel-header>
     <div class="item-contents">
         <div appEqualflex class="field-wrapper">
-            <app-filtergroupselect class="field" inputName='Region' [control]="mapFilters.get('region')" [selectEnum]="MAP_REGION"></app-filtergroupselect>
-            <app-filtergroupselect class="field" inputName='Series' [control]="mapFilters.get('series')" [selectEnum]="MAP_SERIES"></app-filtergroupselect>
-            <app-filtergroupselect class="field" inputName='Shaped' [control]="mapFilters.get('shaped')" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
-            <app-filtergroupselect class="field" inputName='Elder' [control]="mapFilters.get('elder')" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
-            <app-filtergroupselect class="field" inputName='Blighted' [control]="mapFilters.get('blighted')" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
-            <app-minmaxinput class="field" inputName="Tier" [group]="this.mapFilters.get('tier')"></app-minmaxinput>
-            <app-minmaxinput class="field" inputName="Packsize" [group]="this.mapFilters.get('packsize')"></app-minmaxinput>
-            <app-minmaxinput class="field" inputName="IIQ" [group]="this.mapFilters.get('iiq')"></app-minmaxinput>
-            <app-minmaxinput class="field" inputName="IIR" [group]="this.mapFilters.get('iir')"></app-minmaxinput>
+            <app-filtergroupselect class="field" inputName='Region' [control]="mapFilters.get('filters.map_region.option')" [selectEnum]="MAP_REGION"></app-filtergroupselect>
+            <app-filtergroupselect class="field" inputName='Series' [control]="mapFilters.get('filters.map_series.option')" [selectEnum]="MAP_SERIES"></app-filtergroupselect>
+            <app-filtergroupselect class="field" inputName='Shaped' [control]="mapFilters.get('filters.map_shaped.option')" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+            <app-filtergroupselect class="field" inputName='Elder' [control]="mapFilters.get('filters.map_elder.option')" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+            <app-filtergroupselect class="field" inputName='Blighted' [control]="mapFilters.get('filters.map_blighted.option')" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+            <app-minmaxinput class="field" inputName="Tier" [group]="this.mapFilters.get('filters.map_tier')"></app-minmaxinput>
+            <app-minmaxinput class="field" inputName="Packsize" [group]="this.mapFilters.get('filters.map_packsize')"></app-minmaxinput>
+            <app-minmaxinput class="field" inputName="IIQ" [group]="this.mapFilters.get('filters.map_iiq')"></app-minmaxinput>
+            <app-minmaxinput class="field" inputName="IIR" [group]="this.mapFilters.get('filters.map_iir')"></app-minmaxinput>
         </div>
     </div>
 </mat-expansion-panel>

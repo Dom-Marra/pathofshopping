@@ -1,11 +1,11 @@
 import { Component, Input, OnInit, Output, ViewEncapsulation, ViewRef, EventEmitter } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { statCategory, StatsearchService } from '../../statsearch.service';
 
-export const filterSearch = (items: Array<string>, searchText: string): Array<string> => {    //Filters items by search text
+export const filterSearch = (items: any, searchText: string): any => {    //Filters items by search text
   const text = searchText.toLowerCase();
 
-  return items.filter(item => item.toLowerCase().indexOf(text) != -1);
+  return items.filter(item => item.text.toLowerCase().indexOf(text) != -1);
 }
 
 @Component({
@@ -18,19 +18,25 @@ export class StatselectComponent implements OnInit {
 
   @Output() newGroupCreated: EventEmitter<null> = new EventEmitter();   //Emmits to the parent the form group was added
 
-  @Input() group: FormGroup;                                            //Group to add stats to
+  @Input() array: FormArray;                                            //Group to add stats to
   
   public filteredStats: Array<statCategory>;                            //Filtered Stats
-
+  public filteredStatOptions: statCategory['stats'][0]['option'];       //Filtered Stat Options
   public statSelected: boolean = false;                                 //Whether a stat has been selected or not
 
   public viewRef: ViewRef;                                              //Ref of this component
 
-  public statGroup: FormGroup = new FormGroup({                         //Holds stat data
-    stat: new FormControl({id: "", text: ""}),
-    min: new FormControl,
-    max: new FormControl()
-  });
+  public selectedStat: statCategory['stats'][0] = null;                 //the selected stat
+  public selectedStatOption: statCategory['stats'][0]['option'][0];     //the selected option
+
+  public statGroup: FormGroup = new FormGroup({                         //holds stat data
+    id: new FormControl(),
+    value: new FormGroup({
+      min: new FormControl(),
+      max: new FormControl(),
+      option: new FormControl()
+    })
+  })
 
   constructor(private statSearch: StatsearchService) { 
     this.filteredStats = this.statSearch.getStats();        //Init stats to search
@@ -50,48 +56,52 @@ export class StatselectComponent implements OnInit {
    */
   public filterStats(searchText: string): Array<statCategory> {
 
-    if (searchText == '') return this.filteredStats;
+    this.filteredStats = this.statSearch.getStats();
 
-    let stats = this.filteredStats.map(statCategory => ({category: statCategory.category, 
-    stats: filterSearch(statCategory.stats.map(stat => stat.text), searchText).map(stat => ({id: statCategory.category, text: stat}))})).
-    filter(statSearch => statSearch.stats.length > 0);
-
-    return stats;
+    return this.filteredStats.map(statCategory => ({
+    category: statCategory.category, 
+    stats: filterSearch(statCategory.stats, searchText)
+    })).filter(statSearch => statSearch.stats.length > 0);
   }
 
   /**
-   * Adds the stat form group to the main item form
+   * Filters stat options based on input
    * 
-   * @param statId 
-   *        String: id of the stat
+   * @param searchText 
+   *        string: text to filter by
    */
-  public setStat(statId: string) {
+  public filterStatOptions(searchText: string) {
+    let statOptions = this.selectedStat.option.filter(stat => {
+      return stat.text.toLowerCase().indexOf(searchText.toLowerCase()) != -1;
+    });
 
-    if (!this.statSelected) {                               //No previous stat was selected
-      this.statSelected = true;                                  //Set stat selected to true
-      this.group.addControl(statId, this.statGroup);             //Add stat group to main item form
-      this.newGroupCreated.emit(null);                           //emmite event for group addition
-    } else {                                                //There was a stat previously selected
-      this.removeGroupFromParent(this.statGroup.value.stat.id)    //remove the group with the previous ID
-      this.group.addControl(statId, this.statGroup);              //add new group with new ID
+    return statOptions;
+  }
+
+  /**
+   * Pushes the new stat to the array if it is newly initiated, and resets other form values
+   */
+  public setStat() {
+    if (!this.statSelected) {                         //No previous stat was selected
+      this.statSelected = true;                       //Set stat selected to true
+      this.array.push(this.statGroup);                //Add stat group to main item form
+      this.newGroupCreated.emit(null);                //emmite event for group addition
+    } else if (this.selectedStat.option == null) {
+      this.statGroup.get('value.option').patchValue('');    //Reset value option field and selected stat option when a minmax option is selected
+      this.selectedStatOption = null;
+    } else {                                                //reset all value fields when a stat is selected that has options
+      this.statGroup.get('value.option').patchValue('');
+      this.statGroup.get('value.min').patchValue('');
+      this.statGroup.get('value.max').patchValue('');
     }
-  }
-
-  /**
-   * Removes the stat group from the main item form
-   * 
-   * @param statId 
-   *        String: id of the stat
-   */
-  public removeGroupFromParent(statId: string) {
-    this.group.removeControl(statId);
   }
 
   /**
    * Deletes this component and removes the stat group from the main item form
    */
   public deleteStatFilter() {
-    this.removeGroupFromParent(this.statGroup.value.stat.id);
+    let index = this.array.controls.indexOf(this.statGroup);
+    this.array.removeAt(index);
     this.viewRef.destroy();
   }
 }

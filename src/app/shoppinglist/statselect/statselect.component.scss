@@ -35,7 +35,7 @@
 
         .mat-form-field {
             padding: 0 0.75em;
-            margin-bottom: -0.75em;
+            margin-bottom: -0.5em;
             margin-top: 0.5em;
             min-width: 150px;
             flex: 1;
@@ -50,14 +50,14 @@
         }
     }
 
-    .stat-min-max-fields {
+    .stat-min-max-fields, .stat-option-select {
         display: flex;
-        flex: 1;
+        flex: 2;
         background-color: mat-color($pathofshopping-primary, 600);
 
         .mat-form-field {
             min-width: 50px;
-            margin-bottom: -0.75em;
+            margin-bottom: -0.5em;
             margin-top: 0.5em;
             padding: 0 0.75em;
             flex: 1;
@@ -71,5 +71,8 @@
             }
         }
     }
-    
+
+    .stat-option-select {
+        min-width: 150px;
+    }
 }

@@ -3,20 +3,20 @@
     <mat-form-field floatLabel="never">
         <input #selectInput matInput type="text"  autocomplete="off" 
                 [matAutocomplete]="selectInputAutoComplete" 
-                [placeholder]="control.value"
+                [placeholder]="selectEnum[control.value]"
                 (input)="filter = filterEnums($event.target.value, selectEnum)"
                 [matAutocompletePosition]="'below'"
-                [value]="control.value"
+                [value]="selectEnum[control.value]"
                 (focus)="$event.target.value = ''; filter = filterEnums('', selectEnum)"
-                (blur)="$event.target.value = control.value">
+                (blur)="$event.target.value = selectEnum[control.value]">
 
         <mat-icon matSuffix class="icon-dark" [class.rotate]="selectInputAutoComplete.isOpen">arrow_drop_down</mat-icon>
         <mat-autocomplete #selectInputAutoComplete="matAutocomplete" 
                         [class]="'autocomplete-panel'" 
                         autoActiveFirstOption="'true'"
                         (optionSelected)="control.patchValue($event.option.value); selectInput.blur()">
-            <mat-option *ngFor="let value of filter" [class.mat-selected]="value == control.value" [value]="value">
-                {{value}}
+            <mat-option *ngFor="let value of filter" [class.mat-selected]="value == selectEnum[control.value]" [value]="value">
+                {{selectEnum[value]}}
             </mat-option>
         </mat-autocomplete>
     </mat-form-field>

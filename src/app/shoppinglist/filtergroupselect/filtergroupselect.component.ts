@@ -31,6 +31,6 @@ export class FiltergroupselectComponent implements OnInit {
   public filterEnums(searchText: string, enumToFilter: any): Array<any> {
     const text = searchText.toLowerCase();
 
-    return Object.values(enumToFilter).filter((enumValue: string) => enumValue.toLowerCase().indexOf(text) != -1);
+    return Object.keys(enumToFilter).filter(key => enumToFilter[key].toLowerCase().indexOf(text.toLocaleLowerCase()) != -1);
   }
 }

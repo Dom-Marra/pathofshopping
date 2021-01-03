@@ -11,21 +11,24 @@ export class ArmourfiltersComponent implements OnInit {
   @Input() itemForm: FormGroup;                             //Item Form
 
   public armourFilters: FormGroup = new FormGroup({         //Armor Filters
-    armour: new FormGroup({
-      min: new FormControl(''),
-      max: new FormControl('')
-    }),
-    energyShield: new FormGroup({
-      min: new FormControl(''),
-      max: new FormControl('')
-    }),
-    evasion: new FormGroup({
-      min: new FormControl(''),
-      max: new FormControl('')
-    }),
-    blockChance: new FormGroup({
-      min: new FormControl(''),
-      max: new FormControl('')
+    disabled: new FormControl(false),
+    filters: new FormGroup({
+      ar: new FormGroup({
+        min: new FormControl(''),
+        max: new FormControl('')
+      }),
+      es: new FormGroup({
+        min: new FormControl(''),
+        max: new FormControl('')
+      }),
+      ev: new FormGroup({
+        min: new FormControl(''),
+        max: new FormControl('')
+      }),
+      block: new FormGroup({
+        min: new FormControl(''),
+        max: new FormControl('')
+      })
     })
   })
 
@@ -33,7 +36,7 @@ export class ArmourfiltersComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.itemForm.addControl('armourFilters', this.armourFilters);    //Add Armour filters to main item form
+    this.itemForm.addControl('armour_filters', this.armourFilters);    //Add Armour filters to main item form
   }
 
 }
