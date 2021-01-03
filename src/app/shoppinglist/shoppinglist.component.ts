@@ -4,11 +4,6 @@ import { MatAccordion } from '@angular/material/expansion';
 import { Item } from './item';
 import { ItemComponent } from './item/item.component';
 
-enum currencyType {
-  chaos = "Chaos",
-  exalt = "Exalt"
-}
-
 enum leagues {
   heist = "Heist",
   heistHC = "Heist HC",
@@ -28,16 +23,12 @@ export class ShoppinglistComponent implements OnInit {
   @ViewChild(MatAccordion) accordion: MatAccordion;                                               //Accordion component which wraps the item components
   @ViewChildren("shoppingListNameInput") shoppingListNameInput: QueryList<ElementRef>;            //Item name input element
   
-  public readonly LEAGUES = leagues;                                //Used for iterating over leagues
-  public readonly CURRENCY_TYPES = currencyType;                    //Used fro iterating over currency types
+  public readonly LEAGUES = leagues;                                //Used for iterating over leaguess
 
   public editShoppingListName: boolean = false;                     //Whether the shopping list input is disabled or not
-  public estCost: number = 0;                                       //Estimated Cost of the items
 
   public shoppingList = new FormGroup({                             //Shopping list base inputs
     league: new FormControl(Object.keys(this.LEAGUES)[0]),
-    budget: new FormControl(0),
-    currency: new FormControl(Object.keys(this.CURRENCY_TYPES)[0]),
     name: new FormControl('Your Shopping List')
   })
 
