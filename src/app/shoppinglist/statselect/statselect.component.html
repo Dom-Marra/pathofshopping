@@ -3,15 +3,14 @@
     <div class="stat-selector">
         <button *ngIf="statSelected" class="remove-stat-button" (click)="deleteStatFilter()" mat-flat-button><mat-icon class="stat-icon">remove</mat-icon></button>
         <mat-form-field floatLabel="never">
-            <mat-label *ngIf="!selectedStat">Add Stat Filter</mat-label>
             <input #statInput matInput type="text" autocomplete="off" 
                 [matAutocomplete]="searchableStats" 
                 [matAutocompleteConnectedTo]="autoCompleteHost"
-                [placeholder]="selectedStat?.text"
+                [placeholder]="selectedStat?.text ? selectedStat.text : 'Add Stat Filter'"
                 (input)="filteredStats = filterStats($event.target.value)"
-                [value]="selectedStat?.text"
+                [value]="selectedStat?.text ? selectedStat.text : 'Add Stat Filter'"
                 (focus)="$event.target.value = ''; filteredStats = filterStats('')"
-                (blur)="$event.target.value = selectedStat?.text">
+                (blur)="$event.target.value = selectedStat?.text ? selectedStat.text : 'Add Stat Filter'">
                 
             <mat-icon matSuffix class="icon-dark" [class.rotate]="searchableStats.isOpen">arrow_drop_down</mat-icon>
             <mat-autocomplete #searchableStats="matAutocomplete" 
@@ -42,15 +41,14 @@
 
     <div *ngIf="statSelected && selectedStat.option != null" class="stat-option-select">
         <mat-form-field floatLabel='never'>
-            <mat-label *ngIf="!selectedStatOption">Select Option</mat-label>
             <input #statOptionInput matInput type="text"  autocomplete="off" 
                     [matAutocomplete]="searchableStatOptions" 
                     [matAutocompleteConnectedTo]="autoCompleteHost"
-                    [placeholder]="selectedStatOption?.text"
+                    [placeholder]="selectedStatOption?.text ? selectedStatOption.text : 'Select Option'"
                     (input)="filteredStatOptions = filterStatOptions($event.target.value)"
-                    [value]="selectedStatOption?.text"
+                    [value]="selectedStatOption?.text ? selectedStatOption.text : 'Select Option'"
                     (focus)="$event.target.value = ''; filteredStatOptions = filterStatOptions('')"
-                    (blur)="$event.target.value = selectedStatOption?.text">
+                    (blur)="$event.target.value = selectedStatOption?.text ? selectedStatOption.text : 'Select Option'">
     
             <mat-icon matSuffix class="icon-dark" [class.rotate]="searchableStatOptions.isOpen">arrow_drop_down</mat-icon>
             <mat-autocomplete #searchableStatOptions="matAutocomplete" 

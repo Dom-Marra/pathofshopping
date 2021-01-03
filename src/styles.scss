@@ -67,3 +67,20 @@ mat-icon {
     }
   }
 }
+
+.mat-form-field {
+
+  mat-label, .mat-input-element, .mat-select-value-text {
+    color: mat-color($pathofshopping-accent, 50);
+  }
+
+  .mat-form-field-label, .mat-input-element, .mat-select-value-text {
+    padding-left: 0.5em;
+  }
+
+  &.mat-form-field-should-float {
+    .mat-form-field-label {
+      padding-left: 0.1em;
+    }
+  }
+}

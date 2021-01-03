@@ -33,152 +33,121 @@
         }
     }
 
-    #shoppinglist-settings-bar {
+    #shoppinglist-name-bar {
         width: 90%;
         margin: auto;
         transform: translateY(calc(-30px - (300px * 0.1)));
         background-color: mat-color($pathofshopping-primary, 500);
-        min-height: 60px;
-        border-radius: 10px;
+        height: 60px;
+        border-radius: 5px;
         display: flex;
         align-items: center;
-        justify-content: space-around;
-        flex-wrap: wrap;
-        font-size: 14px;
+        justify-content: center;
+        font-size: 16px;
 
-        #est-cost-container {
+        #shoppinglist-name-output-wrapper {
             display: flex;
-            align-items: center;
+            max-width: 100%;
 
-            h4 {
+            #shoppinglist-name-output {
                 margin: 0;
-                font-weight: 300;
+                padding: 0 0.25em;
+                white-space: nowrap;
             }
 
-            img {
-                height: 30px;
-                width: auto;
-                margin-left: 0.5em;
+            mat-icon {
+                padding: 0 0.5em;
+                
+                &:hover {
+                    cursor: pointer;
+                }
             }
-        }
-        
-        #save-import-options {
-            button {
-                margin: 0 0.25em;
-                color: mat-color($pathofshopping-accent, 50);
-                background-color: mat-color($pathofshopping-primary, 800);
-            }
-        }
-
-        .mat-form-field, .mat-flat-button { 
-            font-weight: 300;
-        }
-
-        .mat-form-field, #est-cost-container, #save-import-options { 
-            margin: 1em;
         }
 
         .mat-form-field {
-
-            mat-label, .mat-input-element, .mat-select-value-text {
-                color: mat-color($pathofshopping-accent, 50);
-                line-height: normal;
-            }
-
-            .mat-select-arrow {
-                color: mat-color($pathofshopping-primary, 800);
-            }
+            font-weight: 300;
 
             .mat-form-field-underline, .mat-form-field-ripple {
                 background-color: mat-color($pathofshopping-primary, 800);
-            }
-
-            .mat-form-field-wrapper {
-                margin-bottom: -1.25em;
             }
         }
     }
 
     #shoppinglist-contents-container {  
-        border-radius: 10px;
+        border-radius: 5px;
         width: 90%;
         margin: auto;
         min-height: 500px;
         height: auto;
-        padding-bottom: 0.5em;
+        padding-bottom: 2em;
         background-color: mat-color($pathofshopping-primary, 600);
 
         #shoppinglist-contents-top-bar {
-            border-radius: 10px 10px 0 0;
-            height: 60px;
+            border-radius: 5px 5px 0 0;
+            min-height: 60px;
             width: 100%;
             background-color: mat-color($pathofshopping-primary, 500);
             display: flex;
-            justify-content: center;
+            flex-wrap: wrap;
             align-items: center;
 
             .mat-form-field {
-                text-align: center;
-                flex: 0.4;
-                max-width: 95%;
-                height: 100%;
-                
-                .mat-input-element {
-                    font-weight: 300;
-                    line-height: normal;
+                font-weight: 300;
+                padding: 1em;
+                flex: 1 1 150px;
+    
+                mat-label, .mat-input-element, .mat-select-value-text {
+                    color: mat-color($pathofshopping-accent, 50);
                 }
-
+    
+                .mat-select-arrow {
+                    color: mat-color($pathofshopping-primary, 800);
+                }
+    
                 .mat-form-field-underline, .mat-form-field-ripple {
                     background-color: mat-color($pathofshopping-primary, 800);
                 }
+    
+                .mat-form-field-wrapper {
+                    margin-bottom: -1.5em;
+                }
             }
-        }
-
-        #shoppinglist-actions {
-            display: flex;
-            flex-wrap: wrap;
-            width: 90%;
-            margin: auto;
-
-            button {
+    
+            .action-button {
                 color: mat-color($pathofshopping-accent, 50);
+                background-color: mat-color($pathofshopping-primary, 800);
                 font-weight: 300;
                 margin: 1em;
-                flex-grow: 1;
+                flex: 1;
                 
                 &#add-item {
                     background-color: rgb(55, 150, 55);
                 }
-
-                &#expand-items, &#collapse-items {
-                    background-color: mat-color($pathofshopping-primary, 800);
-                } 
             }
+            
         }
 
         #shopping-list-contents {
             width: 95%;
             margin: auto;
         }
-
     }
 }
 
-@media only screen and (max-width: 926px) {
+@media only screen and (max-width: 1080px) {
 
     #shoppinglist-maincontainer {
-    
-        #shoppinglist-settings-bar {
+        #shoppinglist-contents-container { 
+            #shoppinglist-contents-top-bar {
 
-            .mat-form-field, #est-cost-container, #save-import-options { 
-                width: 100%;
-            }
+                .mat-form-field {
+                    flex: 1 1 100%;
+                }
 
-            #save-import-options {
-                display: flex;
-                justify-content: center;
+                .action-button {
+                    flex: 1 1 40%;
+                }
             }
         }
     }
-
 }

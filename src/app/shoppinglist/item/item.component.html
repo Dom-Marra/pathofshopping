@@ -10,7 +10,7 @@
             <div *ngIf="!this.getEditName()" class="item-name" 
                 (click)="$event.stopImmediatePropagation(); this.setEditName(true)" 
                 role="button" aria-label="Edit item name">
-                <p>{{itemForm.value.itemName}}</p>
+                <p>{{itemForm.value.itemName.length > 0 ? itemForm.value.itemName : 'Item Name'}}</p>
                 <mat-icon class="icon-light">edit</mat-icon>
             </div>
             <mat-form-field *ngIf="this.getEditName()" [floatLabel]="'never'" (click)="$event.stopImmediatePropagation();" >
@@ -33,7 +33,9 @@
             <app-otherfilters class="filter" [itemForm]="this.misc_filters.get('filters')"></app-otherfilters>
             <app-statfilters class="filter" [itemForm]="this.itemForm.get('query.stats')"></app-statfilters>
 
-            <button type="button" (click)="fetchItems()">Build</button>
+            <div class="query-buttons">
+                <button class="query-button search" mat-flat-button type="button" (click)="fetchItems()">Search</button>
+            </div>
         </div>
     </mat-expansion-panel>
 </form>
