@@ -2,7 +2,7 @@
     <mat-form-field class="search-field">
         <mat-label>Search Items</mat-label>
         <input matInput type="text" autocomplete="off" [matAutocomplete]="searchableItems" formControlName="term">
-        <button mat-button *ngIf="this.typeFilters.value.itemSearch != ''" matSuffix mat-icon-button aria-label="Clear" (click)="this.typeFilters.patchValue({'itemSearch': ''})">
+        <button mat-button *ngIf="this.typeFilters.controls.term.value != ''" matSuffix mat-icon-button aria-label="Clear" (click)="this.typeFilters.patchValue({'term': ''})">
             <mat-icon class="icon-light">clear</mat-icon>
         </button>
 
