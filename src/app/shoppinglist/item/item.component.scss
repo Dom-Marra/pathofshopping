@@ -125,6 +125,22 @@
                 width: 100%;
             }
         }
+
+        .query-buttons {
+            width: 100%;
+            display: flex;
+            margin: 1.5em 0;
+
+            .query-button {
+                margin-left: auto;
+                color: mat-color($pathofshopping-accent, 50);
+                background-color: mat-color($pathofshopping-primary, 500);
+
+                &.search {
+                    background-color: rgb(55, 150, 55);
+                }
+            }
+        }
     }
 }
 
