@@ -73,18 +73,18 @@ export class ItemComponent implements OnInit {
       if (data.result != null && data.result.length > 0) {
 
         let query: Subscription;                                                      //Query sub
-        let totalResults = [];
+        let length = data.result.length;                                              //Inital length of results
+
         do {                                                                          //Have to get results 10 at a time
           let results = data.result.splice(0, 10);
 
           query = this.queryService.fetchItems(results).subscribe((items: any) => {  //Get next ten results
-            totalResults = totalResults.concat(items.result);                        //Add results
-            
-            if (totalResults.length == 100) {                                        //Unsub and show results
+            this.queryResults = this.queryResults.concat(items.result);              //Add results
+
+            if (this.queryResults.length == length) {                                //Unsub and show results
               query.unsubscribe();
               fetch.unsubscribe();
               this.showResults = true;
-              this.queryResults = totalResults;
             }
           });
         } while(data.result.length);
