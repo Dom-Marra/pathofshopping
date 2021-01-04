@@ -21,7 +21,6 @@ export class QueryitemService {
   }
 
   public fetchItems(results: Array<string>) {
-    console.log(results.toString());
     return this.http.get(this.fetchItemsApi + results.toString());
   } 
 }
