@@ -91,7 +91,7 @@
 
     .mat-expansion-panel-body {
         padding: 0;
-        width: 95%;
+        width: 100%;
         margin: auto;
     }
 
@@ -114,13 +114,14 @@
     .item-contents {
         display: flex;
         flex-wrap: wrap;
-        margin-top: 0.75em;
-        width: 100%;
 
         .filters {
             display: flex;
             flex-wrap: wrap;
             flex: 1 1 500px;
+            max-width: 95%;
+            margin: auto;
+            margin-top: 0.75em;
 
             .filter {
                 margin: auto;
@@ -151,7 +152,8 @@
 
         .results {
             flex: 1 1 500px;
-            height: 600px;
+            min-height: 600px;
+            padding-bottom: 1em;
         }
     }
 }
