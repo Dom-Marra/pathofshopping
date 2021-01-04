@@ -1,5 +1,6 @@
 import { ChangeDetectorRef, Component, ElementRef, OnInit, QueryList, ViewChildren, ViewEncapsulation, ViewRef } from '@angular/core';
 import { FormGroup, FormControl, FormArray } from '@angular/forms';
+import { Subscription } from 'rxjs';
 import { QueryitemService } from '../../queryitem.service'
 
 @Component({
@@ -12,8 +13,10 @@ export class ItemComponent implements OnInit {
 
   @ViewChildren("itemNameInput") itemNameInput: QueryList<ElementRef>;    //Item name input element
 
-  private editName: boolean = false;                        //Whether name is in edit mode or not
+  public editName: boolean = false;                        //Whether name is in edit mode or not
   private viewRef: ViewRef = null;                          //Reference of the view, used when deleting the component
+  public showResults: boolean = false;                      //Used to show results tab
+  public queryResults: Array<any> = [];                     //Query Results
 
   public itemForm = new FormGroup({
     itemName: new FormControl('New Item'),
@@ -58,6 +61,7 @@ export class ItemComponent implements OnInit {
    */
   public fetchItems() {
 
+    this.queryResults = [];                                               //Reset previous results
     let data = {                                                          //create query data
       query: (this.itemForm.controls.query as FormGroup).getRawValue(),
       sort: (this.itemForm.controls.sort as FormGroup).getRawValue()
@@ -65,13 +69,27 @@ export class ItemComponent implements OnInit {
 
     data = this.removeEmpty(data);                                        //clean the data
 
-    this.queryService.fetchResults(data).subscribe((data: any) => {       //Fetch items based on data
+    let fetch = this.queryService.fetchResults(data).subscribe((data: any) => {       //Fetch items based on data
       if (data.result != null && data.result.length > 0) {
-        this.queryService.fetchItems(data.result).subscribe(items => {
-          console.log(items);
-        })
+
+        let query: Subscription;                                                      //Query sub
+        let totalResults = [];
+        do {                                                                          //Have to get results 10 at a time
+          let results = data.result.splice(0, 10);
+
+          query = this.queryService.fetchItems(results).subscribe((items: any) => {  //Get next ten results
+            totalResults = totalResults.concat(items.result);                        //Add results
+            
+            if (totalResults.length == 100) {                                        //Unsub and show results
+              query.unsubscribe();
+              fetch.unsubscribe();
+              this.showResults = true;
+              this.queryResults = totalResults;
+            }
+          });
+        } while(data.result.length);
       }
-    })
+    });
   }
 
   /**
@@ -92,26 +110,6 @@ export class ItemComponent implements OnInit {
     });
 
     return obj;
-  }
-
-  /**
-   * Sets editName
-   * 
-   * @param edit
-   *        boolean: whether to edit or not 
-   */
-  public setEditName(edit: boolean) {
-    this.editName = edit;
-  }
-
-  /**
-   * Retursn editName
-   * 
-   * @returns
-   *        boolean: whether to edit or not
-   */
-  public getEditName(): boolean {
-    return this.editName;
   }
 
   /**
