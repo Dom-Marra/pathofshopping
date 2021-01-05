@@ -40,7 +40,7 @@
                     <button class="query-button search" mat-flat-button type="button" (click)="fetchItems()">Search</button>
                 </div>
             </div>
-            <app-results *ngIf="showResults" class="results"></app-results>
+            <app-results *ngIf="showResults" class="results" [queryData]="queryResults"></app-results>
         </div>
     </mat-expansion-panel>
 </form>
