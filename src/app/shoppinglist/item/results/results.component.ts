@@ -4,8 +4,10 @@ interface modData {
   text: string,
   name: string,
   tier: string,
-  min: number,
-  max: number,
+  ranges: Array<{
+    min: number,
+    max: number
+  }>,
   hash: string
 }
 
@@ -40,16 +42,22 @@ export class ResultsComponent implements OnInit {
 
     item.explicitMods.forEach((mod, i) => {                           //cycle through explicits
       let hashIndex = item.extended.hashes?.explicit?.[i][1]?.[0];       //Index of the mod for its extended data
-      let minMaxIndex = item.extended.hashes?.explicit?.[i][1]?.[1] ?    //Index of the mod for its min max data
-                        item.extended.hashes.explicit[i][1]?.[1] : 0;
 
       let modData: modData = {                                      //Set data
         text: mod,
         name: item.extended.mods?.explicit?.[hashIndex]?.name,
         tier: item.extended.mods?.explicit?.[hashIndex]?.tier,  
-        min: item.extended.mods?.explicit?.[hashIndex]?.magnitudes?.[minMaxIndex]?.min,
-        max: item.extended.mods?.explicit?.[hashIndex]?.magnitudes?.[minMaxIndex]?.max,
-        hash: item.extended.hashes.explicit[i][0]
+        ranges: [],
+        hash: item.extended.hashes?.explicit[i][0]
+      }
+
+      if (item.extended.mods?.explicit?.[hashIndex]?.magnitudes) {
+        item.extended.mods?.explicit?.[hashIndex]?.magnitudes.forEach(magnitude => {
+          modData.ranges.push({
+            min: magnitude.min,
+            max: magnitude.max
+          })
+        });
       }
 
       explicits.push(modData);
@@ -71,15 +79,22 @@ export class ResultsComponent implements OnInit {
 
     item.implicitMods.forEach((mod, i) => {                           //cycle through implicits
       let hashIndex = item.extended.hashes?.implicit?.[i][1]?.[0];       //Index of the mod for its extended data
-      let minMaxIndex = item.extended.hashes?.implicit?.[i][1]?.[1] ?    //Index of the mod for its min max data
-                        item.extended.hashes.implicit[i][1]?.[1] : 0;
+
       let modData: modData = {                                        //Set data
         text: mod,
         name: item.extended.mods?.implicit?.[hashIndex]?.name,
         tier: item.extended.mods?.implicit?.[hashIndex]?.tier,  
-        min: item.extended.mods?.implicit?.[hashIndex]?.magnitudes?.[minMaxIndex]?.min,
-        max: item.extended.mods?.implicit?.[hashIndex]?.magnitudes?.[minMaxIndex]?.max,
-        hash: item.extended.hashes.implicit[i][0]
+        ranges: [],
+        hash: item.extended.hashes?.implicit[i][0]
+      }
+
+      if (item.extended.mods?.implicit?.[hashIndex]?.magnitudes) {
+        item.extended.mods?.implicit?.[hashIndex]?.magnitudes.forEach(magnitude => {
+          modData.ranges.push({
+            min: magnitude.min,
+            max: magnitude.max
+          })
+        });
       }
 
       implicits.push(modData);
