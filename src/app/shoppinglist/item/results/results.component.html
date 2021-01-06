@@ -1,1 +1,17 @@
-<p>results works!</p>
+<div class="query-results-container">
+    <h2 class="results-header">{{queryData.length}} Results</h2>
+    <div *ngFor="let item of queryData" class="query-item">
+        <div class="query-item-header rarity-{{item.item.frameType}}">
+            <h3 *ngIf="item.item.name" class="item-name">{{ item.item.name }}</h3>
+            <h4 *ngIf="item.item.typeLine" class="item-type">{{ item.item.typeLine }}</h4>
+        </div>
+        <div class="query-item-details-container">
+            <div class="item-image item-detail">
+                <img src="{{item.item.icon}}" aria-label="Image of {{item.item.name ? item.item.name : item.item.typeLine}}">
+            </div>
+            <div properties *ngIf="item.item.properties && item.item.properties.length > 0" 
+                [props]="item.item.properties"
+                class="item-properties item-detail"></div>
+        </div>
+    </div>
+</div>
