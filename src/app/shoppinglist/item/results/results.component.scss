@@ -20,6 +20,7 @@
         margin: auto;
         width: 95%;
         margin: 1em auto;
+        justify-content: center;
 
         .item-image {
             flex: 0 1 150px;
@@ -37,11 +38,12 @@
         }
 
         .query-item-box {
-            flex: 1;
+            flex: 1 1 275px;
             background-color: rgba(0, 0, 0, 0.65);
             color: mat-color($pathofshopping-accent, 50);
             border-radius: 4px;
             overflow: hidden;
+            align-self: flex-start;
 
             .query-item-header {
                 display: flex;
@@ -116,22 +118,30 @@
             .query-item-details-container {
                 display: flex;
                 flex-direction: column;
-                flex-wrap: wrap;
     
                 .item-detail {
                     position: relative;
                     justify-content: center;
                     flex: 1 1 auto;
-                    padding: 0.5em 0;
+                    text-align: center;
+                    padding-top: 0.5em;
+                    padding-left: 0;
+                    margin: 0;
+                    list-style: none;
+    
+                    p {
+                        margin: 0;
+                        padding: 0.2em;
+                    }
                 }
     
                 .item-detail:after {
                     content: "";
-                    position: absolute;
+                    display: inline-block;
                     width: 95%;
                     height: 1px;
                     margin: auto;
-                    bottom: 0;
+                    margin-top: 0.5em;
                 }
     
                 .item-detail:last-child:after {
@@ -139,12 +149,10 @@
                 }
     
                 .item-properties {
-                    text-align: center;
                     color: rgb(151, 151, 151);
-    
-                    p {
-                        margin: 0;
-                        padding-top: 0.2em;
+
+                    &:last-child {
+                        padding-bottom: 0.5em;
                     }
 
                     .prop-0 {
@@ -168,7 +176,48 @@
                     }
     
                     .prop-7 {
-                        color: rgb(119, 25, 119);
+                        color: rgb(182, 38, 182);
+                    }
+                }
+
+                .item-explicit-mods {
+                    color: rgb(100, 100, 255);
+
+                    .mod {
+                        padding: 0.3em;
+
+                        .mod-details {
+                            box-sizing: border-box;
+                            display: flex;
+                            flex-wrap: wrap;
+                            justify-content: space-between;
+                            margin-top: 0.6em;
+
+                            .mod-detail {
+                                flex: 1 1 30%;
+                                padding: 0 0.5em;
+
+                                &:last-child {
+                                    text-align: right;
+                                }
+
+                                &:first-child {
+                                    text-align: left;
+                                }
+                            }
+
+                            &[class*='type-P'] {
+                                color: #ec7676;
+                            }
+
+                            &[class*='type-S'] {
+                                color: #7aaff1;
+                            }
+                        }
+
+                        &:nth-child(even) {
+                            background-color: rgba(0, 0, 0, 0.15);
+                        }
                     }
                 }
             }
