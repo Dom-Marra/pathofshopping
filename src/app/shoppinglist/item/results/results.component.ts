@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Directive, ElementRef, Input, OnInit, Renderer2, SimpleChanges } from '@angular/core';
 
 interface modData {
   text: string,
@@ -86,6 +86,95 @@ export class ResultsComponent implements OnInit {
     });
 
     return implicits;
+  }
+
+}
+
+@Directive({
+  selector: '[properties]'
+})
+export class PropertiesDirective {
+
+  @Input() props: Array<any>;       //Properties
+
+  constructor(private el: ElementRef, private renderer: Renderer2) { }
+
+  ngAfterViewInit() {
+    if (this.props) this.parseProperties();   //Parse the properties
+  }
+
+  /**
+   * Parses the properties and displays them in the element
+   */
+  public parseProperties() {
+
+    this.props.forEach(prop => {                    //Cycle properties
+      if (prop.displayMode == 3) {
+        this.parseDisplay3(prop);
+      } else if (prop.values != null && prop.values.length > 0) {
+        this.parseDisplay0and1(prop)
+      } else {
+        let name: string = prop.name;                 //Propery name
+        let p = this.renderer.createElement('p');     //p element holds property
+        let text = this.renderer.createText(name);    //Holds property name
+        this.renderer.appendChild(p, text);           //Add property name to the p element
+        this.renderer.appendChild(this.el.nativeElement, p);    //Add property to the host element
+      }
+    });
+  }
+
+  /**
+   * Does specific parsing for properties that are in display mode 3,
+   * creates and appends elements that hold the data
+   * 
+   * @param prop 
+   *        property to parse
+   */
+  private parseDisplay3(prop: any) {
+    let name: string = prop.name;                     //name of the property
+    let p = this.renderer.createElement('p');         //p elemene to hold the property data
+    let regex = new RegExp(/({\d*})/);                //Reg exp to find value positions in the name
+    let substrs = name.split(regex);                  //Substrings of value postions and text before them
+
+    substrs.forEach(str => {                          //Cycle substrings
+
+      if (str.match(regex)) {                                      //If the sub string is a value position
+        let valueIndex: number = parseInt(str.match(/(\d+)/)[0]);               //Reference of the value 
+
+        let span = this.renderer.createElement('span');                         //Span element holds the value
+        let spanText = this.renderer.createText(prop.values[valueIndex][0]);    //Value data
+        this.renderer.addClass(span, "prop-" + prop.values[valueIndex][1]);     //Property class
+        this.renderer.appendChild(span, spanText);                              //add the value data to the span element
+        this.renderer.appendChild(p, span);                                     //Append span to the p element
+      } else {
+        let preText = this.renderer.createText(str);                            //Text of the name
+        this.renderer.appendChild(p, preText);                                  //Add text of the name to the p element
+      }
+    });
+
+    this.renderer.appendChild(this.el.nativeElement, p);         //Add the property to the host element
+  }
+
+  /**
+   * Does specific parsing for properties that are in display mode 0 & 1,
+   * creates and appends elements that hold the data
+   * 
+   * @param prop 
+   *        property to parse
+   */
+  private parseDisplay0and1(prop: any) {
+    let name = prop.name;                                         //name of the property
+    let p = this.renderer.createElement('p');                     //p element to hold property data
+    let span = this.renderer.createElement('span');               //Holds values of the property
+    let spanText = this.renderer.createText(prop.values[0][0]);   //Value for the span element
+    this.renderer.addClass(span, "prop-" + prop.values[0][1]);    //Class of the value
+    this.renderer.appendChild(span, spanText);                    //Add the value to the span element
+    let preText = this.renderer.createText(name + ": ");          //Name of the property to go before the value
+
+    //Append the other elements
+    this.renderer.appendChild(p, preText);    
+    this.renderer.appendChild(p, span);
+    this.renderer.appendChild(this.el.nativeElement, p);
   }
 
 }
