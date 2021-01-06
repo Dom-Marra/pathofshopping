@@ -33,7 +33,7 @@ import { GemfiltersComponent } from './shoppinglist/filters/gemfilters/gemfilter
 import { OtherfiltersComponent } from './shoppinglist/filters/otherfilters/otherfilters.component';
 import { StatfiltersComponent } from './shoppinglist/filters/statfilters/statfilters.component';
 import { TypefiltersComponent } from './shoppinglist/filters/typefilters/typefilters.component';
-import { ResultsComponent } from './shoppinglist/item/results/results.component';
+import { ResultsComponent, PropertiesDirective } from './shoppinglist/item/results/results.component';
 
 
 
@@ -57,7 +57,8 @@ import { ResultsComponent } from './shoppinglist/item/results/results.component'
     OtherfiltersComponent,
     StatfiltersComponent,
     TypefiltersComponent,
-    ResultsComponent
+    ResultsComponent,
+    PropertiesDirective
   ],
   imports: [
     BrowserModule,
