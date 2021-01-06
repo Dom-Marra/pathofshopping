@@ -151,9 +151,10 @@
         }
 
         .results {
+            display: flex;
+            flex-direction: column;
             flex: 1 1 500px;
             min-height: 600px;
-            padding-bottom: 1em;
         }
     }
 }
