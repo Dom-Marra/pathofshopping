@@ -110,9 +110,9 @@ export class ResultsComponent implements OnInit {
 }
 
 @Directive({
-  selector: '[properties]'
+  selector: '[parser]'
 })
-export class PropertiesDirective {
+export class ParserDirective {
 
   @Input() props: Array<any>;       //Properties
 
@@ -162,7 +162,7 @@ export class PropertiesDirective {
 
         let span = this.renderer.createElement('span');                         //Span element holds the value
         let spanText = this.renderer.createText(prop.values[valueIndex][0]);    //Value data
-        this.renderer.addClass(span, "prop-" + prop.values[valueIndex][1]);     //Property class
+        this.renderer.addClass(span, "display-" + prop.values[valueIndex][1]);  //Property class
         this.renderer.appendChild(span, spanText);                              //add the value data to the span element
         this.renderer.appendChild(li, span);                                     //Append span to the p element
       } else {
@@ -186,7 +186,7 @@ export class PropertiesDirective {
     let li = this.renderer.createElement('li');                   //li element to hold property data
     let span = this.renderer.createElement('span');               //Holds values of the property
     let spanText = this.renderer.createText(prop.values[0][0]);   //Value for the span element
-    this.renderer.addClass(span, "prop-" + prop.values[0][1]);    //Class of the value
+    this.renderer.addClass(span, "display-" + prop.values[0][1]); //Class of the value
     this.renderer.appendChild(span, spanText);                    //Add the value to the span element
     let preText = this.renderer.createText(name + ": ");          //Name of the property to go before the value
 
