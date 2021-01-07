@@ -145,35 +145,45 @@
                     display: none;
                 }
     
-                .item-properties {
+                .item-parsed-list {
                     color: rgb(151, 151, 151);
 
                     &:last-child {
                         padding-bottom: 0.5em;
                     }
 
-                    .prop-0 {
+                    .display-0 {
                         color: white;
                     }
     
-                    .prop-1 {
+                    .display-1 {
                         color: rgb(100, 100, 255);
                     }
     
-                    .prop-4 {
+                    .display-4 {
                         color: rgb(223, 37, 4);
                     }
     
-                    .prop-5 {
+                    .display-5 {
                         color: rgb(132, 226, 230);
                     }
     
-                    .prop-6 {
+                    .display-6 {
                         color: rgb(255, 238, 0);
                     }
     
-                    .prop-7 {
+                    .display-7 {
                         color: rgb(182, 38, 182);
+                    }
+
+                    .item-parsed-nested-list {
+                        list-style: none;
+                        margin: 0;
+                        display: inline-block;
+
+                        li {
+                            display: inline-block;
+                        }
                     }
                 }
 
