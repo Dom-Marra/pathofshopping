@@ -21,10 +21,13 @@
                     <li *ngFor="let mod of parseExplicitData(item.item)" class="mod">
                         {{ mod.text }}
                         <div class="mod-details mat-small type-{{mod.tier}}">
-                            <div *ngIf="mod.tier" class="mod-detail">{{mod.tier}}</div>
-                            <div *ngIf="mod.ranges && mod.ranges.length > 0" class="mod-detail">
-                                Ranges: [<span *ngFor="let range of mod.ranges; let i = index">{{range.min}}{{(range.max != range.min ? ' - ' + range.max : '')}}<span *ngIf="mod.ranges[i+1]">, </span></span>]
+                            <div *ngIf="mod.tier" class="mod-detail">
+                                {{mod.tier}}
+                                <span *ngIf="mod.ranges && mod.ranges.length > 0" class="mod-detail">
+                                    [<span *ngFor="let range of mod.ranges; let i = index">{{range.min}}{{(range.max != range.min ? ' - ' + range.max : '')}}<span *ngIf="mod.ranges[i+1]">, </span></span>]
+                                </span>
                             </div>
+                            
                             <div *ngIf="mod.name" class="mod-detail">{{mod.name}}</div>
                         </div>
                     </li>
