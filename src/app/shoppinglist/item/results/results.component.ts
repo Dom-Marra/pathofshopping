@@ -53,10 +53,12 @@ export class ResultsComponent implements OnInit {
 
       if (item.extended.mods?.explicit?.[hashIndex]?.magnitudes) {
         item.extended.mods?.explicit?.[hashIndex]?.magnitudes.forEach(magnitude => {
-          modData.ranges.push({
-            min: magnitude.min,
-            max: magnitude.max
-          })
+          if (magnitude.hash == modData.hash) {
+            modData.ranges.push({
+              min: magnitude.min,
+              max: magnitude.max
+            });
+          }
         });
       }
 
@@ -90,10 +92,12 @@ export class ResultsComponent implements OnInit {
 
       if (item.extended.mods?.implicit?.[hashIndex]?.magnitudes) {
         item.extended.mods?.implicit?.[hashIndex]?.magnitudes.forEach(magnitude => {
-          modData.ranges.push({
-            min: magnitude.min,
-            max: magnitude.max
-          })
+          if (magnitude.hash == modData.hash) {
+            modData.ranges.push({
+              min: magnitude.min,
+              max: magnitude.max
+            });
+          }
         });
       }
 
