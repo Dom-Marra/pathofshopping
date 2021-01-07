@@ -134,10 +134,10 @@ export class PropertiesDirective {
         this.parseDisplay0and1(prop)
       } else {
         let name: string = prop.name;                 //Propery name
-        let p = this.renderer.createElement('p');     //p element holds property
+        let li = this.renderer.createElement('li');     //p element holds property
         let text = this.renderer.createText(name);    //Holds property name
-        this.renderer.appendChild(p, text);           //Add property name to the p element
-        this.renderer.appendChild(this.el.nativeElement, p);    //Add property to the host element
+        this.renderer.appendChild(li, text);           //Add property name to the p element
+        this.renderer.appendChild(this.el.nativeElement, li);    //Add property to the host element
       }
     });
   }
@@ -151,7 +151,7 @@ export class PropertiesDirective {
    */
   private parseDisplay3(prop: any) {
     let name: string = prop.name;                     //name of the property
-    let p = this.renderer.createElement('p');         //p elemene to hold the property data
+    let li = this.renderer.createElement('li');        //li element to hold the property data
     let regex = new RegExp(/({\d*})/);                //Reg exp to find value positions in the name
     let substrs = name.split(regex);                  //Substrings of value postions and text before them
 
@@ -164,14 +164,14 @@ export class PropertiesDirective {
         let spanText = this.renderer.createText(prop.values[valueIndex][0]);    //Value data
         this.renderer.addClass(span, "prop-" + prop.values[valueIndex][1]);     //Property class
         this.renderer.appendChild(span, spanText);                              //add the value data to the span element
-        this.renderer.appendChild(p, span);                                     //Append span to the p element
+        this.renderer.appendChild(li, span);                                     //Append span to the p element
       } else {
         let preText = this.renderer.createText(str);                            //Text of the name
-        this.renderer.appendChild(p, preText);                                  //Add text of the name to the p element
+        this.renderer.appendChild(li, preText);                                  //Add text of the name to the p element
       }
     });
 
-    this.renderer.appendChild(this.el.nativeElement, p);         //Add the property to the host element
+    this.renderer.appendChild(this.el.nativeElement, li);         //Add the property to the host element
   }
 
   /**
@@ -183,7 +183,7 @@ export class PropertiesDirective {
    */
   private parseDisplay0and1(prop: any) {
     let name = prop.name;                                         //name of the property
-    let p = this.renderer.createElement('p');                     //p element to hold property data
+    let li = this.renderer.createElement('li');                   //li element to hold property data
     let span = this.renderer.createElement('span');               //Holds values of the property
     let spanText = this.renderer.createText(prop.values[0][0]);   //Value for the span element
     this.renderer.addClass(span, "prop-" + prop.values[0][1]);    //Class of the value
@@ -191,9 +191,9 @@ export class PropertiesDirective {
     let preText = this.renderer.createText(name + ": ");          //Name of the property to go before the value
 
     //Append the other elements
-    this.renderer.appendChild(p, preText);    
-    this.renderer.appendChild(p, span);
-    this.renderer.appendChild(this.el.nativeElement, p);
+    this.renderer.appendChild(li, preText);    
+    this.renderer.appendChild(li, span);
+    this.renderer.appendChild(this.el.nativeElement, li);
   }
 
 }
