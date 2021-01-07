@@ -48,7 +48,8 @@ export class ResultsComponent implements OnInit {
         name: item.extended.mods?.explicit?.[hashIndex]?.name,
         tier: item.extended.mods?.explicit?.[hashIndex]?.tier,  
         ranges: [],
-        hash: item.extended.hashes?.[item.extended.hashes?.hasOwnProperty('delve') ? 'delve' : 'explicit'][i][0]  //If it is a delve item use delve property
+        hash: item.extended.hashes?.
+              [item.extended.hashes?.hasOwnProperty('delve') ? 'delve' : 'explicit']?.[i]?.[0]  //If it is a delve item use delve property
       }
 
       if (item.extended.mods?.explicit?.[hashIndex]?.magnitudes) {
@@ -130,9 +131,11 @@ export class ParserDirective {
     this.props.forEach(prop => {                    //Cycle properties
       if (prop.displayMode == 3) {
         this.parseDisplay3(prop);
-      } else if (prop.values != null && prop.values.length > 0) {
-        this.parseDisplay0and1(prop)
-      } else {
+      } else if (prop.displayMode == 1) {
+        this.parseDisplay1(prop)
+      } else if(prop.displayMode == 0) {
+        this.parseDisplay0(prop);
+      }else {
         let name: string = prop.name;                 //Propery name
         let li = this.renderer.createElement('li');     //p element holds property
         let text = this.renderer.createText(name);    //Holds property name
@@ -175,13 +178,45 @@ export class ParserDirective {
   }
 
   /**
+   * Does specific parsing for properties that are in display mode 0,
+   * creates and appends elements that hold the data
+   * 
+   * @param prop 
+   *        property to parse
+   */
+  private parseDisplay0(prop: any) {
+    
+    let propStrs = (prop.name as string).split(/(<.+?>{.+?})+/g);         //Split the array keep the delimiter (should look like <value>{othervalue})
+    let li = this.renderer.createElement('li');                           //Create li element
+
+    propStrs.forEach((propStr, i) => {                                    //Cycle throgh the array
+      let value = propStr;                                                //Init the text value
+      let span = this.renderer.createElement('span');                     //Create a span to put the text into
+
+      if (new RegExp(/(<.+?>{.+?})+/g).test(propStr)) {                   //If the delimiter is found extract the value, and the class for it
+        let displayModes = propStr.match(/<(.*?)>/g);                                   //extract class, should look like <value>
+        let display = displayModes[displayModes.length -1].replace(/[<>]/gi, '');       //Get the value of the class
+        value = propStr.replace(/<(.*?)>/gi, '').replace(/[{}]/gi, '');                 //Set the new value for the text
+        this.renderer.addClass(span, display);                                          //Add class to the span
+      }
+
+      let text = this.renderer.createText(value);                                       //Create text for the span
+
+      //Append
+      this.renderer.appendChild(span, text);
+      this.renderer.appendChild(li, span);
+      this.renderer.appendChild(this.el.nativeElement, li);
+    });
+  }
+
+  /**
    * Does specific parsing for properties that are in display mode 0 & 1,
    * creates and appends elements that hold the data
    * 
    * @param prop 
    *        property to parse
    */
-  private parseDisplay0and1(prop: any) {
+  private parseDisplay1(prop: any) {
     let name = prop.name;                                         //name of the property
     let li = this.renderer.createElement('li');                   //li element to hold property data
     let span = this.renderer.createElement('span');               //Holds values of the property
