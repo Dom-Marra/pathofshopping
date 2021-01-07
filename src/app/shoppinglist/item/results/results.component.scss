@@ -219,8 +219,62 @@
                         }
                     }
                 }
-            }
 
+                .item-div-mods {
+
+                    .prophecy {
+                        color: rgb(181,73,249);
+                    }
+
+                    .uniqueitem {
+                        color: rgb(201, 106, 24);
+                    }
+
+                    .default {
+                        color: rgb(151, 151, 151);
+                    }
+
+                    .normal {
+                        color: white
+                    }
+
+                    .currencyitem {
+                        color: rgb(133,124,94);
+                    }
+
+                    .corrupted {
+                        color: #d20000;
+                    }
+
+                    .rareitem {
+                        color: rgb(236,235,109);
+                    }
+
+                    .whiteitem {
+                        color: white;
+                    }
+
+                    .gemitem {
+                       color: rgb(17, 185, 177);
+                    }
+
+                    .augmented {
+                        color: rgb(100, 100, 255);
+                    }
+
+                    .magicitem {
+                        color: rgb(131, 132, 190);
+                    }
+
+                    .enchanted {
+                        color: rgb(184,218,242);
+                    }
+
+                    .divination {
+                        color: #0ebaff;
+                    }
+                }
+            }
         }
     }
 }
