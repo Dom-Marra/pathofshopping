@@ -12,9 +12,9 @@
             <div class="query-item-details-container">
 
                 <!--Properties-->
-                <div properties *ngIf="item.item.properties && item.item.properties.length > 0" 
+                <ul properties *ngIf="item.item.properties && item.item.properties.length > 0" 
                     [props]="item.item.properties"
-                    class="item-properties item-detail"></div>
+                    class="item-properties item-detail"></ul>
             
                 <!-- Explicit Mods-->
                 <ul *ngIf="item.item.explicitMods && item.item.explicitMods.length > 0" class="item-explicit-mods item-detail">
