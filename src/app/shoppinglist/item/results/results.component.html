@@ -12,9 +12,17 @@
             <div class="query-item-details-container">
 
                 <!--Properties-->
-                <ul properties *ngIf="item.item.properties && item.item.properties.length > 0" 
+                <ul parser *ngIf="item.item.properties && item.item.properties.length > 0" 
                     [props]="item.item.properties"
-                    class="item-properties item-detail"></ul>
+                    class="item-parsed-list item-detail"></ul>
+
+                <!-- Item Level & Requirements-->
+                <ul *ngIf="item.item.requirements || item.item.ilvl" class="item-parsed-list item-detail">
+                    <li *ngIf="item.item.ilvl">Item Level: <span class="display-0">{{item.item.ilvl}}</span></li>
+                    <li *ngIf="item.item.requirements">Requires 
+                        <ul parser [props]="item.item.requirements" class="item-parsed-nested-list item-detail"></ul>
+                    </li>
+                </ul>
             
                 <!-- Explicit Mods-->
                 <ul *ngIf="item.item.explicitMods && item.item.explicitMods.length > 0" class="item-explicit-mods item-detail">
