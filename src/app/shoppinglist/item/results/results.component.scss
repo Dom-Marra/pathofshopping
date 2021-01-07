@@ -191,19 +191,11 @@
                             display: flex;
                             flex-wrap: wrap;
                             justify-content: space-between;
-                            margin-top: 0.6em;
+                            margin-top: 0.25em;
 
                             .mod-detail {
-                                flex: 1 1 30%;
-                                padding: 0 0.5em;
-
-                                &:last-child {
-                                    text-align: right;
-                                }
-
-                                &:first-child {
-                                    text-align: left;
-                                }
+                                flex: 0 1 auto;
+                                text-align: center;
                             }
 
                             &[class*='type-P'] {
