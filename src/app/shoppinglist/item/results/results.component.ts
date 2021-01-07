@@ -41,14 +41,14 @@ export class ResultsComponent implements OnInit {
     if (item.explicitMods == null || item.explicitMods.length == 0) return null;    //Return null if no explicits
 
     item.explicitMods.forEach((mod, i) => {                           //cycle through explicits
-      let hashIndex = item.extended.hashes?.explicit?.[i][1]?.[0];       //Index of the mod for its extended data
+      let hashIndex = item.extended.hashes?.explicit?.[i][1]?.[0];    //Index of the mod for its extended data
 
       let modData: modData = {                                      //Set data
-        text: mod,
+        text: (mod as string).replace(/\n/, '<br>'),                //Add break when there is a new line
         name: item.extended.mods?.explicit?.[hashIndex]?.name,
         tier: item.extended.mods?.explicit?.[hashIndex]?.tier,  
         ranges: [],
-        hash: item.extended.hashes?.explicit[i][0]
+        hash: item.extended.hashes?.[item.extended.hashes?.hasOwnProperty('delve') ? 'delve' : 'explicit'][i][0]  //If it is a delve item use delve property
       }
 
       if (item.extended.mods?.explicit?.[hashIndex]?.magnitudes) {
