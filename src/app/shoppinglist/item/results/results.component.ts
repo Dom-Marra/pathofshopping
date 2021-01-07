@@ -197,3 +197,48 @@ export class ParserDirective {
   }
 
 }
+
+@Directive({
+  selector: '[divCardExplicitParser]'
+})
+export class DivCardExplicitParser {
+
+  @Input() mods: Array<any>;       //Explicit Mods
+
+  constructor(private el: ElementRef, private renderer: Renderer2) { }
+
+  ngAfterViewInit() {
+    if (this.mods) this.parseDivExplicits();   //Parse the Mods
+  }
+
+  /**
+   * Parses the properties and displays them in the element
+   */
+  public parseDivExplicits() {
+
+    this.mods.forEach((mod, i) => {                 
+      let subMods = (mod as String).split(/\n/);
+
+      subMods.forEach(subMod => {
+        let modPairs = subMod.match(/<(.*?)>{(.*?)}/gi);
+        let li = this.renderer.createElement('li');
+        if (!modPairs) return;
+
+        modPairs.forEach((modPair, i) => {
+          let displayModes = modPair.match(/<(.*?)>/gi);
+          let display = displayModes[displayModes.length -1].replace(/[<>]/gi, '');
+          let value = modPair.replace(/<(.*?)>/gi, '').replace(/[{}]/gi, '')
+
+          if (i > 0) value = ' ' + value;
+          let text = this.renderer.createText(value);
+          let span = this.renderer.createElement('span');
+          this.renderer.addClass(span, display);
+
+          this.renderer.appendChild(span, text);
+          this.renderer.appendChild(li, span);
+          this.renderer.appendChild(this.el.nativeElement, li);
+        });
+      });
+    });
+  }
+}
