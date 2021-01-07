@@ -25,8 +25,8 @@
                 </ul>
             
                 <!-- Explicit Mods-->
-                <ul *ngIf="item.item.explicitMods && item.item.explicitMods.length > 0" class="item-explicit-mods item-detail">
-                    <li *ngFor="let mod of parseExplicitData(item.item)" class="mod">
+                <ul *ngIf="item.item.explicitMods && item.item.explicitMods.length > 0 && item.item.frameType != 6" class="item-explicit-mods item-detail">
+                    <li *ngFor="let mod of parseExplicitData(item.item)" class="mod {{mod.display ? mod.display : ''}}">
                         {{ mod.text }}
                         <div class="mod-details mat-small type-{{mod.tier}}">
                             <div *ngIf="mod.tier" class="mod-detail">
@@ -39,6 +39,10 @@
                             <div *ngIf="mod.name" class="mod-detail">{{mod.name}}</div>
                         </div>
                     </li>
+                </ul>
+                <ul divCardExplicitParser [mods]="item.item.explicitMods" 
+                    *ngIf="item.item.frameType == 6 && item.item.explicitMods && item.item.explicitMods.length > 0" 
+                    class="item-div-mods item-detail">
                 </ul>
             </div>
         </div>
