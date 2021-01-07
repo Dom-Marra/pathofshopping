@@ -120,24 +120,21 @@
                 flex-direction: column;
     
                 .item-detail {
-                    position: relative;
-                    justify-content: center;
                     flex: 1 1 auto;
                     text-align: center;
-                    padding-top: 0.5em;
                     padding-left: 0;
+                    padding-top: 0.5em;
                     margin: 0;
                     list-style: none;
-    
-                    p {
-                        margin: 0;
-                        padding: 0.2em;
+
+                    li {
+                        padding: 0.15em;
                     }
                 }
     
                 .item-detail:after {
                     content: "";
-                    display: inline-block;
+                    display: block;
                     width: 95%;
                     height: 1px;
                     margin: auto;
