@@ -26,8 +26,7 @@
             
                 <!-- Explicit Mods-->
                 <ul *ngIf="item.item.explicitMods && item.item.explicitMods.length > 0 && item.item.frameType != 6" class="item-explicit-mods item-detail">
-                    <li *ngFor="let mod of parseExplicitData(item.item)" class="mod {{mod.display ? mod.display : ''}}">
-                        {{ mod.text }}
+                    <li *ngFor="let mod of parseExplicitData(item.item)" class="mod {{mod.display ? mod.display : ''}}" [innerHTML]="mod.text">
                         <div class="mod-details mat-small type-{{mod.tier}}">
                             <div *ngIf="mod.tier" class="mod-detail">
                                 {{mod.tier}}
