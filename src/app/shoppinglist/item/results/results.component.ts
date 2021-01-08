@@ -131,7 +131,7 @@ export class ParserDirective {
     this.props.forEach(prop => {                    //Cycle properties
       if (prop.displayMode == 3) {
         this.parseDisplay3(prop);
-      } else if (prop.displayMode == 1) {
+      } else if (prop.displayMode == 1 || (prop.displayMode == 0 && prop.values.length > 0)) {
         this.parseDisplay1(prop)
       } else if(prop.displayMode == 0) {
         this.parseDisplay0(prop);
