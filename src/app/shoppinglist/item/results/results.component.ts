@@ -1,4 +1,5 @@
 import { Component, Directive, ElementRef, Input, OnInit, Pipe, PipeTransform, Renderer2, SimpleChanges } from '@angular/core';
+import { Currency } from '../../currency';
 
 interface modData {
   text: string,
@@ -20,6 +21,8 @@ export class ResultsComponent implements OnInit {
 
   @Input() queryData: Array<any>;
 
+  public currencies: Currency = new Currency();
+
   constructor() { }
 
   ngOnInit(): void {
@@ -27,6 +30,28 @@ export class ResultsComponent implements OnInit {
 
   ngOnChanges(changes: SimpleChanges) {
     console.log(this.queryData);
+  }
+
+  /**
+   * Returns the time difference from a given date and the current date
+   * 
+   * @param date
+   *        string: item date 
+   */
+  public subtractDate(date) {
+    let compare = new Date(date);
+    let currentDate = new Date();
+    let diff = Math.abs(currentDate.getTime() - compare.getTime());
+
+    let days = diff / (1000 * 60 * 60 * 24);
+    let hours = diff / (1000 * 60 * 60);
+    let minutes = diff / (1000 * 60);
+    let seconds = diff / 1000;
+
+    if (days >= 1) return Math.floor(days) + ' Days ago';
+    if (hours >= 1) return Math.floor(hours) + ' Hours ago';
+    if (minutes >= 1) return Math.floor(minutes) + ' Minutes ago';
+    if (seconds >= 1) return Math.floor(seconds) + ' Seconds ago';
   }
 
   /**
