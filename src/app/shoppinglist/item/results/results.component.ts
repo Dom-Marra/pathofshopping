@@ -147,6 +147,44 @@ export class ResultsComponent implements OnInit {
     return crafts;
   }
 
+    /**
+   * Parses the enchanted mod data from a given item
+   * 
+   * @param item 
+   *        POE API Item
+   */
+  public parseEnchantedData(item: any): Array<modData> {
+    let enchants: Array<modData> = [];                  //Stores implicit mod data 
+
+    if (item.enchantMods == null || item.enchantMods.length == 0) return null;    //Return null if no implicits
+
+    item.enchantMods.forEach((mod, i) => {                           //cycle through implicits
+      let hashIndex = item.extended.hashes?.enchant?.[i][1]?.[0];    //Index of the mod for its extended data
+
+      let modData: modData = {                                       //Set data
+        text: mod,
+        name: item.extended.mods?.enchant?.[hashIndex]?.name,
+        tier: item.extended.mods?.enchant?.[hashIndex]?.tier,  
+        ranges: [],
+        hash: item.extended.hashes?.enchant[i][0]
+      }
+
+      if (item.extended.mods?.enchant?.[hashIndex]?.magnitudes) {
+        item.extended.mods?.enchant?.[hashIndex]?.magnitudes.forEach(magnitude => {
+          if (magnitude.hash == modData.hash && !(magnitude.min == 0 && magnitude.max == 0)) {
+            modData.ranges.push({
+              min: magnitude.min,
+              max: magnitude.max
+            });
+          }
+        });
+      }
+
+      enchants.push(modData);
+    });
+
+    return enchants;
+  }
 }
 
 @Directive({
