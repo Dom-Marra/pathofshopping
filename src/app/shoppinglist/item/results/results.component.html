@@ -93,6 +93,22 @@
                 </ul>
             </div>
         </div>
+
+        <!-- Listing Info -->
+        <div class="query-item-listing-info">
+            <div class="listing-info mat-small">
+                <mat-icon class="online-status {{item.listing.account.online?.status}}">person</mat-icon>&nbsp;{{ item.listing.account.lastCharacterName}}
+            </div>
+            <div *ngIf="item.listing.price.currency" class="listing-info mat-small">
+                x{{item.listing.price.amount}}&nbsp;<img class="currency-icon" src="{{this.currencies.getCurrencyIcon(item.listing.price.currency)}}">
+            </div>
+            <div class="listing-info mat-small">
+                <mat-icon>access_time</mat-icon>&nbsp;{{ subtractDate(item.listing.indexed)}}
+            </div>
+            <button mat-button [cdkCopyToClipboard]="item.listing.whisper" class="listing-info mat-small">
+                <mat-icon>message</mat-icon>
+            </button>
+        </div>
         <hr class="item-line-break">
     </div>
 </div>
