@@ -1,6 +1,6 @@
 <div class="query-results-container">
     <h2 class="results-header">{{queryData.length}} Results</h2>
-    <div *ngFor="let item of queryData" class="query-item">
+    <div *ngFor="let item of queryData; let itemIndex = index" class="query-item">
         <div class="item-image item-detail">
             <img src="{{item.item.icon}}" aria-label="Image of {{item.item.name ? item.item.name : item.item.typeLine}}">
         </div>
@@ -24,9 +24,26 @@
                     </li>
                 </ul>
             
+                <!-- Enchanted Mods-->
+                <ul *ngIf="item.item.enchantMods && item.item.enchantMods.length > 0" class="item-explicit-mods item-detail">
+                    <li *ngFor="let mod of parseEnchantedData(item.item); trackBy: trackModName" class="mod enchant">
+                        <span [innerHTML]="mod.text"></span>
+                        <div class="mod-details mat-small type-{{mod.tier}}">
+                            <div *ngIf="mod.tier || mod.ranges.length > 0" class="mod-detail">
+                                {{mod.tier}}
+                                <span *ngIf="mod.ranges && mod.ranges.length > 0" class="mod-detail">
+                                    [<span *ngFor="let range of mod.ranges; let i = index">{{range.min}}{{(range.max != range.min ? ' - ' + range.max : '')}}<span *ngIf="mod.ranges[i+1]">, </span></span>]
+                                </span>
+                            </div>
+                            
+                            <div *ngIf="mod.name" class="mod-detail">{{mod.name}}</div>
+                        </div>
+                    </li>
+                </ul>
+
                 <!-- Implicit Mods -->
                 <ul *ngIf="item.item.implicitMods && item.item.implicitMods.length > 0" class="item-explicit-mods item-detail">
-                    <li *ngFor="let mod of parseImplicitData(item.item)" class="mod {{mod.display ? mod.display : ''}}">
+                    <li *ngFor="let mod of parseImplicitData(item.item); trackBy: trackModName" class="mod {{mod.display ? mod.display : ''}}">
                         <span [innerHTML]="mod.text"></span>
                         <div class="mod-details mat-small type-{{mod.tier}}">
                             <div *ngIf="mod.tier || mod.ranges.length > 0" class="mod-detail">
@@ -43,7 +60,7 @@
             
                 <!-- Explicit Mods-->
                 <ul *ngIf="item.item.explicitMods && item.item.explicitMods.length > 0 && item.item.frameType != 6" class="item-explicit-mods item-detail">
-                    <li *ngFor="let mod of parseExplicitData(item.item)" class="mod {{mod.display ? mod.display : ''}}">
+                    <li *ngFor="let mod of parseExplicitData(item.item); trackBy: trackModName" class="mod {{mod.display ? mod.display : ''}}">
                         <span [innerHTML]="mod.text"></span>
                         <div class="mod-details mat-small type-{{mod.tier}}">
                             <div *ngIf="mod.tier || mod.ranges.length > 0" class="mod-detail">
@@ -56,7 +73,7 @@
                             <div *ngIf="mod.name" class="mod-detail">{{mod.name}}</div>
                         </div>
                     </li>
-                    <li *ngFor="let mod of parseCraftedData(item.item)" class="mod crafted">
+                    <li *ngFor="let mod of parseCraftedData(item.item); trackBy: trackModName" class="mod crafted">
                         <span [innerHTML]="mod.text"></span>
                         <div class="mod-details mat-small type-{{mod.tier}}">
                             <div *ngIf="mod.tier || mod.ranges.length > 0" class="mod-detail">
