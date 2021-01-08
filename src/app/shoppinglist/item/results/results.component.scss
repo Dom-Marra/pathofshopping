@@ -218,6 +218,10 @@
                             }
                         }
 
+                        &.crafted {
+                           color: #b4b4ff;
+                        }
+
                         &:nth-child(even) {
                             background-color: rgba(0, 0, 0, 0.15);
                         }
