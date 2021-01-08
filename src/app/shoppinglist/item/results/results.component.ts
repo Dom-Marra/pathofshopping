@@ -1,4 +1,4 @@
-import { Component, Directive, ElementRef, Input, OnInit, Renderer2, SimpleChanges } from '@angular/core';
+import { Component, Directive, ElementRef, Input, OnInit, Pipe, PipeTransform, Renderer2, SimpleChanges } from '@angular/core';
 
 interface modData {
   text: string,
@@ -30,160 +30,15 @@ export class ResultsComponent implements OnInit {
   }
 
   /**
-   * Parses the explicit mod data from a given item
+   * Tracks ngFor items by the id of the item
    * 
-   * @param item 
-   *        POE API Item
+   * @param index 
+   *        number: index of the item
+   * @param value 
+   *        any: the item from the query data
    */
-  public parseExplicitData(item: any): Array<modData> {
-    let explicits: Array<modData> = [];                  //Stores explicit mod data                                  
-
-    if (item.explicitMods == null || item.explicitMods.length == 0) return null;    //Return null if no explicits
-
-    item.explicitMods.forEach((mod, i) => {                           //cycle through explicits
-      let hashIndex = item.extended.hashes?.explicit?.[i][1]?.[0];    //Index of the mod for its extended data
-
-      let modData: modData = {                                      //Set data
-        text: (mod as string).replace(/\n/, '<br>'),                //Add break when there is a new line
-        name: item.extended.mods?.explicit?.[hashIndex]?.name,
-        tier: item.extended.mods?.explicit?.[hashIndex]?.tier,  
-        ranges: [],
-        hash: item.extended.hashes?.
-              [item.extended.hashes?.hasOwnProperty('delve') ? 'delve' : 'explicit']?.[i]?.[0]  //If it is a delve item use delve property
-      }
-
-      if (item.extended.mods?.explicit?.[hashIndex]?.magnitudes) {
-        item.extended.mods?.explicit?.[hashIndex]?.magnitudes.forEach(magnitude => {
-          if (magnitude.hash == modData.hash) {
-            modData.ranges.push({
-              min: magnitude.min,
-              max: magnitude.max
-            });
-          }
-        });
-      }
-
-      explicits.push(modData);
-    });
-
-    return explicits;
-  }
-
-  /**
-   * Parses the implicit mod data from a given item
-   * 
-   * @param item 
-   *        POE API Item
-   */
-  public parseImplicitData(item: any): Array<modData> {
-    let implicits: Array<modData> = [];                  //Stores implicit mod data 
-
-    if (item.implicitMods == null || item.implicitMods.length == 0) return null;    //Return null if no implicits
-
-    item.implicitMods.forEach((mod, i) => {                           //cycle through implicits
-      let hashIndex = item.extended.hashes?.implicit?.[i][1]?.[0];       //Index of the mod for its extended data
-
-      let modData: modData = {                                        //Set data
-        text: mod,
-        name: item.extended.mods?.implicit?.[hashIndex]?.name,
-        tier: item.extended.mods?.implicit?.[hashIndex]?.tier,  
-        ranges: [],
-        hash: item.extended.hashes?.implicit[i][0]
-      }
-
-      if (item.extended.mods?.implicit?.[hashIndex]?.magnitudes) {
-        item.extended.mods?.implicit?.[hashIndex]?.magnitudes.forEach(magnitude => {
-          if (magnitude.hash == modData.hash) {
-            modData.ranges.push({
-              min: magnitude.min,
-              max: magnitude.max
-            });
-          }
-        });
-      }
-
-      implicits.push(modData);
-    });
-
-    return implicits;
-  }
-
-  /**
-   * Parses the crafted mod data from a given item
-   * 
-   * @param item 
-   *        POE API Item
-   */
-  public parseCraftedData(item: any): Array<modData> {
-    let crafts: Array<modData> = [];                  //Stores implicit mod data 
-
-    if (item.craftedMods == null || item.craftedMods.length == 0) return null;    //Return null if no implicits
-
-    item.craftedMods.forEach((mod, i) => {                           //cycle through implicits
-      let hashIndex = item.extended.hashes?.crafted?.[i][1]?.[0];    //Index of the mod for its extended data
-
-      let modData: modData = {                                       //Set data
-        text: mod,
-        name: item.extended.mods?.crafted?.[hashIndex]?.name,
-        tier: item.extended.mods?.crafted?.[hashIndex]?.tier,  
-        ranges: [],
-        hash: item.extended.hashes?.crafted[i][0]
-      }
-
-      if (item.extended.mods?.crafted?.[hashIndex]?.magnitudes) {
-        item.extended.mods?.crafted?.[hashIndex]?.magnitudes.forEach(magnitude => {
-          if (magnitude.hash == modData.hash) {
-            modData.ranges.push({
-              min: magnitude.min,
-              max: magnitude.max
-            });
-          }
-        });
-      }
-
-      crafts.push(modData);
-    });
-
-    return crafts;
-  }
-
-    /**
-   * Parses the enchanted mod data from a given item
-   * 
-   * @param item 
-   *        POE API Item
-   */
-  public parseEnchantedData(item: any): Array<modData> {
-    let enchants: Array<modData> = [];                  //Stores implicit mod data 
-
-    if (item.enchantMods == null || item.enchantMods.length == 0) return null;    //Return null if no implicits
-
-    item.enchantMods.forEach((mod, i) => {                           //cycle through implicits
-      let hashIndex = item.extended.hashes?.enchant?.[i][1]?.[0];    //Index of the mod for its extended data
-
-      let modData: modData = {                                       //Set data
-        text: mod,
-        name: item.extended.mods?.enchant?.[hashIndex]?.name,
-        tier: item.extended.mods?.enchant?.[hashIndex]?.tier,  
-        ranges: [],
-        hash: item.extended.hashes?.enchant[i][0]
-      }
-
-      if (item.extended.mods?.enchant?.[hashIndex]?.magnitudes) {
-        item.extended.mods?.enchant?.[hashIndex]?.magnitudes.forEach(magnitude => {
-          if (magnitude.hash == modData.hash && !(magnitude.min == 0 && magnitude.max == 0)) {
-            modData.ranges.push({
-              min: magnitude.min,
-              max: magnitude.max
-            });
-          }
-        });
-      }
-
-      enchants.push(modData);
-    });
-
-    return enchants;
+  public trackyByID(index: number, value: any) {
+    return value.id;
   }
 }
 
@@ -352,5 +207,47 @@ export class DivCardExplicitParser {
         });
       });
     });
+  }
+}
+
+@Pipe({
+  name: 'parseMods',
+  pure: true
+})
+export class ParseModsPipe implements PipeTransform {
+  transform(item: any, modPropString: string, extendedPropName: string) : any {
+
+    let mods: Array<modData> = [];                  //Stores explicit mod data                                  
+
+    if (item[modPropString] == null || item[modPropString].length == 0) return null;    //Return null if no explicits
+
+    item[modPropString].forEach((mod, i) => {                                   //cycle through explicits
+      let hashIndex = item.extended.hashes?.[extendedPropName]?.[i][1]?.[0];    //Index of the mod for its extended data
+
+      let modData: modData = {                                      //Set data
+        text: (mod as string).replace(/\n/, '<br>'),                //Add break when there is a new line
+        name: item.extended.mods?.[extendedPropName]?.[hashIndex]?.name,
+        tier: item.extended.mods?.[extendedPropName]?.[hashIndex]?.tier,  
+        ranges: [],
+        hash: item.extended.hashes?.[item.extended.hashes?.hasOwnProperty('delve') ? 'delve' : extendedPropName]
+              ?.[i]?.[0]  //If it is a delve item use delve property
+      }
+
+      if (item.extended.mods?.[extendedPropName]?.[hashIndex]?.magnitudes) {        //Check if there are magnitudes for the mod
+        item.extended.mods?.[extendedPropName]?.[hashIndex]?.magnitudes.forEach(magnitude => {    //Cycle through magnitudes
+          if (magnitude.hash == modData.hash 
+              && !(magnitude.min == 0 && magnitude.max == 0)) {    //If the magnitude hash matched the mod hash and the value isn't 0
+            modData.ranges.push({                                  //Add the magnitudes to the mod ranges
+              min: magnitude.min,
+              max: magnitude.max
+            });
+          }
+        });
+      }
+
+      mods.push(modData);
+    });
+
+    return mods;
   }
 }
