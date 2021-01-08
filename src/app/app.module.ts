@@ -15,6 +15,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatIconModule } from '@angular/material/icon';
+import { ClipboardModule } from '@angular/cdk/clipboard';
 
 //Feather Import
 import { DigitsonlyDirective } from './digitsonly.directive';
@@ -74,7 +75,8 @@ import { ResultsComponent, ParserDirective, DivCardExplicitParser, ParseModsPipe
     ReactiveFormsModule,
     HttpClientModule,
     MatAutocompleteModule,
-    MatIconModule
+    MatIconModule,
+    ClipboardModule
   ],
   exports: [ ],
   providers: [],
