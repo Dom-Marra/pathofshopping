@@ -108,6 +108,45 @@ export class ResultsComponent implements OnInit {
     return implicits;
   }
 
+  /**
+   * Parses the crafted mod data from a given item
+   * 
+   * @param item 
+   *        POE API Item
+   */
+  public parseCraftedData(item: any): Array<modData> {
+    let crafts: Array<modData> = [];                  //Stores implicit mod data 
+
+    if (item.craftedMods == null || item.craftedMods.length == 0) return null;    //Return null if no implicits
+
+    item.craftedMods.forEach((mod, i) => {                           //cycle through implicits
+      let hashIndex = item.extended.hashes?.crafted?.[i][1]?.[0];    //Index of the mod for its extended data
+
+      let modData: modData = {                                       //Set data
+        text: mod,
+        name: item.extended.mods?.crafted?.[hashIndex]?.name,
+        tier: item.extended.mods?.crafted?.[hashIndex]?.tier,  
+        ranges: [],
+        hash: item.extended.hashes?.crafted[i][0]
+      }
+
+      if (item.extended.mods?.crafted?.[hashIndex]?.magnitudes) {
+        item.extended.mods?.crafted?.[hashIndex]?.magnitudes.forEach(magnitude => {
+          if (magnitude.hash == modData.hash) {
+            modData.ranges.push({
+              min: magnitude.min,
+              max: magnitude.max
+            });
+          }
+        });
+      }
+
+      crafts.push(modData);
+    });
+
+    return crafts;
+  }
+
 }
 
 @Directive({
