@@ -284,5 +284,37 @@
                 }
             }
         }
+
+        .query-item-listing-info {
+            margin-top: 1em;
+            display: flex;
+            flex-wrap: wrap;
+            width: 100%;
+            color: mat-color($pathofshopping-accent, 50);
+            justify-content: space-around;
+            min-height: 40px;
+            border-radius: 4px;
+            background-color: rgba(0, 0, 0, 0.65);
+
+            .listing-info {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 0.75em;
+
+                .online-status {
+                    color: #309630;
+
+                    &.afk {
+                        color: #ff8512;
+                    }
+                }
+
+                .currency-icon {
+                    max-height: 30px;
+                    width: auto;
+                }
+            }
+        }
     }
 }
