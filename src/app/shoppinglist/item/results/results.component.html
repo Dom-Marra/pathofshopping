@@ -6,6 +6,36 @@
         </div>
         <div class="query-item-box rarity-{{item.item.frameType}}">
             <div class="query-item-header">
+
+                <!-- Influences & Special Base Icons-->
+                <div *ngFor="let influence of item.item.influences | keyvalue | slice:0:2; let i = index; let last = last" class="influence-icon-container">
+                    <img src="{{
+                        influence.key == 'shaper' && influence.value == true ? 'https://web.poecdn.com/image/item/popup/shaper-symbol.png?1605141671963' : 
+                        influence.key == 'elder' && influence.value == true ? 'https://web.poecdn.com/image/item/popup/elder-symbol.png?1605141671959' :
+                        influence.key == 'crusader' && influence.value == true ? 'https://web.poecdn.com/image/item/popup/crusader-symbol.png?1605141671959' :
+                        influence.key == 'redeemer' && influence.value == true ? 'https://web.poecdn.com/image/item/popup/redeemer-symbol.png?1605141671963' :
+                        influence.key == 'hunter' && influence.value == true ? 'https://web.poecdn.com/image/item/popup/hunter-symbol.png?1605141671963' :
+                        influence.key == 'warlord' && influence.value == true ? 'https://web.poecdn.com/image/item/popup/warlord-symbol.png?1605141671963' : null
+                    }}" class="influence-icon-{{i == 0 ? 'left' : 'right'}}">
+                    <img *ngIf="last && i == 0"
+                        src="{{
+                            influence.key == 'shaper' && influence.value == true ? 'https://web.poecdn.com/image/item/popup/shaper-symbol.png?1605141671963' : 
+                            influence.key == 'elder' && influence.value == true ? 'https://web.poecdn.com/image/item/popup/elder-symbol.png?1605141671959' :
+                            influence.key == 'crusader' && influence.value == true ? 'https://web.poecdn.com/image/item/popup/crusader-symbol.png?1605141671959' :
+                            influence.key == 'redeemer' && influence.value == true ? 'https://web.poecdn.com/image/item/popup/redeemer-symbol.png?1605141671963' :
+                            influence.key == 'hunter' && influence.value == true ? 'https://web.poecdn.com/image/item/popup/hunter-symbol.png?1605141671963' :
+                            influence.key == 'warlord' && influence.value == true ? 'https://web.poecdn.com/image/item/popup/warlord-symbol.png?1605141671963' : null
+                        }}" class="influence-icon-right">
+                </div>
+                <div *ngIf="item.item.fractured" class="influence-icon-container">
+                    <img src="https://web.poecdn.com/image/item/popup/fractured-symbol.png?1605141671959" class="influence-icon-left">
+                    <img src="https://web.poecdn.com/image/item/popup/fractured-symbol.png?1605141671959" class="influence-icon-right">
+                </div>
+                <div *ngIf="item.item.synthesised" class="influence-icon-container">
+                    <img src="https://web.poecdn.com/image/item/popup/synthetic-symbol.png?1605141671963" class="influence-icon-left">
+                    <img src="https://web.poecdn.com/image/item/popup/synthetic-symbol.png?1605141671963" class="influence-icon-right">
+                </div>
+                
                 <h3 *ngIf="item.item.name" class="item-name">{{ item.item.name }}</h3>
                 <h4 *ngIf="item.item.typeLine" class="item-type">{{ item.item.typeLine }}</h4>
             </div>
