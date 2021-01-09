@@ -253,6 +253,83 @@
                             font-weight: bold;
                             color: #d20000;
                         }
+
+                        &.veiled {
+                            color: #7f7f7f;
+
+                            .veiled-text {
+                                display: inline-block;
+                                height: 14px;
+                                margin: auto;
+                                background-repeat: no-repeat;
+                                animation: animate-veiled-mod 3s steps(90) reverse infinite;
+
+                                &[class*='Prefix'] {
+                                    width: 158px;
+                                    background-position: -14220px;
+                                }
+
+                                &[class*='Suffix'] {
+                                    width: 85px;
+                                    background-position: -7650px;
+                                }
+
+                                &.Suffix01 {
+                                    background-image: url('https://web.poecdn.com/image/item/veiled/suffix_01.png');
+                                }
+
+                                &.Suffix02 {
+                                    background-image: url('https://web.poecdn.com/image/item/veiled/suffix_02.png');
+                                }
+
+                                &.Suffix03 {
+                                    background-image: url('https://web.poecdn.com/image/item/veiled/suffix_03.png');
+                                }
+
+                                &.Suffix04 {
+                                    background-image: url('https://web.poecdn.com/image/item/veiled/suffix_04.png');
+                                }
+
+                                &.Suffix05 {
+                                    background-image: url('https://web.poecdn.com/image/item/veiled/suffix_05.png');
+                                }
+
+                                &.Suffix06 {
+                                    background-image: url('https://web.poecdn.com/image/item/veiled/suffix_06.png');
+                                }
+
+                                &.Prefix01 {
+                                    background-image: url('https://web.poecdn.com/image/item/veiled/prefix_01.png');
+                                }
+
+                                &.Prefix02 {
+                                    background-image: url('https://web.poecdn.com/image/item/veiled/prefix_02.png');
+                                }
+
+                                &.Prefix03 {
+                                    background-image: url('https://web.poecdn.com/image/item/veiled/prefix_03.png');
+                                }
+
+                                &.Prefix04 {
+                                    background-image: url('https://web.poecdn.com/image/item/veiled/prefix_04.png');
+                                }
+
+                                &.Prefix05 {
+                                    background-image: url('https://web.poecdn.com/image/item/veiled/prefix_05.png');
+                                }
+
+                                &.Prefix06 {
+                                    background-image: url('https://web.poecdn.com/image/item/veiled/prefix_06.png');
+                                }
+                                
+                            }
+
+                            @keyframes animate-veiled-mod {
+                                100% {
+                                    background-position: 0;
+                                }
+                            }
+                        }
                     }
                 }
 
