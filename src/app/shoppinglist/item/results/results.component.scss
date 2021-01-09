@@ -165,6 +165,8 @@
                 }
     
                 .item-parsed-list {
+                    display: flex;
+                    flex-direction: column;
                     color: rgb(151, 151, 151);
 
                     &:last-child {
@@ -197,6 +199,14 @@
 
                     .unmet {
                         color: #d20000;
+                    }
+
+                    .last {
+                        order: 1;
+                    }
+
+                    &:after {
+                        order: 2;
                     }
 
                     .item-parsed-nested-list {
