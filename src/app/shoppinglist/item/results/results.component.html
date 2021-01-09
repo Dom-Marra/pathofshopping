@@ -143,7 +143,14 @@
                         </div>
                     </li>
                     <li *ngIf="item.item.corrupted" class="mod corrupted">Corrupted</li>
+                    <li *ngIf="item.item.duplicated" class="mod">Mirrored</li>
                 </ul>
+                
+                <!-- Identified-->
+                <ul *ngIf="item.item.identified == false" class="item-explicit-mods item-detail">
+                    <li class="mod corrupted">Unidentified</li>
+                </ul>
+
                 <ul divCardExplicitParser [mods]="item.item.explicitMods" 
                     *ngIf="item.item.frameType == 6 && item.item.explicitMods && item.item.explicitMods.length > 0" 
                     class="item-div-mods item-detail">
