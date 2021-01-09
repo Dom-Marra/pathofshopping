@@ -129,6 +129,7 @@
                             <div *ngIf="mod.name" class="mod-detail">{{mod.name}}</div>
                         </div>
                     </li>
+                    <li *ngIf="item.item.corrupted" class="mod corrupted">Corrupted</li>
                 </ul>
                 <ul divCardExplicitParser [mods]="item.item.explicitMods" 
                     *ngIf="item.item.frameType == 6 && item.item.explicitMods && item.item.explicitMods.length > 0" 
