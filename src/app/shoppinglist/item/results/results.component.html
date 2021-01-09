@@ -44,7 +44,12 @@
                 <!--Properties-->
                 <ul parser *ngIf="item.item.properties && item.item.properties.length > 0" 
                     [props]="item.item.properties"
-                    class="item-parsed-list item-detail"></ul>
+                    class="item-parsed-list item-detail">
+
+                    <li *ngFor="let mod of item.item.utilityMods" class="display-1 last">
+                        {{mod}}
+                    </li>
+                </ul>
 
                 <!-- Item Level & Requirements-->
                 <ul *ngIf="item.item.requirements || item.item.ilvl" class="item-parsed-list item-detail">
