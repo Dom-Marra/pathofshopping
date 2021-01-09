@@ -90,6 +90,19 @@
             
                 <!-- Explicit Mods-->
                 <ul *ngIf="item.item.explicitMods && item.item.explicitMods.length > 0 && item.item.frameType != 6" class="item-explicit-mods item-detail">
+                    <li *ngFor="let mod of item.item | parseMods:'fracturedMods':'fractured'" class="mod {{mod.display ? mod.display : ''}}">
+                        <span [innerHTML]="mod.text" class="fractured"></span>
+                        <div class="mod-details mat-small type-{{mod.tier}}">
+                            <div *ngIf="mod.tier || mod.ranges.length > 0" class="mod-detail">
+                                {{mod.tier}}
+                                <span *ngIf="mod.ranges && mod.ranges.length > 0" class="mod-detail">
+                                    [<span *ngFor="let range of mod.ranges; let i = index">{{range.min}}{{(range.max != range.min ? ' - ' + range.max : '')}}<span *ngIf="mod.ranges[i+1]">, </span></span>]
+                                </span>
+                            </div>
+                            
+                            <div *ngIf="mod.name" class="mod-detail">{{mod.name}}</div>
+                        </div>
+                    </li>
                     <li *ngFor="let mod of item.item | parseMods:'explicitMods':'explicit'" class="mod {{mod.display ? mod.display : ''}}">
                         <span [innerHTML]="mod.text"></span>
                         <div class="mod-details mat-small type-{{mod.tier}}">
