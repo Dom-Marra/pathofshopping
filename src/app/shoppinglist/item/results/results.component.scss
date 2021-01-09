@@ -46,6 +46,7 @@
             align-self: flex-start;
 
             .query-item-header {
+                position: relative;
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
@@ -57,6 +58,24 @@
                 .item-name, .item-type {
                     margin: 0;
                     padding-top: 0.1em;
+                }
+
+                .influence-icon-container {
+                    width: 100%;
+                    height: 100%;
+                    position: absolute;
+                    display: flex;
+                    align-items: center;
+
+                    .influence-icon-left {
+                        margin-right: auto;
+                        padding-left: 0.15em;
+                    }
+
+                    .influence-icon-right {
+                        margin-left: auto;
+                        padding-right: 0.15em;
+                    }
                 }
             } 
     
