@@ -248,6 +248,11 @@
                         &:nth-child(even) {
                             background-color: rgba(0, 0, 0, 0.15);
                         }
+
+                        &.corrupted {
+                            font-weight: bold;
+                            color: #d20000;
+                        }
                     }
                 }
 
