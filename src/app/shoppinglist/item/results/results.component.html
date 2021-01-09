@@ -155,6 +155,11 @@
                     *ngIf="item.item.frameType == 6 && item.item.explicitMods && item.item.explicitMods.length > 0" 
                     class="item-div-mods item-detail">
                 </ul>
+
+                <!-- Prophecy Text-->
+                <ul *ngIf="item.item.prophecyText" class="item-detail">
+                    <li>{{item.item.prophecyText}}</li>
+                </ul>
             </div>
         </div>
 
