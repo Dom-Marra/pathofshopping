@@ -113,6 +113,28 @@ export class ItemComponent implements OnInit {
   }
 
   /**
+   * Sorts by a new value
+   * 
+   * @param key
+   *        sort key, for example the hash of a stat
+   * @param value 
+   *        sort value, either 'asc' for ascending, or 'desc' for descending
+   */
+  public searchWithSortBy(key: string, value?: string) {
+    let currentSort = Object.keys((this.itemForm.controls.sort as FormGroup).getRawValue())[0];   //The current key in use
+    let sortValue = (this.itemForm.controls.sort as FormGroup).controls[currentSort].value;       //The current value
+
+    if (currentSort == key) {
+      this.itemForm.get('sort.' + currentSort).patchValue(value ? value : sortValue == 'asc' ? 'desc' : 'asc');   //Alternate value if key is the same
+      this.fetchItems();                                                                                          //Re-fecth items
+    } else {
+      (this.itemForm.controls.sort as FormGroup).removeControl(currentSort);                                      //Remove old control
+      (this.itemForm.controls.sort as FormGroup).addControl(key, new FormControl(value ? value : 'desc'));        //Add new control
+      this.fetchItems();                                                                                          //re-fecth items
+    }
+  }
+
+  /**
    * Sets the View Ref variable
    * 
    * @param ref
