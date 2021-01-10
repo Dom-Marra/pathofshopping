@@ -55,7 +55,7 @@
                 <!--Properties-->
                 <ul parser *ngIf="item.item.properties && item.item.properties.length > 0" 
                     [props]="item.item.properties"
-                    class="item-parsed-list item-detail">
+                    class="item-parsed-list item-detail" (sortByProp)="sortBy($event)">
 
                     <li *ngFor="let mod of item.item.utilityMods" class="display-1 last">
                         {{mod}}
@@ -64,7 +64,16 @@
 
                 <!-- Item Level & Requirements-->
                 <ul *ngIf="item.item.requirements || item.item.ilvl" class="item-parsed-list item-detail">
-                    <li *ngIf="item.item.ilvl">Item Level: <span class="display-0">{{item.item.ilvl}}</span></li>
+                    <li *ngIf="item.item.talismanTier" class="sortable" (click)="sortBy('talisman_tier')">
+                        Talisman Tier: <span class="display-0">{{item.item.talismanTier}}</span>
+                        <mat-icon *ngIf="currentSort['talisman_tier']" class="{{currentSort['talisman_tier'] == 'desc' ? 'desc' : 'asc'}}">
+                            {{currentSort['talisman_tier'] == 'desc' ? 'arrow_downward' : 'arrow_upward'}}
+                        </mat-icon></li>
+                    <li *ngIf="item.item.ilvl" class="sortable" (click)="sortBy('ilvl')">
+                        Item Level: <span class="display-0">{{item.item.ilvl}}</span>
+                        <mat-icon *ngIf="currentSort['ilvl']" class="{{currentSort['ilvl'] == 'desc' ? 'desc' : 'asc'}}">
+                            {{currentSort['ilvl'] == 'desc' ? 'arrow_downward' : 'arrow_upward'}}
+                        </mat-icon></li>
                     <li *ngIf="item.item.requirements">Requires 
                         <ul parser [props]="item.item.requirements" class="item-parsed-nested-list item-detail"></ul>
                     </li>
@@ -72,8 +81,11 @@
             
                 <!-- Enchanted Mods-->
                 <ul *ngIf="item.item.enchantMods && item.item.enchantMods.length > 0" class="item-explicit-mods item-detail">
-                    <li *ngFor="let mod of item.item | parseMods:'enchantMods':'enchant'" class="mod enchant">
+                    <li *ngFor="let mod of item.item | parseMods:'enchantMods':'enchant'" class="mod enchant {{mod.hash ? 'sortable' : ''}}" (click)="mod.hash ? sortBy('stat.' + mod.hash) : ''">
                         <span [innerHTML]="mod.text"></span>
+                        <mat-icon *ngIf="currentSort['stat.' + mod.hash]" class="{{currentSort['stat.' + mod.hash] == 'desc' ? 'desc' : 'asc'}}">
+                            {{currentSort['stat.' + mod.hash] == 'desc' ? 'arrow_downward' : 'arrow_upward'}}
+                        </mat-icon>
                         <div class="mod-details mat-small type-{{mod.tier}}">
                             <div *ngIf="mod.tier || mod.ranges.length > 0" class="mod-detail">
                                 {{mod.tier}}
@@ -89,8 +101,11 @@
 
                 <!-- Implicit Mods -->
                 <ul *ngIf="item.item.implicitMods && item.item.implicitMods.length > 0" class="item-explicit-mods item-detail">
-                    <li *ngFor="let mod of item.item | parseMods:'implicitMods':'implicit'" class="mod {{mod.display ? mod.display : ''}}">
+                    <li *ngFor="let mod of item.item | parseMods:'implicitMods':'implicit'" class="mod {{mod.display ? mod.display : ''}} {{mod.hash ? 'sortable' : ''}}" (click)="mod.hash ? sortBy('stat.' + mod.hash) : ''">
                         <span [innerHTML]="mod.text"></span>
+                        <mat-icon *ngIf="currentSort['stat.' + mod.hash]" class="{{currentSort['stat.' + mod.hash] == 'desc' ? 'desc' : 'asc'}}">
+                            {{currentSort['stat.' + mod.hash] == 'desc' ? 'arrow_downward' : 'arrow_upward'}}
+                        </mat-icon>
                         <div class="mod-details mat-small type-{{mod.tier}}">
                             <div *ngIf="mod.tier || mod.ranges.length > 0" class="mod-detail">
                                 {{mod.tier}}
@@ -106,8 +121,11 @@
             
                 <!-- Explicit Mods-->
                 <ul *ngIf="(item.item.explicitMods || item.item.fracturedMods || item.item.craftedMods || item.item.corrupted || item.item.duplicated)&& item.item.frameType != 6" class="item-explicit-mods item-detail">
-                    <li *ngFor="let mod of item.item | parseMods:'fracturedMods':'fractured'" class="mod {{mod.display ? mod.display : ''}}">
+                    <li *ngFor="let mod of item.item | parseMods:'fracturedMods':'fractured'" class="mod {{mod.display ? mod.display : ''}} {{mod.hash ? 'sortable' : ''}}" (click)="mod.hash ? sortBy('stat.' + mod.hash) : ''">
                         <span [innerHTML]="mod.text" class="fractured"></span>
+                        <mat-icon *ngIf="currentSort['stat.' + mod.hash]" class="{{currentSort['stat.' + mod.hash] == 'desc' ? 'desc' : 'asc'}}">
+                            {{currentSort['stat.' + mod.hash] == 'desc' ? 'arrow_downward' : 'arrow_upward'}}
+                        </mat-icon>
                         <div class="mod-details mat-small type-{{mod.tier}}">
                             <div *ngIf="mod.tier || mod.ranges.length > 0" class="mod-detail">
                                 {{mod.tier}}
@@ -119,8 +137,11 @@
                             <div *ngIf="mod.name" class="mod-detail">{{mod.name}}</div>
                         </div>
                     </li>
-                    <li *ngFor="let mod of item.item | parseMods:'explicitMods':'explicit'" class="mod {{mod.display ? mod.display : ''}}">
+                    <li *ngFor="let mod of item.item | parseMods:'explicitMods':'explicit'" class="mod {{mod.display ? mod.display : ''}} {{mod.hash ? 'sortable' : ''}}" (click)="mod.hash ? sortBy('stat.' + mod.hash) : ''">
                         <span [innerHTML]="mod.text"></span>
+                        <mat-icon *ngIf="currentSort['stat.' + mod.hash]" class="{{currentSort['stat.' + mod.hash] == 'desc' ? 'desc' : 'asc'}}">
+                            {{currentSort['stat.' + mod.hash] == 'desc' ? 'arrow_downward' : 'arrow_upward'}}
+                        </mat-icon>
                         <div class="mod-details mat-small type-{{mod.tier}}">
                             <div *ngIf="mod.tier || mod.ranges.length > 0" class="mod-detail">
                                 {{mod.tier}}
@@ -132,8 +153,11 @@
                             <div *ngIf="mod.name" class="mod-detail">{{mod.name}}</div>
                         </div>
                     </li>
-                    <li *ngFor="let mod of item.item | parseMods:'craftedMods':'crafted'" class="mod crafted">
+                    <li *ngFor="let mod of item.item | parseMods:'craftedMods':'crafted'" class="mod crafted {{mod.hash ? 'sortable' : ''}}" (click)="mod.hash ? sortBy('stat.' + mod.hash) : ''">
                         <span [innerHTML]="mod.text"></span>
+                        <mat-icon *ngIf="currentSort['stat.' + mod.hash]" class="{{currentSort['stat.' + mod.hash] == 'desc' ? 'desc' : 'asc'}}">
+                            {{currentSort['stat.' + mod.hash] == 'desc' ? 'arrow_downward' : 'arrow_upward'}}
+                        </mat-icon>
                         <div class="mod-details mat-small type-{{mod.tier}}">
                             <div *ngIf="mod.tier || mod.ranges.length > 0" class="mod-detail">
                                 {{mod.tier}}
@@ -145,8 +169,11 @@
                             <div *ngIf="mod.name" class="mod-detail">{{mod.name}}</div>
                         </div>
                     </li>
-                    <li *ngFor="let mod of item.item | parseMods:'veiledMods':'veiled'" class="mod veiled">
+                    <li *ngFor="let mod of item.item | parseMods:'veiledMods':'veiled'" class="mod veiled {{mod.hash ? 'sortable' : ''}}" (click)="mod.hash ? sortBy('stat.' + mod.hash) : ''">
                         <span class="veiled-text {{mod.text}}"></span>
+                        <mat-icon *ngIf="currentSort['stat.' + mod.hash]" class="{{currentSort['stat.' + mod.hash] == 'desc' ? 'desc' : 'asc'}}">
+                            {{currentSort['stat.' + mod.hash] == 'desc' ? 'arrow_downward' : 'arrow_upward'}}
+                        </mat-icon>
                         <div class="mod-details mat-small type-{{mod.tier}}">
                             <div *ngIf="mod.tier || mod.ranges.length > 0" class="mod-detail">
                                 {{mod.tier}}
@@ -184,11 +211,17 @@
             <div class="listing-info mat-small">
                 <mat-icon class="online-status {{item.listing.account.online?.status}}">person</mat-icon>&nbsp;{{ item.listing.account.lastCharacterName}}
             </div>
-            <div *ngIf="item.listing.price.currency" class="listing-info mat-small">
+            <div *ngIf="item.listing.price.currency" class="listing-info mat-small sortable" (click)="sortBy('price')">
                 x{{item.listing.price.amount}}&nbsp;<img class="currency-icon" src="{{this.currencies.getCurrencyIcon(item.listing.price.currency)}}">
+                <mat-icon *ngIf="currentSort['price']" class="{{currentSort['price'] == 'desc' ? 'desc' : 'asc'}}">
+                    {{currentSort['price'] == 'desc' ? 'arrow_downward' : 'arrow_upward'}}
+                </mat-icon>
             </div>
-            <div class="listing-info mat-small">
+            <div class="listing-info mat-small sortable" (click)="sortBy('indexed')">
                 <mat-icon>access_time</mat-icon>&nbsp;{{ subtractDate(item.listing.indexed)}}
+                <mat-icon *ngIf="currentSort['indexed']" class="{{currentSort['indexed'] == 'desc' ? 'desc' : 'asc'}}">
+                    {{currentSort['indexed'] == 'desc' ? 'arrow_downward' : 'arrow_upward'}}
+                </mat-icon>
             </div>
             <button mat-button [cdkCopyToClipboard]="item.listing.whisper" class="listing-info mat-small">
                 <mat-icon>message</mat-icon>
