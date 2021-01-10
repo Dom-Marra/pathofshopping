@@ -22,11 +22,93 @@
         margin: 1em auto;
         justify-content: center;
 
-        .item-image {
+        .item-image-sockets {
             flex: 0 1 150px;
             display: flex;
             align-items: center;
             justify-content: center;
+            position: relative;
+
+            .sockets {
+                position: absolute;
+                margin: 0;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+
+                .socket {
+                    top: 0;
+                    position: relative;
+                    margin: 8px;
+                    height: 30px;
+                    width: 30px;
+                    background: url('https://web.poecdn.com/image/gen/socket.png') no-repeat;
+                    border-radius: 100%;
+                    float: left;
+
+                    &.R {
+                        background-position: -2.5px -107.5px;
+                    }
+
+                    &.B {
+                        background-position: -2.5px -2.5px;
+                    }
+
+                    &.G {
+                        background-position: -107.5px -72.5px;
+                    }
+
+                    &.W {
+                        background-position: -37.5px -107.5px;
+                    }
+
+                    &.DV {
+                        background-position: -107.5px -37.5px;
+                    }
+
+                    &.A {
+                        width: 34px;
+                        height: 34px;
+                        margin: 6px;
+                        background-position: -70.5px -70.5px;
+                    }
+
+                    &.right {
+                        float: right;
+                    }
+                }
+
+                .socket-connection-horiz {
+                    background: url('https://web.poecdn.com/image/gen/socket.png') no-repeat;
+                    background-position: 0px -140px;
+                    position: absolute;
+                    display: inline-block;
+                    height: 15px;
+                    width: 38px;
+                    top: 50%;
+                    transform: translateY(-50%);
+
+                    &.to-left {
+                        left: calc(100% - 11px);
+                    }
+
+                    &.to-right {
+                        right: calc(100% - 11px);
+                    }
+                }
+
+                .socket-connection-vert {
+                    background: url('https://web.poecdn.com/image/gen/socket.png') no-repeat;
+                    transform: translateX(-50%);background-position: -140px 0px;
+                    position: absolute;
+                    display: inline-block;
+                    height: 38px;
+                    width: 15px;
+                    top: calc(100% - 11px);
+                    left: 50%;
+                }
+            }
+            
         }
 
         .item-line-break {
