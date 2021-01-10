@@ -1,4 +1,4 @@
-import { Component, Directive, ElementRef, Input, OnInit, Pipe, PipeTransform, Renderer2, SimpleChanges } from '@angular/core';
+import { Component, Directive, ElementRef, EventEmitter, Input, OnInit, Output, Pipe, PipeTransform, Renderer2, SimpleChanges } from '@angular/core';
 import { Currency } from '../../currency';
 
 interface modData {
@@ -12,6 +12,26 @@ interface modData {
   hash: string
 }
 
+enum propertyValues {
+  map_tier = 1,
+  map_iiq = 2,
+  map_iir = 3,
+  map_packsize = 4,
+  gem_level = 5,
+  quality = 6,
+  pdps = 9,
+  edps = 10,
+  'pseudo.pseudo_adds_chaos_damage_to_attacks' = 11,
+  crit = 12,
+  aps = 13,
+  block = 15,
+  ar = 16,
+  ev = 17,
+  es = 18,
+  gem_level_progress = 20,
+  stack_size = 32,
+}
+
 @Component({
   selector: 'app-results',
   templateUrl: './results.component.html',
@@ -20,6 +40,8 @@ interface modData {
 export class ResultsComponent implements OnInit {
 
   @Input() queryData: Array<any>;
+  @Input() currentSort: any;                          //The current sort option
+  @Output() newSort = new EventEmitter<string>();     //New sort option emitter
 
   public currencies: Currency = new Currency();
 
@@ -30,6 +52,7 @@ export class ResultsComponent implements OnInit {
 
   ngOnChanges(changes: SimpleChanges) {
     console.log(this.queryData);
+    console.log(this.currentSort);
   }
 
   /**
@@ -65,6 +88,16 @@ export class ResultsComponent implements OnInit {
   public trackyByID(index: number, value: any) {
     return value.id;
   }
+
+  /**
+   * Outputs the value to sort by
+   * 
+   * @param key 
+   *        The value to sort by
+   */
+  public sortBy(key: string) {
+    this.newSort.emit(key);
+  }
 }
 
 @Directive({
@@ -72,7 +105,8 @@ export class ResultsComponent implements OnInit {
 })
 export class ParserDirective {
 
-  @Input() props: Array<any>;       //Properties
+  @Input() props: Array<any>;                                   //Properties
+  @Output() sortByProp = new EventEmitter<string>();            //Sort event emmitter
 
   constructor(private el: ElementRef, private renderer: Renderer2) { }
 
@@ -85,20 +119,27 @@ export class ParserDirective {
    */
   public parseProperties() {
 
-    this.props.forEach(prop => {                    //Cycle properties
+    this.props.forEach(prop => {                      //Cycle properties
+      let li = this.renderer.createElement('li');     //li element holds property
+
       if (prop.displayMode == 3) {
-        this.parseDisplay3(prop);
+        this.parseDisplay3(prop, li);
       } else if (prop.displayMode == 1 || (prop.displayMode == 0 && prop.values.length > 0)) {
-        this.parseDisplay1(prop)
+        this.parseDisplay1(prop, li)
       } else if(prop.displayMode == 0) {
-        this.parseDisplay0(prop);
+        this.parseDisplay0(prop, li);
       }else {
-        let name: string = prop.name;                 //Propery name
-        let li = this.renderer.createElement('li');     //p element holds property
-        let text = this.renderer.createText(name);    //Holds property name
-        this.renderer.appendChild(li, text);           //Add property name to the p element
-        this.renderer.appendChild(this.el.nativeElement, li);    //Add property to the host element
+        let name: string = prop.name;                            //Propery name
+        let text = this.renderer.createText(name);               //Holds property name
+        this.renderer.appendChild(li, text);                     //Add property name to the p element
       }
+
+      if (prop.type && Object.values(propertyValues).indexOf(prop.type) > -1) {
+        this.addSortEmmit(prop.type, li);              //Add sort event on click
+        this.renderer.addClass(li, 'sortable');        //Add sortable class on it
+      }
+
+      this.renderer.appendChild(this.el.nativeElement, li);    //Add property to the host element
     });
   }
 
@@ -108,10 +149,11 @@ export class ParserDirective {
    * 
    * @param prop 
    *        property to parse
+   * @param li
+   *        list item to add property data to
    */
-  private parseDisplay3(prop: any) {
+  private parseDisplay3(prop: any, li: any) {
     let name: string = prop.name;                     //name of the property
-    let li = this.renderer.createElement('li');        //li element to hold the property data
     let regex = new RegExp(/({\d*})/);                //Reg exp to find value positions in the name
     let substrs = name.split(regex);                  //Substrings of value postions and text before them
 
@@ -130,8 +172,6 @@ export class ParserDirective {
         this.renderer.appendChild(li, preText);                                  //Add text of the name to the p element
       }
     });
-
-    this.renderer.appendChild(this.el.nativeElement, li);         //Add the property to the host element
   }
 
   /**
@@ -140,11 +180,12 @@ export class ParserDirective {
    * 
    * @param prop 
    *        property to parse
+   * @param li
+   *        list item to add property data to
    */
-  private parseDisplay0(prop: any) {
+  private parseDisplay0(prop: any, li: any) {
     
     let propStrs = (prop.name as string).split(/(<.+?>{.+?})+/g);         //Split the array keep the delimiter (should look like <value>{othervalue})
-    let li = this.renderer.createElement('li');                           //Create li element
 
     propStrs.forEach((propStr, i) => {                                    //Cycle throgh the array
       let value = propStr;                                                //Init the text value
@@ -162,7 +203,6 @@ export class ParserDirective {
       //Append
       this.renderer.appendChild(span, text);
       this.renderer.appendChild(li, span);
-      this.renderer.appendChild(this.el.nativeElement, li);
     });
   }
 
@@ -172,10 +212,11 @@ export class ParserDirective {
    * 
    * @param prop 
    *        property to parse
+   * @param li
+   *        list item to add property data to
    */
-  private parseDisplay1(prop: any) {
+  private parseDisplay1(prop: any, li: any) {
     let name = prop.name;                                         //name of the property
-    let li = this.renderer.createElement('li');                   //li element to hold property data
     let span = this.renderer.createElement('span');               //Holds values of the property
     let spanText = this.renderer.createText(prop.values[0][0]);   //Value for the span element
     this.renderer.addClass(span, "display-" + prop.values[0][1]); //Class of the value
@@ -188,6 +229,19 @@ export class ParserDirective {
     this.renderer.appendChild(this.el.nativeElement, li);
   }
 
+  /**
+   * Adds sort emmit event to property list items 
+   * 
+   * @param propType
+   *        the type value on the property 
+   * @param li
+   *        list item to add event to
+   */
+  private addSortEmmit(propType: any, li: any) {
+    this.renderer.listen(li, 'click', () => {   //On Click emmit event to sort by the prop
+      this.sortByProp.emit(Object.keys(propertyValues).find(key => propertyValues[key] === propType));
+    });
+  }
 }
 
 @Directive({
