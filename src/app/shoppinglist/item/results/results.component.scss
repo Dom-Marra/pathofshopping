@@ -89,11 +89,11 @@
                     transform: translateY(-50%);
 
                     &.to-left {
-                        left: calc(100% - 11px);
+                        left: calc(100% - 10.5px);
                     }
 
                     &.to-right {
-                        right: calc(100% - 11px);
+                        right: calc(100% - 10.5px);
                     }
                 }
 
@@ -104,7 +104,7 @@
                     display: inline-block;
                     height: 38px;
                     width: 15px;
-                    top: calc(100% - 11px);
+                    top: calc(100% - 10.5px);
                     left: 50%;
                 }
             }
