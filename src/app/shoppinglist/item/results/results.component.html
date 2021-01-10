@@ -89,7 +89,7 @@
                         <div class="mod-details mat-small type-{{mod.tier}}">
                             <div *ngIf="mod.tier || mod.ranges.length > 0" class="mod-detail">
                                 {{mod.tier}}
-                                <span *ngIf="mod.ranges && mod.ranges.length > 0" class="mod-detail">
+                                <span *ngIf="mod.ranges && mod.ranges.length > 0">
                                     [<span *ngFor="let range of mod.ranges; let i = index">{{range.min}}{{(range.max != range.min ? ' - ' + range.max : '')}}<span *ngIf="mod.ranges[i+1]">, </span></span>]
                                 </span>
                             </div>
@@ -109,7 +109,7 @@
                         <div class="mod-details mat-small type-{{mod.tier}}">
                             <div *ngIf="mod.tier || mod.ranges.length > 0" class="mod-detail">
                                 {{mod.tier}}
-                                <span *ngIf="mod.ranges && mod.ranges.length > 0" class="mod-detail">
+                                <span *ngIf="mod.ranges && mod.ranges.length > 0">
                                     [<span *ngFor="let range of mod.ranges; let i = index">{{range.min}}{{(range.max != range.min ? ' - ' + range.max : '')}}<span *ngIf="mod.ranges[i+1]">, </span></span>]
                                 </span>
                             </div>
@@ -129,7 +129,7 @@
                         <div class="mod-details mat-small type-{{mod.tier}}">
                             <div *ngIf="mod.tier || mod.ranges.length > 0" class="mod-detail">
                                 {{mod.tier}}
-                                <span *ngIf="mod.ranges && mod.ranges.length > 0" class="mod-detail">
+                                <span *ngIf="mod.ranges && mod.ranges.length > 0" >
                                     [<span *ngFor="let range of mod.ranges; let i = index">{{range.min}}{{(range.max != range.min ? ' - ' + range.max : '')}}<span *ngIf="mod.ranges[i+1]">, </span></span>]
                                 </span>
                             </div>
@@ -145,7 +145,7 @@
                         <div class="mod-details mat-small type-{{mod.tier}}">
                             <div *ngIf="mod.tier || mod.ranges.length > 0" class="mod-detail">
                                 {{mod.tier}}
-                                <span *ngIf="mod.ranges && mod.ranges.length > 0" class="mod-detail">
+                                <span *ngIf="mod.ranges && mod.ranges.length > 0">
                                     [<span *ngFor="let range of mod.ranges; let i = index">{{range.min}}{{(range.max != range.min ? ' - ' + range.max : '')}}<span *ngIf="mod.ranges[i+1]">, </span></span>]
                                 </span>
                             </div>
@@ -161,7 +161,7 @@
                         <div class="mod-details mat-small type-{{mod.tier}}">
                             <div *ngIf="mod.tier || mod.ranges.length > 0" class="mod-detail">
                                 {{mod.tier}}
-                                <span *ngIf="mod.ranges && mod.ranges.length > 0" class="mod-detail">
+                                <span *ngIf="mod.ranges && mod.ranges.length > 0">
                                     [<span *ngFor="let range of mod.ranges; let i = index">{{range.min}}{{(range.max != range.min ? ' - ' + range.max : '')}}<span *ngIf="mod.ranges[i+1]">, </span></span>]
                                 </span>
                             </div>
@@ -177,7 +177,7 @@
                         <div class="mod-details mat-small type-{{mod.tier}}">
                             <div *ngIf="mod.tier || mod.ranges.length > 0" class="mod-detail">
                                 {{mod.tier}}
-                                <span *ngIf="mod.ranges && mod.ranges.length > 0" class="mod-detail">
+                                <span *ngIf="mod.ranges && mod.ranges.length > 0">
                                     [<span *ngFor="let range of mod.ranges; let i = index">{{range.min}}{{(range.max != range.min ? ' - ' + range.max : '')}}<span *ngIf="mod.ranges[i+1]">, </span></span>]
                                 </span>
                             </div>
@@ -218,7 +218,7 @@
                 </mat-icon>
             </div>
             <div class="listing-info mat-small sortable" (click)="sortBy('indexed')">
-                <mat-icon>access_time</mat-icon>&nbsp;{{ subtractDate(item.listing.indexed)}}
+                <mat-icon class="time-icon">access_time</mat-icon>&nbsp;{{ subtractDate(item.listing.indexed)}}
                 <mat-icon *ngIf="currentSort['indexed']" class="{{currentSort['indexed'] == 'desc' ? 'desc' : 'asc'}}">
                     {{currentSort['indexed'] == 'desc' ? 'arrow_downward' : 'arrow_upward'}}
                 </mat-icon>
