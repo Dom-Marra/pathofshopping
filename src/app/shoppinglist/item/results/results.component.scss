@@ -513,5 +513,30 @@
                 }
             }
         }
+
+        .sortable {
+            transition: text-shadow 0.15s ease-in-out;
+            vertical-align: bottom;
+
+            &:hover {
+                cursor: pointer;
+                text-shadow: 0px 0px 4px currentColor;
+            }
+
+            .asc, .desc {
+                font-size: 18px;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .asc {
+                color: #309630;
+            }
+
+            .desc {
+                color: #d20000;
+            }
+        }
     }
 }
