@@ -1,8 +1,19 @@
 <div class="query-results-container">
     <h2 class="results-header">{{queryData.length}} Results</h2>
     <div *ngFor="let item of queryData; let itemIndex = index; trackBy:trackyByID" class="query-item">
-        <div class="item-image item-detail">
+        <div class="item-image-sockets item-detail">
             <img src="{{item.item.icon}}" aria-label="Image of {{item.item.name ? item.item.name : item.item.typeLine}}">
+            <div class="sockets" *ngIf="item.item.sockets" [style.width]="(item.item.w == 2 && item.item.sockets.length > 1) ? '92px' : '46px'">
+                <div class="socket {{socket.sColour}}" *ngFor="let socket of item.item.sockets; let i = index"
+                [class.right]="(item.item.w == 2 && (i == 1 || i == 2 || i == 5))"
+                [style.z-index]="item.item.sockets.length - i">
+                    <span class="socket-connection-horiz {{(i == 1 || i == 2 || i == 5) ? 'to-right' : 'to-left'}}" 
+                            *ngIf="item.item.sockets[i + 1]?.group == socket.group && ((i + 1) % 2  && item.item.w == 2)"
+                            ></span>
+                    <span class="socket-connection-vert"
+                            *ngIf="item.item.sockets[i + 1]?.group == socket.group && (!((i + 1) % 2) || item.item.w == 1)"></span>
+                </div>
+            </div>
         </div>
         <div class="query-item-box rarity-{{item.item.frameType}}">
             <div class="query-item-header">
