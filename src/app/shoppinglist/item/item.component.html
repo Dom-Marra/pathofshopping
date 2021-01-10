@@ -37,10 +37,10 @@
                     <button class="query-button" mat-flat-button type="button" (click)="this.showResults = !this.showResults" *ngIf="this.queryResults.length > 0 || this.showResults">
                         {{ showResults ? 'Hide Results' : 'Show Results'}}
                     </button>
-                    <button class="query-button search" mat-flat-button type="button" (click)="fetchItems()">Search</button>
+                    <button class="query-button search" mat-flat-button type="button" (click)="searchWithSortBy('price', 'asc')">Search</button>
                 </div>
             </div>
-            <app-results *ngIf="showResults" class="results" [queryData]="queryResults"></app-results>
+            <app-results *ngIf="showResults" class="results" [queryData]="queryResults" [currentSort]="this.itemForm.controls.sort.getRawValue()" (newSort)="searchWithSortBy($event)"></app-results>
         </div>
     </mat-expansion-panel>
 </form>
