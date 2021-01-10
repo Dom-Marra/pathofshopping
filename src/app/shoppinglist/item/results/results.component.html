@@ -105,7 +105,7 @@
                 </ul>
             
                 <!-- Explicit Mods-->
-                <ul *ngIf="item.item.explicitMods && item.item.explicitMods.length > 0 && item.item.frameType != 6" class="item-explicit-mods item-detail">
+                <ul *ngIf="(item.item.explicitMods || item.item.fracturedMods || item.item.craftedMods || item.item.corrupted || item.item.duplicated)&& item.item.frameType != 6" class="item-explicit-mods item-detail">
                     <li *ngFor="let mod of item.item | parseMods:'fracturedMods':'fractured'" class="mod {{mod.display ? mod.display : ''}}">
                         <span [innerHTML]="mod.text" class="fractured"></span>
                         <div class="mod-details mat-small type-{{mod.tier}}">
