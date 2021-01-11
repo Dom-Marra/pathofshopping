@@ -1,0 +1,584 @@
+@import '../../../../theme.scss';
+
+.query-results-container {
+    flex-grow: 1;
+    height: 0;
+    overflow-y: auto;
+    background-color: mat-color($pathofshopping-primary, 300);
+
+    .results-header {
+        color: white;
+        text-align: center;
+        font-weight: 300;
+        margin: 0;
+        padding: 0.15em 0;
+    }
+
+    .query-item {
+        display: flex;
+        flex-wrap: wrap;
+        margin: auto;
+        width: 95%;
+        margin: 1em auto;
+        justify-content: center;
+
+        .item-image-sockets {
+            flex: 0 1 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+
+            .sockets {
+                position: absolute;
+                margin: 0;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+
+                .socket {
+                    top: 0;
+                    position: relative;
+                    margin: 8px;
+                    height: 30px;
+                    width: 30px;
+                    background: url('https://web.poecdn.com/image/gen/socket.png') no-repeat;
+                    border-radius: 100%;
+                    float: left;
+
+                    &.R {
+                        background-position: -2.5px -107.5px;
+                    }
+
+                    &.B {
+                        background-position: -2.5px -2.5px;
+                    }
+
+                    &.G {
+                        background-position: -107.5px -72.5px;
+                    }
+
+                    &.W {
+                        background-position: -37.5px -107.5px;
+                    }
+
+                    &.DV {
+                        background-position: -107.5px -37.5px;
+                    }
+
+                    &.A {
+                        width: 34px;
+                        height: 34px;
+                        margin: 6px;
+                        background-position: -70.5px -70.5px;
+                    }
+
+                    &.right {
+                        float: right;
+                    }
+                }
+
+                .socket-connection-horiz {
+                    background: url('https://web.poecdn.com/image/gen/socket.png') no-repeat;
+                    background-position: 0px -140px;
+                    position: absolute;
+                    display: inline-block;
+                    height: 15px;
+                    width: 38px;
+                    top: 50%;
+                    transform: translateY(-50%);
+
+                    &.to-left {
+                        left: calc(100% - 10.5px);
+                    }
+
+                    &.to-right {
+                        right: calc(100% - 10.5px);
+                    }
+                }
+
+                .socket-connection-vert {
+                    background: url('https://web.poecdn.com/image/gen/socket.png') no-repeat;
+                    transform: translateX(-50%);background-position: -140px 0px;
+                    position: absolute;
+                    display: inline-block;
+                    height: 38px;
+                    width: 15px;
+                    top: calc(100% - 10.5px);
+                    left: 50%;
+                }
+            }
+            
+        }
+
+        .item-line-break {
+            width: 100%;
+            margin-top: 2em;
+            background-color: mat-color($pathofshopping-primary, 400);
+            border-width: 0px;
+            height: 1px;
+        }
+
+        .query-item-box {
+            flex: 1 1 275px;
+            background-color: rgba(0, 0, 0, 0.65);
+            color: mat-color($pathofshopping-accent, 50);
+            border-radius: 4px;
+            overflow: hidden;
+            align-self: flex-start;
+
+            .query-item-header {
+                position: relative;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                font-weight: 300;
+                min-height: 45px;
+    
+                .item-name, .item-type {
+                    margin: 0;
+                    padding-top: 0.1em;
+                }
+
+                .influence-icon-container {
+                    width: 100%;
+                    height: 100%;
+                    position: absolute;
+                    display: flex;
+                    align-items: center;
+
+                    .influence-icon-left {
+                        margin-right: auto;
+                        padding-left: 0.15em;
+                    }
+
+                    .influence-icon-right {
+                        margin-left: auto;
+                        padding-right: 0.15em;
+                    }
+                }
+            } 
+    
+            &.rarity-0 {
+                .query-item-header, .item-detail:after  {
+                    color:rgb(226, 226, 226);
+                    background-color:rgb(90, 90, 90);
+                }
+            }
+            &.rarity-1 {
+                .query-item-header, .item-detail:after  { 
+                    color: rgb(131, 132, 190);
+                    background-color: rgb(71, 68, 95);
+                }
+            }
+            &.rarity-2 {
+                .query-item-header, .item-detail:after  { 
+                    color: rgb(236,235,109);
+                    background-color: rgb(120,89,33);
+                }
+            }
+            &.rarity-3 {
+                .query-item-header, .item-detail:after  { 
+                    color: rgb(201, 106, 24);
+                    background-color: rgb(107, 56, 34);
+                }
+            }
+            &.rarity-4 {
+                .query-item-header, .item-detail:after  { 
+                    color: rgb(17, 185, 177);
+                    background-color: rgb(11, 94, 89);
+                }
+            }
+            &.rarity-5 {
+                .query-item-header, .item-detail:after  {
+                    color: rgb(173, 160, 115);
+                    background-color: rgb(92, 86, 65);
+                }
+            }
+            &.rarity-6 {
+                .query-item-header, .item-detail:after  {
+                    color: black;
+                    background-color: rgb(159,147,135);
+                }
+            }
+            &.rarity-8 {
+                .query-item-header, .item-detail:after  {
+                    color: rgb(181,73,249);
+                    background-color: rgb(91, 36, 126);
+                }
+            }
+            &.rarity-9 {
+                .query-item-header, .item-detail:after  {
+                    color: rgb(105,101,56);
+                    background-color: rgb(25,51,75);
+                }
+            }
+            
+            .query-item-details-container {
+                display: flex;
+                flex-direction: column;
+    
+                .item-detail {
+                    flex: 1 1 auto;
+                    text-align: center;
+                    padding-left: 0;
+                    padding-top: 0.5em;
+                    margin: 0;
+                    list-style: none;
+
+                    li {
+                        padding: 0.15em;
+                    }
+                }
+    
+                .item-detail:after {
+                    content: "";
+                    display: block;
+                    width: 95%;
+                    height: 1px;
+                    margin: auto;
+                    margin-top: 0.5em;
+                }
+    
+                .item-detail:last-child:after {
+                    display: none;
+                }
+    
+                .item-parsed-list {
+                    color: rgb(151, 151, 151);
+
+                    &:last-child {
+                        padding-bottom: 0.5em;
+                    }
+
+                    .display-0 {
+                        color: white;
+                    }
+    
+                    .display-1 {
+                        color: rgb(100, 100, 255);
+                    }
+    
+                    .display-4 {
+                        color: rgb(223, 37, 4);
+                    }
+    
+                    .display-5 {
+                        color: rgb(132, 226, 230);
+                    }
+    
+                    .display-6 {
+                        color: rgb(255, 238, 0);
+                    }
+    
+                    .display-7 {
+                        color: rgb(182, 38, 182);
+                    }
+
+                    .unmet {
+                        color: #d20000;
+                    }
+
+                    &:after {
+                        order: 2;
+                    }
+
+                    .item-parsed-nested-list {
+                        list-style: none;
+                        margin: 0;
+                        padding: 0;
+                        display: inline-block;
+
+                        li {
+                            display: inline-block;
+                        }
+                    }
+
+                    .item-progress-bar {
+                        width: 95%;
+                        margin: auto;
+                        margin-top: 0.25em;
+                        box-sizing: border-box;
+
+                        .mat-progress-bar-fill::after {
+                            background-color: rgb(201,161,84);
+                        }
+                        
+                        .mat-progress-bar-buffer {
+                            background: rgba(0, 0, 0, 0.5);
+                        }
+
+                        .mat-progress-bar-background {
+                            fill: none;
+                        }
+                    }
+                }
+
+                .item-mod-list {
+                    color: rgb(100, 100, 255);
+
+                    .mod {
+                        padding: 0.3em;
+
+                        .mod-details {
+                            box-sizing: border-box;
+                            display: flex;
+                            flex-wrap: wrap;
+                            justify-content: space-between;
+                            margin-top: 0.25em;
+
+                            .mod-detail {
+                                flex: 0 1 auto;
+                                text-align: center;
+                            }
+
+                            &[class*='type-P'] {
+                                color: #ec7676;
+                            }
+
+                            &[class*='type-S'] {
+                                color: #7aaff1;
+                            }
+                        }
+
+                        .fractured {
+                            color: #a29162;
+                        }
+
+                        &.crafted, &.enchant {
+                           color: #b4b4ff;
+                        }
+
+                        &.corrupted {
+                            color: #d20000;
+                        }
+
+                        &.pseudo {
+                            color: #7f7f7f;
+                        }
+
+                        &.veiled {
+                            color: #7f7f7f;
+
+                            .veiled-text {
+                                display: inline-block;
+                                height: 14px;
+                                margin: auto;
+                                background-repeat: no-repeat;
+                                animation: animate-veiled-mod 3s steps(90) reverse infinite;
+
+                                &[class*='Prefix'] {
+                                    width: 158px;
+                                    background-position: -14220px;
+                                }
+
+                                &[class*='Suffix'] {
+                                    width: 85px;
+                                    background-position: -7650px;
+                                }
+
+                                &.Suffix01 {
+                                    background-image: url('https://web.poecdn.com/image/item/veiled/suffix_01.png');
+                                }
+
+                                &.Suffix02 {
+                                    background-image: url('https://web.poecdn.com/image/item/veiled/suffix_02.png');
+                                }
+
+                                &.Suffix03 {
+                                    background-image: url('https://web.poecdn.com/image/item/veiled/suffix_03.png');
+                                }
+
+                                &.Suffix04 {
+                                    background-image: url('https://web.poecdn.com/image/item/veiled/suffix_04.png');
+                                }
+
+                                &.Suffix05 {
+                                    background-image: url('https://web.poecdn.com/image/item/veiled/suffix_05.png');
+                                }
+
+                                &.Suffix06 {
+                                    background-image: url('https://web.poecdn.com/image/item/veiled/suffix_06.png');
+                                }
+
+                                &.Prefix01 {
+                                    background-image: url('https://web.poecdn.com/image/item/veiled/prefix_01.png');
+                                }
+
+                                &.Prefix02 {
+                                    background-image: url('https://web.poecdn.com/image/item/veiled/prefix_02.png');
+                                }
+
+                                &.Prefix03 {
+                                    background-image: url('https://web.poecdn.com/image/item/veiled/prefix_03.png');
+                                }
+
+                                &.Prefix04 {
+                                    background-image: url('https://web.poecdn.com/image/item/veiled/prefix_04.png');
+                                }
+
+                                &.Prefix05 {
+                                    background-image: url('https://web.poecdn.com/image/item/veiled/prefix_05.png');
+                                }
+
+                                &.Prefix06 {
+                                    background-image: url('https://web.poecdn.com/image/item/veiled/prefix_06.png');
+                                }
+                                
+                            }
+
+                            @keyframes animate-veiled-mod {
+                                100% {
+                                    background-position: 0;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .item-div-mods {
+
+                    .prophecy {
+                        color: rgb(181,73,249);
+                    }
+
+                    .uniqueitem {
+                        color: rgb(201, 106, 24);
+                    }
+
+                    .default {
+                        color: rgb(151, 151, 151);
+                    }
+
+                    .normal {
+                        color: white
+                    }
+
+                    .currencyitem {
+                        color: rgb(173, 160, 115);
+                    }
+
+                    .corrupted {
+                        color: #d20000;
+                    }
+
+                    .rareitem {
+                        color: rgb(236,235,109);
+                    }
+
+                    .whiteitem {
+                        color: white;
+                    }
+
+                    .gemitem {
+                       color: rgb(17, 185, 177);
+                    }
+
+                    .augmented {
+                        color: rgb(100, 100, 255);
+                    }
+
+                    .magicitem {
+                        color: rgb(131, 132, 190);
+                    }
+
+                    .enchanted {
+                        color: rgb(184,218,242);
+                    }
+
+                    .divination {
+                        color: #0ebaff;
+                    }
+                }
+            }
+        }
+
+        .item-total-values {
+            color: rgb(151, 151, 151);
+            display: flex;
+            flex-wrap: wrap;
+
+            .total-value {
+                flex: 1;
+                min-width: 30%;
+
+                .value {
+                    color: white;
+
+                    &.auged {
+                        color: rgb(100, 100, 255);
+                    }
+                }
+            }
+        }
+
+        .query-item-listing-info {
+            margin-top: 1em;
+            display: flex;
+            flex-wrap: wrap;
+            width: 100%;
+            color: mat-color($pathofshopping-accent, 50);
+            justify-content: space-around;
+            min-height: 40px;
+            border-radius: 4px;
+            background-color: rgba(0, 0, 0, 0.65);
+
+            .listing-info {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 0.75em;
+
+                .online-status {
+                    color: #309630;
+
+                    &.afk {
+                        color: #ff8512;
+                    }
+                }
+
+                .currency-icon {
+                    max-height: 30px;
+                    width: auto;
+                }
+            }
+        }
+
+        .sortable {
+            transition: text-shadow 0.15s linear;
+            text-shadow: none;
+
+            &:hover {
+                cursor: pointer;
+                text-shadow: 0 0 3px rgba(0, 0, 0, 0.75), 0 0 6px, 0 0 9px, 0 0 12px;
+
+                .mod-details, .asc, .desc, .time-icon, .value, [class*='display'] {
+                    text-shadow: 0 0 3px rgba(0, 0, 0, 0.75), 0 0 6px, 0 0 9px, 0 0 12px;
+                }
+            }
+
+            .mod-details, .asc, .desc, .time-icon, .value, [class*='display'] {
+                transition: text-shadow 0.15s linear;
+                text-shadow: none;
+            }
+
+            .asc, .desc {
+                font-size: 18px;
+                display: inline-flex;
+                height: auto;
+                justify-content: center;
+                vertical-align: bottom;
+            }
+
+            .asc {
+                color: #309630;
+            }
+
+            .desc {
+                color: #d20000;
+            }
+        }
+    }
+}

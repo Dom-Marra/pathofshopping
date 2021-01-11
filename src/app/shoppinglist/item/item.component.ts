@@ -1,5 +1,6 @@
 import { ChangeDetectorRef, Component, ElementRef, OnInit, QueryList, ViewChildren, ViewEncapsulation, ViewRef } from '@angular/core';
 import { FormGroup, FormControl, FormArray } from '@angular/forms';
+import { Subscription } from 'rxjs';
 import { QueryitemService } from '../../queryitem.service'
 
 @Component({
@@ -12,8 +13,10 @@ export class ItemComponent implements OnInit {
 
   @ViewChildren("itemNameInput") itemNameInput: QueryList<ElementRef>;    //Item name input element
 
-  private editName: boolean = false;                        //Whether name is in edit mode or not
+  public editName: boolean = false;                        //Whether name is in edit mode or not
   private viewRef: ViewRef = null;                          //Reference of the view, used when deleting the component
+  public showResults: boolean = false;                      //Used to show results tab
+  public queryResults: Array<any> = [];                     //Query Results
 
   public itemForm = new FormGroup({
     itemName: new FormControl('New Item'),
@@ -58,6 +61,7 @@ export class ItemComponent implements OnInit {
    */
   public fetchItems() {
 
+    this.queryResults = [];                                               //Reset previous results
     let data = {                                                          //create query data
       query: (this.itemForm.controls.query as FormGroup).getRawValue(),
       sort: (this.itemForm.controls.sort as FormGroup).getRawValue()
@@ -65,13 +69,35 @@ export class ItemComponent implements OnInit {
 
     data = this.removeEmpty(data);                                        //clean the data
 
-    this.queryService.fetchResults(data).subscribe((data: any) => {       //Fetch items based on data
+    let psuedos: string = "";                                             //Pseudo mod params
+    data.query.stats?.forEach(statGroup => {                              //Add pseudo mods to psueod mod params
+      statGroup.filters?.forEach((filter, i) => {
+        if ((filter.id as string).includes('pseudo')) 
+          psuedos = psuedos.concat("pseudos[]=" + filter.id + (statGroup.filters[i + 1] ? '&' : ''));
+      });
+    });
+
+    let fetch = this.queryService.fetchResults(data).subscribe((data: any) => {       //Fetch items based on data
       if (data.result != null && data.result.length > 0) {
-        this.queryService.fetchItems(data.result).subscribe(items => {
-          console.log(items);
-        })
+        let query: Subscription;                                                      //Query sub
+        let length = data.result.length;                                              //Inital length of results
+
+        do {                                                                          //Have to get results 10 at a time
+          let results = data.result.splice(0, 10);
+
+          query = this.queryService.fetchItems(results, "?query=" + data.id + "&" + psuedos) //Get next ten results
+          .subscribe((items: any) => {  
+            this.queryResults = this.queryResults.concat(items.result);                      //Add results
+
+            if (this.queryResults.length == length) {                                        //Unsub and show results
+              query.unsubscribe();
+              fetch.unsubscribe();
+              this.showResults = true;
+            }
+          });
+        } while(data.result.length);
       }
-    })
+    });
   }
 
   /**
@@ -95,23 +121,25 @@ export class ItemComponent implements OnInit {
   }
 
   /**
-   * Sets editName
+   * Sorts by a new value
    * 
-   * @param edit
-   *        boolean: whether to edit or not 
+   * @param key
+   *        sort key, for example the hash of a stat
+   * @param value 
+   *        sort value, either 'asc' for ascending, or 'desc' for descending
    */
-  public setEditName(edit: boolean) {
-    this.editName = edit;
-  }
+  public searchWithSortBy(key: string, value?: string) {
+    let currentSort = Object.keys((this.itemForm.controls.sort as FormGroup).getRawValue())[0];   //The current key in use
+    let sortValue = (this.itemForm.controls.sort as FormGroup).controls[currentSort].value;       //The current value
 
-  /**
-   * Retursn editName
-   * 
-   * @returns
-   *        boolean: whether to edit or not
-   */
-  public getEditName(): boolean {
-    return this.editName;
+    if (currentSort == key) {
+      this.itemForm.get('sort.' + currentSort).patchValue(value ? value : sortValue == 'asc' ? 'desc' : 'asc');   //Alternate value if key is the same
+      this.fetchItems();                                                                                          //Re-fecth items
+    } else {
+      (this.itemForm.controls.sort as FormGroup).removeControl(currentSort);                                      //Remove old control
+      (this.itemForm.controls.sort as FormGroup).addControl(key, new FormControl(value ? value : 'desc'));        //Add new control
+      this.fetchItems();                                                                                          //re-fecth items
+    }
   }
 
   /**
