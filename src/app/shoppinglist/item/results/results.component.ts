@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, Pipe, PipeTransform, SimpleChanges, ViewEncapsulation } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, Pipe, PipeTransform, ViewEncapsulation } from '@angular/core';
 import { Currency } from '../../currency';
 
 interface modData {
