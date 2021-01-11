@@ -247,8 +247,6 @@
                 }
     
                 .item-parsed-list {
-                    display: flex;
-                    flex-direction: column;
                     color: rgb(151, 151, 151);
 
                     &:last-child {
@@ -281,10 +279,6 @@
 
                     .unmet {
                         color: #d20000;
-                    }
-
-                    .last {
-                        order: 1;
                     }
 
                     &:after {
@@ -513,7 +507,6 @@
         .sortable {
             transition: text-shadow 0.15s linear;
             text-shadow: none;
-            vertical-align: bottom;
 
             &:hover {
                 cursor: pointer;
@@ -532,8 +525,9 @@
             .asc, .desc {
                 font-size: 18px;
                 display: inline-flex;
-                align-items: center;
+                height: auto;
                 justify-content: center;
+                vertical-align: bottom;
             }
 
             .asc {
