@@ -1,4 +1,4 @@
-import { Component, Directive, ElementRef, EventEmitter, Input, OnInit, Output, Pipe, PipeTransform, Renderer2, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, Pipe, PipeTransform, SimpleChanges } from '@angular/core';
 import { Currency } from '../../currency';
 
 interface modData {
@@ -18,6 +18,13 @@ interface propData {
     display?: any
   }>,
   type?: number
+}
+
+interface divData {
+  values: Array<{
+    text: string,
+    display: any
+  }>
 }
 
 enum propertyValues {
@@ -115,7 +122,7 @@ export class ResultsComponent implements OnInit {
   pure: true
 })
 export class ParserPipe implements PipeTransform {
-  
+
   transform(props: any): any {
     let propData: Array<propData> = [];                                             
 
@@ -209,48 +216,42 @@ export class ParserPipe implements PipeTransform {
   }
 }
 
-@Directive({
-  selector: '[divCardExplicitParser]'
+@Pipe({
+  name: 'parseDivs',
+  pure: true
 })
-export class DivCardExplicitParser {
-
-  @Input() mods: Array<any>;       //Explicit Mods
-
-  constructor(private el: ElementRef, private renderer: Renderer2) { }
-
-  ngAfterViewInit() {
-    if (this.mods) this.parseDivExplicits();   //Parse the Mods
-  }
+export class ParseDivsPipe implements PipeTransform { 
 
   /**
-   * Parses the properties and displays them in the element
+   * Transforms the div mod data into usable data for the ngFor directive
+   * 
+   * @param mods
+   *        explicit mods from the div item 
    */
-  public parseDivExplicits() {
+  transform(mods: any) {
+    let divData: Array<divData> = [];                 //Stores all the div data
 
-    this.mods.forEach((mod, i) => {                 
-      let subMods = (mod as String).split(/\n/);
+    mods.forEach(mod => {                 
+      let subMods = (mod as String).split(/\n/);      //Every new line is another mod
 
-      subMods.forEach(subMod => {
-        let modPairs = subMod.match(/<(.*?)>{(.*?)}/gi);
-        let li = this.renderer.createElement('li');
-        if (!modPairs) return;
+      subMods.forEach(subMod => {                             //Cycle submods of the mod
+        let divModData: divData = {values: []};               //Stores the div data for the current mod   
+        let modPairs = subMod.match(/<(.*?)>{(.*?)}/gi);      //Split the different parts of the text
 
-        modPairs.forEach((modPair, i) => {
-          let displayModes = modPair.match(/<(.*?)>/gi);
-          let display = displayModes[displayModes.length -1].replace(/[<>]/gi, '');
-          let value = modPair.replace(/<(.*?)>/gi, '').replace(/[{}]/gi, '')
+        modPairs.forEach((modPair, i) => {                    //Cycle the split parts
+          let displayModes = modPair.match(/<(.*?)>/gi);                                  //parse the display modes
+          let display = displayModes[displayModes.length -1].replace(/[<>]/gi, '');       //Get the most recent one
+          let value = modPair.replace(/<(.*?)>/gi, '').replace(/[{}]/gi, '');             //Parse the value              
 
-          if (i > 0) value = ' ' + value;
-          let text = this.renderer.createText(value);
-          let span = this.renderer.createElement('span');
-          this.renderer.addClass(span, display);
-
-          this.renderer.appendChild(span, text);
-          this.renderer.appendChild(li, span);
-          this.renderer.appendChild(this.el.nativeElement, li);
+          if (i > 0) value = ' ' + value;                                                 //Add a space between mod pairs
+          divModData.values.push({text: value, display: display});                        //Push data to the main mod data values 
         });
+
+        divData.push(divModData);            //Push the mod data to the array of mod data 
       });
     });
+
+    return divData;
   }
 }
 
