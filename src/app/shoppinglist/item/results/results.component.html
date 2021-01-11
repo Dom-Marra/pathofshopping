@@ -57,9 +57,7 @@
                     class="item-parsed-list item-detail" (sortByProp)="sortBy($event)">
                     <li *ngFor="let prop of item.item.properties | parserPipe" [class.sortable]="prop.type != null && PROP_VALUES['prop_' + prop.type]" 
                     (click)="PROP_VALUES['prop_' + prop.type] ? sortBy(PROP_VALUES['prop_' + prop.type]) : ''">
-                        <span *ngFor="let value of prop.values" class="{{value.display != null ? 'display-' + value.display : ''}}">
-                            {{value.text}}
-                        </span>
+                        <span *ngFor="let value of prop.values" class="{{value.display != null ? 'display-' + value.display : ''}}">{{value.text}}</span>
                         <mat-icon *ngIf="currentSort[PROP_VALUES['prop_' + prop.type]]" class="{{currentSort[PROP_VALUES['prop_' + prop.type]] == 'desc' ? 'desc' : 'asc'}}">
                             {{currentSort[PROP_VALUES['prop_' + prop.type]] == 'desc' ? 'arrow_downward' : 'arrow_upward'}}
                         </mat-icon>
@@ -241,12 +239,40 @@
 
                 <!-- Total values with quality -->
                 <div class="item-total-values mat-small item-detail" *ngIf="item.item.extended.dps || item.item.extended.edps || item.item.extended.pdps || item.item.extended.ev || item.item.extended.ar || item.item.extended.es">
-                    <span (click)="sortBy('dps')" class="total-value sortable" *ngIf="item.item.extended.dps">Max DPS: <span class="value" [class.auged]="item.item.extended.dps_aug">{{item.item.extended.dps}}</span></span>
-                    <span (click)="sortBy('edps')" class="total-value sortable" *ngIf="item.item.extended.edps">Max eDPS: <span class="value" [class.auged]="item.item.extended.edps_aug">{{item.item.extended.edps}}</span></span>
-                    <span (click)="sortBy('pds')" class="total-value sortable" *ngIf="item.item.extended.pdps">Max pDPS: <span class="value" [class.auged]="item.item.extended.pdps_aug">{{item.item.extended.pdps}}</span></span>
-                    <span (click)="sortBy('ev')" class="total-value sortable" *ngIf="item.item.extended.ev">Max Evasion: <span class="value" [class.auged]="item.item.extended.ev_aug">{{item.item.extended.ev}}</span></span>
-                    <span (click)="sortBy('ar')" class="total-value sortable" *ngIf="item.item.extended.ar">Max Armor: <span class="value" [class.auged]="item.item.extended.ar_aug">{{item.item.extended.ar}}</span></span>
-                    <span (click)="sortBy('es')" class="total-value sortable" *ngIf="item.item.extended.es">Max Energy Shield: <span class="value" [class.auged]="item.item.extended.es_aug">{{item.item.extended.es}}</span></span>
+                    <span (click)="sortBy('dps')" class="total-value sortable" *ngIf="item.item.extended.dps">Max DPS:
+                        <span class="value" [class.auged]="item.item.extended.dps_aug">
+                            {{item.item.extended.dps}}
+                        </span>
+                        <mat-icon *ngIf="currentSort['dps']" class="{{currentSort['dps'] == 'desc' ? 'desc' : 'asc'}}">
+                            {{currentSort['dps'] == 'desc' ? 'arrow_downward' : 'arrow_upward'}}
+                        </mat-icon>
+                    </span>
+                    <span (click)="sortBy('edps')" class="total-value sortable" *ngIf="item.item.extended.edps">Max eDPS:
+                        <span class="value" [class.auged]="item.item.extended.edps_aug">
+                            {{item.item.extended.edps}}
+                        </span>
+                    </span>
+                    <span (click)="sortBy('pds')" class="total-value sortable" *ngIf="item.item.extended.pdps">Max pDPS:
+                        <span class="value" [class.auged]="item.item.extended.pdps_aug">
+                            {{item.item.extended.pdps}}
+                        </span>
+                    </span>
+                    <span (click)="sortBy('ev')" class="total-value sortable" *ngIf="item.item.extended.ev">Max Evasion:
+                        <span class="value" [class.auged]="item.item.extended.ev_aug">
+                            {{item.item.extended.ev}}
+                        </span>
+                    </span>
+                    <span (click)="sortBy('ar')" class="total-value sortable" *ngIf="item.item.extended.ar">Max Armor:
+                        <span class="value" [class.auged]="item.item.extended.ar_aug">
+                            {{item.item.extended.ar}}
+                        </span>
+                    </span>
+                    <span (click)="sortBy('es')" class="total-value sortable" *ngIf="item.item.extended.es">
+                        Max Energy Shield:
+                        <span class="value" [class.auged]="item.item.extended.es_aug">
+                            {{item.item.extended.es}}
+                        </span>
+                    </span>
                 </div>
             </div>
         </div>
