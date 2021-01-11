@@ -211,9 +211,13 @@
                     <li class="mod corrupted">Unidentified</li>
                 </ul>
 
-                <ul divCardExplicitParser [mods]="item.item.explicitMods" 
-                    *ngIf="item.item.frameType == 6 && item.item.explicitMods && item.item.explicitMods.length > 0" 
-                    class="item-div-mods item-detail">
+                <!-- Div Mods -->
+                <ul *ngIf="item.item.frameType == 6 && item.item.explicitMods" class="item-div-mods item-detail">
+                    <li *ngFor="let mod of item.item.explicitMods | parseDivs">
+                        <span *ngFor="let value of mod.values" class="{{value.display}}">
+                            {{value.text}}
+                        </span>
+                    </li>
                 </ul>
 
                 <!-- Prophecy Text-->
