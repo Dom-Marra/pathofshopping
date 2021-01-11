@@ -12,24 +12,32 @@ interface modData {
   hash: string
 }
 
+interface propData {
+  values: Array<{
+    text: string,
+    display?: any
+  }>,
+  type?: number
+}
+
 enum propertyValues {
-  map_tier = 1,
-  map_iiq = 2,
-  map_iir = 3,
-  map_packsize = 4,
-  gem_level = 5,
-  quality = 6,
-  pdps = 9,
-  edps = 10,
-  'pseudo.pseudo_adds_chaos_damage_to_attacks' = 11,
-  crit = 12,
-  aps = 13,
-  block = 15,
-  ar = 16,
-  ev = 17,
-  es = 18,
-  gem_level_progress = 20,
-  stack_size = 32,
+  prop_1 = 'map_tier',
+  prop_2 = 'map_iiq',
+  prop_3 = 'map_iir',
+  prop_4 = 'map_packsize',
+  prop_5 = 'gem_level',
+  prop_6 = 'quality',
+  prop_9 = 'pdps',
+  prop_10 = 'edps',
+  prop_11 = 'pseudo.pseudo_adds_chaos_damage_to_attacks',
+  prop_12 = 'crit',
+  prop_13 = 'aps',
+  prop_15 = 'block',
+  prop_16 = 'ar',
+  prop_17 = 'ev',
+  prop_18 = 'es',
+  prop_20 = 'gem_level_progress',
+  prop_32 = 'stack_size',
 }
 
 @Component({
@@ -38,6 +46,8 @@ enum propertyValues {
   styleUrls: ['./results.component.scss']
 })
 export class ResultsComponent implements OnInit {
+
+  public readonly PROP_VALUES = propertyValues;        //Keys of the prop values
 
   @Input() queryData: Array<any>;
   @Input() currentSort: any;                          //The current sort option
@@ -100,59 +110,38 @@ export class ResultsComponent implements OnInit {
   }
 }
 
-@Directive({
-  selector: '[parser]'
+@Pipe({
+  name: 'parserPipe',
+  pure: true
 })
-export class ParserDirective {
+export class ParserPipe implements PipeTransform {
+  
+  transform(props: any): any {
+    let propData: Array<propData> = [];                                             
 
-  @Input() props: Array<any>;                                   //Properties
-  @Output() sortByProp = new EventEmitter<string>();            //Sort event emmitter
-
-  constructor(private el: ElementRef, private renderer: Renderer2) { }
-
-  ngAfterViewInit() {
-    if (this.props) this.parseProperties();   //Parse the properties
-  }
-
-  /**
-   * Parses the properties and displays them in the element
-   */
-  public parseProperties() {
-
-    this.props.forEach(prop => {                      //Cycle properties
-      let li = this.renderer.createElement('li');     //li element holds property
-
+    props.forEach(prop => {            
       if (prop.displayMode == 3) {
-        this.parseDisplay3(prop, li);
+        propData.push(this.parseDisplay3(prop));
       } else if (prop.displayMode == 1 || (prop.displayMode == 0 && prop.values.length > 0)) {
-        this.parseDisplay1(prop, li)
+        propData.push(this.parseDisplay1(prop));
       } else if(prop.displayMode == 0) {
-        this.parseDisplay0(prop, li);
+        propData.push(this.parseDisplay0(prop));
       }else {
-        let name: string = prop.name;                            //Propery name
-        let text = this.renderer.createText(name);               //Holds property name
-        this.renderer.appendChild(li, text);                     //Add property name to the p element
+        propData.push({values: [{text: prop.name}], type: prop.type});                       
       }
-
-      if (prop.type && Object.values(propertyValues).indexOf(prop.type) > -1) {
-        this.addSortEmmit(prop.type, li);              //Add sort event on click
-        this.renderer.addClass(li, 'sortable');        //Add sortable class on it
-      }
-
-      this.renderer.appendChild(this.el.nativeElement, li);    //Add property to the host element
     });
+
+    return propData;
   }
 
   /**
-   * Does specific parsing for properties that are in display mode 3,
-   * creates and appends elements that hold the data
+   * Does specific parsing for properties that are in display mode 3
    * 
    * @param prop 
    *        property to parse
-   * @param li
-   *        list item to add property data to
    */
-  private parseDisplay3(prop: any, li: any) {
+  private parseDisplay3(prop: any): propData {
+    let propData = {values: [], type: prop.type};     //Prop Data
     let name: string = prop.name;                     //name of the property
     let regex = new RegExp(/({\d*})/);                //Reg exp to find value positions in the name
     let substrs = name.split(regex);                  //Substrings of value postions and text before them
@@ -162,85 +151,61 @@ export class ParserDirective {
       if (str.match(regex)) {                                      //If the sub string is a value position
         let valueIndex: number = parseInt(str.match(/(\d+)/)[0]);               //Reference of the value 
 
-        let span = this.renderer.createElement('span');                         //Span element holds the value
-        let spanText = this.renderer.createText(prop.values[valueIndex][0]);    //Value data
-        this.renderer.addClass(span, "display-" + prop.values[valueIndex][1]);  //Property class
-        this.renderer.appendChild(span, spanText);                              //add the value data to the span element
-        this.renderer.appendChild(li, span);                                     //Append span to the p element
+        let value = prop.values[valueIndex][0];                                 //Value data
+        let dispay = prop.values[valueIndex][1];                                //Display mode
+        propData.values.push({text: value, display: dispay});                   //Push to values of prop
+
       } else {
-        let preText = this.renderer.createText(str);                            //Text of the name
-        this.renderer.appendChild(li, preText);                                  //Add text of the name to the p element
+        propData.values.push({text: str, display: null});                       //Push str to values of prop
       }
     });
+
+    return propData;
   }
 
   /**
-   * Does specific parsing for properties that are in display mode 0,
-   * creates and appends elements that hold the data
+   * Does specific parsing for properties that are in display mode 0
    * 
    * @param prop 
    *        property to parse
-   * @param li
-   *        list item to add property data to
    */
-  private parseDisplay0(prop: any, li: any) {
-    
+  private parseDisplay0(prop: any): propData {
+    let propData = {values: [], type: prop.type};                         //Prop Data
     let propStrs = (prop.name as string).split(/(<.+?>{.+?})+/g);         //Split the array keep the delimiter (should look like <value>{othervalue})
 
     propStrs.forEach((propStr, i) => {                                    //Cycle throgh the array
       let value = propStr;                                                //Init the text value
-      let span = this.renderer.createElement('span');                     //Create a span to put the text into
+      let display: any = -1;
 
       if (new RegExp(/(<.+?>{.+?})+/g).test(propStr)) {                   //If the delimiter is found extract the value, and the class for it
-        let displayModes = propStr.match(/<(.*?)>/g);                                   //extract class, should look like <value>
-        let display = displayModes[displayModes.length -1].replace(/[<>]/gi, '');       //Get the value of the class
-        value = propStr.replace(/<(.*?)>/gi, '').replace(/[{}]/gi, '');                 //Set the new value for the text
-        this.renderer.addClass(span, display);                                          //Add class to the span
+        let displayModes = propStr.match(/<(.*?)>/g);                                     //extract class, should look like <value>
+        display = displayModes[displayModes.length -1].replace(/[<>]/gi, '');             //Get the value of the class
+        value = propStr.replace(/<(.*?)>/gi, '').replace(/[{}]/gi, '');                   //Set the new value for the text
       }
 
-      let text = this.renderer.createText(value);                                       //Create text for the span
-
-      //Append
-      this.renderer.appendChild(span, text);
-      this.renderer.appendChild(li, span);
+      propData.values.push({text: value, display: display});                              //Push data
     });
+
+    return propData;
   }
 
   /**
-   * Does specific parsing for properties that are in display mode 0 & 1,
-   * creates and appends elements that hold the data
+   * Does specific parsing for properties that are in display mode 0 & 1
    * 
    * @param prop 
    *        property to parse
-   * @param li
-   *        list item to add property data to
    */
-  private parseDisplay1(prop: any, li: any) {
+  private parseDisplay1(prop: any): propData {
+    let propData = {values: [], type: prop.type};                 //Prop Data
     let name = prop.name;                                         //name of the property
-    let span = this.renderer.createElement('span');               //Holds values of the property
-    let spanText = this.renderer.createText(prop.values[0][0]);   //Value for the span element
-    this.renderer.addClass(span, "display-" + prop.values[0][1]); //Class of the value
-    this.renderer.appendChild(span, spanText);                    //Add the value to the span element
-    let preText = this.renderer.createText(name + ": ");          //Name of the property to go before the value
+    let value = prop.values[0][0];                                //Value
+    let display = prop.values[0][1];                              //Display Mode
 
-    //Append the other elements
-    this.renderer.appendChild(li, preText);    
-    this.renderer.appendChild(li, span);
-    this.renderer.appendChild(this.el.nativeElement, li);
-  }
+    if (name && name.length > 0) name = name + ": ";              //Add if there is a name to prefix it
+    propData.values.push({text: name});                           //push name
+    propData.values.push({text: value, display: display});        //push value
 
-  /**
-   * Adds sort emmit event to property list items 
-   * 
-   * @param propType
-   *        the type value on the property 
-   * @param li
-   *        list item to add event to
-   */
-  private addSortEmmit(propType: any, li: any) {
-    this.renderer.listen(li, 'click', () => {   //On Click emmit event to sort by the prop
-      this.sortByProp.emit(Object.keys(propertyValues).find(key => propertyValues[key] === propType));
-    });
+    return propData;                                             
   }
 }
 
