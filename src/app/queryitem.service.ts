@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class QueryitemService {
 
-  private fetchResApi: string = "http://localhost:4200/api/trade/search/Heist"
+  private fetchResApi: string = "http://localhost:4200/api/trade/search/Standard"
   private fetchItemsApi: string = "http://localhost:4200/api/trade/fetch/";
 
   constructor(private http: HttpClient) { }
