@@ -69,19 +69,27 @@ export class ItemComponent implements OnInit {
 
     data = this.removeEmpty(data);                                        //clean the data
 
+    let psuedos: string = "";                                             //Pseudo mod params
+    data.query.stats?.forEach(statGroup => {                              //Add pseudo mods to psueod mod params
+      statGroup.filters?.forEach((filter, i) => {
+        if ((filter.id as string).includes('pseudo')) 
+          psuedos = psuedos.concat("pseudos[]=" + filter.id + (statGroup.filters[i + 1] ? '&' : ''));
+      });
+    });
+
     let fetch = this.queryService.fetchResults(data).subscribe((data: any) => {       //Fetch items based on data
       if (data.result != null && data.result.length > 0) {
-
         let query: Subscription;                                                      //Query sub
         let length = data.result.length;                                              //Inital length of results
 
         do {                                                                          //Have to get results 10 at a time
           let results = data.result.splice(0, 10);
 
-          query = this.queryService.fetchItems(results).subscribe((items: any) => {  //Get next ten results
-            this.queryResults = this.queryResults.concat(items.result);              //Add results
+          query = this.queryService.fetchItems(results, "?query=" + data.id + "&" + psuedos) //Get next ten results
+          .subscribe((items: any) => {  
+            this.queryResults = this.queryResults.concat(items.result);                      //Add results
 
-            if (this.queryResults.length == length) {                                //Unsub and show results
+            if (this.queryResults.length == length) {                                        //Unsub and show results
               query.unsubscribe();
               fetch.unsubscribe();
               this.showResults = true;
