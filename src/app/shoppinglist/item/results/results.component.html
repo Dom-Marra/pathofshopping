@@ -253,6 +253,22 @@
                     </li>
                 </ul>
 
+                <!-- Incubator Item -->
+                <ul *ngIf="item.item.incubatedItem" class="item-parsed-list item-detail">
+                    <li class="sortable" (click)="PROP_VALUES['prop_' + prop.type] ? sortBy(PROP_VALUES['prop_' + prop.type]) : ''">
+                        <span class="display-0">
+                            {{item.item.incubatedItem.progress}}/{{item.item.incubatedItem.total}}
+                        </span>
+                        <span>
+                            level: {{item.item.incubatedItem.level}} {{item.item.incubatedItem.name}}
+                        </span>
+                        <mat-icon *ngIf="currentSort['HERE']" class="{{currentSort['HERE'] == 'desc' ? 'desc' : 'asc'}}">
+                            {{currentSort[PROP_VALUES['prop_' + prop.type]] == 'desc' ? 'arrow_downward' : 'arrow_upward'}}
+                        </mat-icon>
+                        <mat-progress-bar class="item-progress-bar" mode="determinate" value="{{(item.item.incubatedItem.progress / item.item.incubatedItem.total) * 100}}"></mat-progress-bar>
+                    </li>
+                </ul>
+
                 <!-- Total values with quality -->
                 <div class="item-total-values mat-small item-detail" *ngIf="item.item.extended.dps || item.item.extended.edps || item.item.extended.pdps || item.item.extended.ev || item.item.extended.ar || item.item.extended.es">
                     <span (click)="sortBy('dps')" class="total-value sortable" *ngIf="item.item.extended.dps">Max DPS:
