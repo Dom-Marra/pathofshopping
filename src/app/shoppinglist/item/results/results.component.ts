@@ -207,15 +207,19 @@ export class ParserPipe implements PipeTransform {
   private parseDisplay1and2(prop: any): propData {
     let propData = {values: [], type: prop.type};                     //Prop Data
     let name = prop.name;                                             //name of the property
-    let value = prop.values[0][0];                                    //Value
-    let display = prop.values[0][1];                                  //Display Mode
 
     if (name && name.length > 0) name = name + ": ";                  //Add if there is a name to prefix it
-    if (prop.displayMode == 2) propData['progress'] = prop.progress;     
-
     propData.values.push({text: name});                               //push name
-    propData.values.push({text: value, display: display});            //push value data
 
+    prop.values.forEach((value, i) => {
+      let val = value[0];                                               //Value
+      let display = value[1];                                           //Display Mode
+
+      if (i > 0) propData.values.push({text: ', '});
+      if (prop.displayMode == 2) propData['progress'] = prop.progress;     
+      propData.values.push({text: val, display: display});            //push value data
+    });
+    
     return propData;                                             
   }
 }
