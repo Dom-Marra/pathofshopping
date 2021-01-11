@@ -69,11 +69,6 @@ export class ResultsComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    console.log(this.queryData);
-    console.log(this.currentSort);
-  }
-
   /**
    * Returns the time difference from a given date and the current date
    * 
