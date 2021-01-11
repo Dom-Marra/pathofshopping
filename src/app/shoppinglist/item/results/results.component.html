@@ -53,10 +53,17 @@
             <div class="query-item-details-container">
 
                 <!--Properties-->
-                <ul parser *ngIf="item.item.properties && item.item.properties.length > 0" 
-                    [props]="item.item.properties"
+                <ul *ngIf="item.item.properties && item.item.properties.length > 0"
                     class="item-parsed-list item-detail" (sortByProp)="sortBy($event)">
-
+                    <li *ngFor="let prop of item.item.properties | parserPipe" [class.sortable]="prop.type != null && PROP_VALUES['prop_' + prop.type]" 
+                    (click)="PROP_VALUES['prop_' + prop.type] ? sortBy(PROP_VALUES['prop_' + prop.type]) : ''">
+                        <span *ngFor="let value of prop.values" class="{{value.display != null ? 'display-' + value.display : ''}}">
+                            {{value.text}}
+                        </span>
+                        <mat-icon *ngIf="currentSort[PROP_VALUES['prop_' + prop.type]]" class="{{currentSort[PROP_VALUES['prop_' + prop.type]] == 'desc' ? 'desc' : 'asc'}}">
+                            {{currentSort[PROP_VALUES['prop_' + prop.type]] == 'desc' ? 'arrow_downward' : 'arrow_upward'}}
+                        </mat-icon>
+                    </li>
                     <li *ngFor="let mod of item.item.utilityMods" class="display-1 last">
                         {{mod}}
                     </li>
@@ -75,7 +82,17 @@
                             {{currentSort['ilvl'] == 'desc' ? 'arrow_downward' : 'arrow_upward'}}
                         </mat-icon></li>
                     <li *ngIf="item.item.requirements">Requires 
-                        <ul parser [props]="item.item.requirements" class="item-parsed-nested-list item-detail"></ul>
+                        <ul class="item-parsed-nested-list item-detail">
+                            <li *ngFor="let prop of item.item.requirements | parserPipe" [class.sortable]="prop.type != null && PROP_VALUES['prop_' + prop.type]" 
+                            (click)="PROP_VALUES['prop_' + prop.type] ? sortBy(PROP_VALUES['prop_' + prop.type]) : ''">
+                                <span *ngFor="let value of prop.values" class="{{value.display != null ? 'display-' + value.display : ''}}">
+                                    {{value.text}}
+                                </span>
+                                <mat-icon *ngIf="currentSort[PROP_VALUES['prop_' + prop.type]]" class="{{currentSort[PROP_VALUES['prop_' + prop.type]] == 'desc' ? 'desc' : 'asc'}}">
+                                    {{currentSort[PROP_VALUES['prop_' + prop.type]] == 'desc' ? 'arrow_downward' : 'arrow_upward'}}
+                                </mat-icon>
+                            </li>
+                        </ul>
                     </li>
                 </ul>
             
