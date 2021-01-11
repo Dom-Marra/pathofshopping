@@ -95,7 +95,7 @@
                 </ul>
             
                 <!-- Enchanted Mods-->
-                <ul *ngIf="item.item.enchantMods && item.item.enchantMods.length > 0" class="item-explicit-mods item-detail">
+                <ul *ngIf="item.item.enchantMods && item.item.enchantMods.length > 0" class="item-mod-list item-detail">
                     <li *ngFor="let mod of item.item | parseMods:'enchantMods':'enchant'" class="mod enchant {{mod.hash ? 'sortable' : ''}}" (click)="mod.hash ? sortBy('stat.' + mod.hash) : ''">
                         <span [innerHTML]="mod.text"></span>
                         <mat-icon *ngIf="currentSort['stat.' + mod.hash]" class="{{currentSort['stat.' + mod.hash] == 'desc' ? 'desc' : 'asc'}}">
@@ -115,7 +115,7 @@
                 </ul>
 
                 <!-- Implicit Mods -->
-                <ul *ngIf="item.item.implicitMods && item.item.implicitMods.length > 0" class="item-explicit-mods item-detail">
+                <ul *ngIf="item.item.implicitMods && item.item.implicitMods.length > 0" class="item-mod-list item-detail">
                     <li *ngFor="let mod of item.item | parseMods:'implicitMods':'implicit'" class="mod {{mod.display ? mod.display : ''}} {{mod.hash ? 'sortable' : ''}}" (click)="mod.hash ? sortBy('stat.' + mod.hash) : ''">
                         <span [innerHTML]="mod.text"></span>
                         <mat-icon *ngIf="currentSort['stat.' + mod.hash]" class="{{currentSort['stat.' + mod.hash] == 'desc' ? 'desc' : 'asc'}}">
@@ -135,7 +135,7 @@
                 </ul>
             
                 <!-- Explicit Mods-->
-                <ul *ngIf="(item.item.explicitMods || item.item.fracturedMods || item.item.craftedMods || item.item.corrupted || item.item.duplicated)&& item.item.frameType != 6" class="item-explicit-mods item-detail">
+                <ul *ngIf="(item.item.explicitMods || item.item.fracturedMods || item.item.craftedMods || item.item.corrupted || item.item.duplicated)&& item.item.frameType != 6" class="item-mod-list item-detail">
                     <li *ngFor="let mod of item.item | parseMods:'fracturedMods':'fractured'" class="mod {{mod.display ? mod.display : ''}} {{mod.hash ? 'sortable' : ''}}" (click)="mod.hash ? sortBy('stat.' + mod.hash) : ''">
                         <span [innerHTML]="mod.text" class="fractured"></span>
                         <mat-icon *ngIf="currentSort['stat.' + mod.hash]" class="{{currentSort['stat.' + mod.hash] == 'desc' ? 'desc' : 'asc'}}">
@@ -221,7 +221,7 @@
                 </ul>
                 
                 <!-- Identified-->
-                <ul *ngIf="item.item.identified == false" class="item-explicit-mods item-detail">
+                <ul *ngIf="item.item.identified == false" class="item-mod-list item-detail">
                     <li class="mod corrupted">Unidentified</li>
                 </ul>
 
@@ -265,7 +265,7 @@
                         <mat-icon *ngIf="currentSort['HERE']" class="{{currentSort['HERE'] == 'desc' ? 'desc' : 'asc'}}">
                             {{currentSort[PROP_VALUES['prop_' + prop.type]] == 'desc' ? 'arrow_downward' : 'arrow_upward'}}
                         </mat-icon>
-                        <mat-progress-bar class="item-progress-bar" mode="determinate" value="{{(item.item.incubatedItem.progress / item.item.incubatedItem.total) * 100}}"></mat-progress-bar>
+                        <mat-progress-bar class="item-progress-bar"v mode="determinate" value="{{(item.item.incubatedItem.progress / item.item.incubatedItem.total) * 100}}"></mat-progress-bar>
                     </li>
                 </ul>
 
