@@ -15,6 +15,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatIconModule } from '@angular/material/icon';
+import { ClipboardModule } from '@angular/cdk/clipboard';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 //Feather Import
 import { DigitsonlyDirective } from './digitsonly.directive';
@@ -33,6 +35,7 @@ import { GemfiltersComponent } from './shoppinglist/filters/gemfilters/gemfilter
 import { OtherfiltersComponent } from './shoppinglist/filters/otherfilters/otherfilters.component';
 import { StatfiltersComponent } from './shoppinglist/filters/statfilters/statfilters.component';
 import { TypefiltersComponent } from './shoppinglist/filters/typefilters/typefilters.component';
+import { ResultsComponent, ParseModsPipe, ParserPipe, ParseDivsPipe} from './shoppinglist/item/results/results.component';
 
 
 
@@ -55,7 +58,11 @@ import { TypefiltersComponent } from './shoppinglist/filters/typefilters/typefil
     GemfiltersComponent,
     OtherfiltersComponent,
     StatfiltersComponent,
-    TypefiltersComponent
+    TypefiltersComponent,
+    ResultsComponent,
+    ParseModsPipe,
+    ParserPipe,
+    ParseDivsPipe
   ],
   imports: [
     BrowserModule,
@@ -69,7 +76,9 @@ import { TypefiltersComponent } from './shoppinglist/filters/typefilters/typefil
     ReactiveFormsModule,
     HttpClientModule,
     MatAutocompleteModule,
-    MatIconModule
+    MatIconModule,
+    ClipboardModule,
+    MatProgressBarModule
   ],
   exports: [ ],
   providers: [],

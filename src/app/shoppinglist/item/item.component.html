@@ -7,35 +7,40 @@
                     <mat-icon class="icon-light">delete</mat-icon>
                 </div>
             </mat-panel-title>
-            <div *ngIf="!this.getEditName()" class="item-name" 
-                (click)="$event.stopImmediatePropagation(); this.setEditName(true)" 
+            <div *ngIf="!editName" class="item-name" 
+                (click)="$event.stopImmediatePropagation(); editName = true" 
                 role="button" aria-label="Edit item name">
                 <p>{{itemForm.value.itemName.length > 0 ? itemForm.value.itemName : 'Item Name'}}</p>
                 <mat-icon class="icon-light">edit</mat-icon>
             </div>
-            <mat-form-field *ngIf="this.getEditName()" [floatLabel]="'never'" (click)="$event.stopImmediatePropagation();" >
+            <mat-form-field *ngIf="editName" [floatLabel]="'never'" (click)="$event.stopImmediatePropagation();" >
                 <input #itemNameInput matInput 
                     (keydown.Space)="$event.stopImmediatePropagation()" 
                     (keydown.enter)="$event.stopImmediatePropagation(); $event.target.blur()"
-                    (blur)="this.setEditName(false)" type="text" autocomplete="off" placeholder="Item Name"  formControlName="itemName">
+                    (blur)="editName = false" type="text" autocomplete="off" placeholder="Item Name"  formControlName="itemName">
             </mat-form-field>
         </mat-expansion-panel-header>
 
-        <div class="item-contents" appEqualFlex>
-            <app-typefilters class="filter full-width" [itemForm]="this.itemForm"></app-typefilters>
-            <app-weaponfilters class="filter" [itemForm]="this.itemForm.get('query.filters')"></app-weaponfilters>
-            <app-armourfilters class="filter" [itemForm]="this.itemForm.get('query.filters')"></app-armourfilters>
-            <app-socketfilters class="filter" [itemForm]="this.itemForm.get('query.filters')"></app-socketfilters>
-            <app-requirements class="filter" [itemForm]="this.itemForm.get('query.filters')"></app-requirements>
-            <app-mapfilters class="filter" [itemForm]="this.itemForm.get('query.filters')"></app-mapfilters>
-            <app-specialbases class="filter" [itemForm]="this.misc_filters.get('filters')"></app-specialbases>
-            <app-gemfilters class="filter" [itemForm]="this.misc_filters.get('filters')"></app-gemfilters>
-            <app-otherfilters class="filter" [itemForm]="this.misc_filters.get('filters')"></app-otherfilters>
-            <app-statfilters class="filter" [itemForm]="this.itemForm.get('query.stats')"></app-statfilters>
-
-            <div class="query-buttons">
-                <button class="query-button search" mat-flat-button type="button" (click)="fetchItems()">Search</button>
+        <div class="item-contents">
+            <div class="filters">
+                <app-typefilters class="filter full-width" [itemForm]="this.itemForm"></app-typefilters>
+                <app-weaponfilters class="filter" [itemForm]="this.itemForm.get('query.filters')"></app-weaponfilters>
+                <app-armourfilters class="filter" [itemForm]="this.itemForm.get('query.filters')"></app-armourfilters>
+                <app-socketfilters class="filter" [itemForm]="this.itemForm.get('query.filters')"></app-socketfilters>
+                <app-requirements class="filter" [itemForm]="this.itemForm.get('query.filters')"></app-requirements>
+                <app-mapfilters class="filter" [itemForm]="this.itemForm.get('query.filters')"></app-mapfilters>
+                <app-specialbases class="filter" [itemForm]="this.misc_filters.get('filters')"></app-specialbases>
+                <app-gemfilters class="filter" [itemForm]="this.misc_filters.get('filters')"></app-gemfilters>
+                <app-otherfilters class="filter" [itemForm]="this.misc_filters.get('filters')"></app-otherfilters>
+                <app-statfilters class="filter" [itemForm]="this.itemForm.get('query.stats')"></app-statfilters>
+                <div class="query-buttons">
+                    <button class="query-button" mat-flat-button type="button" (click)="this.showResults = !this.showResults" *ngIf="this.queryResults.length > 0 || this.showResults">
+                        {{ showResults ? 'Hide Results' : 'Show Results'}}
+                    </button>
+                    <button class="query-button search" mat-flat-button type="button" (click)="searchWithSortBy('price', 'asc')">Search</button>
+                </div>
             </div>
+            <app-results *ngIf="showResults" class="results" [queryData]="queryResults" [currentSort]="this.itemForm.controls.sort.getRawValue()" (newSort)="searchWithSortBy($event)"></app-results>
         </div>
     </mat-expansion-panel>
 </form>
