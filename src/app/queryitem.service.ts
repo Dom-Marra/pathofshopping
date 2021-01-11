@@ -20,7 +20,7 @@ export class QueryitemService {
 
   }
 
-  public fetchItems(results: Array<string>) {
-    return this.http.get(this.fetchItemsApi + results.toString());
+  public fetchItems(results: Array<string>, endingParams?: string) {
+    return this.http.get(this.fetchItemsApi + results.toString() + endingParams);
   } 
 }
