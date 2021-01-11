@@ -200,6 +200,22 @@
                             <div *ngIf="mod.name" class="mod-detail">{{mod.name}}</div>
                         </div>
                     </li>
+                    <li *ngFor="let mod of item.item | parseMods:'pseudoMods':'pseudo'" class="mod pseudo {{mod.hash ? 'sortable' : ''}}" (click)="mod.hash ? sortBy('stat.' + mod.hash) : ''">
+                        <span [innerHTML]="mod.text"></span>
+                        <mat-icon *ngIf="currentSort['stat.' + mod.hash]" class="{{currentSort['stat.' + mod.hash] == 'desc' ? 'desc' : 'asc'}}">
+                            {{currentSort['stat.' + mod.hash] == 'desc' ? 'arrow_downward' : 'arrow_upward'}}
+                        </mat-icon>
+                        <div class="mod-details mat-small type-{{mod.tier}}">
+                            <div *ngIf="mod.tier || mod.ranges.length > 0" class="mod-detail">
+                                {{mod.tier}}
+                                <span *ngIf="mod.ranges && mod.ranges.length > 0">
+                                    [<span *ngFor="let range of mod.ranges; let i = index">{{range.min}}{{(range.max != range.min ? ' - ' + range.max : '')}}<span *ngIf="mod.ranges[i+1]">, </span></span>]
+                                </span>
+                            </div>
+                            
+                            <div *ngIf="mod.name" class="mod-detail">{{mod.name}}</div>
+                        </div>
+                    </li>
                     <li *ngIf="item.item.corrupted" class="mod corrupted">Corrupted</li>
                     <li *ngIf="item.item.duplicated" class="mod">Mirrored</li>
                 </ul>
