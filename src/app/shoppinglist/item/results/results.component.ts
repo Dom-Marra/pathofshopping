@@ -58,11 +58,11 @@ export class ResultsComponent implements OnInit {
 
   public readonly PROP_VALUES = propertyValues;        //Keys of the prop values
 
-  @Input() queryData: Array<any>;
+  @Input() queryData: Array<any>;                     //List of items to display
   @Input() currentSort: any;                          //The current sort option
   @Output() newSort = new EventEmitter<string>();     //New sort option emitter
 
-  public currencies: Currency = new Currency();
+  public currencies: Currency = new Currency();       //Currencies
 
   constructor() { }
 
