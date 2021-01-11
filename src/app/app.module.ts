@@ -34,7 +34,7 @@ import { GemfiltersComponent } from './shoppinglist/filters/gemfilters/gemfilter
 import { OtherfiltersComponent } from './shoppinglist/filters/otherfilters/otherfilters.component';
 import { StatfiltersComponent } from './shoppinglist/filters/statfilters/statfilters.component';
 import { TypefiltersComponent } from './shoppinglist/filters/typefilters/typefilters.component';
-import { ResultsComponent, DivCardExplicitParser, ParseModsPipe, ParserPipe} from './shoppinglist/item/results/results.component';
+import { ResultsComponent, ParseModsPipe, ParserPipe, ParseDivsPipe} from './shoppinglist/item/results/results.component';
 
 
 
@@ -59,9 +59,9 @@ import { ResultsComponent, DivCardExplicitParser, ParseModsPipe, ParserPipe} fro
     StatfiltersComponent,
     TypefiltersComponent,
     ResultsComponent,
-    DivCardExplicitParser,
     ParseModsPipe,
-    ParserPipe
+    ParserPipe,
+    ParseDivsPipe
   ],
   imports: [
     BrowserModule,
