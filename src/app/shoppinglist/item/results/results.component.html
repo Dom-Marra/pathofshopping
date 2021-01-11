@@ -1,6 +1,6 @@
 <div class="query-results-container">
     <h2 class="results-header">{{queryData.length}} Results</h2>
-    <div *ngFor="let item of queryData; let itemIndex = index; trackBy:trackyByID" class="query-item">
+    <div *ngFor="let item of queryData; let itemIndex = index" class="query-item">
         <div class="item-image-sockets item-detail">
             <img src="{{item.item.icon}}" aria-label="Image of {{item.item.name ? item.item.name : item.item.typeLine}}">
             <div class="sockets" *ngIf="item.item.sockets" [style.width]="(item.item.w == 2 && item.item.sockets.length > 1) ? '92px' : '46px'">
@@ -223,6 +223,20 @@
                 <!-- Prophecy Text-->
                 <ul *ngIf="item.item.prophecyText" class="item-detail">
                     <li>{{item.item.prophecyText}}</li>
+                </ul>
+
+                <!-- Additional Props -->
+                <ul *ngIf="item.item.additionalProperties" class="item-parsed-list item-detail">
+                    <li *ngFor="let prop of item.item.additionalProperties | parserPipe" [class.sortable]="prop.type != null && PROP_VALUES['prop_' + prop.type]" 
+                    (click)="PROP_VALUES['prop_' + prop.type] ? sortBy(PROP_VALUES['prop_' + prop.type]) : ''">
+                        <span *ngFor="let value of prop.values" class="{{value.display != null ? 'display-' + value.display : ''}}">
+                            {{value.text}}
+                        </span>
+                        <mat-icon *ngIf="currentSort[PROP_VALUES['prop_' + prop.type]]" class="{{currentSort[PROP_VALUES['prop_' + prop.type]] == 'desc' ? 'desc' : 'asc'}}">
+                            {{currentSort[PROP_VALUES['prop_' + prop.type]] == 'desc' ? 'arrow_downward' : 'arrow_upward'}}
+                        </mat-icon>
+                        <mat-progress-bar class="item-progress-bar" *ngIf="prop.progress" mode="determinate" value="{{prop.progress * 100}}"></mat-progress-bar>
+                    </li>
                 </ul>
             </div>
         </div>
