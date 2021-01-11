@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, Pipe, PipeTransform, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, Pipe, PipeTransform, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { Currency } from '../../currency';
 
 interface modData {
@@ -17,6 +17,7 @@ interface propData {
     text: string,
     display?: any
   }>,
+  progress?: number,
   type?: number
 }
 
@@ -50,7 +51,8 @@ enum propertyValues {
 @Component({
   selector: 'app-results',
   templateUrl: './results.component.html',
-  styleUrls: ['./results.component.scss']
+  styleUrls: ['./results.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class ResultsComponent implements OnInit {
 
@@ -129,8 +131,8 @@ export class ParserPipe implements PipeTransform {
     props.forEach(prop => {            
       if (prop.displayMode == 3) {
         propData.push(this.parseDisplay3(prop));
-      } else if (prop.displayMode == 1 || (prop.displayMode == 0 && prop.values.length > 0)) {
-        propData.push(this.parseDisplay1(prop));
+      } else if (prop.displayMode == 1 || (prop.displayMode == 0 && prop.values.length > 0) || prop.displayMode == 2) {
+        propData.push(this.parseDisplay1and2(prop));
       } else if(prop.displayMode == 0) {
         propData.push(this.parseDisplay0(prop));
       }else {
@@ -202,15 +204,17 @@ export class ParserPipe implements PipeTransform {
    * @param prop 
    *        property to parse
    */
-  private parseDisplay1(prop: any): propData {
-    let propData = {values: [], type: prop.type};                 //Prop Data
-    let name = prop.name;                                         //name of the property
-    let value = prop.values[0][0];                                //Value
-    let display = prop.values[0][1];                              //Display Mode
+  private parseDisplay1and2(prop: any): propData {
+    let propData = {values: [], type: prop.type};                     //Prop Data
+    let name = prop.name;                                             //name of the property
+    let value = prop.values[0][0];                                    //Value
+    let display = prop.values[0][1];                                  //Display Mode
 
-    if (name && name.length > 0) name = name + ": ";              //Add if there is a name to prefix it
-    propData.values.push({text: name});                           //push name
-    propData.values.push({text: value, display: display});        //push value
+    if (name && name.length > 0) name = name + ": ";                  //Add if there is a name to prefix it
+    if (prop.displayMode == 2) propData['progress'] = prop.progress;     
+
+    propData.values.push({text: name});                               //push name
+    propData.values.push({text: value, display: display});            //push value data
 
     return propData;                                             
   }
