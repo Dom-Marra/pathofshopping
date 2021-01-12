@@ -3,9 +3,18 @@ import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { statCategory, StatsearchService } from '../../statsearch.service';
 
 export const filterSearch = (items: any, searchText: string): any => {    //Filters items by search text
-  const text = searchText.toLowerCase();
+  const text = searchText.toLowerCase().trim().split(/\s+/);
 
-  return items.filter(item => item.text.toLowerCase().indexOf(text) != -1);
+  return items.filter(item => {
+    return text.filter(text => {
+      
+      if (text.length > 0) {
+        return item.text.toLowerCase().indexOf(text) != -1;
+      }
+      
+      return false;
+    }).length == text.length;
+  });
 }
 
 @Component({
