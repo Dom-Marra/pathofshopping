@@ -1,15 +1,15 @@
 <div class="type-filters" [formGroup]="typeFilters">
     <mat-form-field class="search-field">
         <mat-label>Search Items</mat-label>
-        <input matInput type="text" autocomplete="off" [matAutocomplete]="searchableItems" formControlName="term">
+        <input matInput type="text" autocomplete="off" [matAutocomplete]="searchableItems" formControlName="search">
         <button mat-button *ngIf="this.typeFilters.controls.term.value != ''" matSuffix mat-icon-button aria-label="Clear" (click)="this.typeFilters.patchValue({'term': ''})">
             <mat-icon class="icon-light">clear</mat-icon>
         </button>
 
         <mat-autocomplete #searchableItems="matAutocomplete" [class]="'autocomplete-panel'">
             <mat-optgroup *ngFor="let search of filteredItems | async" [label]="search.category">
-                <mat-option *ngFor="let item of search.items | slice:0:25;" [value]="item">
-                    {{item}}
+                <mat-option *ngFor="let item of search.items | slice:0:25;" [value]="item.text">
+                    {{item.text}}
                 </mat-option>
             </mat-optgroup>
         </mat-autocomplete>
