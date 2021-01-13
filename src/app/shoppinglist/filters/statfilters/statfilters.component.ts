@@ -70,4 +70,13 @@ export class StatfiltersComponent implements OnInit {
 
     this.renderer2.addClass(componentRef.location.nativeElement, 'stat-field');
   }
+
+  /**
+   * Deletes this stat filter group
+   */
+  public destroy() {
+    let index = this.itemForm.controls.indexOf(this.statFilters);
+    this.itemForm.removeAt(index);
+    this.viewRef.destroy();
+  }
 }
