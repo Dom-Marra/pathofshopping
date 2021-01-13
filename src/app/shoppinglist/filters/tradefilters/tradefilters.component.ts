@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 
 enum buyOutOptions{
@@ -40,13 +40,18 @@ enum listedOptions {
 @Component({
   selector: 'app-tradefilters',
   templateUrl: './tradefilters.component.html',
-  styleUrls: ['./tradefilters.component.scss']
+  styleUrls: ['./tradefilters.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class TradefiltersComponent implements OnInit {
 
+  public readonly LISTED_OPTIONS: typeof listedOptions = listedOptions;
+  public readonly SALE_TYPES: typeof saleTypes = saleTypes;
+  public readonly BUY_OUT_OPTIONS: typeof buyOutOptions = buyOutOptions;
+
   @Input() filterGroup: FormGroup;          //Filters from group to add filters to
 
-  public tradefilters = new FormGroup({     //Trade filters
+  public tradeFilters = new FormGroup({     //Trade filters
     disabled: new FormControl(false),
     filters: new FormGroup({ 
       price: new FormGroup({
@@ -69,7 +74,7 @@ export class TradefiltersComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    this.filterGroup.addControl('trade_filters', this.tradefilters);    //Add trade filters to filter group
+    this.filterGroup.addControl('trade_filters', this.tradeFilters);    //Add trade filters to filter group
   }
 
 }
