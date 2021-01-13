@@ -15,12 +15,7 @@
     </div>
     <div id="shoppinglist-contents-container">
         <div id="shoppinglist-contents-top-bar">
-            <mat-form-field>
-                <mat-label>League</mat-label>
-                <mat-select panelClass="topbar-select" [formControl]="this.shoppingList.controls.league" disableOptionCentering="true">
-                    <mat-option *ngFor="let league of LEAGUES | keyvalue" [value]="league.key" >{{league.value}}</mat-option>
-                </mat-select>
-            </mat-form-field>
+            <app-filtergroupselect class="league-select" *ngIf="object.keys(this.LEAGUES).length > 0" inputName='League' [styleType]="'basicMaterial'" [control]="this.shoppingList.controls.league" [selectEnum]="LEAGUES"></app-filtergroupselect>
             <button type="button" mat-flat-button (click)="addItem()" id="add-item" class="action-button">Add Item <mat-icon class="icon-light">add</mat-icon></button>
             <button type="button" mat-flat-button (click)="accordion.openAll()" id="expand-items" class="action-button">Expand All <mat-icon class="icon-light">fullscreen</mat-icon></button>
             <button type="button" mat-flat-button (click)="accordion.closeAll()" id="collapse-items" class="action-button">Collapse All <mat-icon class="icon-light">fullscreen_exit</mat-icon></button>

@@ -13,7 +13,7 @@
                 <p>{{itemForm.value.itemName.length > 0 ? itemForm.value.itemName : 'Item Name'}}</p>
                 <mat-icon class="icon-light">edit</mat-icon>
             </div>
-            <mat-form-field *ngIf="editName" [floatLabel]="'never'" (click)="$event.stopImmediatePropagation();" >
+            <mat-form-field class="item-name-input" *ngIf="editName" [floatLabel]="'never'" (click)="$event.stopImmediatePropagation();" >
                 <input #itemNameInput matInput 
                     (keydown.Space)="$event.stopImmediatePropagation()" 
                     (keydown.enter)="$event.stopImmediatePropagation(); $event.target.blur()"
