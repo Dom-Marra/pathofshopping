@@ -63,6 +63,11 @@ export class StatfiltersComponent implements OnInit {
       this.addStatSelect();
     });
 
+    this.statFilters.controls.type.valueChanges.subscribe(value => {
+      componentRef.instance.isWeight = (value == 'weight');
+      componentRef.instance.addWeightFilter();
+    })
+
     this.renderer2.addClass(componentRef.location.nativeElement, 'stat-field');
   }
 }
