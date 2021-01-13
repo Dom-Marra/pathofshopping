@@ -9,11 +9,22 @@
             display: flex;
             flex-wrap: wrap;
             width: 100%;
-        
-            .header-text {
+            
+            .header-text-wrapper {
                 display: flex;
+                justify-content: space-between;
                 align-items: center;
+                padding: 0 0.15em;
+
+                .delete-filter-group {
+                    padding-right: 0.5em;
+                }
+                .header-text {
+                    display: flex;
+                    align-items: center;
+                }
             }
+            
         
             .type-selector {
                 display: flex;
