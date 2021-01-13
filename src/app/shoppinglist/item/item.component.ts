@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ComponentFactoryResolver, ElementRef, OnInit, QueryList, Renderer2, ViewChild, ViewChildren, ViewContainerRef, ViewEncapsulation, ViewRef } from '@angular/core';
+import { ChangeDetectorRef, Component, ComponentFactoryResolver, ElementRef, Input, OnInit, QueryList, Renderer2, ViewChild, ViewChildren, ViewContainerRef, ViewEncapsulation, ViewRef } from '@angular/core';
 import { FormGroup, FormControl, FormArray } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { QueryitemService } from '../../queryitem.service'
@@ -12,6 +12,7 @@ import { StatfiltersComponent } from '../filters/statfilters/statfilters.compone
 })
 export class ItemComponent implements OnInit {
 
+  @Input() league: string;
   @ViewChild('statFilterGroups', {read: ViewContainerRef}) itemContainerRef: ViewContainerRef;    //Container Ref for adding filter groups
   @ViewChildren("itemNameInput") itemNameInput: QueryList<ElementRef>;                            //Item name input element
 
@@ -79,7 +80,7 @@ export class ItemComponent implements OnInit {
       });
     });
 
-    let fetch = this.queryService.fetchResults(data).subscribe((data: any) => {       //Fetch items based on data
+    let fetch = this.queryService.fetchResults(data, this.league).subscribe((data: any) => {       //Fetch items based on data
       if (data.result != null && data.result.length > 0) {
         let query: Subscription;                                                      //Query sub
         let length = data.result.length;                                              //Inital length of results
