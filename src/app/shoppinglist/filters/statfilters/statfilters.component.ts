@@ -1,21 +1,37 @@
-import { ChangeDetectorRef, Component, ComponentFactoryResolver, Input, OnInit, Renderer2, ViewChild, ViewContainerRef } from '@angular/core';
+import { ChangeDetectorRef, Component, ComponentFactoryResolver, Input, OnInit, Renderer2, ViewChild, ViewContainerRef, ViewEncapsulation, ViewRef } from '@angular/core';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { statCategory } from 'src/app/statsearch.service';
 import { StatselectComponent } from '../../statselect/statselect.component';
 
+enum filterTypes {
+  and = 'And',
+  if = 'If',
+  not = 'Not',
+  count = 'Count',
+  weight = 'Weighted Sum'
+}
+
 @Component({
   selector: 'app-statfilters',
   templateUrl: './statfilters.component.html',
-  styleUrls: ['./statfilters.component.scss']
+  styleUrls: ['./statfilters.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class StatfiltersComponent implements OnInit {
 
+  public readonly FILTER_TYPES: typeof filterTypes = filterTypes;                               //Used to cycle over filter types
+
   @ViewChild('statContainerRef', {read: ViewContainerRef}) statContainerRef: ViewContainerRef;  //stat contianer template ref
   @Input() itemForm: FormArray;                                                                 //Main item form
+  @Input() viewRef: ViewRef;
 
   public statFilters = new FormGroup({
     type: new FormControl('and'),
-    filters: new FormArray([])
+    filters: new FormArray([]),
+    value: new FormGroup({
+      min: new FormControl(),
+      max: new FormControl()
+    })
   })
 
   constructor(private cd: ChangeDetectorRef, private compResolver: ComponentFactoryResolver, private renderer2: Renderer2) {
