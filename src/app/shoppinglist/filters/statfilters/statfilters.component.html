@@ -1,7 +1,10 @@
 <mat-expansion-panel class="filter-expansion-panel stat-filter">
     <mat-expansion-panel-header>
             <div class="stats-header">
-                <span class="header-text">Stat Filter</span>
+                <div class="header-text-wrapper">
+                    <mat-icon *ngIf="viewRef" class="delete-filter-group" role="button" (click)="$event.stopImmediatePropagation(); destroy()" >delete</mat-icon>
+                    <span class="header-text">Stat Filter</span>
+                </div>
                 <div class="type-selector">
                     <app-filtergroupselect class="selector-input" (click)="$event.stopImmediatePropagation()" inputName='Filter Type' [styleType]="'basicMaterial'" [control]="statFilters.get('type')" [selectEnum]="FILTER_TYPES"></app-filtergroupselect>
                     <app-minmaxinput class="selector-input" (click)="$event.stopImmediatePropagation()" *ngIf="statFilters.get('type').value == 'count' || statFilters.get('type').value == 'weight'" [group]="statFilters.get('value')" [styleType]="'basicMaterial'"></app-minmaxinput>
