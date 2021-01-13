@@ -1,11 +1,11 @@
-<div class="formgroup-select">
-    <p class="formgroup-select-label">{{inputName}}</p>
-    <mat-form-field floatLabel="never">
+<div class="formgroup-select {{styleType}}">
+    <p class="formgroup-select-label" *ngIf="styleType == 'normal'">{{inputName}}</p>
+    <mat-form-field [floatLabel]="styleType == 'normal' ? 'never' : ''">
+        <mat-label *ngIf="styleType != 'normal'">{{inputName}}</mat-label>
         <input #selectInput matInput type="text"  autocomplete="off" 
                 [matAutocomplete]="selectInputAutoComplete" 
                 [placeholder]="selectEnum[control.value]"
                 (input)="filter = filterEnums($event.target.value, selectEnum)"
-                [matAutocompletePosition]="'below'"
                 [value]="selectEnum[control.value]"
                 (focus)="$event.target.value = ''; filter = filterEnums('', selectEnum)"
                 (blur)="$event.target.value = selectEnum[control.value]">

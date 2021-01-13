@@ -8,6 +8,10 @@
     background-color: mat-color($pathofshopping-primary, 600);
     overflow: hidden;
 
+    &.basicMaterial {
+        background-color: transparent;
+    }
+
     .min-max-label {
         padding: 1em;
         margin: 0;
