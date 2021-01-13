@@ -24,9 +24,6 @@ export class ItemComponent implements OnInit {
   public itemForm = new FormGroup({
     itemName: new FormControl('New Item'),
     query: new FormGroup({
-      status: new FormGroup({
-        option: new FormControl('online')
-      }),
       stats: new FormArray([
       ])
     }),

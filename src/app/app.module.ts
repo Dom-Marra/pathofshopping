@@ -36,6 +36,7 @@ import { OtherfiltersComponent } from './shoppinglist/filters/otherfilters/other
 import { StatfiltersComponent } from './shoppinglist/filters/statfilters/statfilters.component';
 import { TypefiltersComponent } from './shoppinglist/filters/typefilters/typefilters.component';
 import { ResultsComponent, ParseModsPipe, ParserPipe, ParseDivsPipe} from './shoppinglist/item/results/results.component';
+import { TradefiltersComponent } from './shoppinglist/filters/tradefilters/tradefilters.component';
 
 
 
@@ -62,7 +63,8 @@ import { ResultsComponent, ParseModsPipe, ParserPipe, ParseDivsPipe} from './sho
     ResultsComponent,
     ParseModsPipe,
     ParserPipe,
-    ParseDivsPipe
+    ParseDivsPipe,
+    TradefiltersComponent
   ],
   imports: [
     BrowserModule,

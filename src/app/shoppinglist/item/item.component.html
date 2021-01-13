@@ -32,6 +32,7 @@
                 <app-specialbases class="filter" [itemForm]="this.misc_filters.get('filters')"></app-specialbases>
                 <app-gemfilters class="filter" [itemForm]="this.misc_filters.get('filters')"></app-gemfilters>
                 <app-otherfilters class="filter" [itemForm]="this.misc_filters.get('filters')"></app-otherfilters>
+                <app-tradefilters class="filter" [filterGroup]="this.itemForm.get('query.filters')" [queryForm]="this.itemForm.get('query')"></app-tradefilters>
                 <app-statfilters class="filter" [itemForm]="this.itemForm.get('query.stats')"></app-statfilters>
                 <ng-template #statFilterGroups></ng-template>
                 <button mat-flat-button type="button" (click)="addStatGroup()" class="add-stat-group"><mat-icon>add</mat-icon>Add Stat Group</button>

@@ -1,0 +1,23 @@
+<mat-expansion-panel class="filter-expansion-panel">
+    <mat-expansion-panel-header>
+            Trade & Account Filters
+    </mat-expansion-panel-header>
+    <div class="item-contents">
+        <div appEqualflex class="field-wrapper">
+            <div class="field">
+                <div class="account-name-input">
+                    <p class="account-name-label">Seller Account Name</p>
+                    <mat-form-field floatLabel='never'>
+                        <mat-label>Account Name</mat-label>
+                        <input matInput [formControl]="tradeFilters.get('filters.account.input')">
+                    </mat-form-field>
+                </div>
+            </div>
+            <app-filtergroupselect class="field" inputName='Listed' [control]="tradeFilters.get('filters.indexed.option')" [selectEnum]="LISTED_OPTIONS"></app-filtergroupselect>
+            <app-filtergroupselect class="field" inputName='Sale Type' [control]="tradeFilters.get('filters.sale_type.option')" [selectEnum]="SALE_TYPES"></app-filtergroupselect>
+            <app-filtergroupselect class="field" inputName='Buyout Currency' [control]="tradeFilters.get('filters.price.option')" [selectEnum]="BUY_OUT_OPTIONS"></app-filtergroupselect>
+            <app-minmaxinput class="field" inputName="Buyout Price" [group]="this.tradeFilters.get('filters.price')"></app-minmaxinput>
+            <app-filtergroupselect class="field" inputName='Status' [control]="statusForm.get('option')" [selectEnum]="STATUS_OPTIONS"></app-filtergroupselect>
+        </div>
+    </div>
+</mat-expansion-panel>
