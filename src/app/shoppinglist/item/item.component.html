@@ -33,6 +33,8 @@
                 <app-gemfilters class="filter" [itemForm]="this.misc_filters.get('filters')"></app-gemfilters>
                 <app-otherfilters class="filter" [itemForm]="this.misc_filters.get('filters')"></app-otherfilters>
                 <app-statfilters class="filter" [itemForm]="this.itemForm.get('query.stats')"></app-statfilters>
+                <ng-template #statFilterGroups></ng-template>
+                <button mat-flat-button type="button" (click)="addStatGroup()">Add Stat Group</button>
                 <div class="query-buttons">
                     <button class="query-button" mat-flat-button type="button" (click)="this.showResults = !this.showResults" *ngIf="this.queryResults.length > 0 || this.showResults">
                         {{ showResults ? 'Hide Results' : 'Show Results'}}
