@@ -18,7 +18,7 @@ export class ShoppinglistComponent implements OnInit {
   @ViewChildren("shoppingListNameInput") shoppingListNameInput: QueryList<ElementRef>;            //Item name input element
   
   public LEAGUES: leagueData;                                       //Used for iterating over leaguess
-  public object: Object = Object;
+  
   public editShoppingListName: boolean = false;                     //Whether the shopping list input is disabled or not
 
   public shoppingList = new FormGroup({                             //Shopping list base inputs
