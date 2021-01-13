@@ -47,20 +47,23 @@ export class TradefiltersComponent implements OnInit {
   @Input() filterGroup: FormGroup;          //Filters from group to add filters to
 
   public tradefilters = new FormGroup({     //Trade filters
-    price: new FormGroup({
-      min: new FormControl(),
-      max: new FormControl(),
-      option: new FormControl('all')
+    disabled: new FormControl(false),
+    filters: new FormGroup({ 
+      price: new FormGroup({
+        min: new FormControl(),
+        max: new FormControl(),
+        option: new FormControl('all')
+      }),
+      account: new FormGroup({
+        input: new FormControl()
+      }),
+      sale_type: new FormGroup({
+        option: new FormControl('all')
+      }),
+      indexed: new FormGroup({
+        option: new FormControl('all')
+      })
     }),
-    account: new FormGroup({
-      input: new FormControl()
-    }),
-    sale_type: new FormGroup({
-      option: new FormControl('all')
-    }),
-    indexed: new FormGroup({
-      option: new FormControl('all')
-    })
   })
   
   constructor() { }
