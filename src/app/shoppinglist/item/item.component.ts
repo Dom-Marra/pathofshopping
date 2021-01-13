@@ -1,7 +1,8 @@
-import { ChangeDetectorRef, Component, ElementRef, OnInit, QueryList, ViewChildren, ViewEncapsulation, ViewRef } from '@angular/core';
+import { ChangeDetectorRef, Component, ComponentFactoryResolver, ElementRef, OnInit, QueryList, Renderer2, ViewChild, ViewChildren, ViewContainerRef, ViewEncapsulation, ViewRef } from '@angular/core';
 import { FormGroup, FormControl, FormArray } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { QueryitemService } from '../../queryitem.service'
+import { StatfiltersComponent } from '../filters/statfilters/statfilters.component';
 
 @Component({
   selector: 'app-item',
@@ -11,7 +12,8 @@ import { QueryitemService } from '../../queryitem.service'
 })
 export class ItemComponent implements OnInit {
 
-  @ViewChildren("itemNameInput") itemNameInput: QueryList<ElementRef>;    //Item name input element
+  @ViewChild('statFilterGroups', {read: ViewContainerRef}) itemContainerRef: ViewContainerRef;    //Container Ref for adding filter groups
+  @ViewChildren("itemNameInput") itemNameInput: QueryList<ElementRef>;                            //Item name input element
 
   public editName: boolean = false;                        //Whether name is in edit mode or not
   private viewRef: ViewRef = null;                          //Reference of the view, used when deleting the component
@@ -36,7 +38,7 @@ export class ItemComponent implements OnInit {
     disabled: new FormControl(false)
   })
 
-  constructor(private cd: ChangeDetectorRef, private queryService: QueryitemService) { 
+  constructor(private cd: ChangeDetectorRef, private queryService: QueryitemService, private compResolver: ComponentFactoryResolver, private renderer2: Renderer2) { 
     (this.itemForm.get('query') as FormGroup).addControl('filters', new FormGroup({}));               //add filters group
     (this.itemForm.get('query') as FormGroup).addControl('sort', new FormGroup({}));                  //add sort group
     this.misc_filters.addControl('filters', new FormGroup({}));                                       //add filters to misc
@@ -140,6 +142,19 @@ export class ItemComponent implements OnInit {
       (this.itemForm.controls.sort as FormGroup).addControl(key, new FormControl(value ? value : 'desc'));        //Add new control
       this.fetchItems();                                                                                          //re-fecth items
     }
+  }
+
+  /**
+   * Adds a filter group to the form
+   */
+  public addStatGroup() {
+    const newFilterGroup = this.compResolver.resolveComponentFactory(StatfiltersComponent);
+    const componentRef = this.itemContainerRef.createComponent(newFilterGroup);
+
+    this.renderer2.addClass(componentRef.location.nativeElement, 'filter');
+    
+    componentRef.instance.viewRef = componentRef.hostView;
+    componentRef.instance.itemForm = (this.itemForm.get('query.stats') as FormArray);
   }
 
   /**

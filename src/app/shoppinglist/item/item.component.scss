@@ -131,7 +131,8 @@
                     margin-top: 0.5em !important;
 
                     .mat-expansion-panel-header {
-                        height: 45px;
+                        height: auto;
+                        min-height: 45px;
                     }
                 }
 
@@ -139,6 +140,14 @@
                     margin: 0;
                     width: 100%;
                 }
+            }
+
+            .add-stat-group {
+                background-color: transparent;
+                margin: auto;
+                margin-top: 1em;
+                color: mat-color($pathofshopping-primary, 900);
+                align-items: stretch;
             }
 
             .query-buttons {

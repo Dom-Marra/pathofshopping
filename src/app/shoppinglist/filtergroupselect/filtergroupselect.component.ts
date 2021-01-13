@@ -1,6 +1,11 @@
 import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
 
+enum styles {
+  normal = 'normal',
+  basicMaterial = 'basicMaterial'
+}
+
 @Component({
   selector: 'app-filtergroupselect',
   templateUrl: './filtergroupselect.component.html',
@@ -12,6 +17,7 @@ export class FiltergroupselectComponent implements OnInit {
   @Input() inputName: string;                               //Name of the input
   @Input() control: AbstractControl;                        //Form control of the input
   @Input() selectEnum: any;                                 //Enum for values
+  @Input() styleType: styles = styles.normal;               //Style of the select
 
   public filter: Array<any>;                                //Filtered results
 

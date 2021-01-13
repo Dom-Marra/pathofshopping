@@ -8,6 +8,19 @@
     background-color: mat-color($pathofshopping-primary, 600);
     overflow: hidden;
 
+    &.basicMaterial {
+        background-color: transparent;
+        
+        .mat-form-field { //Fix
+            flex-grow: 1;
+            max-width: 100%;
+            margin-bottom: -0.75em;
+            margin-top: 0.25em;
+            padding-left: 0.75em;
+            padding-right: 0.75em;
+        }
+    }
+
     .formgroup-select-label {
         padding: 1em;
         margin: 0;

@@ -28,7 +28,14 @@
     </div>
     
 
-    <div *ngIf="statSelected && selectedStat.option == null" class="stat-min-max-fields">
+    <div *ngIf="statSelected && selectedStat.option == null && isWeight" class="stat-min-max-fields">
+        <mat-form-field>
+            <mat-label>Weight</mat-label>
+            <input digitsonly matInput type="text" autocomplete="off" [formControl]="statGroup.get('value.weight')">
+        </mat-form-field>
+    </div>
+
+    <div *ngIf="statSelected && selectedStat.option == null && !isWeight" class="stat-min-max-fields">
         <mat-form-field>
             <mat-label>Min</mat-label>
             <input digitsonly matInput type="text" autocomplete="off" [formControl]="statGroup.get('value.min')">
