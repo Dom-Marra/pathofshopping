@@ -26,7 +26,7 @@ export const filterSearch = (items: any, searchText: string): any => {    //Filt
 export class StatselectComponent implements OnInit {
 
   @Output() newGroupCreated: EventEmitter<null> = new EventEmitter();   //Emmits to the parent the form group was added
-
+  @Input() isWeight: boolean = false;                                   //Whether this stat is under a wieghted sum filter group
   @Input() array: FormArray;                                            //Group to add stats to
   
   public filteredStats: Array<statCategory>;                            //Filtered Stats
@@ -52,6 +52,15 @@ export class StatselectComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.addWeightFilter();
+  }
+
+  public addWeightFilter() {
+    if (this.isWeight) {
+      (this.statGroup.get('value') as FormGroup).addControl('weight', new FormControl());
+    } else if (!this.isWeight && this.statGroup.get('value.weight')) {
+      (this.statGroup.get('value') as FormGroup).removeControl('weight');
+    }
   }
 
   /**
