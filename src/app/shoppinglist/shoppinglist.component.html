@@ -17,14 +17,14 @@
         <div id="shoppinglist-contents-top-bar">
             <app-filtergroupselect class="league-select" inputName='League' [styleType]="'basicMaterial'" [control]="this.shoppingList.controls.league" [selectEnum]="LEAGUES"></app-filtergroupselect>
             <button type="button" mat-flat-button (click)="addItem()" id="add-item" class="action-button">Add Item <mat-icon class="icon-light">add</mat-icon></button>
-            <button type="button" mat-flat-button (click)="accordion.openAll()" id="expand-items" class="action-button">Expand All <mat-icon class="icon-light">fullscreen</mat-icon></button>
-            <button type="button" mat-flat-button (click)="accordion.closeAll()" id="collapse-items" class="action-button">Collapse All <mat-icon class="icon-light">fullscreen_exit</mat-icon></button>
             <button type="button" mat-flat-button class="action-button"><mat-icon class="icon-light">save</mat-icon> Save</button>
         </div>
         <div id="shopping-list-contents">
-            <mat-accordion multi>
-                <ng-template #itemContainerRef></ng-template>
-            </mat-accordion>
+            <mat-tab-group animationDuration="300ms" dynamicHeight>
+                <mat-tab *ngFor="let item of items" [label]="item.itemForm.value.itemName">
+                    <app-item [itemData]="item" [league]="this.shoppingList.value.league"></app-item>
+                </mat-tab>
+            </mat-tab-group>
         </div>
     </div>
 </div>

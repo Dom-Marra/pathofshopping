@@ -4,14 +4,14 @@
     </mat-expansion-panel-header>
     <div class="item-contents">
         <div appEqualflex class="field-wrapper">
-            <app-filtergroupselect class="field" inputName='Shaper Influence' [control]="influenceFilters.get('shaper_item.option')" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
-            <app-filtergroupselect class="field" inputName='Elder Influence' [control]="influenceFilters.get('elder_item.option')" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
-            <app-filtergroupselect class="field" inputName='Crusader Influence' [control]="influenceFilters.get('crusader_item.option')" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
-            <app-filtergroupselect class="field" inputName='Redeemer Influence' [control]="influenceFilters.get('redeemer_item.option')" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
-            <app-filtergroupselect class="field" inputName='Hunter Influence' [control]="influenceFilters.get('hunter_item.option')" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
-            <app-filtergroupselect class="field" inputName='Warlord Influence' [control]="influenceFilters.get('warlord_item.option')" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
-            <app-filtergroupselect class="field" inputName='Fractured' [control]="influenceFilters.get('fractured_item.option')" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
-            <app-filtergroupselect class="field" inputName='Synthesised' [control]="influenceFilters.get('synthesised_item.option')" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+            <app-filtergroupselect class="field" inputName='Shaper Influence' [control]="influenceFilters['controls'].shaper_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+            <app-filtergroupselect class="field" inputName='Elder Influence' [control]="influenceFilters['controls'].elder_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+            <app-filtergroupselect class="field" inputName='Crusader Influence' [control]="influenceFilters['controls'].crusader_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+            <app-filtergroupselect class="field" inputName='Redeemer Influence' [control]="influenceFilters['controls'].redeemer_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+            <app-filtergroupselect class="field" inputName='Hunter Influence' [control]="influenceFilters['controls'].hunter_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+            <app-filtergroupselect class="field" inputName='Warlord Influence' [control]="influenceFilters['controls'].warlord_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+            <app-filtergroupselect class="field" inputName='Fractured' [control]="influenceFilters['controls'].fractured_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+            <app-filtergroupselect class="field" inputName='Synthesised' [control]="influenceFilters['controls'].synthesised_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
         </div>
     </div>
 </mat-expansion-panel>

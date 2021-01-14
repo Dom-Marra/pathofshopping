@@ -1,9 +1,6 @@
 @import '../../../../theme.scss';
 
 .query-results-container {
-    flex-grow: 1;
-    height: 0;
-    overflow-y: auto;
     background-color: mat-color($pathofshopping-primary, 300);
 
     .results-header {

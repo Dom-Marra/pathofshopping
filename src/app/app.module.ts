@@ -17,6 +17,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatIconModule } from '@angular/material/icon';
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatTabsModule } from '@angular/material/tabs';
 
 //Feather Import
 import { DigitsonlyDirective } from './digitsonly.directive';
@@ -80,7 +81,8 @@ import { TradefiltersComponent } from './shoppinglist/filters/tradefilters/trade
     MatAutocompleteModule,
     MatIconModule,
     ClipboardModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatTabsModule
   ],
   exports: [ ],
   providers: [],

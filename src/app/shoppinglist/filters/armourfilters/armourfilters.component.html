@@ -4,10 +4,10 @@
     </mat-expansion-panel-header>
     <div class="item-contents">
         <div appEqualflex class="field-wrapper">
-            <app-minmaxinput class="field" inputName="Armour" [group]="this.armourFilters.get('filters.ar')"></app-minmaxinput>
-            <app-minmaxinput class="field" inputName="Energy Shield" [group]="this.armourFilters.get('filters.es')"></app-minmaxinput>
-            <app-minmaxinput class="field" inputName="Evasion" [group]="this.armourFilters.get('filters.ev')"></app-minmaxinput>
-            <app-minmaxinput class="field" inputName="Block Chance" [group]="this.armourFilters.get('filters.block')"></app-minmaxinput>
+            <app-minmaxinput class="field" inputName="Armour" [group]="this.armourFilters['controls'].filters['controls'].ar"></app-minmaxinput>
+            <app-minmaxinput class="field" inputName="Energy Shield" [group]="this.armourFilters['controls'].filters['controls'].es"></app-minmaxinput>
+            <app-minmaxinput class="field" inputName="Evasion" [group]="this.armourFilters['controls'].filters['controls'].ev"></app-minmaxinput>
+            <app-minmaxinput class="field" inputName="Block Chance" [group]="this.armourFilters['controls'].filters['controls'].block"></app-minmaxinput>
         </div>
     </div>
 </mat-expansion-panel>

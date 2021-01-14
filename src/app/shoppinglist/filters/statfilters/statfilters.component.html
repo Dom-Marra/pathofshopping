@@ -6,11 +6,10 @@
                     <span class="header-text">Stat Filter</span>
                 </div>
                 <div class="type-selector">
-                    <app-filtergroupselect class="selector-input" (click)="$event.stopImmediatePropagation()" inputName='Filter Type' [styleType]="'basicMaterial'" [control]="statFilters.get('type')" [selectEnum]="FILTER_TYPES"></app-filtergroupselect>
-                    <app-minmaxinput class="selector-input" (click)="$event.stopImmediatePropagation()" *ngIf="statFilters.get('type').value == 'count' || statFilters.get('type').value == 'weight'" [group]="statFilters.get('value')" [styleType]="'basicMaterial'"></app-minmaxinput>
+                    <app-filtergroupselect class="selector-input" (click)="$event.stopImmediatePropagation()" inputName='Filter Type' [styleType]="'basicMaterial'" [control]="statFilters['controls'].type" [selectEnum]="FILTER_TYPES"></app-filtergroupselect>
+                    <app-minmaxinput class="selector-input" (click)="$event.stopImmediatePropagation()" *ngIf="statFilters['controls'].type.value == 'count' || statFilters['controls'].type.value == 'weight'" [group]="statFilters['controls'].value" [styleType]="'basicMaterial'"></app-minmaxinput>
                 </div>
             </div>
-            
     </mat-expansion-panel-header>
     <div class="item-contents">
         <div class="field-wrapper">
