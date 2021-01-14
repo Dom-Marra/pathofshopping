@@ -1,62 +1,52 @@
-import { Directive, ElementRef, HostListener } from '@angular/core';
+import { Directive, ElementRef, HostListener, Renderer2 } from '@angular/core';
 
 @Directive({
   selector: '[appEqualflex]'
 })
 export class EqualflexDirective {
-
-  @HostListener('window:resize')  //We resize the padding on window resize
-  onResize() {
-    this.padLast();
-  }
  
   private children: HTMLCollection;                           //Flex items
+  private numOfChildren;
 
-  constructor(private container: ElementRef) { }
+  constructor(private container: ElementRef, private renderer2: Renderer2) { }
 
   ngAfterViewInit() {
     this.children = this.container.nativeElement.children;    //set children
-    this.padLast();                                           //set the inital padding
+    this.numOfChildren = this.children.length;
+    this.addPlaceHolders();                                           //set the inital padding
   }
 
   /**
    * Sets the padding on the last element so that each element in the flex container is of equal width
    */
-  private padLast() {
-    let lastChild = (this.children.item(this.children.length - 1)) as HTMLElement   //get the last element in the container
-    let firstChild = this.children.item(0) as HTMLElement;                          //first element in the container
-    let totalChildWidth = this.getTotalWidth(firstChild);                           //total width that all elements should be]
-    lastChild.style.marginRight = '';                                               //reset inline margin right
-    let lastChildWidth = this.getTotalWidth(lastChild);                             //total width of the lastChild
-    let multiplier = 0;                                                             //What to multiply the total width by
+  private addPlaceHolders() {
+    let classes: Array<string> = [];                    //Classes of the children
 
-    if (totalChildWidth >= lastChildWidth) return;                                  //ignore if the size of the last element is already equal
+    Array.from(this.children).forEach(child => {        //Add classes of the children
+      child.classList.forEach((entry: string) => {
+        if (classes.indexOf(entry) < 0) {
+          classes.push(entry);
+        } 
+      });
+    });
 
-    multiplier = Math.round(this.container.nativeElement.offsetWidth / totalChildWidth)   //initiate multiplier
-              - (this.children.length % Math.round(this.container.nativeElement.offsetWidth / totalChildWidth));                     
+    for (let i = 0; i < this.numOfChildren; i++) {                    //Create placeholders
+      let placeholder = this.renderer2.createElement('div');          //placeholder is a div
 
-    lastChild.style.marginRight = parseFloat(getComputedStyle(lastChild).borderRight)     //set padding
-                                  + parseFloat(getComputedStyle(lastChild).borderRight)
-                                  + parseFloat(getComputedStyle(lastChild).marginRight)
-                                  + (totalChildWidth * multiplier) + 'px';
+      //Set invis styles
+      this.renderer2.setStyle(placeholder, 'visibility', 'hidden');
+      this.renderer2.setStyle(placeholder, 'height', '0px');
+      this.renderer2.setStyle(placeholder, 'margin-top', '0px');
+      this.renderer2.setStyle(placeholder, 'margin-bottom', '0px');
+      this.renderer2.setStyle(placeholder, 'padding-bottom', '0px');
+      this.renderer2.setStyle(placeholder, 'padding-bottom', '0px');
+
+      classes.forEach(entry => {                                              //Add classes to the placeholder
+        this.renderer2.addClass(placeholder, entry);
+      });
+
+      this.renderer2.appendChild(this.container.nativeElement, placeholder);  //Append to the main container
+    }
+
   }
-
-  /**
-   * Retrieves the width of the inputted element
-   * 
-   * @param el 
-   *        HTMLElement: The element to get the width of of
-   */
-  private getTotalWidth(el: HTMLElement): number {
-    let marginLeft = parseFloat(getComputedStyle(el).marginLeft);
-    let marginRight = parseFloat(getComputedStyle(el).marginRight);
-    let paddingLeft = parseFloat(getComputedStyle(el).paddingLeft);
-    let paddingRight = parseFloat(getComputedStyle(el).paddingRight);
-    let borderLeft = parseFloat(getComputedStyle(el).borderLeft);
-    let borderRight = parseFloat(getComputedStyle(el).borderRight);
-    let width = parseFloat(getComputedStyle(el).width);
-
-    return marginLeft + marginRight + paddingLeft + paddingRight + width + borderLeft + borderRight;
-  }
-
 }
