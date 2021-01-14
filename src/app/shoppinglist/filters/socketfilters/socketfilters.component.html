@@ -4,8 +4,8 @@
     </mat-expansion-panel-header>
     <div class="item-contents">
         <div class="field-wrapper socket-field-wrapper">
-            <app-minmaxinput class="field" inputName="Sockets" [group]="this.socketFilters.get('filters.sockets')" [minmaxExtras]="socketSocketsExtras"></app-minmaxinput>
-            <app-minmaxinput class="field" inputName="Links" [group]="this.socketFilters.get('filters.links')" [minmaxExtras]="socketLinksExtras"></app-minmaxinput>
+            <app-minmaxinput class="field" inputName="Sockets" [group]="this.socketFilters['controls'].filters['controls'].sockets" [minmaxExtras]="socketSocketsExtras"></app-minmaxinput>
+            <app-minmaxinput class="field" inputName="Links" [group]="this.socketFilters['controls'].filters['controls'].links" [minmaxExtras]="socketLinksExtras"></app-minmaxinput>
         </div>
     </div>
 </mat-expansion-panel>
