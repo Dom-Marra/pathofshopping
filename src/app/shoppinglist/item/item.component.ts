@@ -53,7 +53,11 @@ export class ItemComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.itemData.itemForm.addControl('queryForm', this.queryForm);     //Add queryForm to itemForm
+    if (this.itemData.itemForm.controls.queryForm != null) {              //Check if the current item already has data set
+      this.queryForm = this.itemData.itemForm.controls.queryForm as FormGroup;
+    } else {
+      this.itemData.itemForm.addControl('queryForm', this.queryForm);     //Add queryForm to itemForm
+    }
   }
 
   /**
