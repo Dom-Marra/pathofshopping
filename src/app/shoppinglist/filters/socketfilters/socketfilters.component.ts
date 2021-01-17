@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { minmaxExtras } from '../../minmaxinput/minmaxinput.component';
 
@@ -34,25 +34,40 @@ export class SocketfiltersComponent implements OnInit {
     }),
   })
 
-  public socketLinksExtras: Array<minmaxExtras> = [                                                           //links extra input data
-    {label: 'Red', control: this.socketFilters.get('filters.links.r'), inputClass: 'socket-input-r'},
-    {label: 'Green', control: this.socketFilters.get('filters.links.g'), inputClass: 'socket-input-g'},
-    {label: 'Blue', control: this.socketFilters.get('filters.links.b'), inputClass: 'socket-input-b'},
-    {label: 'White', control: this.socketFilters.get('filters.links.w'), inputClass: 'socket-input-w'}
-  ]
+  public socketLinksExtras: Array<minmaxExtras>;    //links extra input data
 
-  public socketSocketsExtras: Array<minmaxExtras> = [                                                         //sockets extra input data
-    {label: 'Red', control: this.socketFilters.get('filters.sockets.r'), inputClass: 'socket-input-r'},
-    {label: 'Green', control: this.socketFilters.get('filters.sockets.g'), inputClass: 'socket-input-g'},
-    {label: 'Blue', control: this.socketFilters.get('filters.sockets.b'), inputClass: 'socket-input-b'},
-    {label: 'White', control: this.socketFilters.get('filters.sockets.w'), inputClass: 'socket-input-w'}
-  ]
+  public socketSocketsExtras: Array<minmaxExtras>;  //sockets extra input data
 
-  constructor() {
+  constructor(private cdr: ChangeDetectorRef) {
   }
 
   ngOnInit(): void {
-    this.itemForm.addControl('socket_filters', this.socketFilters);
+    if (this.itemForm.controls['socket_filters']) {                               //Retain item socket data
+      this.socketFilters = this.itemForm.controls['socket_filters'] as FormGroup;
+    } else {                                                                      //Add field for socket data
+      this.itemForm.addControl('socket_filters', this.socketFilters);
+    }
+
+    this.initLinksData();
+    this.initSocketsData();
+  }
+
+  private initLinksData() {
+    this.socketLinksExtras = [                                                           //links extra input data
+      {label: 'Red', control: this.socketFilters.get('filters.links.r'), inputClass: 'socket-input-r'},
+      {label: 'Green', control: this.socketFilters.get('filters.links.g'), inputClass: 'socket-input-g'},
+      {label: 'Blue', control: this.socketFilters.get('filters.links.b'), inputClass: 'socket-input-b'},
+      {label: 'White', control: this.socketFilters.get('filters.links.w'), inputClass: 'socket-input-w'}
+    ]
+  }
+
+  private initSocketsData() {
+    this.socketSocketsExtras = [                                                         //sockets extra input data
+      {label: 'Red', control: this.socketFilters.get('filters.sockets.r'), inputClass: 'socket-input-r'},
+      {label: 'Green', control: this.socketFilters.get('filters.sockets.g'), inputClass: 'socket-input-g'},
+      {label: 'Blue', control: this.socketFilters.get('filters.sockets.b'), inputClass: 'socket-input-b'},
+      {label: 'White', control: this.socketFilters.get('filters.sockets.w'), inputClass: 'socket-input-w'}
+    ]
   }
 
 }

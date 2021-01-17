@@ -40,7 +40,11 @@ export class GemfiltersComponent implements OnInit {
 
   ngOnInit(): void {
     Object.keys(this.gemFilters.controls).forEach(key => {        //add controls to misc filters
-      this.itemForm.addControl(key, this.gemFilters.get(key));
+      if (this.itemForm.controls[key]) {
+        this.gemFilters.controls[key] = this.itemForm.controls[key];         //Retain data from item if it exists
+      } else {
+        this.itemForm.addControl(key, this.gemFilters.get(key));    //Add new field if not
+      }
     });
   }
 

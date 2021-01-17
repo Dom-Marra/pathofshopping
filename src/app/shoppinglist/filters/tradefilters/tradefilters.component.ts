@@ -85,8 +85,17 @@ export class TradefiltersComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    this.filterGroup.addControl('trade_filters', this.tradeFilters);    //Add trade filters to filter group
-    this.queryForm.addControl('status', this.statusForm);               //Add status to the form group
+    if (this.filterGroup.controls['trade_filters']) {
+      this.tradeFilters = this.filterGroup.controls['trade_filters'] as FormGroup;    //Retain item data for trade filters
+    } else {
+      this.filterGroup.addControl('trade_filters', this.tradeFilters);                //Add trade filters to filter group
+    }
+
+    if (this.filterGroup.controls['status']) {
+      this.statusForm = this.filterGroup.controls['status'] as FormGroup;  //Retain item data for status
+    } else {
+      this.queryForm.addControl('status', this.statusForm);               //Add status to the form group
+    }
   }
 
 }

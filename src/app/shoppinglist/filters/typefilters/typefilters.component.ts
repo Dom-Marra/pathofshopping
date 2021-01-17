@@ -147,10 +147,32 @@ export class TypefiltersComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    (this.itemForm.get('query.filters') as FormGroup).addControl('type_filters', this.typeFilters.get('cat_rar'));
-    (this.itemForm.get('query') as FormGroup).addControl('term', this.typeFilters.controls.term);
-    (this.itemForm.get('query') as FormGroup).addControl('type', this.typeFilters.controls.type);
-    (this.itemForm.get('query') as FormGroup).addControl('name', this.typeFilters.controls.name);
+    if ((this.itemForm.get('query.filters') as FormGroup).controls['type_filters']) {
+      this.typeFilters.controls['cat_rar'] = (this.itemForm.get('query.filters') as FormGroup).controls['type_filters'];
+    } else {
+      (this.itemForm.get('query.filters') as FormGroup).addControl('type_filters', this.typeFilters.get('cat_rar'));
+    }
+
+    if ((this.itemForm.get('query') as FormGroup).controls['term']?.value?.length > 0) {
+      this.typeFilters.controls.term = (this.itemForm.get('query') as FormGroup).controls['term'];
+      this.typeFilters.controls.search.patchValue(this.typeFilters.controls.term.value);
+    } else {
+      (this.itemForm.get('query') as FormGroup).addControl('term', this.typeFilters.controls.term);
+
+      if ((this.itemForm.get('query') as FormGroup).controls['name']?.value?.length > 0) {
+        this.typeFilters.controls.name = (this.itemForm.get('query') as FormGroup).controls['name'];
+        this.typeFilters.controls.search.patchValue(this.typeFilters.controls.name.value);
+      } else {
+        (this.itemForm.get('query') as FormGroup).addControl('name', this.typeFilters.controls.name);
+      }
+
+      if ((this.itemForm.get('query') as FormGroup).controls['type']?.value?.length > 0) {
+        this.typeFilters.controls.type = (this.itemForm.get('query') as FormGroup).controls['type'];
+        this.typeFilters.controls.search.patchValue(this.typeFilters.controls.search.value + " " + this.typeFilters.controls.type.value);
+      } else {
+        (this.itemForm.get('query') as FormGroup).addControl('type', this.typeFilters.controls.type);
+      }
+    }
   }
 
   /**

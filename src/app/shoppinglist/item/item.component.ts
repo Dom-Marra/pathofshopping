@@ -36,10 +36,7 @@ export class ItemComponent implements OnInit {
     disabled: new FormControl(false)
   })
 
-  constructor(private cd: ChangeDetectorRef, private queryService: QueryitemService, private compResolver: ComponentFactoryResolver, private renderer2: Renderer2) { 
-    (this.queryForm.get('query') as FormGroup).addControl('filters', new FormGroup({}));              //add filters group
-    this.misc_filters.addControl('filters', new FormGroup({}));                                       //add filters to misc
-    (this.queryForm.get('query.filters') as FormGroup).addControl('misc_filters', this.misc_filters);  //add misc filter to query
+  constructor(private cd: ChangeDetectorRef, private queryService: QueryitemService, private compResolver: ComponentFactoryResolver, private renderer2: Renderer2) {  
   }
 
   ngAfterViewInit() {
@@ -56,7 +53,10 @@ export class ItemComponent implements OnInit {
     if (this.itemData.itemForm.controls.queryForm != null) {              //Check if the current item already has data set
       this.queryForm = this.itemData.itemForm.controls.queryForm as FormGroup;
     } else {
-      this.itemData.itemForm.addControl('queryForm', this.queryForm);     //Add queryForm to itemForm
+      (this.queryForm.get('query') as FormGroup).addControl('filters', new FormGroup({}));              //add filters group
+      this.misc_filters.addControl('filters', new FormGroup({}));                                       //add filters to misc
+      (this.queryForm.get('query.filters') as FormGroup).addControl('misc_filters', this.misc_filters); //add misc filter to query
+      this.itemData.itemForm.addControl('queryForm', this.queryForm);                                   //Add queryForm to itemForm
     }
   }
 

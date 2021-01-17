@@ -62,7 +62,11 @@ export class OtherfiltersComponent implements OnInit {
 
   ngOnInit(): void {
     Object.keys(this.otherFilters.controls).forEach(key => {        //add controls to misc filters
-      this.itemForm.addControl(key, this.otherFilters.get(key));
+      if (this.itemForm.controls[key]) {
+        this.otherFilters.controls[key] = this.itemForm.controls[key];      //retain old item data
+      } else {
+        this.itemForm.addControl(key, this.otherFilters.get(key));          //Add field for data
+      }
     });
   }
 
