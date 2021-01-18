@@ -1,8 +1,8 @@
-import { ChangeDetectorRef, Component, ComponentFactoryResolver, ElementRef, Input, OnInit, QueryList, Renderer2, ViewChild, ViewChildren, ViewContainerRef, ViewEncapsulation, ViewRef } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, Input, OnInit, QueryList, ViewChildren, ViewEncapsulation } from '@angular/core';
 import { FormGroup, FormControl, FormArray } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { QueryitemService } from '../../queryitem.service'
-import { StatfiltersComponent } from '../filters/statfilters/statfilters.component';
+import { Statfilter } from '../filters/statfilters/statfilter/statfilter';
 import { Item } from '../item';
 
 @Component({
@@ -15,7 +15,6 @@ export class ItemComponent implements OnInit {
 
   @Input() itemData: Item;
   @Input() league: string;
-  @ViewChild('statFilterGroups', {read: ViewContainerRef}) itemContainerRef: ViewContainerRef;    //Container Ref for adding filter groups
   @ViewChildren("itemNameInput") itemNameInput: QueryList<ElementRef>;                            //Item name input element
 
   public editName: boolean = false;                        //Whether name is in edit mode or not
@@ -36,7 +35,7 @@ export class ItemComponent implements OnInit {
     disabled: new FormControl(false)
   })
 
-  constructor(private cd: ChangeDetectorRef, private queryService: QueryitemService, private compResolver: ComponentFactoryResolver, private renderer2: Renderer2) {  
+  constructor(private cd: ChangeDetectorRef, private queryService: QueryitemService) {  
   }
 
   ngAfterViewInit() {
@@ -147,16 +146,26 @@ export class ItemComponent implements OnInit {
   }
 
   /**
-   * Adds a filter group to the form
+   * Adds a stat filter to the item data
    */
   public addStatGroup() {
-    const newFilterGroup = this.compResolver.resolveComponentFactory(StatfiltersComponent);
-    const componentRef = this.itemContainerRef.createComponent(newFilterGroup);
+    let newStatGroup = new Statfilter(this.itemData.itemForm.get('queryForm.query.stats') as FormArray);
+    this.itemData.statFilters.push(newStatGroup);
+    (this.itemData.itemForm.get('queryForm.query.stats') as FormArray).controls.push(newStatGroup.statFilters);
+  }
 
-    this.renderer2.addClass(componentRef.location.nativeElement, 'filter');
-    
-    componentRef.instance.viewRef = componentRef.hostView;
-    componentRef.instance.itemForm = (this.queryForm.get('query.stats') as FormArray);
+  /**
+   * Removes a stat filter from the item
+   * 
+   * @param statFilter
+   *        stat filter to remove 
+   */
+  public removeStatFilter(statFilter: Statfilter) {
+    let statFiltersIndex = this.itemData.statFilters.indexOf(statFilter);
+    this.itemData.statFilters.splice(statFiltersIndex, 1);
+
+    let statsArryayIndex = statFilter.statsFormArray.controls.indexOf(statFilter.statFilters);
+    statFilter.statsFormArray.removeAt(statsArryayIndex);
   }
 
   /**

@@ -29,8 +29,7 @@
             <app-gemfilters class="filter" [itemForm]="queryForm['controls'].query['controls'].filters['controls'].misc_filters"></app-gemfilters>
             <app-otherfilters class="filter" [itemForm]="queryForm['controls'].query['controls'].filters['controls'].misc_filters"></app-otherfilters>
             <app-tradefilters class="filter" [filterGroup]="queryForm['controls'].query['controls'].filters" [queryForm]="this.queryForm.controls.query"></app-tradefilters>
-            <app-statfilters class="filter" [itemForm]="this.queryForm['controls'].query['controls'].stats"></app-statfilters>
-            <ng-template #statFilterGroups></ng-template>
+            <app-statfilters class="filter" *ngFor="let filter of itemData.statFilters" [filter]="filter" (filterRemoved)="removeStatFilter($event)"></app-statfilters>
             <button mat-flat-button type="button" (click)="addStatGroup()" class="add-stat-group"><mat-icon>add</mat-icon>Add Stat Group</button>
             <div class="query-buttons">
                 <button class="query-button" mat-flat-button type="button" (click)="this.showResults = !this.showResults" *ngIf="this.queryResults.length > 0 || this.showResults">
