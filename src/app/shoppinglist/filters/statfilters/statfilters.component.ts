@@ -1,7 +1,6 @@
-import { ChangeDetectorRef, Component, ComponentFactoryResolver, Input, OnInit, Renderer2, ViewChild, ViewContainerRef, ViewEncapsulation, ViewRef } from '@angular/core';
+import { Component, Input, OnInit, ViewEncapsulation, ViewRef } from '@angular/core';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
-import { statCategory } from 'src/app/statsearch.service';
-import { StatselectComponent } from '../../statselect/statselect.component';
+import { Stat } from '../../statselect/stat/stat';
 
 enum filterTypes {
   and = 'And',
@@ -21,9 +20,9 @@ export class StatfiltersComponent implements OnInit {
 
   public readonly FILTER_TYPES: typeof filterTypes = filterTypes;                               //Used to cycle over filter types
 
-  @ViewChild('statContainerRef', {read: ViewContainerRef}) statContainerRef: ViewContainerRef;  //stat contianer template ref
   @Input() itemForm: FormArray;                                                                 //Main item form
   @Input() viewRef: ViewRef;
+  @Input() stats: Array<Stat> = [];                                                             //Stats that belong to this filter group
 
   public statFilters = new FormGroup({
     type: new FormControl('and'),
@@ -34,7 +33,7 @@ export class StatfiltersComponent implements OnInit {
     })
   })
 
-  constructor(private cd: ChangeDetectorRef, private compResolver: ComponentFactoryResolver, private renderer2: Renderer2) {
+  constructor() {
   }
 
   ngOnInit(): void { 
@@ -42,33 +41,28 @@ export class StatfiltersComponent implements OnInit {
   }
 
   ngAfterViewInit(): void {
-    this.addStatSelect();
-    this.cd.detectChanges();
   }
 
-    /**
-   * Adds a new Item Component
-   * 
-   * @param statData 
-   *        Item: data to bind when creating the item
+  /**
+   * Adds a new stat
    */
-  public addStatSelect(statData?: statCategory) {
-    const newStatComp = this.compResolver.resolveComponentFactory(StatselectComponent);
-    
-    const componentRef = this.statContainerRef.createComponent(newStatComp);
-    
-    componentRef.instance.viewRef = componentRef.hostView;
-    componentRef.instance.array = this.statFilters.get('filters') as FormArray;
-    componentRef.instance.newGroupCreated.subscribe(() => {
-      this.addStatSelect();
-    });
+  public addStatFilter() {
+    this.stats.push(new Stat(this.statFilters.controls.filters as FormArray));
+  }
 
-    this.statFilters.controls.type.valueChanges.subscribe(value => {
-      componentRef.instance.isWeight = (value == 'weight');
-      componentRef.instance.addWeightFilter();
-    })
+  /**
+   * Removes a stat from this filter group
+   * 
+   * @param stat 
+   *        the stat to remove
+   */
+  public removeStat(stat: Stat) {
+    let statIndex = this.stats.indexOf(stat);     //index of the stat in the stat array
+    this.stats.splice(statIndex, 1);              //remove it from the stat array
 
-    this.renderer2.addClass(componentRef.location.nativeElement, 'stat-field');
+    //Find the index of the stat form group in the filters array and remove it
+    let filterIndex = (this.statFilters.controls.filters as FormArray).controls.indexOf(stat.statGroup);
+    (this.statFilters.controls.filters as FormArray).removeAt(filterIndex);
   }
 
   /**

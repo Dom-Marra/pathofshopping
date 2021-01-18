@@ -13,7 +13,9 @@
     </mat-expansion-panel-header>
     <div class="item-contents">
         <div class="field-wrapper">
-            <ng-template #statContainerRef></ng-template>
+            <app-statselect class="field" *ngFor="let stat of stats" (statRemoved)="removeStat($event)" [stat]="stat" 
+            [isWeight]="this.statFilters.controls.type.value == 'weight'"></app-statselect>
         </div>
+        <button mat-button class="add-filter-button" (click)="addStatFilter()"><mat-icon>add</mat-icon></button>
     </div>
 </mat-expansion-panel>
