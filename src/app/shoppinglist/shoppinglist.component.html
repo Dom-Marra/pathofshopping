@@ -20,7 +20,7 @@
             <button type="button" mat-flat-button class="action-button"><mat-icon class="icon-light">save</mat-icon> Save</button>
         </div>
         <div id="shopping-list-contents">
-            <mat-tab-group animationDuration="300ms" dynamicHeight>
+            <mat-tab-group animationDuration="0ms" dynamicHeight>
                 <mat-tab *ngFor="let item of items" [label]="item.itemForm.value.itemName">
                     <ng-template matTabContent>
                         <app-item [itemData]="item" [league]="this.shoppingList.value.league"></app-item>
