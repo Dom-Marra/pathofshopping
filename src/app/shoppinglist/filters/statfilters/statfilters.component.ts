@@ -1,6 +1,7 @@
-import { Component, Input, OnInit, ViewEncapsulation, ViewRef } from '@angular/core';
-import { FormArray, FormControl, FormGroup } from '@angular/forms';
+import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
+import { FormArray } from '@angular/forms';
 import { Stat } from '../../statselect/stat/stat';
+import { Statfilter } from './statfilter/statfilter';
 
 enum filterTypes {
   and = 'And',
@@ -20,34 +21,19 @@ export class StatfiltersComponent implements OnInit {
 
   public readonly FILTER_TYPES: typeof filterTypes = filterTypes;                               //Used to cycle over filter types
 
-  @Input() itemForm: FormArray;                                                                 //Main item form
-  @Input() viewRef: ViewRef;
-  @Input() stats: Array<Stat> = [];                                                             //Stats that belong to this filter group
+  @Input() filter: Statfilter;                                                                  //Filter data
+  @Output() filterRemoved: EventEmitter<Statfilter> = new EventEmitter<Statfilter>();        //Emitter for removal
 
-  public statFilters = new FormGroup({
-    type: new FormControl('and'),
-    filters: new FormArray([]),
-    value: new FormGroup({
-      min: new FormControl(),
-      max: new FormControl()
-    })
-  })
+  constructor() { }
 
-  constructor() {
-  }
-
-  ngOnInit(): void { 
-    this.itemForm.push(this.statFilters);
-  }
-
-  ngAfterViewInit(): void {
+  ngOnInit(): void {
   }
 
   /**
    * Adds a new stat
    */
   public addStatFilter() {
-    this.stats.push(new Stat(this.statFilters.controls.filters as FormArray));
+    this.filter.stats.push(new Stat(this.filter.statFilters.controls.filters as FormArray));
   }
 
   /**
@@ -57,20 +43,18 @@ export class StatfiltersComponent implements OnInit {
    *        the stat to remove
    */
   public removeStat(stat: Stat) {
-    let statIndex = this.stats.indexOf(stat);     //index of the stat in the stat array
-    this.stats.splice(statIndex, 1);              //remove it from the stat array
+    let statIndex = this.filter.stats.indexOf(stat);     //index of the stat in the stat array
+    this.filter.stats.splice(statIndex, 1);              //remove it from the stat array
 
     //Find the index of the stat form group in the filters array and remove it
-    let filterIndex = (this.statFilters.controls.filters as FormArray).controls.indexOf(stat.statGroup);
-    (this.statFilters.controls.filters as FormArray).removeAt(filterIndex);
+    let filterIndex = (this.filter.statFilters.controls.filters as FormArray).controls.indexOf(stat.statGroup);
+    (this.filter.statFilters.controls.filters as FormArray).removeAt(filterIndex);
   }
 
   /**
-   * Deletes this stat filter group
+   * Emits the event to remove the filter
    */
-  public destroy() {
-    let index = this.itemForm.controls.indexOf(this.statFilters);
-    this.itemForm.removeAt(index);
-    this.viewRef.destroy();
+  public remove() {
+    this.filterRemoved.emit(this.filter);
   }
 }
