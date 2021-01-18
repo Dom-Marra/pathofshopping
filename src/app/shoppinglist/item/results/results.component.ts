@@ -1,5 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output, Pipe, PipeTransform, ViewEncapsulation } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { QueryitemService } from 'src/app/queryitem.service';
 import { Currency } from '../../currency';
+import { Item, queryProps } from '../../item';
 
 interface modData {
   text: string,
@@ -58,15 +61,57 @@ export class ResultsComponent implements OnInit {
 
   public readonly PROP_VALUES = propertyValues;        //Keys of the prop values
 
-  @Input() queryData: Array<any>;                     //List of items to display
+  @Input() queryProps: queryProps;                     //Corresponding query data
   @Input() currentSort: any;                          //The current sort option
   @Output() newSort = new EventEmitter<string>();     //New sort option emitter
 
+  public queryData: Array<any> = [];                  //The current query data to display
+  private retrievedItems: Array<string> = [];         //Item IDs already fetched
   public currencies: Currency = new Currency();       //Currencies
 
-  constructor() { }
+  public startIndex = 0;
+  public endIndex = 10;
+
+  constructor(private queryService: QueryitemService) { }
 
   ngOnInit(): void {
+  }
+
+  ngOnChanges(changes) {
+    if (this.queryProps && changes.queryProps) {
+      this.queryData = [];
+      this.retrievedItems = [];
+      this.getItems(this.startIndex, this.endIndex);
+    }
+  }
+
+  /**
+   * Gets item data from a range of item IDs
+   * 
+   * @param start
+   *        number: start index to fetch of the itemData queryResIDs array
+   * @param end 
+   *        number: end index to fetch of the itemData queryResIDs array
+   */
+  public getItems(start: number, end: number) {
+    
+    let query: Subscription;        //Query sub
+
+    let results = this.queryProps.res.slice(start, end);   //Get the IDs to retrive items for
+
+    for (let item of results) {                            //Already have the information so return
+      if (this.retrievedItems.indexOf(item) > -1) return;
+    }
+
+    if (results.length < 1) return;
+
+    //Get items
+    query = this.queryService.fetchItems(results, "?query=" + this.queryProps.id + "&" + this.queryProps.psuedos)
+    .subscribe((items: any) => {  
+      this.queryData = this.queryData.concat(items.result);          //Add results   
+      this.retrievedItems = this.retrievedItems.concat(results);    //Add the IDs as retrieved  
+      query.unsubscribe();
+    });
   }
 
   /**
