@@ -46,6 +46,26 @@
             }
         }
     }
+
+    .item-contents {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+
+        .field-wrapper {
+            width: 100%;
+
+            .field {
+                flex: 1 1 100% !important;
+            }
+        }
+
+        .add-filter-button {
+            background-color: transparent;
+            color: mat-color($pathofshopping-accent, 50);
+            margin-top: 0.3em;
+        }
+    }
 }
 
 
