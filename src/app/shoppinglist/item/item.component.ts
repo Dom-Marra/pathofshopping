@@ -60,19 +60,54 @@ export class ItemComponent implements OnInit {
   }
 
   /**
-   * Gets the items from the poe API based on form inputs
+   * Fetches item IDs from the POE API using the query form data and inputted sort values
+   * 
+   * @param key
+   *        sort key, for example the hash of a stat
+   * @param value 
+   *        sort value, either 'asc' for ascending, or 'desc' for descending
    */
-  public fetchItems() {
+  public queryIDs(sortKey: string, sortValue?: string) {
 
-    this.queryResults = [];                                               //Reset previous results
+    this.itemData.clearQueryData();                                       //Reset previous results
+
+    this.setSortBy(sortKey, sortValue);                                   //Set the sort data
+
     let data = {                                                          //create query data
       query: (this.queryForm.controls.query as FormGroup).getRawValue(),
       sort: (this.queryForm.controls.sort as FormGroup).getRawValue()
     }
 
-    data = this.removeEmpty(data);                                        //clean the data
+    data = this.removeEmpty(data);                            //clean the data
 
+    let fetchSub = this.queryService.fetchResults(data, this.league).subscribe((fetch: any) => {       //Fetch items based on data
+      if (fetch.result != null && fetch.result.length > 0) {
+
+        //Set item query data
+        this.itemData.queryData = {
+          psuedos: this.getPsuedoQuery(data),
+          res: fetch.result,
+          total: fetch.total,
+          inexact: fetch.inexact,
+          id: fetch.id
+        }
+
+        //Show results and close sub
+        this.showResults = true;
+        fetchSub.unsubscribe();
+      }
+    });
+  }
+
+  /**
+   * Returns the psuedo query param data
+   * 
+   * @param data
+   *        object: raw data of the query form 
+   */
+  private getPsuedoQuery(data: any): string {
     let psuedos: string = "";                                             //Pseudo mod params
+
     data.query.stats?.forEach(statGroup => {                              //Add pseudo mods to psueod mod params
       statGroup.filters?.forEach((filter, i) => {
         if ((filter.id as string).includes('pseudo')) 
@@ -80,27 +115,7 @@ export class ItemComponent implements OnInit {
       });
     });
 
-    let fetch = this.queryService.fetchResults(data, this.league).subscribe((data: any) => {       //Fetch items based on data
-      if (data.result != null && data.result.length > 0) {
-        let query: Subscription;                                                      //Query sub
-        let length = data.result.length;                                              //Inital length of results
-
-        do {                                                                          //Have to get results 10 at a time
-          let results = data.result.splice(0, 10);
-
-          query = this.queryService.fetchItems(results, "?query=" + data.id + "&" + psuedos) //Get next ten results
-          .subscribe((items: any) => {  
-            this.queryResults = this.queryResults.concat(items.result);                      //Add results
-
-            if (this.queryResults.length == length) {                                        //Unsub and show results
-              query.unsubscribe();
-              fetch.unsubscribe();
-              this.showResults = true;
-            }
-          });
-        } while(data.result.length);
-      }
-    });
+    return psuedos;
   }
 
   /**
@@ -124,24 +139,22 @@ export class ItemComponent implements OnInit {
   }
 
   /**
-   * Sorts by a new value
+   * Sets the sort
    * 
    * @param key
    *        sort key, for example the hash of a stat
    * @param value 
    *        sort value, either 'asc' for ascending, or 'desc' for descending
    */
-  public searchWithSortBy(key: string, value?: string) {
+  private setSortBy(key: string, value?: string) {
     let currentSort = Object.keys((this.queryForm.controls.sort as FormGroup).getRawValue())[0];   //The current key in use
     let sortValue = (this.queryForm.controls.sort as FormGroup).controls[currentSort].value;       //The current value
 
     if (currentSort == key) {
       this.queryForm.get('sort.' + currentSort).patchValue(value ? value : sortValue == 'asc' ? 'desc' : 'asc');   //Alternate value if key is the same
-      this.fetchItems();                                                                                          //Re-fecth items
     } else {
       (this.queryForm.controls.sort as FormGroup).removeControl(currentSort);                                      //Remove old control
       (this.queryForm.controls.sort as FormGroup).addControl(key, new FormControl(value ? value : 'desc'));        //Add new control
-      this.fetchItems();                                                                                          //re-fecth items
     }
   }
 
