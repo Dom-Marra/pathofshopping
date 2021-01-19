@@ -18,6 +18,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 //Feather Import
 import { DigitsonlyDirective } from './digitsonly.directive';
@@ -82,7 +83,8 @@ import { TradefiltersComponent } from './shoppinglist/filters/tradefilters/trade
     MatIconModule,
     ClipboardModule,
     MatProgressBarModule,
-    MatTabsModule
+    MatTabsModule,
+    MatPaginatorModule
   ],
   exports: [ ],
   providers: [],
