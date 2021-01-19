@@ -3,7 +3,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { Subscription } from 'rxjs';
 import { QueryitemService } from 'src/app/queryitem.service';
 import { Currency } from '../../currency';
-import { Item, queryProps } from '../../item';
+import { Resultdata } from './resultdata/resultdata';
 
 interface modData {
   text: string,
@@ -62,32 +62,41 @@ export class ResultsComponent implements OnInit {
 
   public readonly PROP_VALUES = propertyValues;        //Keys of the prop values
 
-  @ViewChildren('itemsPaginator') itemsPaginators: QueryList<MatPaginator>;  //Paginator
-  @ViewChild('queryResultsContainer') resultContainer: ElementRef;           //results container
+  @ViewChildren('itemsPaginator') itemsPaginators: QueryList<MatPaginator>;                         //Paginator
+  @ViewChildren('itemsPaginator', { read: ElementRef }) itemsPaginatorsRef: QueryList<ElementRef>;  //results container
 
-  @Input() queryProps: queryProps;                     //Corresponding query data
+  @Input() resultData: Resultdata;                     //Data pertaining to results
   @Input() currentSort: any;                           //The current sort option
   @Output() newSort = new EventEmitter<string>();      //New sort option emitter
 
-  public queryData: Array<any> = [];                  //The current query data to display
-  private retrievedItems: Array<string> = [];         //Item IDs already fetched
   public currencies: Currency = new Currency();       //Currencies
-
-  public startIndex = 0;                              //Start index of items to display 
-  public endIndex = 10;                               //End index of items to display
-  public pageIndex = 0;                               //Index of paginators
 
   public inProgress: boolean = false;                 //Whether the query is in progress or not
 
   constructor(private queryService: QueryitemService) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void { 
+    
+    //Retrieve data if first search
+    if (this.resultData.retrievedItems.length == 0 && this.resultData.queryProps.res.length > 0) {
+      this.getItems();
+    }
+  }
+
+  ngAfterViewInit() {
+    if (this.itemsPaginatorsRef.first) this.itemsPaginatorsRef.first.nativeElement.scrollIntoView();    //Scroll to first paginator
+
+    this.itemsPaginatorsRef.changes.subscribe(paginators => {                       //When paginators become visible scroll to first 
+      if (paginators.length > 0) paginators.first.nativeElement.scrollIntoView();
+    });
   }
 
   ngOnChanges(changes) {
-    if (this.queryProps && changes.queryProps) {
-      this.queryData = [];
-      this.retrievedItems = [];
+
+    //Re-retrieve results when the query props change
+    if (changes.resultData?.previousValue?.queryProps != changes.resultData?.currentValue?.queryProps && changes.resultData?.previousValue?.queryProps != null) {
+      this.resultData.queryData = [];
+      this.resultData.retrievedItems = [];
       if (this.itemsPaginators) this.itemsPaginators.forEach(paginator => paginator.firstPage());
       this.getItems();
     }
@@ -100,10 +109,11 @@ export class ResultsComponent implements OnInit {
     
     let query: Subscription;        //Query sub
 
-    let results = this.queryProps.res.slice(this.startIndex, this.endIndex);   //Get the IDs to retrive items for
+    let results = this.resultData.queryProps.res
+                  .slice(this.resultData.startIndex, this.resultData.endIndex);   //Get the IDs to retrive items for
 
     for (let item of results) {                            //Already have the information so return
-      if (this.retrievedItems.indexOf(item) > -1) return;
+      if (this.resultData.retrievedItems.indexOf(item) > -1) return;
     }
 
     if (results.length < 1) return;
@@ -111,14 +121,13 @@ export class ResultsComponent implements OnInit {
     this.inProgress = true;                               //Set in progress
 
     //Get items
-    query = this.queryService.fetchItems(results, "?query=" + this.queryProps.id + "&" + this.queryProps.psuedos)
+    query = this.queryService.fetchItems(results, "?query=" + this.resultData.queryProps.id + "&" + this.resultData.queryProps.psuedos)
     .subscribe((items: any) => {  
-      this.queryData = this.queryData.concat(items.result);          //Add results   
-      this.retrievedItems = this.retrievedItems.concat(results);    //Add the IDs as retrieved  
+      this.resultData.queryData = this.resultData.queryData.concat(items.result);          //Add results   
+      this.resultData.retrievedItems = this.resultData.retrievedItems.concat(results);     //Add the IDs as retrieved  
 
-      //Out of progress, scroll and unsub
+      //Out of progress unsub
       this.inProgress = false;
-      this.resultContainer.nativeElement.scrollIntoView();
       query.unsubscribe();
     });
   }
@@ -130,9 +139,9 @@ export class ResultsComponent implements OnInit {
    *        data passed by the paginator on page change
    */
   public changeIndices(pageData) {
-    this.startIndex = (pageData.pageIndex * 10);
-    this.endIndex = ((pageData.pageIndex * 10) + 10);
-    this.pageIndex = pageData.pageIndex;
+    this.resultData.startIndex = (pageData.pageIndex * 10);
+    this.resultData.endIndex = ((pageData.pageIndex * 10) + 10);
+    this.resultData.pageIndex = pageData.pageIndex;
 
     this.getItems();
   }
