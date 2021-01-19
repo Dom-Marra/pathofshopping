@@ -70,7 +70,7 @@ export class ItemComponent implements OnInit {
    */
   public queryIDs(sortKey: string, sortValue?: string) {
 
-    this.itemData.resultData.clearQueryProps();                           //Reset previous results
+    this.itemData.resultData.reset();                           //Reset previous results
 
     this.setSortBy(sortKey, sortValue);                                   //Set the sort data
 
