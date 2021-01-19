@@ -32,13 +32,13 @@
             <app-statfilters class="filter" *ngFor="let filter of itemData.statFilters" [filter]="filter" (filterRemoved)="removeStatFilter($event)"></app-statfilters>
             <button mat-flat-button type="button" (click)="addStatGroup()" class="add-stat-group"><mat-icon>add</mat-icon>Add Stat Group</button>
             <div class="query-buttons">
-                <button class="query-button" mat-flat-button type="button" (click)="this.showResults = !this.showResults" *ngIf="this.itemData.queryData || this.showResults">
+                <button class="query-button" mat-flat-button type="button" (click)="this.showResults = !this.showResults" *ngIf="this.itemData.resultData.queryProps || this.showResults">
                     {{ showResults ? 'Hide Results' : 'Show Results'}}
                 </button>
                 <button class="query-button search" mat-flat-button type="button" (click)="queryIDs('price', 'asc')">Search</button>
             </div>
         </div>
-        <app-results *ngIf="showResults" class="results" [queryProps]="itemData.queryData" [currentSort]="this.queryForm.controls.sort.getRawValue()" (newSort)="queryIDs($event)"></app-results>
+        <app-results *ngIf="showResults" class="results" [resultData]="itemData.resultData" [currentSort]="this.queryForm.controls.sort.getRawValue()" (newSort)="queryIDs($event)"></app-results>
     </div>
 </form>
 
