@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Input, OnInit, Output, Pipe, PipeTransform, QueryList, ViewChild, ViewChildren, ViewEncapsulation } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, KeyValueDiffer, KeyValueDiffers, OnInit, Output, Pipe, PipeTransform, QueryList, ViewChildren, ViewEncapsulation } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { Subscription } from 'rxjs';
 import { QueryitemService } from 'src/app/queryitem.service';
@@ -73,10 +73,12 @@ export class ResultsComponent implements OnInit {
 
   public inProgress: boolean = false;                 //Whether the query is in progress or not
 
-  constructor(private queryService: QueryitemService) { }
+  public differ: KeyValueDiffer<any, any>;            //Used to detect changes in the queryProps
+  constructor(private queryService: QueryitemService, private kvDiffers: KeyValueDiffers) { }
 
   ngOnInit(): void { 
-    
+    this.differ = this.kvDiffers.find(this.resultData).create();    //Create the differ
+
     //Retrieve data if first search
     if (this.resultData.retrievedItems.length == 0 && this.resultData.queryProps.res.length > 0) {
       this.getItems();
@@ -91,14 +93,21 @@ export class ResultsComponent implements OnInit {
     });
   }
 
-  ngOnChanges(changes) {
-
-    //Re-retrieve results when the query props change
-    if (changes.resultData?.previousValue?.queryProps != changes.resultData?.currentValue?.queryProps && changes.resultData?.previousValue?.queryProps != null) {
-      this.resultData.queryData = [];
-      this.resultData.retrievedItems = [];
-      if (this.itemsPaginators) this.itemsPaginators.forEach(paginator => paginator.firstPage());
-      this.getItems();
+  ngDoCheck() {
+    if (this.differ && this.resultData?.queryProps) {
+      let resultChange = this.differ.diff(this.resultData.queryProps);    //Get changes
+      
+      if (resultChange) {
+        resultChange.forEachChangedItem(item => {           //Cycle changed items
+          
+          if (item.key == 'res') {                          //If results changed perform a new search
+            this.resultData.queryData = [];
+            this.resultData.retrievedItems = [];
+            if (this.itemsPaginators) this.itemsPaginators.forEach(paginator => paginator.firstPage());
+            this.getItems();
+          }
+        });
+      }
     }
   }
 
