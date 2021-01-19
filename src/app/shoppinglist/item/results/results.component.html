@@ -1,6 +1,13 @@
-<h2 class="results-header">{{queryData.length}} Results</h2>
+<div *ngIf="!inProgress && resultData.queryProps" class="item-paginator-container">
+    <div class="toolbar-text">
+        <span class="mat-small">Total Items found: {{resultData.queryProps.total}}</span>
+        <span class="mat-small inexact" *ngIf="resultData.queryProps.inexact">&nbsp; (Inexact Search)</span>
+    </div>
+    <h3 class="results-header">Results</h3>
+    <mat-paginator #itemsPaginator [pageIndex]="this.resultData.pageIndex" [disabled]="inProgress" class="items-paginator" [length]="resultData.queryProps.res.length" hidePageSize="true" [pageSize]="10" (page)="changeIndices($event)"></mat-paginator>
+</div>
 <div appEqualflex class="query-results-container">
-    <div *ngFor="let item of queryData; let itemIndex = index" class="query-item">
+    <div *ngFor="let item of this.resultData.queryData | slice:this.resultData.startIndex:this.resultData.endIndex; let itemIndex = index" class="query-item">
         <div class="query-item-wrapper">
             <div class="item-image-sockets item-detail">
                 <img src="{{item.item.icon}}" aria-label="Image of {{item.item.name ? item.item.name : item.item.typeLine}}">
@@ -266,7 +273,7 @@
                             <mat-icon *ngIf="currentSort['HERE']" class="{{currentSort['HERE'] == 'desc' ? 'desc' : 'asc'}}">
                                 {{currentSort[PROP_VALUES['prop_' + prop.type]] == 'desc' ? 'arrow_downward' : 'arrow_upward'}}
                             </mat-icon>
-                            <mat-progress-bar class="item-progress-bar"v mode="determinate" value="{{(item.item.incubatedItem.progress / item.item.incubatedItem.total) * 100}}"></mat-progress-bar>
+                            <mat-progress-bar class="item-progress-bar" mode="determinate" value="{{(item.item.incubatedItem.progress / item.item.incubatedItem.total) * 100}}"></mat-progress-bar>
                         </li>
                     </ul>
     
@@ -332,6 +339,7 @@
                 <mat-icon>message</mat-icon>
             </button>
         </div>
-        <hr class="item-line-break">
     </div>
 </div>
+<mat-progress-bar *ngIf="inProgress" class="item-fetch-progress-bar" mode="indeterminate"></mat-progress-bar>
+<mat-paginator #itemsPaginator *ngIf="!inProgress && resultData.queryProps" [pageIndex]="this.resultData.pageIndex" [disabled]="inProgress" class="items-paginator" [length]="resultData.queryProps.res.length" hidePageSize="true" [pageSize]="10" (page)="changeIndices($event)"></mat-paginator>

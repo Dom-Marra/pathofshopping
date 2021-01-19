@@ -44,7 +44,11 @@ export class WeaponfiltersComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.itemForm.addControl('weapon_filters', this.weaponFilters);    //Add filters to main form
+    if (this.itemForm.controls['weapon_filters']) {
+      this.weaponFilters = this.itemForm.controls['weapon_filters'] as FormGroup;   //Retain weapon data on item
+    } else {
+      this.itemForm.addControl('weapon_filters', this.weaponFilters);               //Add filters to main form
+    }
   }
 
 }

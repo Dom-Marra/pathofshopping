@@ -36,7 +36,11 @@ export class RequirementsComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    this.itemForm.addControl('req_filters', this.requirementFilters);  //Add requirement filters to main form
+    if (this.itemForm.controls['req_filters']) {                        //Retain item req data
+      this.requirementFilters = this.itemForm.controls['req_filters'] as FormGroup;
+    } else {
+      this.itemForm.addControl('req_filters', this.requirementFilters);  //Add requirement filters to main form
+    }
   }
 
 }
