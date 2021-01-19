@@ -6,7 +6,7 @@
     <h3 class="results-header">Results</h3>
     <mat-paginator #itemsPaginator [pageIndex]="this.resultData.pageIndex" [disabled]="inProgress" class="items-paginator" [length]="resultData.queryProps.res.length" hidePageSize="true" [pageSize]="10" (page)="changeIndices($event)"></mat-paginator>
 </div>
-<div appEqualflex class="query-results-container">
+<div appEqualflex *ngIf="!inProgress && resultData.queryProps" class="query-results-container">
     <div *ngFor="let item of this.resultData.queryData | slice:this.resultData.startIndex:this.resultData.endIndex; let itemIndex = index" class="query-item">
         <div class="query-item-wrapper">
             <div class="item-image-sockets item-detail">
