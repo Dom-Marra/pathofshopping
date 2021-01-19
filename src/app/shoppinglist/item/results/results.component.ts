@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Input, OnInit, Output, Pipe, PipeTransform, ViewEncapsulation } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, Pipe, PipeTransform, QueryList, ViewChild, ViewChildren, ViewEncapsulation } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
 import { Subscription } from 'rxjs';
 import { QueryitemService } from 'src/app/queryitem.service';
 import { Currency } from '../../currency';
@@ -61,16 +62,22 @@ export class ResultsComponent implements OnInit {
 
   public readonly PROP_VALUES = propertyValues;        //Keys of the prop values
 
+  @ViewChildren('itemsPaginator') itemsPaginators: QueryList<MatPaginator>;  //Paginator
+  @ViewChild('queryResultsContainer') resultContainer: ElementRef;           //results container
+
   @Input() queryProps: queryProps;                     //Corresponding query data
-  @Input() currentSort: any;                          //The current sort option
-  @Output() newSort = new EventEmitter<string>();     //New sort option emitter
+  @Input() currentSort: any;                           //The current sort option
+  @Output() newSort = new EventEmitter<string>();      //New sort option emitter
 
   public queryData: Array<any> = [];                  //The current query data to display
   private retrievedItems: Array<string> = [];         //Item IDs already fetched
   public currencies: Currency = new Currency();       //Currencies
 
-  public startIndex = 0;
-  public endIndex = 10;
+  public startIndex = 0;                              //Start index of items to display 
+  public endIndex = 10;                               //End index of items to display
+  public pageIndex = 0;                               //Index of paginators
+
+  public inProgress: boolean = false;                 //Whether the query is in progress or not
 
   constructor(private queryService: QueryitemService) { }
 
@@ -81,23 +88,19 @@ export class ResultsComponent implements OnInit {
     if (this.queryProps && changes.queryProps) {
       this.queryData = [];
       this.retrievedItems = [];
-      this.getItems(this.startIndex, this.endIndex);
+      if (this.itemsPaginators) this.itemsPaginators.forEach(paginator => paginator.firstPage());
+      this.getItems();
     }
   }
 
   /**
    * Gets item data from a range of item IDs
-   * 
-   * @param start
-   *        number: start index to fetch of the itemData queryResIDs array
-   * @param end 
-   *        number: end index to fetch of the itemData queryResIDs array
    */
-  public getItems(start: number, end: number) {
+  public getItems() {
     
     let query: Subscription;        //Query sub
 
-    let results = this.queryProps.res.slice(start, end);   //Get the IDs to retrive items for
+    let results = this.queryProps.res.slice(this.startIndex, this.endIndex);   //Get the IDs to retrive items for
 
     for (let item of results) {                            //Already have the information so return
       if (this.retrievedItems.indexOf(item) > -1) return;
@@ -105,13 +108,33 @@ export class ResultsComponent implements OnInit {
 
     if (results.length < 1) return;
 
+    this.inProgress = true;                               //Set in progress
+
     //Get items
     query = this.queryService.fetchItems(results, "?query=" + this.queryProps.id + "&" + this.queryProps.psuedos)
     .subscribe((items: any) => {  
       this.queryData = this.queryData.concat(items.result);          //Add results   
       this.retrievedItems = this.retrievedItems.concat(results);    //Add the IDs as retrieved  
+
+      //Out of progress, scroll and unsub
+      this.inProgress = false;
+      this.resultContainer.nativeElement.scrollIntoView();
       query.unsubscribe();
     });
+  }
+
+  /**
+   * Changes the start and end index depending on the page data
+   * 
+   * @param pageData 
+   *        data passed by the paginator on page change
+   */
+  public changeIndices(pageData) {
+    this.startIndex = (pageData.pageIndex * 10);
+    this.endIndex = ((pageData.pageIndex * 10) + 10);
+    this.pageIndex = pageData.pageIndex;
+
+    this.getItems();
   }
 
   /**
