@@ -69,7 +69,7 @@ export class ItemComponent implements OnInit {
    */
   public queryIDs(sortKey: string, sortValue?: string) {
 
-    this.itemData.clearQueryData();                                       //Reset previous results
+    this.itemData.resultData.clearQueryProps();                           //Reset previous results
 
     this.setSortBy(sortKey, sortValue);                                   //Set the sort data
 
@@ -84,7 +84,7 @@ export class ItemComponent implements OnInit {
       if (fetch.result != null && fetch.result.length > 0) {
 
         //Set item query data
-        this.itemData.queryData = {
+        this.itemData.resultData.queryProps = {
           psuedos: this.getPsuedoQuery(data),
           res: fetch.result,
           total: fetch.total,
