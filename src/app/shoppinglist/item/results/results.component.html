@@ -1,4 +1,4 @@
-<h2 class="results-header">{{queryData.length}} Results</h2>
+<h3 class="results-header">Items ({{startIndex + 1}} - {{endIndex}}) of {{queryProps.res.length}}</h3>
 <div appEqualflex class="query-results-container">
     <div *ngFor="let item of queryData; let itemIndex = index" class="query-item">
         <div class="query-item-wrapper">
@@ -332,6 +332,5 @@
                 <mat-icon>message</mat-icon>
             </button>
         </div>
-        <hr class="item-line-break">
     </div>
 </div>
