@@ -1,15 +1,5 @@
 @import '../../../../theme.scss';
 
-.results-header {
-    color: white;
-    text-align: center;
-    font-weight: 300;
-    margin: 0 !important;
-    padding: 0.75em 0 !important;
-    width: 100%;
-    border-top: 1px solid mat-color($pathofshopping-primary, 600);
-}
-
 .query-results-container {
     display: flex;
     flex-wrap: wrap;
@@ -639,9 +629,30 @@
             color: rgb(223, 126, 0);
         }
     }
+
+    .results-header {
+        flex: 1 1 auto;
+        margin: 0 !important;
+        padding: 0.15em !important;
+        text-align: center;
+    }
 }
 
 .items-paginator {
     background-color: transparent;
     flex: 1 1 auto;
+}
+
+@media only screen and (max-width: 609px) {
+    .item-paginator-container {
+        .toolbar-text {
+            text-align: center;
+            justify-content: center;
+            order: 1;
+        }
+
+        .items-paginator {
+            order: 2;
+        }
+    }
 }
