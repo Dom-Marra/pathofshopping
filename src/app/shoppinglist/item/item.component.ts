@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { QueryitemService } from '../../queryitem.service'
 import { Statfilter } from '../filters/statfilters/statfilter/statfilter';
 import { Item } from '../item';
+import { Resultdata } from './results/resultdata/resultdata';
 
 @Component({
   selector: 'app-item',
@@ -151,7 +152,7 @@ export class ItemComponent implements OnInit {
     let sortValue = (this.queryForm.controls.sort as FormGroup).controls[currentSort].value;       //The current value
 
     if (currentSort == key) {
-      this.queryForm.get('sort.' + currentSort).patchValue(value ? value : sortValue == 'asc' ? 'desc' : 'asc');   //Alternate value if key is the same
+      this.queryForm.controls['sort']['controls'][currentSort].patchValue(value ? value : sortValue == 'asc' ? 'desc' : 'asc');   //Alternate value if key is the same
     } else {
       (this.queryForm.controls.sort as FormGroup).removeControl(currentSort);                                      //Remove old control
       (this.queryForm.controls.sort as FormGroup).addControl(key, new FormControl(value ? value : 'desc'));        //Add new control
