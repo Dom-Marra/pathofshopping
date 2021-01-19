@@ -1,4 +1,4 @@
-<div *ngIf="!inProgress" class="item-paginator-container">
+<div *ngIf="!inProgress && queryProps" class="item-paginator-container">
     <div class="toolbar-text">
         <span class="mat-small">Total Items found: {{queryProps.total}}</span>
         <span class="mat-small inexact" *ngIf="queryProps.inexact">&nbsp; (Inexact Search)</span>
@@ -342,4 +342,4 @@
     </div>
 </div>
 <mat-progress-bar *ngIf="inProgress" class="item-fetch-progress-bar" mode="indeterminate"></mat-progress-bar>
-<mat-paginator #itemsPaginator *ngIf="!inProgress" [pageIndex]="pageIndex" [disabled]="inProgress" class="items-paginator" [length]="queryProps.res.length" hidePageSize="true" [pageSize]="10" (page)="changeIndices($event)"></mat-paginator>
+<mat-paginator #itemsPaginator *ngIf="!inProgress && queryProps" [pageIndex]="pageIndex" [disabled]="inProgress" class="items-paginator" [length]="queryProps.res.length" hidePageSize="true" [pageSize]="10" (page)="changeIndices($event)"></mat-paginator>
