@@ -1,30 +1,15 @@
+import { FormControl, FormGroup } from "@angular/forms";
+import { Statfilter } from "./filters/statfilters/statfilter/statfilter";
+import { Resultdata } from "./item/results/resultdata/resultdata";
+
 export class Item {
 
-    private name: string = 'New Item';
+    public resultData: Resultdata = new Resultdata();   //Data pertaining to the results
+    public statFilters: Array<Statfilter> = [];
 
-    constructor(name: string) {
-        if (name != null) {
-            this.name = name;
-        }
-    }
-
-    /**
-     * Sets the name of the item
-     * 
-     * @param name 
-     *        String: name of the item
-     */
-    public setName(name: string) {
-        this.name = name;
-    }
-
-    /**
-     * Returns the name of the item
-     * 
-     * @returns
-     *          string: name of the item
-     */
-    public getName(): string {
-        return this.name;
-    }
+    constructor(private name: string) { }
+    
+    public itemForm = new FormGroup({               //Data pertaining to this item
+        itemName: new FormControl('New Item')
+    });
 }

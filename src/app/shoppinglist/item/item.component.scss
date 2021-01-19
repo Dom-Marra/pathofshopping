@@ -1,48 +1,33 @@
 @import '../../../theme.scss';
 
-.mat-expansion-panel {
-    margin-top: 1em !important;
+.item-container {
+    width: 95%;
+    margin: auto;
+    margin-top: 1.5em;
+    border-radius: 4px;
     background-color: mat-color($pathofshopping-primary, 400);
-    box-shadow: none !important;
+    overflow: hidden;
 
-    .mat-expansion-panel-header {
-        padding: 0 0 !important;
-        background-color: mat-color($pathofshopping-primary, 400);
-
-        &:hover {
-            background-color: mat-color($pathofshopping-primary, 400) !important;
-        }
-
-        &.mat-expansion-panel-header.mat-expanded {
-            height: 48px;
-            background-color: mat-color($pathofshopping-primary, 400);
-            border-radius: 4px 4px 0 0;
-            border-bottom: 1px dashed mat-color($pathofshopping-primary, 500);
-        }
+    .item-header-container {
+        display: flex;
+        box-sizing: border-box;
+        border-bottom: 1px dashed mat-color($pathofshopping-primary, 500);
+        min-height: 45px;
     
-        .mat-content {
-            height: 100%;
-
-            .mat-expansion-panel-header-title {
-                flex-grow: 0.3;
-                max-width: 48px;
-
-                .item-delete {
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    width: 100%;
-                    height: 100%;
-                    background-color: mat-color($pathofshopping-warn, 800);
-                    transition: 0.15s background-color ease-in-out;
-
-                    &:hover {
-                        background-color: mat-color($pathofshopping-warn, 600);
-                    }
-                }
+        .item-delete {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 45px;
+            background-color: mat-color($pathofshopping-warn, 800);
+            transition: 0.15s background-color ease-in-out;
+    
+            &:hover {
+                cursor: pointer;
+                background-color: mat-color($pathofshopping-warn, 600);
             }
         }
-
+    
         .item-name {
             display: flex;
             align-items: center;
@@ -52,7 +37,7 @@
             height: 100%;
             color: mat-color($pathofshopping-accent, 50);
             font-weight: 300;
-
+    
             p {
                 white-space: nowrap;
                 overflow: hidden;
@@ -60,77 +45,81 @@
                 margin: 0;
                 padding: 0 0.75em;
             }
-
+    
             mat-icon {
                 font-size: 20px;
                 width: 20px;
+
+                &:hover {
+                    cursor: pointer;
+                }
             }
         }
-
-        .mat-form-field {
+    
+        .item-name-input.mat-form-field {
             font-size: 100%;
             flex-grow: 0.6;
             flex-shrink: 1;
             min-width: 0;
             max-width: 70%;
             margin: auto;
-
+            margin-bottom: -1em;
+            font-weight: 300;
+    
+            mat-label, .mat-input-element {
+                color: mat-color($pathofshopping-accent, 50);
+            }
+    
+            .mat-select-arrow {
+                color: mat-color($pathofshopping-primary, 500);
+            }
+    
             .mat-form-field-underline, .mat-form-field-ripple {
                 background-color: mat-color($pathofshopping-primary, 500);
             }
         }
-
-        .mat-expansion-indicator {
-            margin: 0 20px;
-
-            &:after {
-                color: rgba(0, 0, 0, 0.3);
-            }
-        }
-    }
-
-    .mat-expansion-panel-body {
-        padding: 0;
-        width: 100%;
-        margin: auto;
-    }
-
-    .mat-form-field {
-        font-weight: 300;
-
-        mat-label, .mat-input-element {
-            color: mat-color($pathofshopping-accent, 50);
-        }
-
-        .mat-select-arrow {
-            color: mat-color($pathofshopping-primary, 500);
-        }
-
-        .mat-form-field-underline, .mat-form-field-ripple {
-            background-color: mat-color($pathofshopping-primary, 500);
-        }
     }
 
     .item-contents {
-        display: flex;
-        flex-wrap: wrap;
+        width: 100%;
 
         .filters {
             display: flex;
+            justify-content: center;
             flex-wrap: wrap;
-            flex: 1 1 500px;
-            max-width: 95%;
+            width: 95%;
             margin: auto;
             margin-top: 0.75em;
 
             .filter {
-                margin: auto;
-                width: 98%;
-    
-                &.full-width {
-                    margin: 0;
-                    width: 100%;
+                width: 100%;
+                margin: 0.25em 0;
+
+                &.type {
+                    .mat-form-field {
+                        font-weight: 300;
+                    
+                        mat-label, .mat-input-element {
+                            color: mat-color($pathofshopping-accent, 50);
+                        }
+                    
+                        .mat-select-arrow {
+                            color: mat-color($pathofshopping-primary, 500);
+                        }
+                    
+                        .mat-form-field-underline, .mat-form-field-ripple {
+                            background-color: mat-color($pathofshopping-primary, 500);
+                        }
+                    }
                 }
+            }
+
+            .add-stat-group {
+                background-color: transparent;
+                margin: auto;
+                margin-top: 1em;
+                color: mat-color($pathofshopping-primary, 50);
+                border: 1px solid mat-color($pathofshopping-primary, 600);
             }
 
             .query-buttons {
@@ -151,13 +140,13 @@
         }
 
         .results {
-            display: flex;
-            flex-direction: column;
-            flex: 1 1 500px;
-            min-height: 600px;
+            height: auto;
         }
     }
 }
+
+    
+
 
 .autocomplete-panel {
     background-color: mat-color($pathofshopping-primary, 300);

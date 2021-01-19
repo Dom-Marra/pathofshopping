@@ -1,18 +1,15 @@
-@import '../../../theme.scss';
+@import '../../../../theme.scss';
 
-.formgroup-select {
+.account-name-input  {
     font-size: 12px;
     display: flex;
     flex-wrap: wrap;
     border-radius: 4px;
     background-color: mat-color($pathofshopping-primary, 600);
     overflow: hidden;
+    max-width: 100%;
 
-    &.basicMaterial {
-        background-color: transparent;
-    }
-
-    .formgroup-select-label {
+    .account-name-label {
         padding: 1em;
         margin: 0;
         flex: 1;
@@ -30,7 +27,11 @@
         flex: 4;
 
         .mat-form-field-underline, .mat-form-field-ripple {
-            background-color: mat-color($pathofshopping-primary, 900);
+            background-color: mat-color($pathofshopping-primary, 800);
+        }
+
+        .mat-form-field-infix {
+            width: auto !important;
         }
     }
 }

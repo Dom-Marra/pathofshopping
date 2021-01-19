@@ -1,15 +1,7 @@
-import { ChangeDetectorRef, Component, ComponentFactoryResolver, ElementRef, OnInit, QueryList, ViewChild, ViewChildren, ViewContainerRef, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnInit, QueryList, ViewChildren, ViewEncapsulation } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { MatAccordion } from '@angular/material/expansion';
+import { LeaguesService, leagueData } from '../leagues.service';
 import { Item } from './item';
-import { ItemComponent } from './item/item.component';
-
-enum leagues {
-  heist = "Heist",
-  heistHC = "Heist HC",
-  standard = "Standard",
-  standardHC = "Standard HC"
-}
 
 @Component({
   selector: 'app-shoppinglist',
@@ -19,22 +11,28 @@ enum leagues {
 })
 export class ShoppinglistComponent implements OnInit {
 
-  @ViewChild('itemContainerRef', {read: ViewContainerRef}) itemContainerRef: ViewContainerRef;    //Container Ref for adding item components
-  @ViewChild(MatAccordion) accordion: MatAccordion;                                               //Accordion component which wraps the item components
   @ViewChildren("shoppingListNameInput") shoppingListNameInput: QueryList<ElementRef>;            //Item name input element
   
-  public readonly LEAGUES = leagues;                                //Used for iterating over leaguess
-
+  public LEAGUES: leagueData;                                       //Used for iterating over leaguess
   public editShoppingListName: boolean = false;                     //Whether the shopping list input is disabled or not
+  public items: Array<Item> = [];                                   //Stores item data
 
   public shoppingList = new FormGroup({                             //Shopping list base inputs
-    league: new FormControl(Object.keys(this.LEAGUES)[0]),
+    league: new FormControl(),
     name: new FormControl('Your Shopping List')
   })
 
-  constructor(private compResolver: ComponentFactoryResolver, private cd: ChangeDetectorRef) { }
+  constructor(private cd: ChangeDetectorRef, private league: LeaguesService) { 
+    this.LEAGUES = this.league.getLeagues();
+  }
 
   ngOnInit(): void {
+  }
+
+  ngDoCheck() {
+    if (this.shoppingList.controls.league.value == null && Object.keys(this.LEAGUES).length > 0) {
+      this.shoppingList.controls.league.patchValue(this.LEAGUES[Object.keys(this.LEAGUES)[0]]);
+    }
   }
 
   ngAfterViewInit() {
@@ -54,11 +52,6 @@ export class ShoppinglistComponent implements OnInit {
    *        Item: data to bind when creating the item
    */
   public addItem(itemData?: Item) {
-    const newItemComp = this.compResolver.resolveComponentFactory(ItemComponent);
-    const componentRef = this.itemContainerRef.createComponent(newItemComp);
-    
-    componentRef.instance.setViewRef(componentRef.hostView);
-    //TODO: Add item data
-    //if (item) componentRef.instance;
+    this.items.push(itemData ? itemData : new Item('New Item'));
   }
 }

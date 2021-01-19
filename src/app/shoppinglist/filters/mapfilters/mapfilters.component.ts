@@ -84,7 +84,11 @@ export class MapfiltersComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.itemForm.addControl('map_filters', this.mapFilters);
+    if (this.itemForm.controls['map_filters']) {                              //Retain item map data if it exists
+      this.mapFilters = this.itemForm.controls['map_filters'] as FormGroup;
+    } else {
+      this.itemForm.addControl('map_filters', this.mapFilters);               //Add field for map data
+    }
   }
 
 }

@@ -1,52 +1,60 @@
-import { ChangeDetectorRef, Component, ComponentFactoryResolver, Input, OnInit, Renderer2, ViewChild, ViewContainerRef } from '@angular/core';
-import { FormArray, FormControl, FormGroup } from '@angular/forms';
-import { statCategory } from 'src/app/statsearch.service';
-import { StatselectComponent } from '../../statselect/statselect.component';
+import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
+import { FormArray } from '@angular/forms';
+import { Stat } from '../../statselect/stat/stat';
+import { Statfilter } from './statfilter/statfilter';
+
+enum filterTypes {
+  and = 'And',
+  if = 'If',
+  not = 'Not',
+  count = 'Count',
+  weight = 'Weighted Sum'
+}
 
 @Component({
   selector: 'app-statfilters',
   templateUrl: './statfilters.component.html',
-  styleUrls: ['./statfilters.component.scss']
+  styleUrls: ['./statfilters.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class StatfiltersComponent implements OnInit {
 
-  @ViewChild('statContainerRef', {read: ViewContainerRef}) statContainerRef: ViewContainerRef;  //stat contianer template ref
-  @Input() itemForm: FormArray;                                                                 //Main item form
+  public readonly FILTER_TYPES: typeof filterTypes = filterTypes;                               //Used to cycle over filter types
 
-  public statFilters = new FormGroup({
-    type: new FormControl('and'),
-    filters: new FormArray([])
-  })
+  @Input() filter: Statfilter;                                                                  //Filter data
+  @Output() filterRemoved: EventEmitter<Statfilter> = new EventEmitter<Statfilter>();        //Emitter for removal
 
-  constructor(private cd: ChangeDetectorRef, private compResolver: ComponentFactoryResolver, private renderer2: Renderer2) {
+  constructor() { }
+
+  ngOnInit(): void {
   }
 
-  ngOnInit(): void { 
-    this.itemForm.push(this.statFilters);
-  }
-
-  ngAfterViewInit(): void {
-    this.addStatSelect();
-    this.cd.detectChanges();
-  }
-
-    /**
-   * Adds a new Item Component
-   * 
-   * @param statData 
-   *        Item: data to bind when creating the item
+  /**
+   * Adds a new stat
    */
-  public addStatSelect(statData?: statCategory) {
-    const newStatComp = this.compResolver.resolveComponentFactory(StatselectComponent);
-    
-    const componentRef = this.statContainerRef.createComponent(newStatComp);
-    
-    componentRef.instance.viewRef = componentRef.hostView;
-    componentRef.instance.array = this.statFilters.get('filters') as FormArray;
-    componentRef.instance.newGroupCreated.subscribe(() => {
-      this.addStatSelect();
-    });
+  public addStatFilter() {
+    this.filter.stats.push(new Stat(this.filter.statFilters.controls.filters as FormArray));
+  }
 
-    this.renderer2.addClass(componentRef.location.nativeElement, 'stat-field');
+  /**
+   * Removes a stat from this filter group
+   * 
+   * @param stat 
+   *        the stat to remove
+   */
+  public removeStat(stat: Stat) {
+    let statIndex = this.filter.stats.indexOf(stat);     //index of the stat in the stat array
+    this.filter.stats.splice(statIndex, 1);              //remove it from the stat array
+
+    //Find the index of the stat form group in the filters array and remove it
+    let filterIndex = (this.filter.statFilters.controls.filters as FormArray).controls.indexOf(stat.statGroup);
+    (this.filter.statFilters.controls.filters as FormArray).removeAt(filterIndex);
+  }
+
+  /**
+   * Emits the event to remove the filter
+   */
+  public remove() {
+    this.filterRemoved.emit(this.filter);
   }
 }

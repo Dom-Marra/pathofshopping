@@ -2,12 +2,14 @@
     <mat-expansion-panel-header>
             Requirements
     </mat-expansion-panel-header>
-    <div class="item-contents">
-        <div appEqualflex class="field-wrapper">
-            <app-minmaxinput class="field" inputName="Level" [group]="this.requirementFilters.get('filters.lvl')"></app-minmaxinput>
-            <app-minmaxinput class="field" inputName="Strength" [group]="this.requirementFilters.get('filters.str')"></app-minmaxinput>
-            <app-minmaxinput class="field" inputName="Intelligence" [group]="this.requirementFilters.get('filters.int')"></app-minmaxinput>
-            <app-minmaxinput class="field" inputName="Dexterity" [group]="this.requirementFilters.get('filters.dex')"></app-minmaxinput>
+    <ng-template matExpansionPanelContent>
+        <div class="item-contents">
+            <div appEqualflex class="field-wrapper">
+                <app-minmaxinput class="field" inputName="Level" [group]="this.requirementFilters['controls'].filters['controls'].lvl"></app-minmaxinput>
+                <app-minmaxinput class="field" inputName="Strength" [group]="this.requirementFilters['controls'].filters['controls'].str"></app-minmaxinput>
+                <app-minmaxinput class="field" inputName="Intelligence" [group]="this.requirementFilters['controls'].filters['controls'].int"></app-minmaxinput>
+                <app-minmaxinput class="field" inputName="Dexterity" [group]="this.requirementFilters['controls'].filters['controls'].dex"></app-minmaxinput>
+            </div>
         </div>
-    </div>
+    </ng-template>
 </mat-expansion-panel>

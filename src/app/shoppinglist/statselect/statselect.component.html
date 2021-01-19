@@ -1,23 +1,22 @@
 <div matAutocompleteOrigin #autoCompleteHost="matAutocompleteOrigin" class="stat-select">
 
     <div class="stat-selector">
-        <button *ngIf="statSelected" class="remove-stat-button" (click)="deleteStatFilter()" mat-flat-button><mat-icon class="stat-icon">remove</mat-icon></button>
+        <button class="remove-stat-button" (click)="deleteStatFilter()" mat-flat-button><mat-icon class="stat-icon">remove</mat-icon></button>
         <mat-form-field floatLabel="never">
             <input #statInput matInput type="text" autocomplete="off" 
                 [matAutocomplete]="searchableStats" 
                 [matAutocompleteConnectedTo]="autoCompleteHost"
-                [placeholder]="selectedStat?.text ? selectedStat.text : 'Add Stat Filter'"
+                [placeholder]="stat.selectedStat?.text ? stat.selectedStat.text : 'Add Stat Filter'"
                 (input)="filteredStats = filterStats($event.target.value)"
-                [value]="selectedStat?.text ? selectedStat.text : 'Add Stat Filter'"
+                [value]="stat.selectedStat?.text ? stat.selectedStat.text : 'Add Stat Filter'"
                 (focus)="$event.target.value = ''; filteredStats = filterStats('')"
-                (blur)="$event.target.value = selectedStat?.text ? selectedStat.text : 'Add Stat Filter'">
+                (blur)="$event.target.value = stat.selectedStat?.text ? stat.selectedStat.text : 'Add Stat Filter'">
                 
             <mat-icon matSuffix class="icon-dark" [class.rotate]="searchableStats.isOpen">arrow_drop_down</mat-icon>
             <mat-autocomplete #searchableStats="matAutocomplete" 
                             [class]="'autocomplete-panel'"
                             autoActiveFirstOption="'true'"
-                            (optionSelected)="selectedStat = $event.option.value; setStat(); 
-                                            statGroup.controls.id.patchValue($event.option.value.id); statInput.blur();">
+                            (optionSelected)="setStat($event.option.value); statInput.blur();">
                 <mat-optgroup *ngFor="let search of filteredStats" [label]="search.category">
                     <mat-option *ngFor="let item of search.stats | slice:0:25;" [value]="item">
                         {{item.text}}
@@ -28,34 +27,40 @@
     </div>
     
 
-    <div *ngIf="statSelected && selectedStat.option == null" class="stat-min-max-fields">
+    <div *ngIf="stat.selectedStat && stat.selectedStat.option == null && isWeight" class="stat-min-max-fields">
         <mat-form-field>
-            <mat-label>Min</mat-label>
-            <input digitsonly matInput type="text" autocomplete="off" [formControl]="statGroup.get('value.min')">
-        </mat-form-field>
-        <mat-form-field>
-            <mat-label>Max</mat-label>
-            <input digitsonly matInput type="text" autocomplete="off" [formControl]="statGroup.get('value.max')">
+            <mat-label>Weight</mat-label>
+            <input digitsonly matInput type="text" autocomplete="off" [formControl]="stat.statGroup['controls'].value['controls'].weight">
         </mat-form-field>
     </div>
 
-    <div *ngIf="statSelected && selectedStat.option != null" class="stat-option-select">
+    <div *ngIf="stat.selectedStat && stat.selectedStat.option == null && !isWeight" class="stat-min-max-fields">
+        <mat-form-field>
+            <mat-label>Min</mat-label>
+            <input digitsonly matInput type="text" autocomplete="off" [formControl]="stat.statGroup['controls'].value['controls'].min">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Max</mat-label>
+            <input digitsonly matInput type="text" autocomplete="off" [formControl]="stat.statGroup['controls'].value['controls'].max">
+        </mat-form-field>
+    </div>
+
+    <div *ngIf="stat.selectedStat && stat.selectedStat.option != null" class="stat-option-select">
         <mat-form-field floatLabel='never'>
             <input #statOptionInput matInput type="text"  autocomplete="off" 
                     [matAutocomplete]="searchableStatOptions" 
                     [matAutocompleteConnectedTo]="autoCompleteHost"
-                    [placeholder]="selectedStatOption?.text ? selectedStatOption.text : 'Select Option'"
+                    [placeholder]="stat.selectedStatOption?.text ? stat.selectedStatOption.text : 'Select Option'"
                     (input)="filteredStatOptions = filterStatOptions($event.target.value)"
-                    [value]="selectedStatOption?.text ? selectedStatOption.text : 'Select Option'"
+                    [value]="stat.selectedStatOption?.text ? stat.selectedStatOption.text : 'Select Option'"
                     (focus)="$event.target.value = ''; filteredStatOptions = filterStatOptions('')"
-                    (blur)="$event.target.value = selectedStatOption?.text ? selectedStatOption.text : 'Select Option'">
+                    (blur)="$event.target.value = stat.selectedStatOption?.text ? stat.selectedStatOption.text : 'Select Option'">
     
             <mat-icon matSuffix class="icon-dark" [class.rotate]="searchableStatOptions.isOpen">arrow_drop_down</mat-icon>
             <mat-autocomplete #searchableStatOptions="matAutocomplete" 
                             [class]="'autocomplete-panel'" 
                             autoActiveFirstOption="'true'"
-                            (optionSelected)="this.statGroup.get('value.option').patchValue($event.option.value.id); 
-                                            statOptionInput.blur(); this.selectedStatOption = $event.option.value">
+                            (optionSelected)=" statOptionInput.blur(); setStatOption($event.option.value)">
                 <mat-option *ngFor="let option of filteredStatOptions" [value]="option">
                     {{option.text}}
                 </mat-option>

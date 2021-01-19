@@ -73,10 +73,19 @@ enum itemTypes {
   'currency.incubator' = 'Incubator',
 }
 
-export const filterSearch = (items: Array<string>, searchText: string): Array<string> => {    //Filters items by search text
-  const text = searchText.toLowerCase();
+export const filterSearch = (items: searchItem['items'], searchText: string): searchItem['items'] => {    //Filters items by search text
+  const text = searchText.toLowerCase().trim().split(/\s+/);
 
-  return items.filter(item => item.toLowerCase().indexOf(text) != -1);
+  return items.filter(item => {
+    return text.filter(text => {
+      
+      if (text.length > 0) {
+        return item.text.toLowerCase().indexOf(text) != -1;
+      }
+      
+      return false;
+    }).length == text.length;
+  });
 }
 
 @Component({
@@ -97,7 +106,10 @@ export class TypefiltersComponent implements OnInit {
   public filteredRarities: Array<typeof itemRarities>;     //filtered item rarities
 
   public typeFilters: FormGroup = new FormGroup({
-    term: new FormControl(''),
+    search: new FormControl(''),
+    term: new FormControl(),
+    type: new FormControl(),
+    name: new FormControl(),
     cat_rar: new FormGroup({
       filters: new FormGroup({
         category: new FormGroup({
@@ -113,15 +125,54 @@ export class TypefiltersComponent implements OnInit {
   constructor(private itemSearch: ItemsearchService) { 
     this.itemsToSearch = this.itemSearch.getItems();                            //Init items to search
 
-    this.filteredItems = this.typeFilters.controls.term.valueChanges.pipe(                   //filter items when item search changes
+    this.filteredItems = this.typeFilters.controls.search.valueChanges.pipe(    //filter items when item search changes
       startWith(''),
       map(searchText => this.filterGroups(searchText))
     );
+
+    this.typeFilters.controls.search.valueChanges.subscribe(value => {          //Update term, type, and name controls
+      let filtered = this.filterGroups(value);             //filtered value of the search
+      let items = filtered[0]?.items;                     //first item
+      
+      if (filtered.length == 1 && items.length == 1) {      //Update name, and type of found item, also clear term if only one item found
+        if (items[0].name) this.typeFilters.controls.name.patchValue(items[0].name);
+        this.typeFilters.controls.type.patchValue(items[0].type);
+        this.typeFilters.controls.term.patchValue('');
+      } else if (this.typeFilters.controls.type.value != '' || this.typeFilters.controls.name.value != '') { 
+        this.typeFilters.controls.type.patchValue('');          //clear type control
+        this.typeFilters.controls.name.patchValue('');          //clear name control
+        this.typeFilters.controls.term.patchValue(value);       //set term control
+      }
+    })
   }
 
   ngOnInit(): void {
-    (this.itemForm.get('query.filters') as FormGroup).addControl('type_filters', this.typeFilters.get('cat_rar'));
-    (this.itemForm.get('query') as FormGroup).addControl('term', this.typeFilters.controls.term);
+    if ((this.itemForm.get('query.filters') as FormGroup).controls['type_filters']) {
+      this.typeFilters.controls['cat_rar'] = (this.itemForm.get('query.filters') as FormGroup).controls['type_filters'];
+    } else {
+      (this.itemForm.get('query.filters') as FormGroup).addControl('type_filters', this.typeFilters.get('cat_rar'));
+    }
+
+    if ((this.itemForm.get('query') as FormGroup).controls['term']?.value?.length > 0) {
+      this.typeFilters.controls.term = (this.itemForm.get('query') as FormGroup).controls['term'];
+      this.typeFilters.controls.search.patchValue(this.typeFilters.controls.term.value);
+    } else {
+      (this.itemForm.get('query') as FormGroup).addControl('term', this.typeFilters.controls.term);
+
+      if ((this.itemForm.get('query') as FormGroup).controls['name']?.value?.length > 0) {
+        this.typeFilters.controls.name = (this.itemForm.get('query') as FormGroup).controls['name'];
+        this.typeFilters.controls.search.patchValue(this.typeFilters.controls.name.value);
+      } else {
+        (this.itemForm.get('query') as FormGroup).addControl('name', this.typeFilters.controls.name);
+      }
+
+      if ((this.itemForm.get('query') as FormGroup).controls['type']?.value?.length > 0) {
+        this.typeFilters.controls.type = (this.itemForm.get('query') as FormGroup).controls['type'];
+        this.typeFilters.controls.search.patchValue(this.typeFilters.controls.search.value + " " + this.typeFilters.controls.type.value);
+      } else {
+        (this.itemForm.get('query') as FormGroup).addControl('type', this.typeFilters.controls.type);
+      }
+    }
   }
 
   /**

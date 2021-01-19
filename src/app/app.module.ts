@@ -17,6 +17,8 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatIconModule } from '@angular/material/icon';
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 //Feather Import
 import { DigitsonlyDirective } from './digitsonly.directive';
@@ -36,6 +38,7 @@ import { OtherfiltersComponent } from './shoppinglist/filters/otherfilters/other
 import { StatfiltersComponent } from './shoppinglist/filters/statfilters/statfilters.component';
 import { TypefiltersComponent } from './shoppinglist/filters/typefilters/typefilters.component';
 import { ResultsComponent, ParseModsPipe, ParserPipe, ParseDivsPipe} from './shoppinglist/item/results/results.component';
+import { TradefiltersComponent } from './shoppinglist/filters/tradefilters/tradefilters.component';
 
 
 
@@ -62,7 +65,8 @@ import { ResultsComponent, ParseModsPipe, ParserPipe, ParseDivsPipe} from './sho
     ResultsComponent,
     ParseModsPipe,
     ParserPipe,
-    ParseDivsPipe
+    ParseDivsPipe,
+    TradefiltersComponent
   ],
   imports: [
     BrowserModule,
@@ -78,7 +82,9 @@ import { ResultsComponent, ParseModsPipe, ParserPipe, ParseDivsPipe} from './sho
     MatAutocompleteModule,
     MatIconModule,
     ClipboardModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatTabsModule,
+    MatPaginatorModule
   ],
   exports: [ ],
   providers: [],

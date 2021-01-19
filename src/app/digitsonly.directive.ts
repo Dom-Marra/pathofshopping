@@ -1,4 +1,5 @@
 import { Directive, ElementRef, HostListener, Input } from '@angular/core';
+import { NgControl } from '@angular/forms';
 
 @Directive({
   selector: '[digitsonly]'
@@ -19,7 +20,7 @@ export class DigitsonlyDirective {
   onInput() {
     let input = this.el.nativeElement.value;          //Set the inputs value
 
-    if (isNaN(input) && !(input == '' && !this.defaultZero)) {    //If the input is NaN reset it to the previous value
+    if ((isNaN(input) || input == ' ') && !(input == '' && !this.defaultZero)) {    //If the input is NaN reset it to the previous value
       this.el.nativeElement.value = this.lastInput;
     } 
   }
@@ -36,12 +37,13 @@ export class DigitsonlyDirective {
     }
 
     if (this.float) {                                 //Parse the value of the input to float
-      this.el.nativeElement.value = parseFloat(input);
+      this.control.control.patchValue(parseFloat(input));
     } else {                                          //Parse the value of the input to an Int
-      this.el.nativeElement.value = parseInt(input);
+      this.control.control.patchValue(parseInt(input));
     }
+
   }
   
-  constructor(private el: ElementRef) { }
+  constructor(private el: ElementRef, private control: NgControl) { }
 
 }

@@ -1,11 +1,20 @@
-import { Component, Input, OnInit, Output, ViewEncapsulation, ViewRef, EventEmitter } from '@angular/core';
-import { FormArray, FormControl, FormGroup } from '@angular/forms';
+import { Component, Input, OnInit, Output, ViewEncapsulation, EventEmitter } from '@angular/core';
 import { statCategory, StatsearchService } from '../../statsearch.service';
+import { Stat } from './stat/stat';
 
 export const filterSearch = (items: any, searchText: string): any => {    //Filters items by search text
-  const text = searchText.toLowerCase();
+  const text = searchText.toLowerCase().trim().split(/\s+/);
 
-  return items.filter(item => item.text.toLowerCase().indexOf(text) != -1);
+  return items.filter(item => {
+    return text.filter(text => {
+      
+      if (text.length > 0) {
+        return item.text.toLowerCase().indexOf(text) != -1;
+      }
+      
+      return false;
+    }).length == text.length;
+  });
 }
 
 @Component({
@@ -16,33 +25,24 @@ export const filterSearch = (items: any, searchText: string): any => {    //Filt
 })
 export class StatselectComponent implements OnInit {
 
-  @Output() newGroupCreated: EventEmitter<null> = new EventEmitter();   //Emmits to the parent the form group was added
-
-  @Input() array: FormArray;                                            //Group to add stats to
+  @Output() statRemoved: EventEmitter<Stat> = new EventEmitter<Stat>();  //Transmits event for removal of the stat
+  @Input() isWeight: boolean = false;                                    // Whether this stat is under a wieghted sum filter group
+  @Input() stat: Stat;                                                   //Stat that belongs to this selector
   
   public filteredStats: Array<statCategory>;                            //Filtered Stats
   public filteredStatOptions: statCategory['stats'][0]['option'];       //Filtered Stat Options
-  public statSelected: boolean = false;                                 //Whether a stat has been selected or not
-
-  public viewRef: ViewRef;                                              //Ref of this component
-
-  public selectedStat: statCategory['stats'][0] = null;                 //the selected stat
-  public selectedStatOption: statCategory['stats'][0]['option'][0];     //the selected option
-
-  public statGroup: FormGroup = new FormGroup({                         //holds stat data
-    id: new FormControl(),
-    value: new FormGroup({
-      min: new FormControl(),
-      max: new FormControl(),
-      option: new FormControl()
-    })
-  })
 
   constructor(private statSearch: StatsearchService) { 
-    this.filteredStats = this.statSearch.getStats();        //Init stats to search
+    this.filteredStats = this.statSearch.getStats();                    //Init stats to search
   }
 
   ngOnInit(): void {
+  }
+
+  ngOnChanges(changes) {
+    if (changes.isWeight) {                         //Toggle weighted on isWeighted change
+      this.stat?.makeWeighted(this.isWeight);
+    }
   }
 
   /**
@@ -71,7 +71,7 @@ export class StatselectComponent implements OnInit {
    *        string: text to filter by
    */
   public filterStatOptions(searchText: string) {
-    let statOptions = this.selectedStat.option.filter(stat => {
+    let statOptions = this.stat.selectedStat.option.filter(stat => {
       return stat.text.toLowerCase().indexOf(searchText.toLowerCase()) != -1;
     });
 
@@ -79,29 +79,26 @@ export class StatselectComponent implements OnInit {
   }
 
   /**
-   * Pushes the new stat to the array if it is newly initiated, and resets other form values
+   * Sets the stat
    */
-  public setStat() {
-    if (!this.statSelected) {                         //No previous stat was selected
-      this.statSelected = true;                       //Set stat selected to true
-      this.array.push(this.statGroup);                //Add stat group to main item form
-      this.newGroupCreated.emit(null);                //emmite event for group addition
-    } else if (this.selectedStat.option == null) {
-      this.statGroup.get('value.option').patchValue('');    //Reset value option field and selected stat option when a minmax option is selected
-      this.selectedStatOption = null;
-    } else {                                                //reset all value fields when a stat is selected that has options
-      this.statGroup.get('value.option').patchValue('');
-      this.statGroup.get('value.min').patchValue('');
-      this.statGroup.get('value.max').patchValue('');
-    }
+  public setStat(stat: statCategory['stats'][0]) {
+    this.stat.setStat(stat);
   }
 
   /**
-   * Deletes this component and removes the stat group from the main item form
+   * Sets the stat option
+   * 
+   * @param option 
+   *        option to set
+   */
+  public setStatOption(option: statCategory['stats'][0]['option'][0]) {
+    this.stat.setStatOption(option);
+  }
+
+  /**
+   * Triggers the stat removed event with the stat to remove as the payload
    */
   public deleteStatFilter() {
-    let index = this.array.controls.indexOf(this.statGroup);
-    this.array.removeAt(index);
-    this.viewRef.destroy();
+    this.statRemoved.emit(this.stat);
   }
 }

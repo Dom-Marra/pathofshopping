@@ -91,25 +91,16 @@
             flex-wrap: wrap;
             align-items: center;
 
-            .mat-form-field {
-                font-weight: 300;
-                padding: 1em;
+            .league-select {
                 flex: 1 1 150px;
-    
-                mat-label, .mat-input-element, .mat-select-value-text {
-                    color: mat-color($pathofshopping-accent, 50);
+
+                .mat-form-field {
+                    margin-bottom: -1.25em;
+                    min-width: 0px;
                 }
-    
-                .mat-select-arrow {
-                    color: mat-color($pathofshopping-primary, 800);
-                }
-    
+
                 .mat-form-field-underline, .mat-form-field-ripple {
                     background-color: mat-color($pathofshopping-primary, 800);
-                }
-    
-                .mat-form-field-wrapper {
-                    margin-bottom: -1.5em;
                 }
             }
     
@@ -124,12 +115,22 @@
                     background-color: rgb(55, 150, 55);
                 }
             }
-            
         }
 
         #shopping-list-contents {
-            width: 95%;
-            margin: auto;
+            .mat-tab-header {
+                border-top: 1px solid mat-color($pathofshopping-primary, 700);
+                background-color: mat-color($pathofshopping-primary, 500);
+
+                .mat-tab-label {
+                    color: mat-color($pathofshopping-accent, 50);
+                    opacity: 1;
+                }
+
+                .mat-tab-header-pagination-chevron {
+                    border-color: mat-color($pathofshopping-accent, 50);
+                }
+            }
         }
     }
 }
@@ -140,8 +141,9 @@
         #shoppinglist-contents-container { 
             #shoppinglist-contents-top-bar {
 
-                .mat-form-field {
+                .league-select  {
                     flex: 1 1 100%;
+                    padding-top: 1em;
                 }
 
                 .action-button {
@@ -149,5 +151,27 @@
                 }
             }
         }
+    }
+}
+
+.autocomplete-panel {
+    background-color: mat-color($pathofshopping-primary, 400);
+    
+    .mat-optgroup {
+        .mat-optgroup-label {
+            color: mat-color($pathofshopping-primary, 700);
+        }
+    }
+
+    .mat-option {
+        .mat-option-text {
+            font-size: 14px;
+            font-weight: 300;
+            color: mat-color($pathofshopping-accent, 50);
+        }
+    }
+
+    .mat-option.mat-selected:not(.mat-active):not(:hover) {
+        background-color: rgba(0, 0, 0, 0.1);
     }
 }

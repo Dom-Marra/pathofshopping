@@ -1,7 +1,9 @@
-import { ChangeDetectorRef, Component, ElementRef, OnInit, QueryList, ViewChildren, ViewEncapsulation, ViewRef } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, Input, OnInit, QueryList, ViewChildren, ViewEncapsulation } from '@angular/core';
 import { FormGroup, FormControl, FormArray } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { QueryitemService } from '../../queryitem.service'
+import { Statfilter } from '../filters/statfilters/statfilter/statfilter';
+import { Item } from '../item';
 
 @Component({
   selector: 'app-item',
@@ -11,19 +13,16 @@ import { QueryitemService } from '../../queryitem.service'
 })
 export class ItemComponent implements OnInit {
 
-  @ViewChildren("itemNameInput") itemNameInput: QueryList<ElementRef>;    //Item name input element
+  @Input() itemData: Item;
+  @Input() league: string;
+  @ViewChildren("itemNameInput") itemNameInput: QueryList<ElementRef>;                            //Item name input element
 
   public editName: boolean = false;                        //Whether name is in edit mode or not
-  private viewRef: ViewRef = null;                          //Reference of the view, used when deleting the component
   public showResults: boolean = false;                      //Used to show results tab
   public queryResults: Array<any> = [];                     //Query Results
 
-  public itemForm = new FormGroup({
-    itemName: new FormControl('New Item'),
+  public queryForm = new FormGroup({
     query: new FormGroup({
-      status: new FormGroup({
-        option: new FormControl('online')
-      }),
       stats: new FormArray([
       ])
     }),
@@ -36,11 +35,7 @@ export class ItemComponent implements OnInit {
     disabled: new FormControl(false)
   })
 
-  constructor(private cd: ChangeDetectorRef, private queryService: QueryitemService) { 
-    (this.itemForm.get('query') as FormGroup).addControl('filters', new FormGroup({}));               //add filters group
-    (this.itemForm.get('query') as FormGroup).addControl('sort', new FormGroup({}));                  //add sort group
-    this.misc_filters.addControl('filters', new FormGroup({}));                                       //add filters to misc
-    (this.itemForm.get('query.filters') as FormGroup).addControl('misc_filters', this.misc_filters);  //add misc filter to query
+  constructor(private cd: ChangeDetectorRef, private queryService: QueryitemService) {  
   }
 
   ngAfterViewInit() {
@@ -54,22 +49,65 @@ export class ItemComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (this.itemData.itemForm.controls.queryForm != null) {              //Check if the current item already has data set
+      this.queryForm = this.itemData.itemForm.controls.queryForm as FormGroup;
+    } else {
+      (this.queryForm.get('query') as FormGroup).addControl('filters', new FormGroup({}));              //add filters group
+      this.misc_filters.addControl('filters', new FormGroup({}));                                       //add filters to misc
+      (this.queryForm.get('query.filters') as FormGroup).addControl('misc_filters', this.misc_filters); //add misc filter to query
+      this.itemData.itemForm.addControl('queryForm', this.queryForm);                                   //Add queryForm to itemForm
+    }
   }
 
   /**
-   * Gets the items from the poe API based on form inputs
+   * Fetches item IDs from the POE API using the query form data and inputted sort values
+   * 
+   * @param key
+   *        sort key, for example the hash of a stat
+   * @param value 
+   *        sort value, either 'asc' for ascending, or 'desc' for descending
    */
-  public fetchItems() {
+  public queryIDs(sortKey: string, sortValue?: string) {
 
-    this.queryResults = [];                                               //Reset previous results
+    this.itemData.resultData.clearQueryProps();                           //Reset previous results
+
+    this.setSortBy(sortKey, sortValue);                                   //Set the sort data
+
     let data = {                                                          //create query data
-      query: (this.itemForm.controls.query as FormGroup).getRawValue(),
-      sort: (this.itemForm.controls.sort as FormGroup).getRawValue()
+      query: (this.queryForm.controls.query as FormGroup).getRawValue(),
+      sort: (this.queryForm.controls.sort as FormGroup).getRawValue()
     }
 
-    data = this.removeEmpty(data);                                        //clean the data
+    data = this.removeEmpty(data);                            //clean the data
 
+    let fetchSub = this.queryService.fetchResults(data, this.league).subscribe((fetch: any) => {       //Fetch items based on data
+      if (fetch.result != null && fetch.result.length > 0) {
+
+        //Set item query data
+        this.itemData.resultData.queryProps = {
+          psuedos: this.getPsuedoQuery(data),
+          res: fetch.result,
+          total: fetch.total,
+          inexact: fetch.inexact,
+          id: fetch.id
+        }
+
+        //Show results and close sub
+        this.showResults = true;
+        fetchSub.unsubscribe();
+      }
+    });
+  }
+
+  /**
+   * Returns the psuedo query param data
+   * 
+   * @param data
+   *        object: raw data of the query form 
+   */
+  private getPsuedoQuery(data: any): string {
     let psuedos: string = "";                                             //Pseudo mod params
+
     data.query.stats?.forEach(statGroup => {                              //Add pseudo mods to psueod mod params
       statGroup.filters?.forEach((filter, i) => {
         if ((filter.id as string).includes('pseudo')) 
@@ -77,27 +115,7 @@ export class ItemComponent implements OnInit {
       });
     });
 
-    let fetch = this.queryService.fetchResults(data).subscribe((data: any) => {       //Fetch items based on data
-      if (data.result != null && data.result.length > 0) {
-        let query: Subscription;                                                      //Query sub
-        let length = data.result.length;                                              //Inital length of results
-
-        do {                                                                          //Have to get results 10 at a time
-          let results = data.result.splice(0, 10);
-
-          query = this.queryService.fetchItems(results, "?query=" + data.id + "&" + psuedos) //Get next ten results
-          .subscribe((items: any) => {  
-            this.queryResults = this.queryResults.concat(items.result);                      //Add results
-
-            if (this.queryResults.length == length) {                                        //Unsub and show results
-              query.unsubscribe();
-              fetch.unsubscribe();
-              this.showResults = true;
-            }
-          });
-        } while(data.result.length);
-      }
-    });
+    return psuedos;
   }
 
   /**
@@ -121,51 +139,52 @@ export class ItemComponent implements OnInit {
   }
 
   /**
-   * Sorts by a new value
+   * Sets the sort
    * 
    * @param key
    *        sort key, for example the hash of a stat
    * @param value 
    *        sort value, either 'asc' for ascending, or 'desc' for descending
    */
-  public searchWithSortBy(key: string, value?: string) {
-    let currentSort = Object.keys((this.itemForm.controls.sort as FormGroup).getRawValue())[0];   //The current key in use
-    let sortValue = (this.itemForm.controls.sort as FormGroup).controls[currentSort].value;       //The current value
+  private setSortBy(key: string, value?: string) {
+    let currentSort = Object.keys((this.queryForm.controls.sort as FormGroup).getRawValue())[0];   //The current key in use
+    let sortValue = (this.queryForm.controls.sort as FormGroup).controls[currentSort].value;       //The current value
 
     if (currentSort == key) {
-      this.itemForm.get('sort.' + currentSort).patchValue(value ? value : sortValue == 'asc' ? 'desc' : 'asc');   //Alternate value if key is the same
-      this.fetchItems();                                                                                          //Re-fecth items
+      this.queryForm.get('sort.' + currentSort).patchValue(value ? value : sortValue == 'asc' ? 'desc' : 'asc');   //Alternate value if key is the same
     } else {
-      (this.itemForm.controls.sort as FormGroup).removeControl(currentSort);                                      //Remove old control
-      (this.itemForm.controls.sort as FormGroup).addControl(key, new FormControl(value ? value : 'desc'));        //Add new control
-      this.fetchItems();                                                                                          //re-fecth items
+      (this.queryForm.controls.sort as FormGroup).removeControl(currentSort);                                      //Remove old control
+      (this.queryForm.controls.sort as FormGroup).addControl(key, new FormControl(value ? value : 'desc'));        //Add new control
     }
   }
 
   /**
-   * Sets the View Ref variable
-   * 
-   * @param ref
-   *        ViewRef: The view of this component 
+   * Adds a stat filter to the item data
    */
-  public setViewRef(ref: ViewRef) {
-    this.viewRef = ref;
+  public addStatGroup() {
+    let newStatGroup = new Statfilter(this.itemData.itemForm.get('queryForm.query.stats') as FormArray);
+    this.itemData.statFilters.push(newStatGroup);
+    (this.itemData.itemForm.get('queryForm.query.stats') as FormArray).controls.push(newStatGroup.statFilters);
   }
 
   /**
-   * Returns the view ref
+   * Removes a stat filter from the item
    * 
-   * @returns
-   *        ViewRef: The view of this component
+   * @param statFilter
+   *        stat filter to remove 
    */
-  public getViewRef(): ViewRef {
-    return this.viewRef;
+  public removeStatFilter(statFilter: Statfilter) {
+    let statFiltersIndex = this.itemData.statFilters.indexOf(statFilter);
+    this.itemData.statFilters.splice(statFiltersIndex, 1);
+
+    let statsArryayIndex = statFilter.statsFormArray.controls.indexOf(statFilter.statFilters);
+    statFilter.statsFormArray.removeAt(statsArryayIndex);
   }
 
   /**
    * Destroys this component
    */
   public remove() {
-    this.viewRef.destroy();
+    //TODO
   }
 }

@@ -29,15 +29,46 @@ mat-icon {
 }
 
 .filter-expansion-panel {
+  margin-top: 0.5em !important;
+  background-color: mat-color($pathofshopping-primary, 400);
+  box-shadow: none !important;
 
   .mat-expansion-panel-header {
-      color: mat-color($pathofshopping-accent, 50);
-      font-weight: 300;
-      border-bottom: 1px solid mat-color($pathofshopping-primary, 500);
+    color: mat-color($pathofshopping-accent, 50);
+    font-weight: 300;
+    height: auto;
+    min-height: 45px;
+    padding: 0 0 !important;
+    background-color: mat-color($pathofshopping-primary, 400);
+    border-bottom: 1px solid mat-color($pathofshopping-primary, 500);
+    border-radius: 0px;
 
-      &.mat-expansion-panel-header.mat-expanded {
-          border-bottom-style: solid !important;
+    &:hover {
+      background-color: mat-color($pathofshopping-primary, 400) !important;
+    }
+  
+    .mat-content {
+      height: 100%;
+
+      .mat-expansion-panel-header-title {
+        flex-grow: 0.3;
+        max-width: 48px;
       }
+    }
+
+    .mat-expansion-indicator {
+      margin: 0 20px;
+
+      &:after {
+        color: rgba(0, 0, 0, 0.3);
+      }
+    }
+  }
+
+  .mat-expansion-panel-body {
+    padding: 0;
+    width: 100%;
+    margin: auto;
   }
 
   .mat-content {
@@ -61,7 +92,7 @@ mat-icon {
     }
 
     .field {
-        flex: 1 0 400px;
+        flex: 1 1 400px;
         max-width: 100%;
         margin: 0.25em;
     }

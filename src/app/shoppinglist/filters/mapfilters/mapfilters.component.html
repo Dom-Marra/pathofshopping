@@ -2,17 +2,19 @@
     <mat-expansion-panel-header>
             Map Filters
     </mat-expansion-panel-header>
-    <div class="item-contents">
-        <div appEqualflex class="field-wrapper">
-            <app-filtergroupselect class="field" inputName='Region' [control]="mapFilters.get('filters.map_region.option')" [selectEnum]="MAP_REGION"></app-filtergroupselect>
-            <app-filtergroupselect class="field" inputName='Series' [control]="mapFilters.get('filters.map_series.option')" [selectEnum]="MAP_SERIES"></app-filtergroupselect>
-            <app-filtergroupselect class="field" inputName='Shaped' [control]="mapFilters.get('filters.map_shaped.option')" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
-            <app-filtergroupselect class="field" inputName='Elder' [control]="mapFilters.get('filters.map_elder.option')" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
-            <app-filtergroupselect class="field" inputName='Blighted' [control]="mapFilters.get('filters.map_blighted.option')" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
-            <app-minmaxinput class="field" inputName="Tier" [group]="this.mapFilters.get('filters.map_tier')"></app-minmaxinput>
-            <app-minmaxinput class="field" inputName="Packsize" [group]="this.mapFilters.get('filters.map_packsize')"></app-minmaxinput>
-            <app-minmaxinput class="field" inputName="IIQ" [group]="this.mapFilters.get('filters.map_iiq')"></app-minmaxinput>
-            <app-minmaxinput class="field" inputName="IIR" [group]="this.mapFilters.get('filters.map_iir')"></app-minmaxinput>
+    <ng-template matExpansionPanelContent>
+        <div class="item-contents">
+            <div appEqualflex class="field-wrapper">
+                <app-filtergroupselect class="field" inputName='Region' [control]="mapFilters['controls'].filters['controls'].map_region['controls'].option" [selectEnum]="MAP_REGION"></app-filtergroupselect>
+                <app-filtergroupselect class="field" inputName='Series' [control]="mapFilters['controls'].filters['controls'].map_series['controls'].option" [selectEnum]="MAP_SERIES"></app-filtergroupselect>
+                <app-filtergroupselect class="field" inputName='Shaped' [control]="mapFilters['controls'].filters['controls'].map_shaped['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                <app-filtergroupselect class="field" inputName='Elder' [control]="mapFilters['controls'].filters['controls'].map_elder['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                <app-filtergroupselect class="field" inputName='Blighted' [control]="mapFilters['controls'].filters['controls'].map_blighted['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                <app-minmaxinput class="field" inputName="Tier" [group]="this.mapFilters['controls'].filters['controls'].map_tier"></app-minmaxinput>
+                <app-minmaxinput class="field" inputName="Packsize" [group]="this.mapFilters['controls'].filters['controls'].map_packsize"></app-minmaxinput>
+                <app-minmaxinput class="field" inputName="IIQ" [group]="this.mapFilters['controls'].filters['controls'].map_iiq"></app-minmaxinput>
+                <app-minmaxinput class="field" inputName="IIR" [group]="this.mapFilters['controls'].filters['controls'].map_iir"></app-minmaxinput>
+            </div>
         </div>
-    </div>
+    </ng-template>
 </mat-expansion-panel>

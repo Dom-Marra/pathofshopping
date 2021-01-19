@@ -2,11 +2,13 @@
     <mat-expansion-panel-header>
             Gem Filters
     </mat-expansion-panel-header>
-    <div class="item-contents">
-        <div appEqualflex class="field-wrapper">
-            <app-minmaxinput class="field" inputName="Level" [group]="this.gemFilters.get('gem_level')"></app-minmaxinput>
-            <app-minmaxinput class="field" inputName="Experience (%)" [group]="this.gemFilters.get('gem_level_progress')"></app-minmaxinput>
-            <app-filtergroupselect class="field" inputName='Quality Type' [control]="gemFilters.get('gem_alternate_quality.option')" [selectEnum]="GEM_QUALITY_TYPES"></app-filtergroupselect>
+    <ng-template matExpansionPanelContent>
+        <div class="item-contents">
+            <div appEqualflex class="field-wrapper">
+                <app-minmaxinput class="field" inputName="Level" [group]="this.gemFilters['controls'].gem_level"></app-minmaxinput>
+                <app-minmaxinput class="field" inputName="Experience (%)" [group]="this.gemFilters['controls'].gem_level_progress"></app-minmaxinput>
+                <app-filtergroupselect class="field" inputName='Quality Type' [control]="gemFilters['controls'].gem_alternate_quality['controls'].option" [selectEnum]="GEM_QUALITY_TYPES"></app-filtergroupselect>
+            </div>
         </div>
-    </div>
+    </ng-template>
 </mat-expansion-panel>

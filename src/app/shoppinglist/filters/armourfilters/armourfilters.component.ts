@@ -36,7 +36,11 @@ export class ArmourfiltersComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.itemForm.addControl('armour_filters', this.armourFilters);    //Add Armour filters to main item form
+    if (this.itemForm.controls['armour_filters']) {                      //Check if item has armor data already
+      this.armourFilters = this.itemForm.controls['armour_filters'] as FormGroup;
+    } else {
+      this.itemForm.addControl('armour_filters', this.armourFilters);    //Add Armour filters to main item form
+    }
   }
 
 }

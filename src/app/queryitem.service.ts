@@ -6,14 +6,14 @@ import { HttpClient } from '@angular/common/http';
 })
 export class QueryitemService {
 
-  private fetchResApi: string = "http://localhost:4200/api/trade/search/Standard"
+  private fetchResApi: string = "http://localhost:4200/api/trade/search/"
   private fetchItemsApi: string = "http://localhost:4200/api/trade/fetch/";
 
   constructor(private http: HttpClient) { }
 
 
-  public fetchResults(data: any) {
-    return this.http.post(this.fetchResApi, data);
+  public fetchResults(data: any, league: string) {
+    return this.http.post(this.fetchResApi + league, data);
   }
 
   public fetchFields(searchField: string) {

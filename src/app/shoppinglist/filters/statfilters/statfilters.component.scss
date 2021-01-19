@@ -1,0 +1,74 @@
+@import '../../../../theme.scss';
+
+.stat-filter {
+    .mat-content {
+        padding: 0 !important;
+        padding-left: 1em !important;
+    
+        .stats-header {
+            display: flex;
+            flex-wrap: wrap;
+            width: 100%;
+            
+            .header-text-wrapper {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 0 0.5em;
+
+                .delete-filter-group {
+                    padding-right: 0.5em;
+                }
+                .header-text {
+                    display: flex;
+                    align-items: center;
+                }
+            }
+            
+        
+            .type-selector {
+                display: flex;
+                flex-wrap: wrap;
+                flex-basis: auto;
+                margin-left: auto;
+                margin-bottom: -0.25em;
+                flex-shrink: 1;
+                max-width: 100%;
+        
+                .selector-input {
+                    max-width: 100%;
+                    flex: 1;
+
+                    .mat-form-field-underline, .mat-form-field-ripple {
+                        background-color: mat-color($pathofshopping-primary, 600);
+                    }
+                }
+            }
+        }
+    }
+
+    .item-contents {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+
+        .field-wrapper {
+            width: 100%;
+
+            .field {
+                flex: 1 1 100% !important;
+            }
+        }
+
+        .add-filter-button {
+            background-color: transparent;
+            color: mat-color($pathofshopping-accent, 50);
+            margin-top: 0.3em;
+        }
+    }
+}
+
+
+
+
+
