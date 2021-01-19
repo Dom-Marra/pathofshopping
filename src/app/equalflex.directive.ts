@@ -39,7 +39,7 @@ export class EqualflexDirective {
       this.renderer2.setStyle(placeholder, 'margin-top', '0px');
       this.renderer2.setStyle(placeholder, 'margin-bottom', '0px');
       this.renderer2.setStyle(placeholder, 'padding-bottom', '0px');
-      this.renderer2.setStyle(placeholder, 'padding-bottom', '0px');
+      this.renderer2.setStyle(placeholder, 'padding-top', '0px');
 
       classes.forEach(entry => {                                              //Add classes to the placeholder
         this.renderer2.addClass(placeholder, entry);
