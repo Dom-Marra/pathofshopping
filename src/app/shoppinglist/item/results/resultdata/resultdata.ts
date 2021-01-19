@@ -18,9 +18,14 @@ export class Resultdata {
   public queryProps: queryProps;                       //Data pertaining to the current query
 
   /**
-   * Clears the queryProps
+   * Clears the results properties to default
    */
-  public clearQueryProps() {
+  public reset() {
     this.queryProps = null;
+    this.startIndex = 0;
+    this.endIndex = 10;
+    this.pageIndex = 0;
+    this.queryData = [];
+    this.retrievedItems = [];
   }
 }
