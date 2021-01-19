@@ -5,24 +5,39 @@
     text-align: center;
     font-weight: 300;
     margin: 0 !important;
-    padding: 0.15em 0 !important;
+    padding: 0.75em 0 !important;
     width: 100%;
-    background-color: mat-color($pathofshopping-primary, 300);
+    background-color: rgba(0, 0, 0, 0.25);
 }
 
 .query-results-container {
     display: flex;
     flex-wrap: wrap;
-    background-color: mat-color($pathofshopping-primary, 300);
+    justify-content: center;
 
     .query-item {
         flex: 1 1 550px;
         display: flex;
         flex-direction: column;
         flex-wrap: wrap;
-        margin: auto;
-        max-width: 95%;
-        margin: 1em;
+        padding: 1em;
+
+        
+        &:nth-child(4n + 1) {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+
+        &:nth-child(4n + 2) {
+            background-color: rgba(0, 0, 0, 0.15);
+        }
+
+        &:nth-child(4n + 3) {
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+
+        &:nth-child(4n + 4) {
+            background-color: rgba(0, 0, 0, 0.25);
+        }
 
         .query-item-wrapper {
             display: flex;
@@ -120,15 +135,6 @@
                 }
             }
             
-        }
-
-        .item-line-break {
-            align-self: flex-end;
-            width: 100%;
-            margin-top: 2em;
-            background-color: mat-color($pathofshopping-primary, 400);
-            border-width: 0px;
-            height: 1px;
         }
 
         .query-item-box {
