@@ -18,6 +18,8 @@ export class FiltergroupselectComponent implements OnInit {
   @Input() control: AbstractControl;                        //Form control of the input
   @Input() selectEnum: any;                                 //Enum for values
   @Input() styleType: styles = styles.normal;               //Style of the select
+  @Input() disbaleDefault: boolean = false;                 //Whether the default control directive should be disabled
+  @Input() default: any;                                    //Default value
 
   public filter: Array<any>;                                //Filtered results
 
