@@ -13,6 +13,7 @@ export class ControldefaultsDirective {
 
   ngOnInit() {
     if (!this.control) this.control = this._control.control;  //If no control from input is provided then get the injected one
+    if (!this.default) this.default = '';
 
     this.checkIfDefault();                                    //Check if default
     
