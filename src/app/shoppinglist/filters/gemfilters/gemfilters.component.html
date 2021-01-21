@@ -10,7 +10,7 @@
             <div appEqualflex class="field-wrapper">
                 <app-minmaxinput class="field" inputName="Level" [group]="this.gemFilters['controls'].gem_level"></app-minmaxinput>
                 <app-minmaxinput class="field" inputName="Experience (%)" [group]="this.gemFilters['controls'].gem_level_progress"></app-minmaxinput>
-                <app-filtergroupselect class="field" inputName='Quality Type' appControldefaults [control]="this.gemFilters['controls'].gem_alternate_quality['controls'].option" [selectEnum]="GEM_QUALITY_TYPES"></app-filtergroupselect>
+                <app-filtergroupselect class="field" inputName='Quality Type' [control]="this.gemFilters['controls'].gem_alternate_quality['controls'].option" [selectEnum]="GEM_QUALITY_TYPES"></app-filtergroupselect>
             </div>
         </div>
     </ng-template>
