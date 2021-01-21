@@ -9,7 +9,9 @@
                 [value]="selectEnum[control.value]"
                 (focus)="$event.target.value = ''; filter = filterEnums('', selectEnum)"
                 (blur)="$event.target.value = selectEnum[control.value]"
-                [disabled]="this.control.disabled">
+                [disabled]="this.control.disabled"
+                appControldefaults
+                [control]="this.control">
 
         <mat-icon matSuffix class="icon-dark" [class.rotate]="selectInputAutoComplete.isOpen">arrow_drop_down</mat-icon>
         <mat-autocomplete #selectInputAutoComplete="matAutocomplete" 
