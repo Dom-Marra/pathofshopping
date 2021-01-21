@@ -10,6 +10,12 @@ export interface minmaxExtras{
   label: string,
   control: AbstractControl,
   inputClass?: string
+  defaultValue?: any
+}
+
+export interface defaultValues {
+  min: any,
+  max: any
 }
 
 @Component({
@@ -24,6 +30,7 @@ export class MinmaxinputComponent implements OnInit {
   @Input() inputName: string;                           //name of the input
   @Input() minmaxExtras: Array<minmaxExtras> = [];      //extra inputs
   @Input() styleType: styles = styles.normal;           //Style of the select
+  @Input() defaultValues: defaultValues = {min: null, max: null};   //Default min max values
 
   constructor() { }
 
