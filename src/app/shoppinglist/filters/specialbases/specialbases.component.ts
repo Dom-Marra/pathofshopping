@@ -15,28 +15,28 @@ export class SpecialbasesComponent implements OnInit {
   
   public influenceFilters: FormGroup = new FormGroup({                    //influence filters             
     shaper_item: new FormGroup({
-      option: new FormControl(null)
+      option: new FormControl('')
     }),
     elder_item: new FormGroup({
-      option: new FormControl(null)
+      option: new FormControl('')
     }),
     crusader_item: new FormGroup({
-      option: new FormControl(null)
+      option: new FormControl('')
     }),
     redeemer_item: new FormGroup({
-      option: new FormControl(null)
+      option: new FormControl('')
     }),
     hunter_item: new FormGroup({
-      option: new FormControl(null)
+      option: new FormControl('')
     }),
     warlord_item: new FormGroup({
-      option: new FormControl(null)
+      option: new FormControl('')
     }),
     fractured_item: new FormGroup({
-      option: new FormControl(null)
+      option: new FormControl('')
     }),
     synthesised_item: new FormGroup({
-      option: new FormControl(null)
+      option: new FormControl('')
     })
   })
 

@@ -15,23 +15,22 @@ export class SocketfiltersComponent implements OnInit {
   public loaded: boolean = false;                           //Used to defer loading of the inputs
 
   public socketFilters: FormGroup = new FormGroup({                       //Socket filters
-    disabled: new FormControl(false),
     filters: new FormGroup({
       sockets: new FormGroup({
-        r: new FormControl(null),
-        g: new FormControl(null),
-        b: new FormControl(null),
-        w: new FormControl(null),
-        min: new FormControl(null),
-        max: new FormControl(null)
+        r: new FormControl(''),
+        g: new FormControl(''),
+        b: new FormControl(''),
+        w: new FormControl(''),
+        min: new FormControl(''),
+        max: new FormControl('')
       }),
       links: new FormGroup({
-        r: new FormControl(null),
-        g: new FormControl(null),
-        b: new FormControl(null),
-        w: new FormControl(null),
-        min: new FormControl(null),
-        max: new FormControl(null)
+        r: new FormControl(''),
+        g: new FormControl(''),
+        b: new FormControl(''),
+        w: new FormControl(''),
+        min: new FormControl(''),
+        max: new FormControl('')
       })
     }),
   })

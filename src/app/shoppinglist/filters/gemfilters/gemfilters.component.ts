@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 
 enum gemQualityTypes {
-  null = 'All',
+  '' = 'All',
   '"0"' = 'Default',
   'alternate' = 'Only Alternatives',
   '"1"' = 'Anomalous',
@@ -23,15 +23,15 @@ export class GemfiltersComponent implements OnInit {
 
   public gemFilters: FormGroup = new FormGroup({
     gem_alternate_quality: new FormGroup({
-      option: new FormControl(null)
+      option: new FormControl('')
     }),
     gem_level: new FormGroup({
-      min: new FormControl(null),
-      max: new FormControl(null)
+      min: new FormControl(''),
+      max: new FormControl('')
     }),
     gem_level_progress: new FormGroup({
-      min: new FormControl(null),
-      max: new FormControl(null)
+      min: new FormControl(''),
+      max: new FormControl('')
     })
   })
 

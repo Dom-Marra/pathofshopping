@@ -15,45 +15,45 @@ export class OtherfiltersComponent implements OnInit {
   
   public otherFilters: FormGroup = new FormGroup({                        //Other filters group
     quality: new FormGroup({
-      min: new FormControl(null),
-      max: new FormControl(null)
+      min: new FormControl(''),
+      max: new FormControl('')
     }),
     ilvl: new FormGroup({
-      min: new FormControl(null),
-      max: new FormControl(null)
+      min: new FormControl(''),
+      max: new FormControl('')
     }),
     talisman_tier: new FormGroup({
-      min: new FormControl(null),
-      max: new FormControl(null)
+      min: new FormControl(''),
+      max: new FormControl('')
     }),
     stored_experience: new FormGroup({
-      min: new FormControl(null),
-      max: new FormControl(null)
+      min: new FormControl(''),
+      max: new FormControl('')
     }),
     stack_size: new FormGroup({
-      min: new FormControl(null),
-      max: new FormControl(null)
+      min: new FormControl(''),
+      max: new FormControl('')
     }),
     alternate_art: new FormGroup({ 
-      option: new FormControl(null)
+      option: new FormControl('')
     }),
     identified: new FormGroup({ 
-      option: new FormControl(null)
+      option: new FormControl('')
     }),
     corrupted: new FormGroup({ 
-      option: new FormControl(null)
+      option: new FormControl('')
     }),
     mirrored: new FormGroup({ 
-      option: new FormControl(null)
+      option: new FormControl('')
     }),
     crafted: new FormGroup({ 
-      option: new FormControl(null)
+      option: new FormControl('')
     }),
     veiled: new FormGroup({ 
-      option: new FormControl(null)
+      option: new FormControl('')
     }),
     enchanted: new FormGroup({ 
-      option: new FormControl(null)
+      option: new FormControl('')
     }),
   })
 

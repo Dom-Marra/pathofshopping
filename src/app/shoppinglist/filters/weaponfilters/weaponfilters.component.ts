@@ -14,28 +14,28 @@ export class WeaponfiltersComponent implements OnInit {
     disabled: new FormControl(false),
     filters: new FormGroup({
       damage: new FormGroup({
-        min: new FormControl(null),
-        max: new FormControl(null)
+        min: new FormControl(''),
+        max: new FormControl('')
       }),
       aps: new FormGroup({
-        min: new FormControl(null),
-        max: new FormControl(null)
+        min: new FormControl(''),
+        max: new FormControl('')
       }),
       crit: new FormGroup({
-        min: new FormControl(null),
-        max: new FormControl(null)
+        min: new FormControl(''),
+        max: new FormControl('')
       }),
       dps: new FormGroup({
-        min: new FormControl(null),
-        max: new FormControl(null)
+        min: new FormControl(''),
+        max: new FormControl('')
       }),
       pdps: new FormGroup({
-        min: new FormControl(null),
-        max: new FormControl(null)
+        min: new FormControl(''),
+        max: new FormControl('')
       }),
       edps: new FormGroup({
-        min: new FormControl(null),
-        max: new FormControl(null)
+        min: new FormControl(''),
+        max: new FormControl('')
       })
     })
   });

@@ -2,7 +2,7 @@ import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 
 enum buyOutOptions{
-  null = 'Chaos Orb Equivalent',
+  '' = 'Chaos Orb Equivalent',
   alt = "Orb of Alteration",
   fusing = "Orb of Fusing",
   alch = " Orb of Alchemy",
@@ -22,7 +22,7 @@ enum buyOutOptions{
 
 enum saleTypes {
   any = 'All',
-  null = 'Buyout or Fixed Price',
+  '' = 'Buyout or Fixed Price',
   priced_with_info = 'Price With Note',
   unpriced = 'No Price'
 }
@@ -33,7 +33,7 @@ enum statusOptions {
 }
 
 enum listedOptions {
-  null = 'Any Date',
+  '' = 'Any Date',
   '1day' = 'Up To 1 Day Ago',
   '3day' = 'Up To 3 Days Ago',
   '1week' = 'Up To 1 Week Ago',
@@ -59,21 +59,20 @@ export class TradefiltersComponent implements OnInit {
   @Input() queryForm: FormGroup;            //Main query form group
 
   public tradeFilters = new FormGroup({     //Trade filters
-    disabled: new FormControl(false),
     filters: new FormGroup({ 
       price: new FormGroup({
         min: new FormControl(),
         max: new FormControl(),
-        option: new FormControl(null)
+        option: new FormControl('')
       }),
       account: new FormGroup({
         input: new FormControl()
       }),
       sale_type: new FormGroup({
-        option: new FormControl(null)
+        option: new FormControl('')
       }),
       indexed: new FormGroup({
-        option: new FormControl(null)
+        option: new FormControl('')
       })
     }),
   })

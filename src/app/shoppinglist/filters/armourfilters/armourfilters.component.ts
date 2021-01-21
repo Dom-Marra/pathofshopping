@@ -13,20 +13,20 @@ export class ArmourfiltersComponent implements OnInit {
   public armourFilters: FormGroup = new FormGroup({         //Armor Filters
     filters: new FormGroup({
       ar: new FormGroup({
-        min: new FormControl(null),
-        max: new FormControl(null)
+        min: new FormControl(''),
+        max: new FormControl('')
       }),
       es: new FormGroup({
-        min: new FormControl(null),
-        max: new FormControl(null)
+        min: new FormControl(''),
+        max: new FormControl('')
       }),
       ev: new FormGroup({
-        min: new FormControl(null),
-        max: new FormControl(null)
+        min: new FormControl(''),
+        max: new FormControl('')
       }),
       block: new FormGroup({
-        min: new FormControl(null),
-        max: new FormControl(null)
+        min: new FormControl(''),
+        max: new FormControl('')
       })
     })
   })

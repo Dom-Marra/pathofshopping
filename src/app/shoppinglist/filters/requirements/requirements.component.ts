@@ -13,20 +13,20 @@ export class RequirementsComponent implements OnInit {
   public requirementFilters: FormGroup = new FormGroup({                  //Requirement filters
     filters: new FormGroup({
       lvl: new FormGroup({
-        min: new FormControl(null),
-        max: new FormControl(null)
+        min: new FormControl(''),
+        max: new FormControl('')
       }),
       str: new FormGroup({
-        min: new FormControl(null),
-        max: new FormControl(null)
+        min: new FormControl(''),
+        max: new FormControl('')
       }),
       dex: new FormGroup({
-        min: new FormControl(null),
-        max: new FormControl(null)
+        min: new FormControl(''),
+        max: new FormControl('')
       }),
       int: new FormGroup({
-        min: new FormControl(null),
-        max: new FormControl(null)
+        min: new FormControl(''),
+        max: new FormControl('')
       })
     }),
   })

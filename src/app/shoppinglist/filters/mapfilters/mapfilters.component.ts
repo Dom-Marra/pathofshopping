@@ -1,9 +1,9 @@
-import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { trueFlase } from './../trueFalseEnum';
 
 enum mapSeries {
-  null = 'All',
+  '' = 'All',
   current = 'Current',
   harvest = 'Harvest',
   delirium = 'Delirium',
@@ -19,7 +19,7 @@ enum mapSeries {
 }
 
 enum mapRegion {
-  null = "All",
+  '' = 'All',
   otl = "Haewark Hamlet",
   itl = "Tirn's End",
   itr = "Lex Proxima",
@@ -46,35 +46,35 @@ export class MapfiltersComponent implements OnInit {
   public mapFilters: FormGroup = new FormGroup({
     filters: new FormGroup({
       map_region: new FormGroup(
-        {option: new FormControl(null)}
+        {option: new FormControl('')}
       ),
       map_series: new FormGroup(
-        {option: new FormControl(null)}
+        {option: new FormControl('')}
       ),
       map_shaped: new FormGroup(
-        {option: new FormControl(null)}
+        {option: new FormControl('')}
       ),
       map_elder: new FormGroup(
-        {option: new FormControl(null)}
+        {option: new FormControl('')}
       ),
       map_blighted: new FormGroup(
-        {option: new FormControl(null)}
+        {option: new FormControl('')}
       ),
       map_tier: new FormGroup({
-        min: new FormControl(null),
-        max: new FormControl(null)
+        min: new FormControl(''),
+        max: new FormControl('')
       }),
       map_packsize: new FormGroup({
-        min: new FormControl(null),
-        max: new FormControl(null)
+        min: new FormControl(''),
+        max: new FormControl('')
       }),
       map_iiq: new FormGroup({
-        min: new FormControl(null),
-        max: new FormControl(null)
+        min: new FormControl(''),
+        max: new FormControl('')
       }),
       map_iir: new FormGroup({
-        min: new FormControl(null),
-        max: new FormControl(null)
+        min: new FormControl(''),
+        max: new FormControl('')
       })
     })
   })
