@@ -8,26 +8,25 @@ import { FormControl, FormGroup } from '@angular/forms';
 })
 export class ArmourfiltersComponent implements OnInit {
 
-  @Input() itemForm: FormGroup;                             //Item Form
+  @Input() itemForm: FormGroup;                                                   //Item Form
 
   public armourFilters: FormGroup = new FormGroup({         //Armor Filters
-    disabled: new FormControl(false),
     filters: new FormGroup({
       ar: new FormGroup({
-        min: new FormControl(''),
-        max: new FormControl('')
+        min: new FormControl(null),
+        max: new FormControl(null)
       }),
       es: new FormGroup({
-        min: new FormControl(''),
-        max: new FormControl('')
+        min: new FormControl(null),
+        max: new FormControl(null)
       }),
       ev: new FormGroup({
-        min: new FormControl(''),
-        max: new FormControl('')
+        min: new FormControl(null),
+        max: new FormControl(null)
       }),
       block: new FormGroup({
-        min: new FormControl(''),
-        max: new FormControl('')
+        min: new FormControl(null),
+        max: new FormControl(null)
       })
     })
   })
@@ -43,4 +42,10 @@ export class ArmourfiltersComponent implements OnInit {
     }
   }
 
+  /**
+   * Reset to inputs to default values
+   */
+  public reset() {
+    this.armourFilters.reset();
+  }
 }

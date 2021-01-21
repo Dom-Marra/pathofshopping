@@ -1,9 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { trueFlase } from './../trueFalseEnum';
 
 enum mapSeries {
-  all = 'All',
+  null = 'All',
   current = 'Current',
   harvest = 'Harvest',
   delirium = 'Delirium',
@@ -19,7 +19,7 @@ enum mapSeries {
 }
 
 enum mapRegion {
-  all = "All",
+  null = "All",
   otl = "Haewark Hamlet",
   itl = "Tirn's End",
   itr = "Lex Proxima",
@@ -44,38 +44,37 @@ export class MapfiltersComponent implements OnInit {
   @Input() itemForm: FormGroup;                                           //Main item form
 
   public mapFilters: FormGroup = new FormGroup({
-    disabled: new FormControl(false),
     filters: new FormGroup({
       map_region: new FormGroup(
-        {option: new FormControl('all')}
+        {option: new FormControl(null)}
       ),
       map_series: new FormGroup(
-        {option: new FormControl('all')}
+        {option: new FormControl(null)}
       ),
       map_shaped: new FormGroup(
-        {option: new FormControl('all')}
+        {option: new FormControl(null)}
       ),
       map_elder: new FormGroup(
-        {option: new FormControl('all')}
+        {option: new FormControl(null)}
       ),
       map_blighted: new FormGroup(
-        {option: new FormControl('all')}
+        {option: new FormControl(null)}
       ),
       map_tier: new FormGroup({
-        min: new FormControl(''),
-        max: new FormControl('')
+        min: new FormControl(null),
+        max: new FormControl(null)
       }),
       map_packsize: new FormGroup({
-        min: new FormControl(''),
-        max: new FormControl('')
+        min: new FormControl(null),
+        max: new FormControl(null)
       }),
       map_iiq: new FormGroup({
-        min: new FormControl(''),
-        max: new FormControl('')
+        min: new FormControl(null),
+        max: new FormControl(null)
       }),
       map_iir: new FormGroup({
-        min: new FormControl(''),
-        max: new FormControl('')
+        min: new FormControl(null),
+        max: new FormControl(null)
       })
     })
   })
@@ -89,6 +88,13 @@ export class MapfiltersComponent implements OnInit {
     } else {
       this.itemForm.addControl('map_filters', this.mapFilters);               //Add field for map data
     }
+  }
+
+  /**
+   * Resets to default values for inputs
+   */
+  public reset() {
+    this.mapFilters.reset();
   }
 
 }

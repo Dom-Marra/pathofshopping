@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { trueFlase } from './../trueFalseEnum';
 
@@ -15,49 +15,49 @@ export class OtherfiltersComponent implements OnInit {
   
   public otherFilters: FormGroup = new FormGroup({                        //Other filters group
     quality: new FormGroup({
-      min: new FormControl(''),
-      max: new FormControl('')
+      min: new FormControl(null),
+      max: new FormControl(null)
     }),
     ilvl: new FormGroup({
-      min: new FormControl(''),
-      max: new FormControl('')
+      min: new FormControl(null),
+      max: new FormControl(null)
     }),
     talisman_tier: new FormGroup({
-      min: new FormControl(''),
-      max: new FormControl('')
+      min: new FormControl(null),
+      max: new FormControl(null)
     }),
     stored_experience: new FormGroup({
-      min: new FormControl(''),
-      max: new FormControl('')
+      min: new FormControl(null),
+      max: new FormControl(null)
     }),
     stack_size: new FormGroup({
-      min: new FormControl(''),
-      max: new FormControl('')
+      min: new FormControl(null),
+      max: new FormControl(null)
     }),
     alternate_art: new FormGroup({ 
-      option: new FormControl('all')
+      option: new FormControl(null)
     }),
     identified: new FormGroup({ 
-      option: new FormControl('all')
+      option: new FormControl(null)
     }),
     corrupted: new FormGroup({ 
-      option: new FormControl('all')
+      option: new FormControl(null)
     }),
     mirrored: new FormGroup({ 
-      option: new FormControl('all')
+      option: new FormControl(null)
     }),
     crafted: new FormGroup({ 
-      option: new FormControl('all')
+      option: new FormControl(null)
     }),
     veiled: new FormGroup({ 
-      option: new FormControl('all')
+      option: new FormControl(null)
     }),
     enchanted: new FormGroup({ 
-      option: new FormControl('all')
+      option: new FormControl(null)
     }),
   })
 
-  constructor() { 
+  constructor(private cd: ChangeDetectorRef) { 
   }
 
   ngOnInit(): void {
@@ -67,7 +67,16 @@ export class OtherfiltersComponent implements OnInit {
       } else {
         this.itemForm.addControl(key, this.otherFilters.get(key));          //Add field for data
       }
+
+      this.otherFilters.controls[key].setParent(this.otherFilters);
+      this.cd.detectChanges();
     });
   }
 
+  /**
+   * Resets to default values for inputs
+   */
+  public reset() {
+    this.otherFilters.reset();
+  }
 }

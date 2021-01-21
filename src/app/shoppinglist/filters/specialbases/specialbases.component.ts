@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { trueFlase } from '../trueFalseEnum';
 
@@ -15,32 +15,32 @@ export class SpecialbasesComponent implements OnInit {
   
   public influenceFilters: FormGroup = new FormGroup({                    //influence filters             
     shaper_item: new FormGroup({
-      option: new FormControl('all')
+      option: new FormControl(null)
     }),
     elder_item: new FormGroup({
-      option: new FormControl('all')
+      option: new FormControl(null)
     }),
     crusader_item: new FormGroup({
-      option: new FormControl('all')
+      option: new FormControl(null)
     }),
     redeemer_item: new FormGroup({
-      option: new FormControl('all')
+      option: new FormControl(null)
     }),
     hunter_item: new FormGroup({
-      option: new FormControl('all')
+      option: new FormControl(null)
     }),
     warlord_item: new FormGroup({
-      option: new FormControl('all')
+      option: new FormControl(null)
     }),
     fractured_item: new FormGroup({
-      option: new FormControl('all')
+      option: new FormControl(null)
     }),
     synthesised_item: new FormGroup({
-      option: new FormControl('all')
+      option: new FormControl(null)
     })
   })
 
-  constructor() {
+  constructor(private cd: ChangeDetectorRef) {
   }  
 
   ngOnInit(): void {
@@ -51,7 +51,17 @@ export class SpecialbasesComponent implements OnInit {
       } else {
         this.itemForm.addControl(key, this.influenceFilters.get(key));          //add field for item data
       }
+
+      this.influenceFilters.controls[key].setParent(this.influenceFilters);
     });
+    
+    this.cd.detectChanges();
   }
 
+  /**
+   * Resets to default values for inputs
+   */
+  public reset() {
+    this.influenceFilters.reset();
+  }
 }

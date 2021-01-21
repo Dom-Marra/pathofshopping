@@ -1,5 +1,8 @@
 <mat-expansion-panel class="filter-expansion-panel">
     <mat-expansion-panel-header>
+        <mat-icon class="clear-filter" *ngIf="this.tradeFilters['controls'].filters.dirty" (click)="$event.stopImmediatePropagation(); this.reset()">clear</mat-icon>  
+        <mat-button-toggle (click)="$event.stopImmediatePropagation();
+                                    disableFilter.checked ? this.tradeFilters.disable() : this.tradeFilters.enable()" [checked]="this.tradeFilters.disabled" #disableFilter disableRipple="true" class="filter-disable"><mat-icon>block</mat-icon></mat-button-toggle>
             Trade & Account Filters
     </mat-expansion-panel-header>
     <ng-template matExpansionPanelContent>
@@ -14,11 +17,11 @@
                         </mat-form-field>
                     </div>
                 </div>
-                <app-filtergroupselect class="field" inputName='Listed' [control]="tradeFilters['controls'].filters['controls'].indexed['controls'].option" [selectEnum]="LISTED_OPTIONS"></app-filtergroupselect>
-                <app-filtergroupselect class="field" inputName='Sale Type' [control]="tradeFilters['controls'].filters['controls'].sale_type['controls'].option" [selectEnum]="SALE_TYPES"></app-filtergroupselect>
-                <app-filtergroupselect class="field" inputName='Buyout Currency' [control]="tradeFilters['controls'].filters['controls'].price['controls'].option" [selectEnum]="BUY_OUT_OPTIONS"></app-filtergroupselect>
+                <app-filtergroupselect class="field" inputName='Listed' appControldefaults [control]="tradeFilters['controls'].filters['controls'].indexed['controls'].option" [selectEnum]="LISTED_OPTIONS"></app-filtergroupselect>
+                <app-filtergroupselect class="field" inputName='Sale Type' appControldefaults [control]="tradeFilters['controls'].filters['controls'].sale_type['controls'].option" [selectEnum]="SALE_TYPES"></app-filtergroupselect>
+                <app-filtergroupselect class="field" inputName='Buyout Currency' appControldefaults [control]="tradeFilters['controls'].filters['controls'].price['controls'].option" [selectEnum]="BUY_OUT_OPTIONS"></app-filtergroupselect>
                 <app-minmaxinput class="field" inputName="Buyout Price" [group]="this.tradeFilters['controls'].filters['controls'].price"></app-minmaxinput>
-                <app-filtergroupselect class="field" inputName='Status' [control]="statusForm['controls'].option" [selectEnum]="STATUS_OPTIONS"></app-filtergroupselect>
+                <app-filtergroupselect class="field" inputName='Status' appControldefaults [control]="statusForm['controls'].option" [selectEnum]="STATUS_OPTIONS"></app-filtergroupselect>
             </div>
         </div>
     </ng-template>

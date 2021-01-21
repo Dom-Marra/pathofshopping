@@ -1,6 +1,9 @@
 <mat-expansion-panel class="filter-expansion-panel">
     <mat-expansion-panel-header>
-            Armour Filters
+        <mat-icon class="clear-filter" *ngIf="this.armourFilters['controls'].filters.dirty" (click)="$event.stopImmediatePropagation(); this.reset()">clear</mat-icon>  
+        <mat-button-toggle (click)="$event.stopPropagation();
+                                    disableFilter.checked ? this.armourFilters.disable() : this.armourFilters.enable()" [checked]="this.armourFilters.disabled" #disableFilter disableRipple="true" class="filter-disable"><mat-icon>block</mat-icon></mat-button-toggle>
+        Armour Filters
     </mat-expansion-panel-header>
     <ng-template matExpansionPanelContent>
         <div class="item-contents">

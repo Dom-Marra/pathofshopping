@@ -14,28 +14,28 @@ export class WeaponfiltersComponent implements OnInit {
     disabled: new FormControl(false),
     filters: new FormGroup({
       damage: new FormGroup({
-        min: new FormControl(''),
-        max: new FormControl('')
+        min: new FormControl(null),
+        max: new FormControl(null)
       }),
       aps: new FormGroup({
-        min: new FormControl(''),
-        max: new FormControl('')
+        min: new FormControl(null),
+        max: new FormControl(null)
       }),
       crit: new FormGroup({
-        min: new FormControl(''),
-        max: new FormControl('')
+        min: new FormControl(null),
+        max: new FormControl(null)
       }),
       dps: new FormGroup({
-        min: new FormControl(''),
-        max: new FormControl('')
+        min: new FormControl(null),
+        max: new FormControl(null)
       }),
       pdps: new FormGroup({
-        min: new FormControl(''),
-        max: new FormControl('')
+        min: new FormControl(null),
+        max: new FormControl(null)
       }),
       edps: new FormGroup({
-        min: new FormControl(''),
-        max: new FormControl('')
+        min: new FormControl(null),
+        max: new FormControl(null)
       })
     })
   });
@@ -51,4 +51,10 @@ export class WeaponfiltersComponent implements OnInit {
     }
   }
 
+  /**
+   * Reset to inputs to default values
+   */
+  public reset() {
+    this.weaponFilters.reset();
+  }
 }

@@ -1,18 +1,21 @@
 <mat-expansion-panel class="filter-expansion-panel">
     <mat-expansion-panel-header>
+        <mat-icon class="clear-filter" *ngIf="this.influenceFilters.dirty" (click)="$event.stopImmediatePropagation(); this.reset()">clear</mat-icon>  
+        <mat-button-toggle (click)="$event.stopImmediatePropagation();
+                                    disableFilter.checked ? this.influenceFilters.disable() : this.influenceFilters.enable()" [checked]="this.influenceFilters.disabled" #disableFilter disableRipple="true" class="filter-disable"><mat-icon>block</mat-icon></mat-button-toggle>
             Influences & Special Bases
     </mat-expansion-panel-header>
     <ng-template matExpansionPanelContent>
         <div class="item-contents">
             <div appEqualflex class="field-wrapper">
-                <app-filtergroupselect class="field" inputName='Shaper Influence' [control]="influenceFilters['controls'].shaper_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
-                <app-filtergroupselect class="field" inputName='Elder Influence' [control]="influenceFilters['controls'].elder_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
-                <app-filtergroupselect class="field" inputName='Crusader Influence' [control]="influenceFilters['controls'].crusader_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
-                <app-filtergroupselect class="field" inputName='Redeemer Influence' [control]="influenceFilters['controls'].redeemer_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
-                <app-filtergroupselect class="field" inputName='Hunter Influence' [control]="influenceFilters['controls'].hunter_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
-                <app-filtergroupselect class="field" inputName='Warlord Influence' [control]="influenceFilters['controls'].warlord_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
-                <app-filtergroupselect class="field" inputName='Fractured' [control]="influenceFilters['controls'].fractured_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
-                <app-filtergroupselect class="field" inputName='Synthesised' [control]="influenceFilters['controls'].synthesised_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                <app-filtergroupselect class="field" inputName='Shaper Influence' appControldefaults [control]="influenceFilters['controls'].shaper_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                <app-filtergroupselect class="field" inputName='Elder Influence' appControldefaults [control]="influenceFilters['controls'].elder_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                <app-filtergroupselect class="field" inputName='Crusader Influence' appControldefaults [control]="influenceFilters['controls'].crusader_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                <app-filtergroupselect class="field" inputName='Redeemer Influence' appControldefaults [control]="influenceFilters['controls'].redeemer_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                <app-filtergroupselect class="field" inputName='Hunter Influence' appControldefaults [control]="influenceFilters['controls'].hunter_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                <app-filtergroupselect class="field" inputName='Warlord Influence' appControldefaults [control]="influenceFilters['controls'].warlord_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                <app-filtergroupselect class="field" inputName='Fractured' appControldefaults [control]="influenceFilters['controls'].fractured_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                <app-filtergroupselect class="field" inputName='Synthesised' appControldefaults [control]="influenceFilters['controls'].synthesised_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
             </div>
         </div>
     </ng-template>
