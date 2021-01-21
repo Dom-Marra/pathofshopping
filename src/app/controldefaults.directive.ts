@@ -6,7 +6,7 @@ import { AbstractControl, NgControl } from '@angular/forms';
 })
 export class ControldefaultsDirective {
 
-  @Input() default: any;                    //Default value of the control
+  @Input() default: any = '';               //Default value of the control
   @Input() control: AbstractControl;        //The control
 
   constructor(@Self() @Optional() private _control: NgControl) { }
@@ -26,6 +26,8 @@ export class ControldefaultsDirective {
    * is equal to the default value
    */
   private checkIfDefault() {
+    if (!this.control.value) this.control.patchValue(this.default, {emitEvent: false, onlySelf: true});
+
     if (this.control.value == this.default) {
       this.control.markAsPristine();
     } else {
