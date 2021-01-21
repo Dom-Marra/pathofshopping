@@ -14,10 +14,16 @@
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
-                padding: 0 0.5em;
 
                 .delete-filter-group {
+                    color: rgba(0,0,0,0.3);
+
+                    &:hover {
+                        color: mat-color($pathofshopping-warn, 900)
+                    }
+                    
                     padding-right: 0.5em;
+                    padding-left: 0.25em;
                 }
                 .header-text {
                     display: flex;
