@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, Output, ViewEncapsulation, EventEmitter } from '@angular/core';
-import { statCategory, StatsearchService } from '../statsearch.service';
+import { statCategory, StatsearchService } from '../services/statsearch.service';
 import { Stat } from './stat/stat';
 
 export const filterSearch = (items: any, searchText: string): any => {    //Filters items by search text
