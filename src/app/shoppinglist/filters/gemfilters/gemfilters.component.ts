@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 
 enum gemQualityTypes {
@@ -35,20 +35,20 @@ export class GemfiltersComponent implements OnInit {
     })
   })
 
-  constructor(private cd: ChangeDetectorRef) { }
+  constructor() { }
 
   ngOnInit(): void {
     Object.keys(this.gemFilters.controls).forEach(key => {        //add controls to misc filters
       if (this.itemForm.controls[key]) {
         this.gemFilters.controls[key] = this.itemForm.controls[key];         //Retain data from item if it exists
       } else {
-        this.itemForm.addControl(key, this.gemFilters.get(key));    //Add new field if not
+        this.itemForm.addControl(key, this.gemFilters.get(key));      //Add new field if not
       }
 
-      this.gemFilters.controls[key].setParent(this.gemFilters);
+      this.gemFilters.controls[key].valueChanges.subscribe(() => {    //Mark dirty when the controls are dirty
+        if (this.gemFilters.controls[key].dirty) this.gemFilters.markAsDirty();
+      })
     });
-    
-    this.cd.detectChanges();
   }
 
   /**

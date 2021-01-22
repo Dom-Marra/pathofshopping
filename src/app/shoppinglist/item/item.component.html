@@ -25,9 +25,9 @@
             <app-socketfilters class="filter" [itemForm]="queryForm['controls'].query['controls'].filters"></app-socketfilters>
             <app-requirements class="filter" [itemForm]="queryForm['controls'].query['controls'].filters"></app-requirements>
             <app-mapfilters class="filter" [itemForm]="queryForm['controls'].query['controls'].filters"></app-mapfilters>
-            <app-specialbases class="filter" [itemForm]="queryForm['controls'].query['controls'].filters['controls'].misc_filters"></app-specialbases>
-            <app-gemfilters class="filter" [itemForm]="queryForm['controls'].query['controls'].filters['controls'].misc_filters"></app-gemfilters>
-            <app-otherfilters class="filter" [itemForm]="queryForm['controls'].query['controls'].filters['controls'].misc_filters"></app-otherfilters>
+            <app-specialbases class="filter" [itemForm]="queryForm['controls'].query['controls'].filters['controls'].misc_filters['controls'].filters"></app-specialbases>
+            <app-gemfilters class="filter" [itemForm]="queryForm['controls'].query['controls'].filters['controls'].misc_filters['controls'].filters"></app-gemfilters>
+            <app-otherfilters class="filter" [itemForm]="queryForm['controls'].query['controls'].filters['controls'].misc_filters['controls'].filters"></app-otherfilters>
             <app-tradefilters class="filter" [filterGroup]="queryForm['controls'].query['controls'].filters"></app-tradefilters>
             <app-statfilters class="filter" *ngFor="let filter of itemData.statFilters" [filter]="filter" (filterRemoved)="removeStatFilter($event)"></app-statfilters>
             <button mat-flat-button type="button" (click)="addStatGroup()" class="add-stat-group"><mat-icon>add</mat-icon>Add Stat Group</button>

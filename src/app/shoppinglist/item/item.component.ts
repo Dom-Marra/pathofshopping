@@ -40,7 +40,6 @@ export class ItemComponent implements OnInit {
   });
 
   public misc_filters = new FormGroup({                    //misc filter group
-    disabled: new FormControl(false)
   })
 
   constructor(private cd: ChangeDetectorRef, private queryService: QueryitemService) {  

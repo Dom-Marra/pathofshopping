@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { trueFlase } from './../trueFalseEnum';
 
@@ -57,7 +57,7 @@ export class OtherfiltersComponent implements OnInit {
     }),
   })
 
-  constructor(private cd: ChangeDetectorRef) { 
+  constructor() { 
   }
 
   ngOnInit(): void {
@@ -68,8 +68,9 @@ export class OtherfiltersComponent implements OnInit {
         this.itemForm.addControl(key, this.otherFilters.get(key));          //Add field for data
       }
 
-      this.otherFilters.controls[key].setParent(this.otherFilters);
-      this.cd.detectChanges();
+      this.otherFilters.controls[key].valueChanges.subscribe(() => {        //Mark dirty when the controls are dirty
+        if (this.otherFilters.controls[key].dirty) this.otherFilters.markAsDirty();
+      })
     });
   }
 
