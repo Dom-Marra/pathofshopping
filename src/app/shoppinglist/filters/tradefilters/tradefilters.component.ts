@@ -27,11 +27,6 @@ enum saleTypes {
   unpriced = 'No Price'
 }
 
-enum statusOptions {
-  any = 'All',
-  online = 'Online'
-}
-
 enum listedOptions {
   '' = 'Any Date',
   '1day' = 'Up To 1 Day Ago',
@@ -53,10 +48,8 @@ export class TradefiltersComponent implements OnInit {
   public readonly LISTED_OPTIONS: typeof listedOptions = listedOptions;
   public readonly SALE_TYPES: typeof saleTypes = saleTypes;
   public readonly BUY_OUT_OPTIONS: typeof buyOutOptions = buyOutOptions;
-  public readonly STATUS_OPTIONS: typeof statusOptions = statusOptions;
 
   @Input() filterGroup: FormGroup;          //Filters from group to add filters to
-  @Input() queryForm: FormGroup;            //Main query form group
 
   public tradeFilters = new FormGroup({     //Trade filters
     filters: new FormGroup({ 
@@ -76,10 +69,6 @@ export class TradefiltersComponent implements OnInit {
       })
     }),
   })
-
-  public statusForm = new FormGroup({
-    option: new FormControl('online')
-  })
   
   constructor() { }
 
@@ -88,12 +77,6 @@ export class TradefiltersComponent implements OnInit {
       this.tradeFilters = this.filterGroup.controls['trade_filters'] as FormGroup;    //Retain item data for trade filters
     } else {
       this.filterGroup.addControl('trade_filters', this.tradeFilters);                //Add trade filters to filter group
-    }
-
-    if (this.filterGroup.controls['status']) {
-      this.statusForm = this.filterGroup.controls['status'] as FormGroup;  //Retain item data for status
-    } else {
-      this.queryForm.addControl('status', this.statusForm);               //Add status to the form group
     }
   }
 

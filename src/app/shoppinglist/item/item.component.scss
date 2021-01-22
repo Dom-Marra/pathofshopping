@@ -123,8 +123,10 @@
             }
 
             .query-buttons {
-                width: 98%;
+                width: 100%;
                 display: flex;
+                flex-wrap: wrap;
+                align-items: center;
                 margin: 1.5em auto;
     
                 .query-button {
@@ -132,7 +134,7 @@
                     background-color: mat-color($pathofshopping-primary, 500);
     
                     &.search {
-                        margin-left: auto;
+                        margin-right: auto;
                         background-color: rgb(55, 150, 55);
                     }
                 }
