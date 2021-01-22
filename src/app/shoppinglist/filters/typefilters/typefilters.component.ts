@@ -5,7 +5,7 @@ import { startWith, map } from 'rxjs/operators';
 import { ItemsearchService, searchItem } from 'src/app/shoppinglist/filters/typefilters/services/itemsearch.service';
 
 enum itemRarities {
-  all = 'All',
+  '' = 'All',
   normal = 'Normal',
   magic = 'Magic',
   rare = 'Rare',
@@ -15,7 +15,7 @@ enum itemRarities {
 }
 
 enum itemTypes {
-  all = 'All',
+  '' = 'All',
   weapon = 'All Weapons',
   'weapon.one' = 'One-Handed Weapon',
   'weapon.onemelee' = 'One-Handed Melee Weapon',
@@ -113,10 +113,10 @@ export class TypefiltersComponent implements OnInit {
     cat_rar: new FormGroup({
       filters: new FormGroup({
         category: new FormGroup({
-          option: new FormControl('all')
+          option: new FormControl('')
         }),
         rarity: new FormGroup({
-          option: new FormControl('all')
+          option: new FormControl('')
         }),
       })
     })

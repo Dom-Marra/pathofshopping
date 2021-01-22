@@ -2,7 +2,7 @@
     <mat-form-field class="search-field">
         <mat-label>Search Items</mat-label>
         <input matInput type="text" autocomplete="off" [matAutocomplete]="searchableItems" formControlName="search">
-        <button mat-button *ngIf="this.typeFilters.controls.term.value != ''" matSuffix mat-icon-button aria-label="Clear" (click)="this.typeFilters.patchValue({'term': ''})">
+        <button mat-button *ngIf="this.typeFilters.controls.search.value" matSuffix mat-icon-button aria-label="Clear" (click)="this.typeFilters.patchValue({'search': ''})">
             <mat-icon class="icon-light">clear</mat-icon>
         </button>
 
@@ -16,7 +16,8 @@
     </mat-form-field>
     <mat-form-field class="type-field">
         <mat-label>Item Type</mat-label>
-        <input #itemTypesInput matInput type="text"  autocomplete="off" 
+        <input #itemTypesInput matInput type="text" appControldefaults autocomplete="off"
+                [control]="this.typeFilters['controls'].cat_rar['controls'].filters['controls'].category['controls'].option"  
                 [matAutocomplete]="searchableItemTypes" 
                 [placeholder]="ITEM_TYPES[this.typeFilters['controls'].cat_rar['controls'].filters['controls'].category['controls'].option.value]"
                 (input)="filteredTypes = filterEnums($event.target.value, this.ITEM_TYPES)"
@@ -37,7 +38,8 @@
     </mat-form-field>
     <mat-form-field class="rarity-field">
         <mat-label>Item Rarity</mat-label>
-        <input #itemRaritiesInput matInput type="text"  autocomplete="off" 
+        <input #itemRaritiesInput matInput type="text" appControldefaults autocomplete="off" 
+                [control]="this.typeFilters['controls'].cat_rar['controls'].filters['controls'].rarity['controls'].option"
                 [matAutocomplete]="searchableItemRarities" 
                 [placeholder]="ITEM_RARITIES[this.typeFilters['controls'].cat_rar['controls'].filters['controls'].rarity['controls'].option.value]"
                 (input)="filteredRarities = filterEnums($event.target.value, ITEM_RARITIES)"
