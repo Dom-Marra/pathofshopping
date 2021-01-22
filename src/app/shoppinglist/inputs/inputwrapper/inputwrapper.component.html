@@ -1,1 +1,6 @@
-<p>inputwrapper works!</p>
+<div class="input-wrapper {{styleType}}">
+    <p class="input-label" *ngIf="styleType == 'normal'">{{inputName}}</p>
+    <div class="inputs">
+        <ng-content></ng-content>
+    </div>
+</div>

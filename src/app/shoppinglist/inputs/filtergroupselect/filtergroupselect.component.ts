@@ -1,24 +1,19 @@
-import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
 import { ControldefaultsDirective } from 'src/app/controldefaults.directive';
-
-enum styles {
-  normal = 'normal',
-  basicMaterial = 'basicMaterial'
-}
+import { stylesTypes } from '../shared/styleTypes';
 
 @Component({
   selector: 'app-filtergroupselect',
   templateUrl: './filtergroupselect.component.html',
-  styleUrls: ['./filtergroupselect.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  styleUrls: ['./filtergroupselect.component.scss']
 })
 export class FiltergroupselectComponent implements OnInit {
 
   @Input() inputName: string;                               //Name of the input
   @Input() control: AbstractControl;                        //Form control of the input
   @Input() selectEnum: any;                                 //Enum for values
-  @Input() styleType: styles = styles.normal;               //Style of the select
+  @Input() styleType: stylesTypes = stylesTypes.normal;     //Style of the select
   @Input() disableDefault: boolean = false;                 //Whether the default control directive should be disabled
   @Input() default: any;                                    //Default value
 
