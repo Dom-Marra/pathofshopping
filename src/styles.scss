@@ -13,7 +13,7 @@ body {
 }
 
 mat-icon {
-  transition: all 0.15s ease-in-out;
+  transition: transform 0.15s ease-in-out;
 
   &.icon-light {
     color: mat-color($pathofshopping-accent, 50);
@@ -30,7 +30,7 @@ mat-icon {
 
 .filter-expansion-panel {
   margin-top: 0.5em !important;
-  background-color: mat-color($pathofshopping-primary, 400);
+  background-color: transparent;
   box-shadow: none !important;
 
   .mat-expansion-panel-header {
@@ -39,21 +39,12 @@ mat-icon {
     height: auto;
     min-height: 45px;
     padding: 0 0 !important;
-    background-color: mat-color($pathofshopping-primary, 400);
+    background-color: transparent;
     border-bottom: 1px solid mat-color($pathofshopping-primary, 500);
     border-radius: 0px;
 
     &:hover {
-      background-color: mat-color($pathofshopping-primary, 400) !important;
-    }
-  
-    .mat-content {
-      height: 100%;
-
-      .mat-expansion-panel-header-title {
-        flex-grow: 0.3;
-        max-width: 48px;
-      }
+      background-color: transparent !important;
     }
 
     .mat-expansion-indicator {
@@ -74,9 +65,14 @@ mat-icon {
   .mat-content {
       height: 100%;
       display: flex;
+      flex-wrap: wrap;
       align-items: center;
       justify-content: flex-start;
-      padding: 0 1em;
+      padding: 0 0.15em;
+
+      .header-text {
+        padding: 0 0.25em;
+      }
   }
 
   .field-wrapper {
@@ -96,6 +92,45 @@ mat-icon {
         max-width: 100%;
         margin: 0.25em;
     }
+  }
+}
+
+.clear-filter {
+  transition: color 0.15s ease-in-out;
+  padding: 0;
+  margin: 0 0.15em;
+  color: rgba(0, 0, 0, 0.3);
+
+  &:hover {
+    cursor: pointer;
+    color: mat-color($pathofshopping-warn, 900);
+  }
+}
+
+.filter-disable {
+  transition: color 0.15s ease-in-out;
+  background-color: transparent;
+  color: rgba(0, 0, 0, 0.3);
+  border: none !important;
+  margin: 0 0.5em;
+
+  .mat-button-toggle-appearance-standard, .mat-button-toggle-focus-overlay {
+    display: none;
+  }
+
+  .mat-button-toggle-label-content {
+    display: flex;
+    align-items: center;
+    padding: 0 !important;
+
+    .mat-icon {
+      vertical-align: auto;
+    }
+  }
+
+  &:hover, &.mat-button-toggle-checked  {
+    color: rgb(216, 106, 55);
+    background-color: transparent;
   }
 }
 
