@@ -122,22 +122,26 @@
                 border: 1px solid mat-color($pathofshopping-primary, 600);
             }
 
-            .query-buttons {
+            .query-actions {
                 width: 100%;
                 display: flex;
                 flex-wrap: wrap;
                 align-items: center;
                 margin: 1.5em auto;
-    
-                .query-button {
-                    color: mat-color($pathofshopping-accent, 50);
-                    background-color: mat-color($pathofshopping-primary, 500);
-    
-                    &.search {
-                        margin-right: auto;
-                        background-color: rgb(55, 150, 55);
+
+                .query-buttons {
+                    margin-right: auto;
+
+                    .query-button {
+                        color: mat-color($pathofshopping-accent, 50);
+                        background-color: mat-color($pathofshopping-primary, 500);
+                        margin: 0 0.25em;
+        
+                        &.search {
+                            background-color: rgb(55, 150, 55);
+                        }
                     }
-                }
+                }   
             }
         }
 

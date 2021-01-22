@@ -31,12 +31,15 @@
             <app-tradefilters class="filter" [filterGroup]="queryForm['controls'].query['controls'].filters"></app-tradefilters>
             <app-statfilters class="filter" *ngFor="let filter of itemData.statFilters" [filter]="filter" (filterRemoved)="removeStatFilter($event)"></app-statfilters>
             <button mat-flat-button type="button" (click)="addStatGroup()" class="add-stat-group"><mat-icon>add</mat-icon>Add Stat Group</button>
-            <div class="query-buttons">
-                <button class="query-button" mat-flat-button type="button" (click)="this.showResults = !this.showResults" *ngIf="this.itemData.resultData.queryProps || this.showResults">
-                    {{ showResults ? 'Hide Results' : 'Show Results'}}
-                </button>
-                <button class="query-button search" mat-flat-button type="button" (click)="queryIDs('price', 'asc')">Search</button>
-                <app-filtergroupselect class="status-field" inputName='Status' styleType="basicMaterial" [control]="queryForm['controls'].query['controls'].status['controls'].option" [selectEnum]="STATUS_OPTIONS"></app-filtergroupselect>
+            <div class="query-actions">
+                <div class="query-buttons">
+                    <button class="query-button search" mat-flat-button type="button" (click)="queryIDs('price', 'asc')">Search</button>
+                    <button class="query-button" mat-flat-button type="button" (click)="this.showResults = !this.showResults" *ngIf="this.itemData.resultData.queryProps || this.showResults">
+                        {{ showResults ? 'Hide Results' : 'Show Results'}}
+                    </button>
+                    <button class="query-button" mat-flat-button type="button" (click)="this.queryForm.reset()">Clear</button>
+                </div>
+                <app-filtergroupselect class="status-field" default="online" inputName='Status' styleType="basicMaterial" [control]="queryForm['controls'].query['controls'].status['controls'].option" [selectEnum]="STATUS_OPTIONS"></app-filtergroupselect>
             </div>
         </div>
         <app-results *ngIf="showResults" class="results" [resultData]="itemData.resultData" [currentSort]="this.queryForm.controls.sort.getRawValue()" (newSort)="queryIDs($event)"></app-results>
