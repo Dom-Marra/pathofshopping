@@ -82,8 +82,8 @@ export class ItemComponent implements OnInit {
     this.setSortBy(sortKey, sortValue);                                   //Set the sort data
 
     let data = {                                                          //create query data
-      query: (this.queryForm.controls.query as FormGroup).getRawValue(),
-      sort: (this.queryForm.controls.sort as FormGroup).getRawValue()
+      query: (this.queryForm.controls.query as FormGroup).value,
+      sort: (this.queryForm.controls.sort as FormGroup).value
     }
 
     data = this.removeEmpty(data);                            //clean the data
@@ -172,7 +172,6 @@ export class ItemComponent implements OnInit {
   public addStatGroup() {
     let newStatGroup = new Statfilter(this.itemData.itemForm.get('queryForm.query.stats') as FormArray);
     this.itemData.statFilters.push(newStatGroup);
-    (this.itemData.itemForm.get('queryForm.query.stats') as FormArray).controls.push(newStatGroup.statFilters);
   }
 
   /**
