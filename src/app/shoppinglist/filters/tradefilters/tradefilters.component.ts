@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 
 enum buyOutOptions{
@@ -40,8 +40,7 @@ enum listedOptions {
 @Component({
   selector: 'app-tradefilters',
   templateUrl: './tradefilters.component.html',
-  styleUrls: ['./tradefilters.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  styleUrls: ['./tradefilters.component.scss']
 })
 export class TradefiltersComponent implements OnInit {
 
