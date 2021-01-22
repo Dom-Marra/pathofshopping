@@ -47,7 +47,6 @@ export class SpecialbasesComponent implements OnInit {
     Object.keys(this.influenceFilters.controls).forEach(key => {      //add controls to misc filters
       if (this.itemForm.controls[key]) {
         this.influenceFilters.controls[key] = this.itemForm.controls[key];      //retain item data
-        console.log(key);
       } else {
         this.itemForm.addControl(key, this.influenceFilters.get(key));          //add field for item data
       }
