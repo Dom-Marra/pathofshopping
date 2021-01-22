@@ -32,7 +32,7 @@ export class FiltergroupselectComponent implements OnInit {
     if (!this.disableDefault) {   //Create control default directive if enabled
       this.controlDefault = new ControldefaultsDirective(null);
       this.controlDefault.control = this.control;
-      this.default = this.default;
+      this.controlDefault.default = this.default;
       this.controlDefault.ngOnInit();
     }
   }
