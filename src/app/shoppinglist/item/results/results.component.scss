@@ -339,6 +339,12 @@
                             .mod-detail {
                                 flex: 0 1 auto;
                                 text-align: center;
+
+                                &.tiers {
+                                    display: flex;
+                                    flex-wrap: wrap;
+                                    flex: 1;
+                                }
                             }
 
                             &[class*='type-P'] {
