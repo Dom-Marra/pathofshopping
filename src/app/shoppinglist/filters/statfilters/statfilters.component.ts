@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
 import { FormArray } from '@angular/forms';
-import { Stat } from '../../statselect/stat/stat';
+import { Stat } from './statselect/stat/stat';
 import { Statfilter } from './statfilter/statfilter';
 
 enum filterTypes {

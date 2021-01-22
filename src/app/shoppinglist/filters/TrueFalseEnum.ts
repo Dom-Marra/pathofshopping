@@ -1,5 +1,5 @@
 export enum trueFlase {
-    all = 'All',
+    '' = 'All',
     true = 'Yes',
     false = 'No'
 }

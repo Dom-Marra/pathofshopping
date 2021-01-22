@@ -1,15 +1,13 @@
 <mat-expansion-panel class="filter-expansion-panel stat-filter">
     <mat-expansion-panel-header>
-            <div class="stats-header">
-                <div class="header-text-wrapper">
-                    <mat-icon class="delete-filter-group" role="button" (click)="$event.stopImmediatePropagation(); remove()" >delete</mat-icon>
-                    <span class="header-text">Stat Filter</span>
-                </div>
-                <div class="type-selector">
-                    <app-filtergroupselect class="selector-input" (click)="$event.stopImmediatePropagation()" inputName='Filter Type' [styleType]="'basicMaterial'" [control]="this.filter.statFilters['controls'].type" [selectEnum]="FILTER_TYPES"></app-filtergroupselect>
-                    <app-minmaxinput class="selector-input" (click)="$event.stopImmediatePropagation()" *ngIf="this.filter.statFilters['controls'].type.value == 'count' || this.filter.statFilters['controls'].type.value == 'weight'" [group]="this.filter.statFilters['controls'].value" [styleType]="'basicMaterial'"></app-minmaxinput>
-                </div>
-            </div>
+        <mat-icon class="clear-filter" role="button" (click)="$event.stopImmediatePropagation(); remove()" >delete</mat-icon>
+        <mat-button-toggle (click)="$event.stopImmediatePropagation();
+                                    disableFilter.checked ? this.filter.statFilters.disable() : this.filter.statFilters.enable()" [checked]="this.filter.statFilters.disabled" #disableFilter disableRipple="true" class="filter-disable"><mat-icon>block</mat-icon></mat-button-toggle>
+        <span class="header-text">Stat Filter</span>
+        <div class="type-selector">
+            <app-filtergroupselect class="selector-input" disableDefault='true' (click)="$event.stopImmediatePropagation()" inputName='Filter Type' [styleType]="'basicMaterial'" [control]="this.filter.statFilters['controls'].type" [selectEnum]="FILTER_TYPES"></app-filtergroupselect>
+            <app-minmaxinput class="selector-input" (click)="$event.stopImmediatePropagation()" *ngIf="this.filter.statFilters['controls'].type.value == 'count' || this.filter.statFilters['controls'].type.value == 'weight'" [group]="this.filter.statFilters['controls'].value" [styleType]="'basicMaterial'"></app-minmaxinput>
+        </div>
     </mat-expansion-panel-header>
     <ng-template matExpansionPanelContent>
         <div class="item-contents">
@@ -17,7 +15,7 @@
                 <app-statselect class="field" *ngFor="let stat of filter.stats" (statRemoved)="removeStat($event)" [stat]="stat" 
                 [isWeight]="this.filter.statFilters.controls.type.value == 'weight'"></app-statselect>
             </div>
-            <button mat-button class="add-filter-button" (click)="addStatFilter()"><mat-icon>add</mat-icon></button>
+            <button mat-button class="add-filter-button" (click)="addStatFilter()" [disabled]="this.filter.statFilters.disabled"><mat-icon>add</mat-icon></button>
         </div>
     </ng-template>
 </mat-expansion-panel>

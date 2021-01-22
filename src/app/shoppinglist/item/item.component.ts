@@ -1,10 +1,13 @@
 import { ChangeDetectorRef, Component, ElementRef, Input, OnInit, QueryList, ViewChildren, ViewEncapsulation } from '@angular/core';
 import { FormGroup, FormControl, FormArray } from '@angular/forms';
-import { Subscription } from 'rxjs';
-import { QueryitemService } from '../../queryitem.service'
+import { QueryitemService } from './services/queryitem.service'
 import { Statfilter } from '../filters/statfilters/statfilter/statfilter';
-import { Item } from '../item';
-import { Resultdata } from './results/resultdata/resultdata';
+import { Item } from './itemdata/item';
+
+enum statusOptions {
+  any = 'All',
+  online = 'Online'
+}
 
 @Component({
   selector: 'app-item',
@@ -17,6 +20,7 @@ export class ItemComponent implements OnInit {
   @Input() itemData: Item;
   @Input() league: string;
   @ViewChildren("itemNameInput") itemNameInput: QueryList<ElementRef>;                            //Item name input element
+  public readonly STATUS_OPTIONS: typeof statusOptions = statusOptions;
 
   public editName: boolean = false;                        //Whether name is in edit mode or not
   public showResults: boolean = false;                      //Used to show results tab
@@ -25,7 +29,10 @@ export class ItemComponent implements OnInit {
   public queryForm = new FormGroup({
     query: new FormGroup({
       stats: new FormArray([
-      ])
+      ]),
+      status: new FormGroup({
+        option: new FormControl('online')
+      })
     }),
     sort: new FormGroup({
       price: new FormControl("asc")

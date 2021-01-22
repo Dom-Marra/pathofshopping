@@ -9,9 +9,8 @@ import { FormControl, FormGroup } from '@angular/forms';
 export class RequirementsComponent implements OnInit {
 
   @Input() itemForm: FormGroup;                                           //Main item form
-  
+
   public requirementFilters: FormGroup = new FormGroup({                  //Requirement filters
-    disabled: new FormControl(false),
     filters: new FormGroup({
       lvl: new FormGroup({
         min: new FormControl(''),
@@ -33,7 +32,7 @@ export class RequirementsComponent implements OnInit {
   })
 
   constructor() {
-   }
+  }
 
   ngOnInit(): void {
     if (this.itemForm.controls['req_filters']) {                        //Retain item req data
@@ -43,4 +42,10 @@ export class RequirementsComponent implements OnInit {
     }
   }
 
+  /**
+   * Reset to inputs to default values
+   */
+  public reset() {
+    this.requirementFilters.reset();
+  }
 }

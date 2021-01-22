@@ -18,11 +18,11 @@ export class DigitsonlyDirective {
 
   @HostListener('input')
   onInput() {
-    let input = this.el.nativeElement.value;          //Set the inputs value
+    let input = this.control.value;         //Set the inputs value
 
     if ((isNaN(input) || input == ' ') && !(input == '' && !this.defaultZero)) {    //If the input is NaN reset it to the previous value
-      this.el.nativeElement.value = this.lastInput;
-    } 
+      this.control.control.patchValue(this.lastInput);
+    }
   }
 
   @HostListener('change')

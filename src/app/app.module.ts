@@ -19,14 +19,15 @@ import { ClipboardModule } from '@angular/cdk/clipboard';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 //Feather Import
 import { DigitsonlyDirective } from './digitsonly.directive';
 import { ItemComponent } from './shoppinglist/item/item.component';
 import { EqualflexDirective } from './equalflex.directive';
-import { FiltergroupselectComponent } from './shoppinglist/filtergroupselect/filtergroupselect.component';
-import { MinmaxinputComponent } from './shoppinglist/minmaxinput/minmaxinput.component';
-import { StatselectComponent } from './shoppinglist/statselect/statselect.component';
+import { FiltergroupselectComponent } from './shoppinglist/inputs/filtergroupselect/filtergroupselect.component';
+import { MinmaxinputComponent } from './shoppinglist/inputs/minmaxinput/minmaxinput.component';
+import { StatselectComponent } from './shoppinglist/filters/statfilters/statselect/statselect.component';
 import { WeaponfiltersComponent } from './shoppinglist/filters/weaponfilters/weaponfilters.component';
 import { ArmourfiltersComponent } from './shoppinglist/filters/armourfilters/armourfilters.component';
 import { SocketfiltersComponent } from './shoppinglist/filters/socketfilters/socketfilters.component';
@@ -39,6 +40,7 @@ import { StatfiltersComponent } from './shoppinglist/filters/statfilters/statfil
 import { TypefiltersComponent } from './shoppinglist/filters/typefilters/typefilters.component';
 import { ResultsComponent, ParseModsPipe, ParserPipe, ParseDivsPipe} from './shoppinglist/item/results/results.component';
 import { TradefiltersComponent } from './shoppinglist/filters/tradefilters/tradefilters.component';
+import { ControldefaultsDirective } from './controldefaults.directive';
 
 
 
@@ -66,7 +68,8 @@ import { TradefiltersComponent } from './shoppinglist/filters/tradefilters/trade
     ParseModsPipe,
     ParserPipe,
     ParseDivsPipe,
-    TradefiltersComponent
+    TradefiltersComponent,
+    ControldefaultsDirective
   ],
   imports: [
     BrowserModule,
@@ -84,7 +87,8 @@ import { TradefiltersComponent } from './shoppinglist/filters/tradefilters/trade
     ClipboardModule,
     MatProgressBarModule,
     MatTabsModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatButtonToggleModule
   ],
   exports: [ ],
   providers: [],

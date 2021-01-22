@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, ElementRef, OnInit, QueryList, ViewChildren, ViewEncapsulation } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { LeaguesService, leagueData } from '../leagues.service';
-import { Item } from './item';
+import { LeaguesService, leagueData } from './services/leagues.service';
+import { Item } from './item/itemdata/item';
 
 @Component({
   selector: 'app-shoppinglist',

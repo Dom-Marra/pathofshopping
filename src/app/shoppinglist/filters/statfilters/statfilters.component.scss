@@ -2,46 +2,30 @@
 
 .stat-filter {
     .mat-content {
-        padding: 0 !important;
-        padding-left: 1em !important;
-    
-        .stats-header {
+        .delete-filter-group {
+            color: mat-color($pathofshopping-warn, 900);
+            margin: 0 0.15em;
+
+            &:hover {
+                color: mat-color($pathofshopping-warn, 800);
+            }
+        }
+
+        .type-selector {
             display: flex;
             flex-wrap: wrap;
-            width: 100%;
-            
-            .header-text-wrapper {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                padding: 0 0.5em;
-
-                .delete-filter-group {
-                    padding-right: 0.5em;
-                }
-                .header-text {
-                    display: flex;
-                    align-items: center;
-                }
-            }
-            
-        
-            .type-selector {
-                display: flex;
-                flex-wrap: wrap;
-                flex-basis: auto;
-                margin-left: auto;
-                margin-bottom: -0.25em;
-                flex-shrink: 1;
+            flex-basis: auto;
+            margin-left: auto;
+            margin-bottom: -0.25em;
+            flex-shrink: 1;
+            max-width: 100%;
+    
+            .selector-input {
                 max-width: 100%;
-        
-                .selector-input {
-                    max-width: 100%;
-                    flex: 1;
+                flex: 1;
 
-                    .mat-form-field-underline, .mat-form-field-ripple {
-                        background-color: mat-color($pathofshopping-primary, 600);
-                    }
+                .mat-form-field-underline, .mat-form-field-ripple {
+                    background-color: mat-color($pathofshopping-primary, 600);
                 }
             }
         }
@@ -69,6 +53,12 @@
 }
 
 
-
-
-
+@media only screen and (max-width: 489px) {
+    .stat-filter {
+        .mat-content {
+            .type-selector {
+                flex: 1;
+            }
+        }
+    }
+}

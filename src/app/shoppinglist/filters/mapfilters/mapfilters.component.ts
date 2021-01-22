@@ -3,7 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { trueFlase } from './../trueFalseEnum';
 
 enum mapSeries {
-  all = 'All',
+  '' = 'All',
   current = 'Current',
   harvest = 'Harvest',
   delirium = 'Delirium',
@@ -19,7 +19,7 @@ enum mapSeries {
 }
 
 enum mapRegion {
-  all = "All",
+  '' = 'All',
   otl = "Haewark Hamlet",
   itl = "Tirn's End",
   itr = "Lex Proxima",
@@ -44,22 +44,21 @@ export class MapfiltersComponent implements OnInit {
   @Input() itemForm: FormGroup;                                           //Main item form
 
   public mapFilters: FormGroup = new FormGroup({
-    disabled: new FormControl(false),
     filters: new FormGroup({
       map_region: new FormGroup(
-        {option: new FormControl('all')}
+        {option: new FormControl('')}
       ),
       map_series: new FormGroup(
-        {option: new FormControl('all')}
+        {option: new FormControl('')}
       ),
       map_shaped: new FormGroup(
-        {option: new FormControl('all')}
+        {option: new FormControl('')}
       ),
       map_elder: new FormGroup(
-        {option: new FormControl('all')}
+        {option: new FormControl('')}
       ),
       map_blighted: new FormGroup(
-        {option: new FormControl('all')}
+        {option: new FormControl('')}
       ),
       map_tier: new FormGroup({
         min: new FormControl(''),
@@ -89,6 +88,13 @@ export class MapfiltersComponent implements OnInit {
     } else {
       this.itemForm.addControl('map_filters', this.mapFilters);               //Add field for map data
     }
+  }
+
+  /**
+   * Resets to default values for inputs
+   */
+  public reset() {
+    this.mapFilters.reset();
   }
 
 }

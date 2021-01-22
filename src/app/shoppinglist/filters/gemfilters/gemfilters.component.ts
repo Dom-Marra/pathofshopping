@@ -1,8 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 
 enum gemQualityTypes {
-  all = 'All',
+  '' = 'All',
   '"0"' = 'Default',
   'alternate' = 'Only Alternatives',
   '"1"' = 'Anomalous',
@@ -23,7 +23,7 @@ export class GemfiltersComponent implements OnInit {
 
   public gemFilters: FormGroup = new FormGroup({
     gem_alternate_quality: new FormGroup({
-      option: new FormControl('all')
+      option: new FormControl('')
     }),
     gem_level: new FormGroup({
       min: new FormControl(''),
@@ -35,8 +35,7 @@ export class GemfiltersComponent implements OnInit {
     })
   })
 
-  constructor() { 
-  }
+  constructor(private cd: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     Object.keys(this.gemFilters.controls).forEach(key => {        //add controls to misc filters
@@ -45,7 +44,17 @@ export class GemfiltersComponent implements OnInit {
       } else {
         this.itemForm.addControl(key, this.gemFilters.get(key));    //Add new field if not
       }
+
+      this.gemFilters.controls[key].setParent(this.gemFilters);
     });
+    
+    this.cd.detectChanges();
   }
 
+  /**
+   * Resets to default values for inputs
+   */
+  public reset() {
+    this.gemFilters.reset();
+  }
 }

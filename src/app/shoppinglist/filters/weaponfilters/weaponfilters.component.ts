@@ -51,4 +51,10 @@ export class WeaponfiltersComponent implements OnInit {
     }
   }
 
+  /**
+   * Reset to inputs to default values
+   */
+  public reset() {
+    this.weaponFilters.reset();
+  }
 }

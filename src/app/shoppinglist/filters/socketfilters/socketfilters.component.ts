@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { minmaxExtras } from '../../minmaxinput/minmaxinput.component';
+import { minmaxExtras } from '../../inputs/minmaxinput/minmaxinput.component';
 
 @Component({
   selector: 'app-socketfilters',
@@ -12,8 +12,9 @@ export class SocketfiltersComponent implements OnInit {
 
   @Input() itemForm: FormGroup;                                           //Main item form
 
+  public loaded: boolean = false;                           //Used to defer loading of the inputs
+
   public socketFilters: FormGroup = new FormGroup({                       //Socket filters
-    disabled: new FormControl(false),
     filters: new FormGroup({
       sockets: new FormGroup({
         r: new FormControl(''),
@@ -38,7 +39,7 @@ export class SocketfiltersComponent implements OnInit {
 
   public socketSocketsExtras: Array<minmaxExtras>;  //sockets extra input data
 
-  constructor(private cdr: ChangeDetectorRef) {
+  constructor(private cd: ChangeDetectorRef) {
   }
 
   ngOnInit(): void {
@@ -51,6 +52,11 @@ export class SocketfiltersComponent implements OnInit {
     this.initLinksData();
     this.initSocketsData();
   }
+  
+  ngAfterViewInit() {
+      this.loaded = true;
+      this.cd.detectChanges();
+    }
 
   private initLinksData() {
     this.socketLinksExtras = [                                                           //links extra input data
@@ -68,6 +74,13 @@ export class SocketfiltersComponent implements OnInit {
       {label: 'Blue', control: this.socketFilters.get('filters.sockets.b'), inputClass: 'socket-input-b'},
       {label: 'White', control: this.socketFilters.get('filters.sockets.w'), inputClass: 'socket-input-w'}
     ]
+  }
+
+  /**
+   * Reset to inputs to default values
+   */
+  public reset() {
+    this.socketFilters.reset();
   }
 
 }

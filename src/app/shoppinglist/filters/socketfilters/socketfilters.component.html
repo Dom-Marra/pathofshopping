@@ -1,5 +1,8 @@
-<mat-expansion-panel class="filter-expansion-panel">
+<mat-expansion-panel #panel class="filter-expansion-panel">
     <mat-expansion-panel-header>
+        <mat-icon class="clear-filter" *ngIf="this.socketFilters['controls'].filters.dirty" (click)="$event.stopImmediatePropagation(); this.reset()">clear</mat-icon>  
+        <mat-button-toggle (click)="$event.stopImmediatePropagation();
+                                    disableFilter.checked ? this.socketFilters.disable() : this.socketFilters.enable()" [checked]="this.socketFilters.disabled" #disableFilter disableRipple="true" class="filter-disable"><mat-icon>block</mat-icon></mat-button-toggle>
             Socket Filters
     </mat-expansion-panel-header>
     <ng-template matExpansionPanelContent>

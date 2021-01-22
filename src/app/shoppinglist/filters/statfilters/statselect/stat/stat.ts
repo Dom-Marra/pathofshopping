@@ -1,5 +1,5 @@
 import { FormArray, FormControl, FormGroup } from "@angular/forms";
-import { statCategory } from "src/app/statsearch.service";
+import { statCategory } from "src/app/shoppinglist/filters/statfilters/statsearch.service";
 
 export class Stat {
 

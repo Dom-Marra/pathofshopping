@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { trueFlase } from './../trueFalseEnum';
 
@@ -35,29 +35,29 @@ export class OtherfiltersComponent implements OnInit {
       max: new FormControl('')
     }),
     alternate_art: new FormGroup({ 
-      option: new FormControl('all')
+      option: new FormControl('')
     }),
     identified: new FormGroup({ 
-      option: new FormControl('all')
+      option: new FormControl('')
     }),
     corrupted: new FormGroup({ 
-      option: new FormControl('all')
+      option: new FormControl('')
     }),
     mirrored: new FormGroup({ 
-      option: new FormControl('all')
+      option: new FormControl('')
     }),
     crafted: new FormGroup({ 
-      option: new FormControl('all')
+      option: new FormControl('')
     }),
     veiled: new FormGroup({ 
-      option: new FormControl('all')
+      option: new FormControl('')
     }),
     enchanted: new FormGroup({ 
-      option: new FormControl('all')
+      option: new FormControl('')
     }),
   })
 
-  constructor() { 
+  constructor(private cd: ChangeDetectorRef) { 
   }
 
   ngOnInit(): void {
@@ -67,7 +67,16 @@ export class OtherfiltersComponent implements OnInit {
       } else {
         this.itemForm.addControl(key, this.otherFilters.get(key));          //Add field for data
       }
+
+      this.otherFilters.controls[key].setParent(this.otherFilters);
+      this.cd.detectChanges();
     });
   }
 
+  /**
+   * Resets to default values for inputs
+   */
+  public reset() {
+    this.otherFilters.reset();
+  }
 }

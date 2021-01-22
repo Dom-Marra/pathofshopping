@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
+import { ControldefaultsDirective } from 'src/app/controldefaults.directive';
 
 enum styles {
   normal = 'normal',
@@ -18,12 +19,22 @@ export class FiltergroupselectComponent implements OnInit {
   @Input() control: AbstractControl;                        //Form control of the input
   @Input() selectEnum: any;                                 //Enum for values
   @Input() styleType: styles = styles.normal;               //Style of the select
+  @Input() disableDefault: boolean = false;                 //Whether the default control directive should be disabled
+  @Input() default: any;                                    //Default value
 
   public filter: Array<any>;                                //Filtered results
+
+  public controlDefault: ControldefaultsDirective;          //Control default directive
 
   constructor() { }
 
   ngOnInit(): void {
+    if (!this.disableDefault) {   //Create control default directive if enabled
+      this.controlDefault = new ControldefaultsDirective(null);
+      this.controlDefault.control = this.control;
+      this.controlDefault.default = this.default;
+      this.controlDefault.ngOnInit();
+    }
   }
 
   /**

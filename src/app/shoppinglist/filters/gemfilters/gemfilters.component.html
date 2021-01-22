@@ -1,5 +1,8 @@
 <mat-expansion-panel class="filter-expansion-panel">
     <mat-expansion-panel-header>
+        <mat-icon class="clear-filter" *ngIf="this.gemFilters.dirty" (click)="$event.stopImmediatePropagation(); this.reset()">clear</mat-icon>  
+        <mat-button-toggle (click)="$event.stopImmediatePropagation(); 
+                                    disableFilter.checked ? this.gemFilters.disable() : this.gemFilters.enable()" [checked]="this.gemFilters.disabled" #disableFilter disableRipple="true" class="filter-disable"><mat-icon>block</mat-icon></mat-button-toggle>
             Gem Filters
     </mat-expansion-panel-header>
     <ng-template matExpansionPanelContent>
@@ -7,7 +10,7 @@
             <div appEqualflex class="field-wrapper">
                 <app-minmaxinput class="field" inputName="Level" [group]="this.gemFilters['controls'].gem_level"></app-minmaxinput>
                 <app-minmaxinput class="field" inputName="Experience (%)" [group]="this.gemFilters['controls'].gem_level_progress"></app-minmaxinput>
-                <app-filtergroupselect class="field" inputName='Quality Type' [control]="gemFilters['controls'].gem_alternate_quality['controls'].option" [selectEnum]="GEM_QUALITY_TYPES"></app-filtergroupselect>
+                <app-filtergroupselect class="field" inputName='Quality Type' [control]="this.gemFilters['controls'].gem_alternate_quality['controls'].option" [selectEnum]="GEM_QUALITY_TYPES"></app-filtergroupselect>
             </div>
         </div>
     </ng-template>

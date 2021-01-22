@@ -1,7 +1,7 @@
 import { Component, ElementRef, EventEmitter, Input, KeyValueDiffer, KeyValueDiffers, OnInit, Output, Pipe, PipeTransform, QueryList, ViewChildren, ViewEncapsulation } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { Subscription } from 'rxjs';
-import { QueryitemService } from 'src/app/queryitem.service';
+import { QueryitemService } from 'src/app/shoppinglist/item/services/queryitem.service';
 import { Currency } from '../../currency';
 import { Resultdata } from './resultdata/resultdata';
 

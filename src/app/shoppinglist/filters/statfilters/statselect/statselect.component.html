@@ -1,7 +1,9 @@
 <div matAutocompleteOrigin #autoCompleteHost="matAutocompleteOrigin" class="stat-select">
 
     <div class="stat-selector">
-        <button class="remove-stat-button" (click)="deleteStatFilter()" mat-flat-button><mat-icon class="stat-icon">remove</mat-icon></button>
+        <mat-icon class="clear-filter" (click)="deleteStatFilter()">delete</mat-icon>
+        <mat-button-toggle (click)="$event.stopImmediatePropagation();
+                                    disableFilter.checked ? this.stat.statGroup.disable() : this.stat.statGroup.enable()" [checked]="this.stat.statGroup.disabled" #disableFilter disableRipple="true" class="filter-disable"><mat-icon>block</mat-icon></mat-button-toggle>
         <mat-form-field floatLabel="never">
             <input #statInput matInput type="text" autocomplete="off" 
                 [matAutocomplete]="searchableStats" 
@@ -10,7 +12,8 @@
                 (input)="filteredStats = filterStats($event.target.value)"
                 [value]="stat.selectedStat?.text ? stat.selectedStat.text : 'Add Stat Filter'"
                 (focus)="$event.target.value = ''; filteredStats = filterStats('')"
-                (blur)="$event.target.value = stat.selectedStat?.text ? stat.selectedStat.text : 'Add Stat Filter'">
+                (blur)="$event.target.value = stat.selectedStat?.text ? stat.selectedStat.text : 'Add Stat Filter'"
+                [disabled]="this.stat.statGroup.disabled">
                 
             <mat-icon matSuffix class="icon-dark" [class.rotate]="searchableStats.isOpen">arrow_drop_down</mat-icon>
             <mat-autocomplete #searchableStats="matAutocomplete" 

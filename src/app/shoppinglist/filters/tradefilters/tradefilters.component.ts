@@ -2,7 +2,7 @@ import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 
 enum buyOutOptions{
-  all = 'Chaos Orb Equivalent',
+  '' = 'Chaos Orb Equivalent',
   alt = "Orb of Alteration",
   fusing = "Orb of Fusing",
   alch = " Orb of Alchemy",
@@ -22,18 +22,13 @@ enum buyOutOptions{
 
 enum saleTypes {
   any = 'All',
-  all = 'Buyout or Fixed Price',
+  '' = 'Buyout or Fixed Price',
   priced_with_info = 'Price With Note',
   unpriced = 'No Price'
 }
 
-enum statusOptions {
-  any = 'All',
-  online = 'Online'
-}
-
 enum listedOptions {
-  all = 'Any Date',
+  '' = 'Any Date',
   '1day' = 'Up To 1 Day Ago',
   '3day' = 'Up To 3 Days Ago',
   '1week' = 'Up To 1 Week Ago',
@@ -53,33 +48,26 @@ export class TradefiltersComponent implements OnInit {
   public readonly LISTED_OPTIONS: typeof listedOptions = listedOptions;
   public readonly SALE_TYPES: typeof saleTypes = saleTypes;
   public readonly BUY_OUT_OPTIONS: typeof buyOutOptions = buyOutOptions;
-  public readonly STATUS_OPTIONS: typeof statusOptions = statusOptions;
 
   @Input() filterGroup: FormGroup;          //Filters from group to add filters to
-  @Input() queryForm: FormGroup;            //Main query form group
 
   public tradeFilters = new FormGroup({     //Trade filters
-    disabled: new FormControl(false),
     filters: new FormGroup({ 
       price: new FormGroup({
         min: new FormControl(),
         max: new FormControl(),
-        option: new FormControl('all')
+        option: new FormControl('')
       }),
       account: new FormGroup({
         input: new FormControl()
       }),
       sale_type: new FormGroup({
-        option: new FormControl('all')
+        option: new FormControl('')
       }),
       indexed: new FormGroup({
-        option: new FormControl('all')
+        option: new FormControl('')
       })
     }),
-  })
-
-  public statusForm = new FormGroup({
-    option: new FormControl('online')
   })
   
   constructor() { }
@@ -90,12 +78,13 @@ export class TradefiltersComponent implements OnInit {
     } else {
       this.filterGroup.addControl('trade_filters', this.tradeFilters);                //Add trade filters to filter group
     }
+  }
 
-    if (this.filterGroup.controls['status']) {
-      this.statusForm = this.filterGroup.controls['status'] as FormGroup;  //Retain item data for status
-    } else {
-      this.queryForm.addControl('status', this.statusForm);               //Add status to the form group
-    }
+  /**
+   * Reset to inputs to default values
+   */
+  public reset() {
+    this.tradeFilters.reset();
   }
 
 }

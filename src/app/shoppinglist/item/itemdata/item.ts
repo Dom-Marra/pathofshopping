@@ -1,6 +1,6 @@
 import { FormControl, FormGroup } from "@angular/forms";
-import { Statfilter } from "./filters/statfilters/statfilter/statfilter";
-import { Resultdata } from "./item/results/resultdata/resultdata";
+import { Statfilter } from "../../filters/statfilters/statfilter/statfilter";
+import { Resultdata } from "../results/resultdata/resultdata";
 
 export class Item {
 
