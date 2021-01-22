@@ -6,9 +6,9 @@
             <mat-icon class="icon-light">clear</mat-icon>
         </button>
 
-        <mat-autocomplete #searchableItems="matAutocomplete" [class]="'autocomplete-panel'">
+        <mat-autocomplete #searchableItems="matAutocomplete" (optionSelected)="selectItem($event.option.value)" [class]="'autocomplete-panel'">
             <mat-optgroup *ngFor="let search of filteredItems | async" [label]="search.category">
-                <mat-option *ngFor="let item of search.items | slice:0:25;" [value]="item.text">
+                <mat-option *ngFor="let item of search.items | slice:0:25;" [value]="item">
                     {{item.text}}
                 </mat-option>
             </mat-optgroup>

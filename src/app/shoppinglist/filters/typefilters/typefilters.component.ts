@@ -74,6 +74,8 @@ enum itemTypes {
 }
 
 export const filterSearch = (items: searchItem['items'], searchText: string): searchItem['items'] => {    //Filters items by search text
+  if (typeof searchText != 'string') return items;
+
   const text = searchText.toLowerCase().trim().split(/\s+/);
 
   return items.filter(item => {
@@ -131,18 +133,9 @@ export class TypefiltersComponent implements OnInit {
     );
 
     this.typeFilters.controls.search.valueChanges.subscribe(value => {          //Update term, type, and name controls
-      let filtered = this.filterGroups(value);             //filtered value of the search
-      let items = filtered[0]?.items;                     //first item
-      
-      if (filtered.length == 1 && items.length == 1) {      //Update name, and type of found item, also clear term if only one item found
-        if (items[0].name) this.typeFilters.controls.name.patchValue(items[0].name);
-        this.typeFilters.controls.type.patchValue(items[0].type);
-        this.typeFilters.controls.term.patchValue('');
-      } else if (this.typeFilters.controls.type.value != '' || this.typeFilters.controls.name.value != '') { 
         this.typeFilters.controls.type.patchValue('');          //clear type control
         this.typeFilters.controls.name.patchValue('');          //clear name control
         this.typeFilters.controls.term.patchValue(value);       //set term control
-      }
     })
   }
 
@@ -175,6 +168,16 @@ export class TypefiltersComponent implements OnInit {
     }
   }
 
+  /**
+   * Processes the selected item from the item search autofill
+   */
+  public selectItem(item: searchItem["items"][0]) {
+      if (item.name) this.typeFilters.controls.name.patchValue(item.name);    //Set name
+      this.typeFilters.controls.type.patchValue(item.type);                   //set type
+      this.typeFilters.controls.term.patchValue('');                          //reset term control
+      this.typeFilters.controls.search.patchValue(item.text, {emitEvent: false, onlySelf: true}); //Set search
+  }
+  
   /**
    * Filters enumeration objects based on search text
    * 
