@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { minmaxExtras } from '../../minmaxinput/minmaxinput.component';
+import { minmaxExtras } from '../../inputs/minmaxinput/minmaxinput.component';
 
 @Component({
   selector: 'app-socketfilters',

@@ -1,10 +1,8 @@
 import { ChangeDetectorRef, Component, ElementRef, Input, OnInit, QueryList, ViewChildren, ViewEncapsulation } from '@angular/core';
 import { FormGroup, FormControl, FormArray } from '@angular/forms';
-import { Subscription } from 'rxjs';
-import { QueryitemService } from '../../queryitem.service'
+import { QueryitemService } from './services/queryitem.service'
 import { Statfilter } from '../filters/statfilters/statfilter/statfilter';
-import { Item } from '../item';
-import { Resultdata } from './results/resultdata/resultdata';
+import { Item } from './itemdata/item';
 
 @Component({
   selector: 'app-item',

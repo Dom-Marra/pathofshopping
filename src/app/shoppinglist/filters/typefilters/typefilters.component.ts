@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
-import { ItemsearchService, searchItem } from 'src/app/itemsearch.service';
+import { ItemsearchService, searchItem } from 'src/app/shoppinglist/filters/typefilters/services/itemsearch.service';
 
 enum itemRarities {
   all = 'All',
