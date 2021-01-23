@@ -302,25 +302,6 @@
                             display: inline-block;
                         }
                     }
-
-                    .item-progress-bar {
-                        width: 95%;
-                        margin: auto;
-                        margin-top: 0.25em;
-                        box-sizing: border-box;
-
-                        .mat-progress-bar-fill::after {
-                            background-color: rgb(201,161,84);
-                        }
-                        
-                        .mat-progress-bar-buffer {
-                            background: rgba(0, 0, 0, 0.5);
-                        }
-
-                        .mat-progress-bar-background {
-                            fill: none;
-                        }
-                    }
                 }
 
                 .item-mod-list {
@@ -597,20 +578,6 @@
                 color: #d20000;
             }
         }
-    }
-}
-
-.item-fetch-progress-bar {
-    .mat-progress-bar-fill::after {
-        background: mat-color($pathofshopping-primary, 600);
-    }
-    
-    .mat-progress-bar-buffer {
-        background-color: mat-color($pathofshopping-primary, 300);
-    }
-
-    .mat-progress-bar-background {
-        fill: none;
     }
 }
 
