@@ -142,6 +142,12 @@
                         }
                     }
                 }   
+
+                .status-field {
+                    .mat-form-field-underline, .mat-form-field-ripple {
+                        background-color: mat-color($pathofshopping-primary, 500);
+                    }
+                }
             }
         }
 
