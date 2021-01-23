@@ -21,24 +21,7 @@
         color: mat-color($pathofshopping-accent, 50);
     }
 
-    .inputs {
-        display: flex;
+    .flexed-inputs {
         flex: 4;
-
-        .mat-form-field {
-            flex: 1;
-            margin-bottom: -0.75em;
-            margin-top: 0.5em;
-            padding-left: 0.75em;
-            padding-right: 0.75em;
-    
-            .mat-form-field-underline, .mat-form-field-ripple {
-                background-color: mat-color($pathofshopping-primary, 900);
-            }
-    
-            .mat-form-field-infix {
-                width: auto !important;
-            }
-        }
     }
 }

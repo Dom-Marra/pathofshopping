@@ -1,6 +1,6 @@
 <div class="input-wrapper {{styleType}}">
     <p class="input-label" *ngIf="styleType == 'normal' && inputName">{{inputName}}</p>
-    <div class="inputs">
+    <div class="flexed-inputs {{styleType == 'normal' ? 'mat-input-600' : ''}}">
         <ng-content></ng-content>
     </div>
 </div>

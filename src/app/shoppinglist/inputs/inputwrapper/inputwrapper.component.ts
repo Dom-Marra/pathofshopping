@@ -1,11 +1,10 @@
-import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { stylesTypes } from '../shared/styleTypes';
 
 @Component({
   selector: 'app-inputwrapper',
   templateUrl: './inputwrapper.component.html',
-  styleUrls: ['./inputwrapper.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  styleUrls: ['./inputwrapper.component.scss']
 })
 export class InputwrapperComponent implements OnInit {
 
