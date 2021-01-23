@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
 import { stylesTypes } from '../shared/styleTypes';
 
@@ -17,8 +17,7 @@ export interface defaultValues {
 @Component({
   selector: 'app-minmaxinput',
   templateUrl: './minmaxinput.component.html',
-  styleUrls: ['./minmaxinput.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  styleUrls: ['./minmaxinput.component.scss']
 })
 export class MinmaxinputComponent implements OnInit {
 
