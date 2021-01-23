@@ -79,7 +79,6 @@
         margin: auto;
         min-height: 500px;
         height: auto;
-        padding-bottom: 2em;
         background-color: mat-color($pathofshopping-primary, 600);
 
         #shoppinglist-contents-top-bar {
@@ -95,7 +94,6 @@
                 flex: 1 1 150px;
 
                 .mat-form-field {
-                    margin-bottom: -1.25em;
                     min-width: 0px;
                 }
 
@@ -118,19 +116,7 @@
         }
 
         #shopping-list-contents {
-            .mat-tab-header {
-                border-top: 1px solid mat-color($pathofshopping-primary, 700);
-                background-color: mat-color($pathofshopping-primary, 500);
-
-                .mat-tab-label {
-                    color: mat-color($pathofshopping-accent, 50);
-                    opacity: 1;
-                }
-
-                .mat-tab-header-pagination-chevron {
-                    border-color: mat-color($pathofshopping-accent, 50);
-                }
-            }
+            padding-bottom: 2em;
         }
     }
 }
@@ -151,27 +137,5 @@
                 }
             }
         }
-    }
-}
-
-.autocomplete-panel {
-    background-color: mat-color($pathofshopping-primary, 400);
-    
-    .mat-optgroup {
-        .mat-optgroup-label {
-            color: mat-color($pathofshopping-primary, 700);
-        }
-    }
-
-    .mat-option {
-        .mat-option-text {
-            font-size: 14px;
-            font-weight: 300;
-            color: mat-color($pathofshopping-accent, 50);
-        }
-    }
-
-    .mat-option.mat-selected:not(.mat-active):not(:hover) {
-        background-color: rgba(0, 0, 0, 0.1);
     }
 }

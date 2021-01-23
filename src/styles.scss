@@ -99,7 +99,7 @@ mat-icon {
   transition: color 0.15s ease-in-out;
   padding: 0;
   margin: 0 0.15em;
-  color: rgba(0, 0, 0, 0.3);
+  color: rgba(255, 255, 255, 0.3);
 
   &:hover {
     cursor: pointer;
@@ -110,7 +110,7 @@ mat-icon {
 .filter-disable {
   transition: color 0.15s ease-in-out;
   background-color: transparent;
-  color: rgba(0, 0, 0, 0.3);
+  color: rgba(255, 255, 255, 0.3);
   border: none !important;
   margin: 0 0.5em;
 
@@ -134,7 +134,24 @@ mat-icon {
   }
 }
 
+.flexed-inputs {
+  display: flex;
+
+  .mat-form-field {
+    flex: 1;
+
+    .mat-form-field-infix {
+      width: auto !important;
+    }
+  }
+}
+
 .mat-form-field {
+  font-weight: 300;
+  margin-bottom: -0.75em;
+  margin-top: 0.5em;
+  padding-left: 0.75em;
+  padding-right: 0.75em;
 
   mat-label, .mat-input-element, .mat-select-value-text {
     color: mat-color($pathofshopping-accent, 50);
@@ -148,5 +165,101 @@ mat-icon {
     .mat-form-field-label {
       padding-left: 0.1em;
     }
+  }
+}
+
+.socket-input-g {
+  .mat-form-field-underline, .mat-form-field-ripple {
+    background-color: rgb(0, 163, 0) !important;
+  }
+}
+
+.socket-input-r {
+  .mat-form-field-underline, .mat-form-field-ripple {
+    background-color: rgb(180, 0, 0) !important;
+  }
+}
+
+.socket-input-b {
+  .mat-form-field-underline, .mat-form-field-ripple {
+    background-color: rgb(0, 0, 196) !important;
+  }
+}
+
+.socket-input-w {
+  .mat-form-field-underline, .mat-form-field-ripple {
+    background-color: rgb(255, 255, 255) !important;
+  }
+}
+
+.item-tabs {
+  border-top: 1px solid mat-color($pathofshopping-primary, 700);
+
+  .mat-tab-header {
+    background-color: mat-color($pathofshopping-primary, 500);
+  }
+
+  .mat-tab-label {
+      color: mat-color($pathofshopping-accent, 50);
+      opacity: 1;
+  }
+
+  .mat-tab-header-pagination-chevron {
+      border-color: mat-color($pathofshopping-accent, 50);
+  }
+}
+
+.autocomplete-panel {
+  background-color: mat-color($pathofshopping-primary, 300);
+  
+  .mat-optgroup {
+      .mat-optgroup-label {
+          color: mat-color($pathofshopping-primary, 600);
+      }
+  }
+
+  .mat-option {
+      .mat-option-text {
+          font-size: 14px;
+          font-weight: 300;
+          color: mat-color($pathofshopping-accent, 50);
+      }
+  }
+
+  .mat-option.mat-selected:not(.mat-active):not(:hover) {
+      background-color: rgba(0, 0, 0, 0.1);
+  }
+}
+
+.item-progress-bar {
+  width: 95%;
+  margin: auto;
+  margin-top: 0.25em;
+  box-sizing: border-box;
+
+  .mat-progress-bar-fill::after {
+      background-color: rgb(201,161,84);
+  }
+  
+  .mat-progress-bar-buffer {
+      background: rgba(0, 0, 0, 0.5);
+  }
+
+  .mat-progress-bar-background {
+      fill: none;
+  }
+}
+
+.item-fetch-progress-bar {
+  .mat-progress-bar-fill::after {
+      background: mat-color($pathofshopping-primary, 600);
+  }
+  
+  .mat-progress-bar-buffer {
+      background-color: mat-color($pathofshopping-primary, 300);
+  }
+
+  .mat-progress-bar-background {
+      fill: none;
   }
 }

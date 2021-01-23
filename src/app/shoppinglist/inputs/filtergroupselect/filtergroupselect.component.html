@@ -1,5 +1,4 @@
-<div class="formgroup-select {{styleType}}">
-    <p class="formgroup-select-label" *ngIf="styleType == 'normal'">{{inputName}}</p>
+<app-inputwrapper [inputName]="inputName" [styleType]="styleType">
     <mat-form-field [floatLabel]="styleType == 'normal' ? 'never' : ''">
         <mat-label *ngIf="styleType != 'normal'">{{inputName}}</mat-label>
         <input #selectInput matInput type="text"  autocomplete="off" 
@@ -21,4 +20,5 @@
             </mat-option>
         </mat-autocomplete>
     </mat-form-field>
-</div>
+</app-inputwrapper>
+    

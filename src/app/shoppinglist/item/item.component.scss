@@ -94,24 +94,6 @@
             .filter {
                 width: 100%;
                 margin: 0.25em 0;
-
-                &.type {
-                    .mat-form-field {
-                        font-weight: 300;
-                    
-                        mat-label, .mat-input-element {
-                            color: mat-color($pathofshopping-accent, 50);
-                        }
-                    
-                        .mat-select-arrow {
-                            color: mat-color($pathofshopping-primary, 500);
-                        }
-                    
-                        .mat-form-field-underline, .mat-form-field-ripple {
-                            background-color: mat-color($pathofshopping-primary, 500);
-                        }
-                    }
-                }
             }
 
             .add-stat-group {
@@ -142,37 +124,18 @@
                         }
                     }
                 }   
+
+                .status-field {
+                    .mat-form-field-underline, .mat-form-field-ripple {
+                        background-color: mat-color($pathofshopping-primary, 500);
+                    }
+                }
             }
         }
 
         .results {
             height: auto;
         }
-    }
-}
-
-    
-
-
-.autocomplete-panel {
-    background-color: mat-color($pathofshopping-primary, 300);
-    
-    .mat-optgroup {
-        .mat-optgroup-label {
-            color: mat-color($pathofshopping-primary, 600);
-        }
-    }
-
-    .mat-option {
-        .mat-option-text {
-            font-size: 14px;
-            font-weight: 300;
-            color: mat-color($pathofshopping-accent, 50);
-        }
-    }
-
-    .mat-option.mat-selected:not(.mat-active):not(:hover) {
-        background-color: rgba(0, 0, 0, 0.1);
     }
 }
 

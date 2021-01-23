@@ -4,7 +4,7 @@
         <mat-button-toggle (click)="$event.stopImmediatePropagation();
                                     disableFilter.checked ? this.filter.statFilters.disable() : this.filter.statFilters.enable()" [checked]="this.filter.statFilters.disabled" #disableFilter disableRipple="true" class="filter-disable"><mat-icon>block</mat-icon></mat-button-toggle>
         <span class="header-text">Stat Filter</span>
-        <div class="type-selector">
+        <div class="type-selector mat-input-400">
             <app-filtergroupselect class="selector-input" disableDefault='true' (click)="$event.stopImmediatePropagation()" inputName='Filter Type' [styleType]="'basicMaterial'" [control]="this.filter.statFilters['controls'].type" [selectEnum]="FILTER_TYPES"></app-filtergroupselect>
             <app-minmaxinput class="selector-input" (click)="$event.stopImmediatePropagation()" *ngIf="this.filter.statFilters['controls'].type.value == 'count' || this.filter.statFilters['controls'].type.value == 'weight'" [group]="this.filter.statFilters['controls'].value" [styleType]="'basicMaterial'"></app-minmaxinput>
         </div>

@@ -14,8 +14,7 @@ enum filterTypes {
 @Component({
   selector: 'app-statfilters',
   templateUrl: './statfilters.component.html',
-  styleUrls: ['./statfilters.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  styleUrls: ['./statfilters.component.scss']
 })
 export class StatfiltersComponent implements OnInit {
 

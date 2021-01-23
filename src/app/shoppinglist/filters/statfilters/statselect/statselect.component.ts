@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Output, ViewEncapsulation, EventEmitter } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { statCategory, StatsearchService } from '../services/statsearch.service';
 import { Stat } from './stat/stat';
 
@@ -20,8 +20,7 @@ export const filterSearch = (items: any, searchText: string): any => {    //Filt
 @Component({
   selector: 'app-statselect',
   templateUrl: './statselect.component.html',
-  styleUrls: ['./statselect.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  styleUrls: ['./statselect.component.scss']
 })
 export class StatselectComponent implements OnInit {
 

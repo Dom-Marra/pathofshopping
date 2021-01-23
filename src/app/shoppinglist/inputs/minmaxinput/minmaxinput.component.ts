@@ -1,10 +1,6 @@
-import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
-
-enum styles {
-  normal = 'normal',
-  basicMaterial = 'basicMaterial'
-}
+import { stylesTypes } from '../shared/styleTypes';
 
 export interface minmaxExtras{
   label: string,
@@ -21,15 +17,14 @@ export interface defaultValues {
 @Component({
   selector: 'app-minmaxinput',
   templateUrl: './minmaxinput.component.html',
-  styleUrls: ['./minmaxinput.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  styleUrls: ['./minmaxinput.component.scss']
 })
 export class MinmaxinputComponent implements OnInit {
 
   @Input() group: AbstractControl;                      //form group to use
   @Input() inputName: string;                           //name of the input
   @Input() minmaxExtras: Array<minmaxExtras> = [];      //extra inputs
-  @Input() styleType: styles = styles.normal;           //Style of the select
+  @Input() styleType: stylesTypes = stylesTypes.normal; //Style of the select
   @Input() defaultValues: defaultValues = {min: null, max: null};   //Default min max values
 
   constructor() { }

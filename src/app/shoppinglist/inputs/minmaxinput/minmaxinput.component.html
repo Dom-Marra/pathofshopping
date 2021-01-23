@@ -1,6 +1,5 @@
-<div class="min-max-container {{styleType}}" [formGroup]="group">
-    <p class="min-max-label" *ngIf="styleType == 'normal'">{{inputName}}</p>
-    <div class="fields-wrapper">
+<app-inputwrapper [formGroup]="group" [inputName]="inputName" [styleType]="styleType">
+    <div class="min-max-fields">
         <div *ngIf="minmaxExtras.length > 0" class="sub-min-max-fields">
             <mat-form-field *ngFor="let extra of minmaxExtras" [class]="extra.inputClass">
                 <mat-label>{{extra.label}}</mat-label>
@@ -18,4 +17,4 @@
             </mat-form-field>
         </div>
     </div>
-</div>
+</app-inputwrapper>
