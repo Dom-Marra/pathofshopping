@@ -1,5 +1,5 @@
 <form class="item-container">
-    <div class="item-header-container">
+    <div class="item-header-container mat-input-400">
         <div class="item-delete" (click)="remove()">
             <mat-icon class="icon-light">delete</mat-icon>
         </div>
@@ -39,7 +39,7 @@
                     </button>
                     <button class="query-button" mat-flat-button type="button" (click)="this.queryForm.reset()">Clear</button>
                 </div>
-                <app-filtergroupselect class="status-field" default="online" inputName='Status' styleType="basicMaterial" [control]="queryForm['controls'].query['controls'].status['controls'].option" [selectEnum]="STATUS_OPTIONS"></app-filtergroupselect>
+                <app-filtergroupselect class="status-field mat-input-400" default="online" inputName='Status' styleType="basicMaterial" [control]="queryForm['controls'].query['controls'].status['controls'].option" [selectEnum]="STATUS_OPTIONS"></app-filtergroupselect>
             </div>
         </div>
         <app-results *ngIf="showResults" class="results" [resultData]="itemData.resultData" [currentSort]="this.queryForm.controls.sort.getRawValue()" (newSort)="queryIDs($event)"></app-results>
