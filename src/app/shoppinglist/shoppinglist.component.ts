@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ElementRef, OnInit, QueryList, ViewChildren, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { LeaguesService, leagueData } from './services/leagues.service';
 import { Item } from './item/itemdata/item';
@@ -6,8 +6,7 @@ import { Item } from './item/itemdata/item';
 @Component({
   selector: 'app-shoppinglist',
   templateUrl: './shoppinglist.component.html',
-  styleUrls: ['./shoppinglist.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  styleUrls: ['./shoppinglist.component.scss']
 })
 export class ShoppinglistComponent implements OnInit {
 
