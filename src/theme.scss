@@ -85,3 +85,32 @@ $pathofshopping-typography: mat-typography-config(
   $body-1: mat-typography-level(18px, normal, 300),
   $caption: mat-typography-level(16px, normal, 300),
 );
+
+@mixin colorize-mat-form-field($bg-color) {
+
+  background-color: $bg-color;
+
+  .mat-form-field-underline, .mat-form-field-ripple {
+    background-color: darken($bg-color, 10%);
+  }
+}
+
+//Create color class for inputs based on primary colors
+@mixin input-color-class($number) {
+  .mat-input-#{$number} {   //name of the class
+    .mat-form-field {       //styles
+      @include colorize-mat-form-field(mat-color($pathofshopping-primary, $number));
+    }
+  }
+}
+
+//Generate each input color for each primary color
+@mixin generate-input-color-class() {
+  @each $color in map-keys($pathofshopping-primary) {   //Get keys
+    @if ($color != 'contrast') {                        //ignore contrast
+      @include input-color-class($color);
+    }
+  }
+}
+
+@include generate-input-color-class();
