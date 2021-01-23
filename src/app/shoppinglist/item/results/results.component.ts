@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Input, KeyValueDiffer, KeyValueDiffers, OnInit, Output, Pipe, PipeTransform, QueryList, ViewChildren, ViewEncapsulation } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, KeyValueDiffer, KeyValueDiffers, OnInit, Output, Pipe, PipeTransform, QueryList, ViewChildren } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { Subscription } from 'rxjs';
 import { QueryitemService } from 'src/app/shoppinglist/item/services/queryitem.service';
@@ -57,8 +57,7 @@ enum propertyValues {
 @Component({
   selector: 'app-results',
   templateUrl: './results.component.html',
-  styleUrls: ['./results.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  styleUrls: ['./results.component.scss']
 })
 export class ResultsComponent implements OnInit {
 
