@@ -134,7 +134,24 @@ mat-icon {
   }
 }
 
+.flexed-inputs {
+  display: flex;
+
+  .mat-form-field {
+    flex: 1;
+
+    .mat-form-field-infix {
+      width: auto !important;
+    }
+  }
+}
+
 .mat-form-field {
+  font-weight: 300;
+  margin-bottom: -0.75em;
+  margin-top: 0.5em;
+  padding-left: 0.75em;
+  padding-right: 0.75em;
 
   mat-label, .mat-input-element, .mat-select-value-text {
     color: mat-color($pathofshopping-accent, 50);
@@ -148,5 +165,44 @@ mat-icon {
     .mat-form-field-label {
       padding-left: 0.1em;
     }
+  }
+}
+
+.item-tabs {
+  border-top: 1px solid mat-color($pathofshopping-primary, 700);
+
+  .mat-tab-header {
+    background-color: mat-color($pathofshopping-primary, 500);
+  }
+
+  .mat-tab-label {
+      color: mat-color($pathofshopping-accent, 50);
+      opacity: 1;
+  }
+
+  .mat-tab-header-pagination-chevron {
+      border-color: mat-color($pathofshopping-accent, 50);
+  }
+}
+
+.autocomplete-panel {
+  background-color: mat-color($pathofshopping-primary, 300);
+  
+  .mat-optgroup {
+      .mat-optgroup-label {
+          color: mat-color($pathofshopping-primary, 600);
+      }
+  }
+
+  .mat-option {
+      .mat-option-text {
+          font-size: 14px;
+          font-weight: 300;
+          color: mat-color($pathofshopping-accent, 50);
+      }
+  }
+
+  .mat-option.mat-selected:not(.mat-active):not(:hover) {
+      background-color: rgba(0, 0, 0, 0.1);
   }
 }
