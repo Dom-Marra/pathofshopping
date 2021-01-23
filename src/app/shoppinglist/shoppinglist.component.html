@@ -1,8 +1,8 @@
 <div id="shoppinglist-maincontainer">
     <div id="top-bg-image-container">
-        <h2 id="top-title">Path of Shopping</h2>
+        <h1 id="top-title">Path of Shopping</h1>
     </div>
-    <div id="shoppinglist-name-bar">
+    <div id="shoppinglist-name-bar" class="mat-input-500">
         <mat-form-field *ngIf="editShoppingListName" floatLabel="never">
             <input #shoppingListNameInput matInput [formControl]="this.shoppingList.controls.name"
                    type="text" autocomplete="off" placeholder="Shopping List Name"

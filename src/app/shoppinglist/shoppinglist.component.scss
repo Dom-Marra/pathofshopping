@@ -38,37 +38,41 @@
         margin: auto;
         transform: translateY(calc(-30px - (300px * 0.1)));
         background-color: mat-color($pathofshopping-primary, 500);
-        height: 60px;
+        min-height: 60px;
         border-radius: 5px;
         display: flex;
+        flex-wrap: wrap;
         align-items: center;
         justify-content: center;
         font-size: 16px;
+        overflow: hidden;
+
+        .mat-form-field {
+            width: 95%;
+            position: absolute;
+        }
 
         #shoppinglist-name-output-wrapper {
             display: flex;
+            align-items: center;
             max-width: 100%;
+            font-size: initial;
 
             #shoppinglist-name-output {
+                display: flex;
+                align-items: center;
+                text-align: center;
                 margin: 0;
-                padding: 0 0.25em;
-                white-space: nowrap;
+                padding: 0.25em;
             }
 
             mat-icon {
-                padding: 0 0.5em;
+                align-items: center;
+                padding: 0.5em;
                 
                 &:hover {
                     cursor: pointer;
                 }
-            }
-        }
-
-        .mat-form-field {
-            font-weight: 300;
-
-            .mat-form-field-underline, .mat-form-field-ripple {
-                background-color: mat-color($pathofshopping-primary, 800);
             }
         }
     }
@@ -92,14 +96,6 @@
 
             .league-select {
                 flex: 1 1 150px;
-
-                .mat-form-field {
-                    min-width: 0px;
-                }
-
-                .mat-form-field-underline, .mat-form-field-ripple {
-                    background-color: mat-color($pathofshopping-primary, 800);
-                }
             }
     
             .action-button {
