@@ -99,7 +99,7 @@ mat-icon {
   transition: color 0.15s ease-in-out;
   padding: 0;
   margin: 0 0.15em;
-  color: rgba(0, 0, 0, 0.3);
+  color: rgba(255, 255, 255, 0.3);
 
   &:hover {
     cursor: pointer;
@@ -110,7 +110,7 @@ mat-icon {
 .filter-disable {
   transition: color 0.15s ease-in-out;
   background-color: transparent;
-  color: rgba(0, 0, 0, 0.3);
+  color: rgba(255, 255, 255, 0.3);
   border: none !important;
   margin: 0 0.5em;
 
