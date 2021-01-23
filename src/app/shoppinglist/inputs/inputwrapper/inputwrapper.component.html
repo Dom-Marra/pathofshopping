@@ -1,5 +1,5 @@
 <div class="input-wrapper {{styleType}}">
-    <p class="input-label" *ngIf="styleType == 'normal'">{{inputName}}</p>
+    <p class="input-label" *ngIf="styleType == 'normal' && inputName">{{inputName}}</p>
     <div class="inputs">
         <ng-content></ng-content>
     </div>
