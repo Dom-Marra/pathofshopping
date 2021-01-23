@@ -79,11 +79,11 @@ $pathofshopping-theme: mat-light-theme((
 
 $pathofshopping-typography: mat-typography-config(
   $font-family: 'Poppins',
-  $headline: mat-typography-level(45px, normal, 600),
-  $title: mat-typography-level(35px, normal, 400),
-  $subheading-2: mat-typography-level(24px, normal, 400),
-  $body-1: mat-typography-level(18px, normal, 300),
-  $caption: mat-typography-level(16px, normal, 300),
+  $headline: mat-typography-level(28px, 1.6, 400),
+  $title: mat-typography-level(22px, 1.6, 400),
+  $subheading-2: mat-typography-level(18px, 1.6, 400),
+  $body-1: mat-typography-level(14px, 1.6, 300),
+  $caption: mat-typography-level(12px, 1.6, 300),
 );
 
 @mixin colorize-mat-form-field($bg-color) {
