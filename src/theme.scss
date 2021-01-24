@@ -82,8 +82,8 @@ $pathofshopping-typography: mat-typography-config(
   $headline: mat-typography-level(28px, 1.6, 400),
   $title: mat-typography-level(22px, 1.6, 400),
   $subheading-2: mat-typography-level(18px, 1.6, 400),
-  $body-1: mat-typography-level(14px, 1.6, 300),
-  $caption: mat-typography-level(12px, 1.6, 300),
+  $body-1: mat-typography-level(13px, 1.6, 300),
+  $caption: mat-typography-level(11px, 1.6, 300),
 );
 
 @mixin colorize-mat-form-field($bg-color) {
@@ -114,3 +114,16 @@ $pathofshopping-typography: mat-typography-config(
 }
 
 @include generate-input-color-class();
+
+.transparent-mat-button {
+  background-color: transparent;
+  color: transparentize($color:  mat-color($pathofshopping-accent, 50), $amount: 0.3);
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  transition: color 0.15s ease-in-out;
+  @include mat-typography-level-to-styles($pathofshopping-typography, body-1);
+
+  &:hover {
+    color: transparentize($color:  mat-color($pathofshopping-accent, 50), $amount: 0.1);
+  }
+}
