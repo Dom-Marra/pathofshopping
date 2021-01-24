@@ -8,7 +8,8 @@ import { FormGroup } from '@angular/forms';
 })
 export class FilteractionbuttonsComponent implements OnInit {
 
-  @Output() remove: EventEmitter<void> = new EventEmitter();  //Outputs removal event
+  @Output() remove: EventEmitter<void> = new EventEmitter();          //Outputs removal event
+  @Output() disableChange: EventEmitter<void> = new EventEmitter();   //Output for disabled change
 
   @Input() formGroup: FormGroup;        //Form group to perform actions on
   @Input() disableClear: boolean;       //The formgroup is not clearable
