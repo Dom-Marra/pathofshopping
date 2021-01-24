@@ -1,3 +1,3 @@
-<button mat-icon-button *ngIf="includeDelete && formGroup" class="transparent-mat-button warn-700" (click)="$event.stopImmediatePropagation(); this.remove()"><mat-icon>clear</mat-icon></button>
+<button mat-icon-button *ngIf="includeDelete && formGroup" class="transparent-mat-button warn-700" (click)="$event.stopImmediatePropagation(); this.emitRemove()"><mat-icon>delete</mat-icon></button>
 <button mat-icon-button *ngIf="!disableClear && this.formGroup.dirty && formGroup" class="transparent-mat-button warn-700" (click)="$event.stopImmediatePropagation(); this.reset()"><mat-icon>clear</mat-icon></button>  
 <button mat-icon-button *ngIf="!disableDisable && formGroup" class="transparent-mat-button warn-400 {{this.formGroup.disabled ? 'lock-color' : ''}}" (click)="$event.stopImmediatePropagation(); this.formGroup.disabled ? this.formGroup.enable() : this.formGroup.disable()"><mat-icon>block</mat-icon></button>
