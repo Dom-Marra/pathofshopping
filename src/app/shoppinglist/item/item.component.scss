@@ -96,12 +96,8 @@
                 margin: 0.25em 0;
             }
 
-            .add-stat-group {
-                background-color: transparent;
-                margin: auto;
+            .transparent-mat-button {
                 margin-top: 1em;
-                color: mat-color($pathofshopping-primary, 50);
-                border: 1px solid mat-color($pathofshopping-primary, 600);
             }
 
             .query-actions {
@@ -109,7 +105,7 @@
                 display: flex;
                 flex-wrap: wrap;
                 align-items: center;
-                margin: 1.5em auto;
+                margin: 1em auto;
 
                 .query-buttons {
                     margin-right: auto;
