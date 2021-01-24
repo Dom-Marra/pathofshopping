@@ -23,6 +23,7 @@ export class ShoppinglistComponent implements OnInit {
 
   constructor(private cd: ChangeDetectorRef, private league: LeaguesService) { 
     this.LEAGUES = this.league.getLeagues();
+    this.items.push(new Item('New Item'));
   }
 
   ngOnInit(): void {
