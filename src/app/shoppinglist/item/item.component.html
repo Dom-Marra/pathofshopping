@@ -33,11 +33,15 @@
             <button mat-button type="button" (click)="addStatGroup()" class="transparent-mat-button"><mat-icon>library_add</mat-icon> Stat Group</button>
             <div class="query-actions">
                 <div class="query-buttons">
-                    <button class="query-button search" mat-flat-button type="button" (click)="queryIDs('price', 'asc')">Search</button>
-                    <button class="query-button" mat-flat-button type="button" (click)="this.showResults = !this.showResults" *ngIf="this.itemData.resultData.queryProps || this.showResults">
-                        {{ showResults ? 'Hide Results' : 'Show Results'}}
+                    <button class="query-button search mat-button-300" mat-flat-button type="button" (click)="queryIDs('price', 'asc')">
+                        <mat-icon>search</mat-icon>Search
                     </button>
-                    <button class="query-button" mat-flat-button type="button" (click)="this.queryForm.reset()">Clear</button>
+                    <button class="query-button mat-button-600" mat-flat-button type="button" (click)="this.showResults = !this.showResults" *ngIf="this.itemData.resultData.queryProps || this.showResults">
+                        <mat-icon class="{{ showResults ? '' : 'rotate'}}">expand_less</mat-icon>{{ showResults ? 'Hide Results' : 'Show Results'}}
+                    </button>
+                    <button class="query-button mat-button-600" mat-flat-button type="button" (click)="this.queryForm.reset()">
+                        <mat-icon>clear</mat-icon>Clear
+                    </button>
                 </div>
                 <app-filtergroupselect class="status-field mat-input-400" default="online" inputName='Status' styleType="basicMaterial" [control]="queryForm['controls'].query['controls'].status['controls'].option" [selectEnum]="STATUS_OPTIONS"></app-filtergroupselect>
             </div>

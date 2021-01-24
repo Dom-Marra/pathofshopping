@@ -65,18 +65,6 @@
             margin: auto;
             margin-bottom: -1em;
             font-weight: 300;
-    
-            mat-label, .mat-input-element {
-                color: mat-color($pathofshopping-accent, 50);
-            }
-    
-            .mat-select-arrow {
-                color: mat-color($pathofshopping-primary, 500);
-            }
-    
-            .mat-form-field-underline, .mat-form-field-ripple {
-                background-color: mat-color($pathofshopping-primary, 500);
-            }
         }
     }
 
@@ -111,21 +99,9 @@
                     margin-right: auto;
 
                     .query-button {
-                        color: mat-color($pathofshopping-accent, 50);
-                        background-color: mat-color($pathofshopping-primary, 500);
                         margin: 0 0.25em;
-        
-                        &.search {
-                            background-color: rgb(55, 150, 55);
-                        }
                     }
-                }   
-
-                .status-field {
-                    .mat-form-field-underline, .mat-form-field-ripple {
-                        background-color: mat-color($pathofshopping-primary, 500);
-                    }
-                }
+                } 
             }
         }
 
