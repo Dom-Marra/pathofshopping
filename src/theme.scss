@@ -199,3 +199,23 @@ $pathofshopping-typography: mat-typography-config(
       line-height: 1.1em;
   }
 }
+
+@mixin generate-warn-hover-colors {
+  @each $color in map-keys($pathofshopping-warn) {
+    @if ($color != 'contrast') {     
+      .warn-#{$color} {
+        transition: color 0.15s ease-in-out;
+
+        &.lock-color {
+          color: mat-color($pathofshopping-warn, $color);
+        }
+        
+        &:hover {
+          color: mat-color($pathofshopping-warn, $color);
+        }
+      }   
+    }
+  }
+}
+
+@include generate-warn-hover-colors();

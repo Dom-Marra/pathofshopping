@@ -1,11 +1,9 @@
 <app-inputwrapper matAutocompleteOrigin #autoCompleteHost="matAutocompleteOrigin" class="stat-select">
 
-    <div class="stat-select-wrapper mat-input-500">
-        <div class="stat-selector">
+    <div class="stat-select-wrapper">
+        <div class="stat-selector mat-input-500">
             <div class="stat-selector-buttons">
-                <mat-icon class="clear-filter" (click)="deleteStatFilter()">delete</mat-icon>
-                <mat-button-toggle (click)="$event.stopImmediatePropagation();
-                                            disableFilter.checked ? this.stat.statGroup.disable() : this.stat.statGroup.enable()" [checked]="this.stat.statGroup.disabled" #disableFilter disableRipple="true" class="filter-disable"><mat-icon>block</mat-icon></mat-button-toggle>
+                <app-filteractionbuttons disableClear="true" includeDelete="true" (remove)="deleteStatFilter()" [formGroup]="this.stat.statGroup"></app-filteractionbuttons>
             </div>
            
             <mat-form-field floatLabel="never">

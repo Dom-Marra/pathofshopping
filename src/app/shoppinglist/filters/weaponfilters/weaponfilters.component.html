@@ -1,8 +1,6 @@
-<mat-expansion-panel class="filter-expansion-panel">
+<mat-expansion-panel class="filter-expansion-panel" #expansionPanel [disabled]="this.weaponFilters.disabled">
     <mat-expansion-panel-header>
-        <mat-icon class="clear-filter" *ngIf="this.weaponFilters['controls'].filters.dirty" (click)="$event.stopImmediatePropagation(); this.reset()">clear</mat-icon>  
-        <mat-button-toggle (click)="$event.stopImmediatePropagation();
-                                    disableFilter.checked ? this.weaponFilters.disable() : this.weaponFilters.enable()" [checked]="this.weaponFilters.disabled" #disableFilter disableRipple="true" class="filter-disable"><mat-icon>block</mat-icon></mat-button-toggle>
+        <app-filteractionbuttons [formGroup]="this.weaponFilters" (disableChange)="this.weaponFilters.disabled ? expansionPanel.close() : ''"></app-filteractionbuttons>
             Weapon Filters
     </mat-expansion-panel-header>
     <ng-template matExpansionPanelContent>

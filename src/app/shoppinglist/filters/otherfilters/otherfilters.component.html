@@ -1,8 +1,6 @@
-<mat-expansion-panel class="filter-expansion-panel">
+<mat-expansion-panel class="filter-expansion-panel" #expansionPanel [disabled]="this.otherFilters.disabled">
     <mat-expansion-panel-header>
-        <mat-icon class="clear-filter" *ngIf="this.otherFilters.dirty" (click)="$event.stopImmediatePropagation(); this.reset()">clear</mat-icon>  
-        <mat-button-toggle (click)="$event.stopImmediatePropagation();
-                                    disableFilter.checked ? this.otherFilters.disable() : this.otherFilters.enable()" [checked]="this.otherFilters.disabled" #disableFilter disableRipple="true" class="filter-disable"><mat-icon>block</mat-icon></mat-button-toggle>
+        <app-filteractionbuttons [formGroup]="this.otherFilters" (disableChange)="this.otherFilters.disabled ? expansionPanel.close() : ''"></app-filteractionbuttons>
         Other
     </mat-expansion-panel-header>
     <ng-template matExpansionPanelContent>

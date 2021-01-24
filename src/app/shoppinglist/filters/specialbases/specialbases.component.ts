@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { trueFlase } from '../trueFalseEnum';
 
@@ -40,7 +40,7 @@ export class SpecialbasesComponent implements OnInit {
     })
   })
 
-  constructor() {
+  constructor(private cd: ChangeDetectorRef) {
   }  
 
   ngOnInit(): void {
@@ -55,6 +55,8 @@ export class SpecialbasesComponent implements OnInit {
         if (this.influenceFilters.controls[key].dirty) this.influenceFilters.markAsDirty();
       })
     });
+
+    this.cd.detectChanges();
   }
 
   /**

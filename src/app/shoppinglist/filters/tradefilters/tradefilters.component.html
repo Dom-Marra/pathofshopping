@@ -1,8 +1,6 @@
-<mat-expansion-panel class="filter-expansion-panel">
+<mat-expansion-panel class="filter-expansion-panel" #expansionPanel [disabled]="this.tradeFilters.disabled">
     <mat-expansion-panel-header>
-        <mat-icon class="clear-filter" *ngIf="this.tradeFilters['controls'].filters.dirty" (click)="$event.stopImmediatePropagation(); this.reset()">clear</mat-icon>  
-        <mat-button-toggle (click)="$event.stopImmediatePropagation();
-                                    disableFilter.checked ? this.tradeFilters.disable() : this.tradeFilters.enable()" [checked]="this.tradeFilters.disabled" #disableFilter disableRipple="true" class="filter-disable"><mat-icon>block</mat-icon></mat-button-toggle>
+        <app-filteractionbuttons [formGroup]="this.tradeFilters" (disableChange)="this.tradeFilters.disabled ? expansionPanel.close() : ''"></app-filteractionbuttons>
             Trade & Account Filters
     </mat-expansion-panel-header>
     <ng-template matExpansionPanelContent>

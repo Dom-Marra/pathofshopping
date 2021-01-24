@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 
 enum gemQualityTypes {
@@ -35,7 +35,7 @@ export class GemfiltersComponent implements OnInit {
     })
   })
 
-  constructor() { }
+  constructor(private cd: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     Object.keys(this.gemFilters.controls).forEach(key => {        //add controls to misc filters
@@ -49,6 +49,8 @@ export class GemfiltersComponent implements OnInit {
         if (this.gemFilters.controls[key].dirty) this.gemFilters.markAsDirty();
       })
     });
+
+    this.cd.detectChanges();
   }
 
   /**
