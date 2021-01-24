@@ -54,4 +54,14 @@ export class ShoppinglistComponent implements OnInit {
   public addItem(itemData?: Item) {
     this.items.push(itemData ? itemData : new Item('New Item'));
   }
+
+  /**
+   * Deletes an item
+   * 
+   * @param itemData 
+   *        Item to delete
+   */
+  public deleteItem(itemData: Item) {
+    this.items.splice(this.items.indexOf(itemData), 1);
+  }
 }
