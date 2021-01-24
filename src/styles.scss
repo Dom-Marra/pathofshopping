@@ -94,45 +94,6 @@ mat-icon {
   }
 }
 
-.clear-filter {
-  transition: color 0.15s ease-in-out;
-  padding: 0;
-  margin: 0 0.15em;
-  color: rgba(255, 255, 255, 0.3);
-
-  &:hover {
-    cursor: pointer;
-    color: mat-color($pathofshopping-warn, 900);
-  }
-}
-
-.filter-disable {
-  transition: color 0.15s ease-in-out;
-  background-color: transparent;
-  color: rgba(255, 255, 255, 0.3);
-  border: none !important;
-  margin: 0 0.5em;
-
-  .mat-button-toggle-appearance-standard, .mat-button-toggle-focus-overlay {
-    display: none;
-  }
-
-  .mat-button-toggle-label-content {
-    display: flex;
-    align-items: center;
-    padding: 0 !important;
-
-    .mat-icon {
-      vertical-align: auto;
-    }
-  }
-
-  &:hover, &.mat-button-toggle-checked  {
-    color: rgb(216, 106, 55);
-    background-color: transparent;
-  }
-}
-
 .flexed-inputs {
   display: flex;
 
