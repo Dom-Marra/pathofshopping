@@ -95,19 +95,17 @@ $pathofshopping-typography: mat-typography-config(
   }
 }
 
-//Create color class for inputs based on primary colors
 @mixin input-color-class($number) {
-  .mat-input-#{$number} {   //name of the class
-    .mat-form-field {       //styles
+  .mat-input-#{$number} {
+    .mat-form-field { 
       @include colorize-mat-form-field(mat-color($pathofshopping-primary, $number));
     }
   }
 }
 
-//Generate each input color for each primary color
 @mixin generate-input-color-class() {
-  @each $color in map-keys($pathofshopping-primary) {   //Get keys
-    @if ($color != 'contrast') {                        //ignore contrast
+  @each $color in map-keys($pathofshopping-primary) {
+    @if ($color != 'contrast') { 
       @include input-color-class($color);
     }
   }
@@ -116,8 +114,8 @@ $pathofshopping-typography: mat-typography-config(
 @include generate-input-color-class();
 
 @mixin generate-button-color-class() {
-  @each $color in map-keys($pathofshopping-primary) {   //Get keys
-    @if ($color != 'contrast') {                        //ignore contrast
+  @each $color in map-keys($pathofshopping-primary) {
+    @if ($color != 'contrast') {             
       .mat-button-#{$color} {
         background-color: mat-color($pathofshopping-primary, $color);
         padding-top: 0.5em;
@@ -146,5 +144,25 @@ $pathofshopping-typography: mat-typography-config(
 
   &:hover {
     color: transparentize($color:  mat-color($pathofshopping-accent, 50), $amount: 0.1);
+  }
+
+  .mat-button-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.fix-height-mat-icon {
+  padding: 0;
+  font-size: 1em;
+  height: 1.6em;
+  width: 1.6em;
+  
+  .mat-icon {
+      height: 1.1em;
+      width: 1.1em;
+      font-size: 1.1em;
+      line-height: 1.1em;
   }
 }
