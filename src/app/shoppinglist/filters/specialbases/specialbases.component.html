@@ -1,8 +1,6 @@
 <mat-expansion-panel class="filter-expansion-panel">
     <mat-expansion-panel-header>
-        <mat-icon class="clear-filter" *ngIf="this.influenceFilters.dirty" (click)="$event.stopImmediatePropagation(); this.reset()">clear</mat-icon>  
-        <mat-button-toggle (click)="$event.stopImmediatePropagation();
-                                    disableFilter.checked ? this.influenceFilters.disable() : this.influenceFilters.enable()" [checked]="this.influenceFilters.disabled" #disableFilter disableRipple="true" class="filter-disable"><mat-icon>block</mat-icon></mat-button-toggle>
+        <app-filteractionbuttons [formGroup]="this.influenceFilters"></app-filteractionbuttons>
             Influences & Special Bases
     </mat-expansion-panel-header>
     <ng-template matExpansionPanelContent>

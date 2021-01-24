@@ -1,8 +1,6 @@
 <mat-expansion-panel class="filter-expansion-panel">
     <mat-expansion-panel-header>
-        <mat-icon class="clear-filter" *ngIf="this.requirementFilters['controls'].filters.dirty" (click)="$event.stopImmediatePropagation(); this.reset()">clear</mat-icon>  
-        <mat-button-toggle (click)="$event.stopImmediatePropagation();
-                                    disableFilter.checked ? this.requirementFilters.disable() : this.requirementFilters.enable()" [checked]="this.requirementFilters.disabled" #disableFilter disableRipple="true" class="filter-disable"><mat-icon>block</mat-icon></mat-button-toggle>
+        <app-filteractionbuttons [formGroup]="this.requirementFilters"></app-filteractionbuttons>
             Requirements
     </mat-expansion-panel-header>
     <ng-template matExpansionPanelContent>
