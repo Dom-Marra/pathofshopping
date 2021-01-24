@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ElementRef, Input, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnInit, Output, QueryList, ViewChildren } from '@angular/core';
 import { FormGroup, FormControl, FormArray } from '@angular/forms';
 import { QueryitemService } from './services/queryitem.service'
 import { Statfilter } from '../filters/statfilters/statfilter/statfilter';
@@ -16,6 +16,7 @@ enum statusOptions {
 })
 export class ItemComponent implements OnInit {
 
+  @Output() deleteItem: EventEmitter<Item> = new EventEmitter<Item>();
   @Input() itemData: Item;
   @Input() league: string;
   @ViewChildren("itemNameInput") itemNameInput: QueryList<ElementRef>;                            //Item name input element
@@ -187,9 +188,17 @@ export class ItemComponent implements OnInit {
   }
 
   /**
-   * Destroys this component
+   * Clears the Stats from the item
+   */
+  public clearStatFilters() {
+    this.itemData.statFilters = [];
+    (this.itemData.itemForm.get('queryForm.query.stats') as FormArray).clear();
+  }
+
+  /**
+   * Deletes the item
    */
   public remove() {
-    //TODO
+    this.deleteItem.emit(this.itemData);
   }
 }
