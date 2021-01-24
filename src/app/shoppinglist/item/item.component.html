@@ -1,13 +1,11 @@
 <form class="item-container">
     <div class="item-header-container mat-input-400">
-        <div class="item-delete" (click)="remove()">
-            <mat-icon class="icon-light">delete</mat-icon>
-        </div>
-        <div *ngIf="!editName" class="item-name" 
-            (click)="editName = true" 
-            role="button" aria-label="Edit item name">
-            <p>{{itemData.itemForm.value.itemName.length > 0 ? itemData.itemForm.value.itemName : 'Item Name'}}</p>
-            <mat-icon class="icon-light">edit</mat-icon>
+        <button mat-icon-button class="transparent-mat-button" (click)="remove()">
+            <mat-icon>delete</mat-icon>
+        </button>
+        <div *ngIf="!editName" class="item-name">
+            <h4>{{itemData.itemForm.value.itemName.length > 0 ? itemData.itemForm.value.itemName : 'Item Name'}}</h4>
+            <button (click)="editName = true" mat-icon-button class="transparent-mat-button"><mat-icon>edit</mat-icon></button>
         </div>
         <mat-form-field class="item-name-input" *ngIf="editName" [floatLabel]="'never'">
             <input #itemNameInput matInput 

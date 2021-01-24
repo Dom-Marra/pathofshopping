@@ -9,49 +9,40 @@
     overflow: hidden;
 
     .item-header-container {
-        display: flex;
         box-sizing: border-box;
-        border-bottom: 1px dashed mat-color($pathofshopping-primary, 500);
-        min-height: 45px;
-    
-        .item-delete {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 45px;
-            background-color: mat-color($pathofshopping-warn, 800);
-            transition: 0.15s background-color ease-in-out;
-    
-            &:hover {
-                cursor: pointer;
-                background-color: mat-color($pathofshopping-warn, 600);
-            }
-        }
-    
+        display: flex;
+        align-items: center;
+        border-bottom: 1px solid mat-color($pathofshopping-primary, 500);
+        height: 45px;
+        overflow: hidden;
+        font-size: mat-font-size($pathofshopping-typography, subheading-1);
+
         .item-name {
+            height: 100%;
             display: flex;
             align-items: center;
-            justify-content: center;
             margin: auto;
             max-width: 70%;
-            height: 100%;
             color: mat-color($pathofshopping-accent, 50);
-            font-weight: 300;
     
-            p {
+            h4 {
                 white-space: nowrap;
                 overflow: hidden;
-                max-width: calc(100% - (20px + 1.5em));
-                margin: 0;
-                padding: 0 0.75em;
+                max-width: calc(100% - 1.6em);
+                margin: 0 0.25em;
             }
-    
-            mat-icon {
-                font-size: 20px;
-                width: 20px;
 
-                &:hover {
-                    cursor: pointer;
+            .transparent-mat-button {
+                padding: 0;
+                font-size: 1em;
+                height: 1.6em;
+                width: 1.6em;
+                
+                .mat-icon {
+                    height: 1.1em;
+                    width: 1.1em;
+                    font-size: 1.1em;
+                    line-height: 1em;
                 }
             }
         }
@@ -64,7 +55,6 @@
             max-width: 70%;
             margin: auto;
             margin-bottom: -1em;
-            font-weight: 300;
         }
     }
 
