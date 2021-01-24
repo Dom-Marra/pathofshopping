@@ -42,6 +42,7 @@ import { ResultsComponent, ParseModsPipe, ParserPipe, ParseDivsPipe} from './sho
 import { TradefiltersComponent } from './shoppinglist/filters/tradefilters/tradefilters.component';
 import { ControldefaultsDirective } from './controldefaults.directive';
 import { InputwrapperComponent } from './shoppinglist/inputs/inputwrapper/inputwrapper.component';
+import { FilteractionbuttonsComponent } from './shoppinglist/filters/filteractionbuttons/filteractionbuttons.component';
 
 
 
@@ -71,7 +72,8 @@ import { InputwrapperComponent } from './shoppinglist/inputs/inputwrapper/inputw
     ParseDivsPipe,
     TradefiltersComponent,
     ControldefaultsDirective,
-    InputwrapperComponent
+    InputwrapperComponent,
+    FilteractionbuttonsComponent
   ],
   imports: [
     BrowserModule,
