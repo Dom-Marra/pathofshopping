@@ -5,7 +5,7 @@
         </button>
         <div *ngIf="!editName" class="item-name">
             <h4>{{itemData.itemForm.value.itemName.length > 0 ? itemData.itemForm.value.itemName : 'Item Name'}}</h4>
-            <button (click)="editName = true" mat-icon-button class="transparent-mat-button"><mat-icon>edit</mat-icon></button>
+            <button (click)="editName = true" mat-icon-button class="transparent-mat-button fix-height-mat-icon"><mat-icon>edit</mat-icon></button>
         </div>
         <mat-form-field class="item-name-input" *ngIf="editName" [floatLabel]="'never'">
             <input #itemNameInput matInput 

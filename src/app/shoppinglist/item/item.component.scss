@@ -31,20 +31,6 @@
                 max-width: calc(100% - 1.6em);
                 margin: 0 0.25em;
             }
-
-            .transparent-mat-button {
-                padding: 0;
-                font-size: 1em;
-                height: 1.6em;
-                width: 1.6em;
-                
-                .mat-icon {
-                    height: 1.1em;
-                    width: 1.1em;
-                    font-size: 1.1em;
-                    line-height: 1em;
-                }
-            }
         }
     
         .item-name-input.mat-form-field {

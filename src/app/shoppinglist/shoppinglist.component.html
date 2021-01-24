@@ -10,7 +10,7 @@
         </mat-form-field>
         <div id="shoppinglist-name-output-wrapper" *ngIf="!editShoppingListName">
             <h3 id="shoppinglist-name-output">{{ this.shoppingList.value.name.length > 0 ? this.shoppingList.value.name : 'Your Shopping List' }}</h3>
-            <mat-icon (click)="editShoppingListName = true">edit</mat-icon>
+            <button (click)="editShoppingListName = true" mat-icon-button class="transparent-mat-button fix-height-mat-icon"><mat-icon>edit</mat-icon></button>
         </div>
     </div>
     <div id="shoppinglist-contents-container">
