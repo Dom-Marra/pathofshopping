@@ -66,7 +66,38 @@ $pathofshopping-accent: (
     )
 );
 
-$pathofshopping-warn: mat-palette($mat-red);
+$pathofshopping-warn: (
+  50 : #f8e7e0,
+  100 : #ecc2b3,
+  200 : #e09a80,
+  300 : #d4714d,
+  400 : #ca5226,
+  500 : #c13400,
+  600 : #bb2f00,
+  700 : #b32700,
+  800 : #ab2100,
+  900 : #9e1500,
+  A100 : #ffccc9,
+  A200 : #ff9d96,
+  A400 : #ff6d63,
+  A700 : #ff5649,
+  contrast: (
+      50 : #000000,
+      100 : #000000,
+      200 : #000000,
+      300 : #000000,
+      400 : #ffffff,
+      500 : #ffffff,
+      600 : #ffffff,
+      700 : #ffffff,
+      800 : #ffffff,
+      900 : #ffffff,
+      A100 : #000000,
+      A200 : #000000,
+      A400 : #000000,
+      A700 : #000000,
+  )
+);
 
 $pathofshopping-theme: mat-light-theme((
   color: (
