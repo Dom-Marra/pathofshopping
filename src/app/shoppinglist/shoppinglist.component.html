@@ -2,22 +2,27 @@
     <div id="top-bg-image-container">
         <h1 id="top-title">Path of Shopping</h1>
     </div>
-    <div id="shoppinglist-name-bar" class="mat-input-500">
-        <mat-form-field *ngIf="editShoppingListName" floatLabel="never">
-            <input #shoppingListNameInput matInput [formControl]="this.shoppingList.controls.name"
-                   type="text" autocomplete="off" placeholder="Shopping List Name"
-                   (blur)="editShoppingListName = false" (keydown.enter)="shoppingListNameInput.blur()">
-        </mat-form-field>
-        <div id="shoppinglist-name-output-wrapper" *ngIf="!editShoppingListName">
-            <h3 id="shoppinglist-name-output">{{ this.shoppingList.value.name.length > 0 ? this.shoppingList.value.name : 'Your Shopping List' }}</h3>
-            <button (click)="editShoppingListName = true" mat-icon-button class="transparent-mat-button fix-height-mat-icon"><mat-icon>edit</mat-icon></button>
-        </div>
-    </div>
+    
     <div id="shoppinglist-contents-container">
         <div id="shoppinglist-contents-top-bar">
-            <app-filtergroupselect class="league-select mat-input-500" inputName='League' [styleType]="'basicMaterial'" [control]="this.shoppingList.controls.league" [selectEnum]="LEAGUES" [disableDefault]="true"></app-filtergroupselect>
-            <button type="button" mat-flat-button (click)="addItem()" id="add-item" class="action-button">Add Item <mat-icon class="icon-light">add</mat-icon></button>
-            <button type="button" mat-flat-button class="action-button"><mat-icon class="icon-light">save</mat-icon> Save</button>
+            <div class="top-bar-flex-wrap">
+                <app-filtergroupselect class="league-select mat-input-500" inputName='League' [styleType]="'basicMaterial'" [control]="this.shoppingList.controls.league" [selectEnum]="LEAGUES" [disableDefault]="true"></app-filtergroupselect>
+            </div>
+            <div id="shoppinglist-name-bar" class="mat-input-500">
+                <mat-form-field *ngIf="editShoppingListName" floatLabel="never" class="shopping-list-name-input">
+                    <input #shoppingListNameInput matInput [formControl]="this.shoppingList.controls.name"
+                           type="text" autocomplete="off" placeholder="Shopping List Name"
+                           (blur)="editShoppingListName = false" (keydown.enter)="shoppingListNameInput.blur()">
+                </mat-form-field>
+                <div id="shoppinglist-name-output-wrapper" *ngIf="!editShoppingListName">
+                    <h3 id="shoppinglist-name-output">{{ this.shoppingList.value.name.length > 0 ? this.shoppingList.value.name : 'Your Shopping List' }}</h3>
+                    <button (click)="editShoppingListName = true" mat-icon-button class="transparent-mat-button fix-height-mat-icon"><mat-icon>edit</mat-icon></button>
+                </div>
+            </div>
+            <div class="top-bar-flex-wrap">
+                <button type="button" mat-flat-button (click)="addItem()" id="add-item" class="action-button mat-button-700"><mat-icon>add_box</mat-icon> &nbsp; Add Item</button>
+                <button type="button" mat-flat-button class="action-button mat-button-800"><mat-icon>save</mat-icon> &nbsp; Save</button>
+            </div>
         </div>
         <div id="shopping-list-contents">
             <mat-tab-group class="item-tabs" animationDuration="0ms" dynamicHeight>
