@@ -115,6 +115,22 @@ $pathofshopping-typography: mat-typography-config(
 
 @include generate-input-color-class();
 
+@mixin generate-button-color-class() {
+  @each $color in map-keys($pathofshopping-primary) {   //Get keys
+    @if ($color != 'contrast') {                        //ignore contrast
+      .mat-button-#{$color} {
+        background-color: mat-color($pathofshopping-primary, $color);
+        padding-top: 0.5em;
+        padding-bottom: 0.5em;
+        @include mat-typography-level-to-styles($pathofshopping-typography, body-1);
+        color: transparentize($color:  mat-color($pathofshopping-accent, 50), $amount: 0.25);
+      }
+    }
+  }
+}
+
+@include generate-button-color-class();
+
 .transparent-mat-button {
   background-color: transparent;
   color: transparentize($color:  mat-color($pathofshopping-accent, 50), $amount: 0.3);
