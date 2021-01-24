@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { trueFlase } from './../trueFalseEnum';
 
@@ -57,7 +57,7 @@ export class OtherfiltersComponent implements OnInit {
     }),
   })
 
-  constructor() { 
+  constructor(private cd: ChangeDetectorRef) { 
   }
 
   ngOnInit(): void {
@@ -72,6 +72,8 @@ export class OtherfiltersComponent implements OnInit {
         if (this.otherFilters.controls[key].dirty) this.otherFilters.markAsDirty();
       })
     });
+    
+    this.cd.detectChanges();
   }
 
   /**
