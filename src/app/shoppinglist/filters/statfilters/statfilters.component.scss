@@ -14,10 +14,8 @@
             }
         }
 
-        .add-filter-button {
-            background-color: transparent;
-            color: mat-color($pathofshopping-accent, 50);
-            margin-top: 0.3em;
+        .transparent-mat-button {
+            margin: 0.5em;
         }
     }
 }
@@ -29,9 +27,10 @@
     flex: 1 1 auto;
     max-width: 100%;
     justify-content: flex-end;
+    @include mat-typography-level-to-styles($pathofshopping-typography, body-1);
 }
 
-@media only screen and (max-width: 908px) {
+@media only screen and (max-width: 981px) {
     .type-selector {
         margin-top: 0.15em;
         flex: 1 1 100%;

@@ -15,7 +15,7 @@
                 <app-statselect class="field" *ngFor="let stat of filter.stats" (statRemoved)="removeStat($event)" [stat]="stat" 
                 [isWeight]="this.filter.statFilters.controls.type.value == 'weight'"></app-statselect>
             </div>
-            <button mat-button class="add-filter-button" (click)="addStatFilter()" [disabled]="this.filter.statFilters.disabled"><mat-icon>add</mat-icon></button>
+            <button mat-button type="button" class="transparent-mat-button" (click)="addStatFilter()" [disabled]="this.filter.statFilters.disabled"><mat-icon>add_box</mat-icon> Stat</button>
         </div>
     </ng-template>
 </mat-expansion-panel>
