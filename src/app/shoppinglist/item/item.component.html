@@ -37,7 +37,7 @@
                     <button class="query-button mat-button-600" mat-flat-button type="button" (click)="this.showResults = !this.showResults" *ngIf="this.itemData.resultData.queryProps || this.showResults">
                         <mat-icon class="{{ showResults ? '' : 'rotate'}}">expand_less</mat-icon>{{ showResults ? 'Hide Results' : 'Show Results'}}
                     </button>
-                    <button class="query-button mat-button-600" mat-flat-button type="button" (click)="this.queryForm.reset()">
+                    <button class="query-button mat-button-600" mat-flat-button type="button" (click)="clearStatFilters(); this.queryForm.reset()">
                         <mat-icon>clear</mat-icon>Clear
                     </button>
                 </div>
