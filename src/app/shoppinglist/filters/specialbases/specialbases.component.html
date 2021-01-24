@@ -1,6 +1,6 @@
-<mat-expansion-panel class="filter-expansion-panel">
+<mat-expansion-panel class="filter-expansion-panel" #expansionPanel [disabled]="this.influenceFilters.disabled">
     <mat-expansion-panel-header>
-        <app-filteractionbuttons [formGroup]="this.influenceFilters"></app-filteractionbuttons>
+        <app-filteractionbuttons [formGroup]="this.influenceFilters" (disableChange)="this.influenceFilters.disabled ? expansionPanel.close() : ''"></app-filteractionbuttons>
             Influences & Special Bases
     </mat-expansion-panel-header>
     <ng-template matExpansionPanelContent>

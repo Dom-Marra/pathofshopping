@@ -1,6 +1,6 @@
-<mat-expansion-panel class="filter-expansion-panel">
+<mat-expansion-panel class="filter-expansion-panel" #expansionPanel [disabled]="this.armourFilters.disabled">
     <mat-expansion-panel-header>
-        <app-filteractionbuttons [formGroup]="this.armourFilters"></app-filteractionbuttons>
+        <app-filteractionbuttons [formGroup]="this.armourFilters" (disableChange)="this.armourFilters.disabled ? expansionPanel.close() : ''"></app-filteractionbuttons>
         Armour Filters
     </mat-expansion-panel-header>
     <ng-template matExpansionPanelContent>
