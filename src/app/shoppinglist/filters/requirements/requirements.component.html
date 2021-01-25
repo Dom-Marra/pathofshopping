@@ -1,6 +1,6 @@
 <mat-expansion-panel class="filter-expansion-panel" #expansionPanel [disabled]="this.requirementFilters.disabled">
     <mat-expansion-panel-header>
-        <app-filteractionbuttons [formGroup]="this.requirementFilters" (disableChange)="this.requirementFilters.disabled ? expansionPanel.close() : ''"></app-filteractionbuttons>
+        <app-filteractionbuttons [formGroup]="this.requirementFilters" (disableChange)="this.requirementFilters.disabled ? expansionPanel.close() : ''; this.requirementFilters.controls.disabled.patchValue(this.requirementFilters.disabled, {emitEvent: false, onlySelf: true})"></app-filteractionbuttons>
             Requirements
     </mat-expansion-panel-header>
     <ng-template matExpansionPanelContent>

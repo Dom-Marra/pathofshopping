@@ -11,7 +11,7 @@ export class WeaponfiltersComponent implements OnInit {
   @Input() itemForm: FormGroup;                                           //Main item form
 
   public weaponFilters: FormGroup = new FormGroup({
-    disabled: new FormControl(false),
+    disabled: new FormControl({value: false, disabled: true}),
     filters: new FormGroup({
       damage: new FormGroup({
         min: new FormControl(''),
@@ -48,6 +48,16 @@ export class WeaponfiltersComponent implements OnInit {
       this.weaponFilters = this.itemForm.controls['weapon_filters'] as FormGroup;   //Retain weapon data on item
     } else {
       this.itemForm.addControl('weapon_filters', this.weaponFilters);               //Add filters to main form
+    }
+
+    this.weaponFilters.controls.disabled.valueChanges.subscribe(disabled => {       //When disbaled changes to false, and the form is still disabled then enable it
+      if (!disabled && this.weaponFilters.disabled) this.weaponFilters.enable({emitEvent: false});
+    });
+  }
+
+  ngAfterContentChecked() {   //Disable the form when the disable value is true and the form is enabled
+    if (this.weaponFilters.controls.disabled.value && this.weaponFilters.enabled) {
+      this.weaponFilters.disable();
     }
   }
 

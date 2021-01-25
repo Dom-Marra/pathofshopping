@@ -1,6 +1,6 @@
 <mat-expansion-panel class="filter-expansion-panel" #expansionPanel [disabled]="this.otherFilters.disabled">
     <mat-expansion-panel-header>
-        <app-filteractionbuttons [formGroup]="this.otherFilters" (disableChange)="this.otherFilters.disabled ? expansionPanel.close() : ''"></app-filteractionbuttons>
+        <app-filteractionbuttons [formGroup]="this.otherFilters" (disableChange)="this.otherFilters.disabled ? expansionPanel.close() : ''; this.otherFilters.controls.otherFilters_disabled.patchValue(this.otherFilters.disabled, {emitEvent: false, onlySelf: true})"></app-filteractionbuttons>
         Other
     </mat-expansion-panel-header>
     <ng-template matExpansionPanelContent>

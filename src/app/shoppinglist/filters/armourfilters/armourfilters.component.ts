@@ -11,6 +11,7 @@ export class ArmourfiltersComponent implements OnInit {
   @Input() itemForm: FormGroup;                                                   //Item Form
 
   public armourFilters: FormGroup = new FormGroup({         //Armor Filters
+    disabled: new FormControl({value: false, disabled: true}),
     filters: new FormGroup({
       ar: new FormGroup({
         min: new FormControl(''),
@@ -39,6 +40,16 @@ export class ArmourfiltersComponent implements OnInit {
       this.armourFilters = this.itemForm.controls['armour_filters'] as FormGroup;
     } else {
       this.itemForm.addControl('armour_filters', this.armourFilters);    //Add Armour filters to main item form
+    }
+
+    this.armourFilters.controls.disabled.valueChanges.subscribe(disabled => {     //When disbaled changes to false, and the form is still disabled then enable it
+      if (!disabled && this.armourFilters.disabled) this.armourFilters.enable({emitEvent: false});
+    });
+  }
+
+  ngAfterContentChecked() {   //Disable the form when the disable value is true and the form is enabled
+    if (this.armourFilters.controls.disabled.value && this.armourFilters.enabled) {
+      this.armourFilters.disable();
     }
   }
 

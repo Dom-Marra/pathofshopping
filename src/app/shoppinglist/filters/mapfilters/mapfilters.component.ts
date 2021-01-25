@@ -44,6 +44,7 @@ export class MapfiltersComponent implements OnInit {
   @Input() itemForm: FormGroup;                                           //Main item form
 
   public mapFilters: FormGroup = new FormGroup({
+    disabled: new FormControl({value: false, disabled: true}),
     filters: new FormGroup({
       map_region: new FormGroup(
         {option: new FormControl('')}
@@ -87,6 +88,16 @@ export class MapfiltersComponent implements OnInit {
       this.mapFilters = this.itemForm.controls['map_filters'] as FormGroup;
     } else {
       this.itemForm.addControl('map_filters', this.mapFilters);               //Add field for map data
+    }
+
+    this.mapFilters.controls.disabled.valueChanges.subscribe(disabled => {    //When disbaled changes to false, and the form is still disabled then enable it
+      if (!disabled && this.mapFilters.disabled) this.mapFilters.enable({emitEvent: false});
+    });
+  }
+
+  ngAfterContentChecked() {   //Disable the form when the disable value is true and the form is enabled
+    if (this.mapFilters.controls.disabled.value && this.mapFilters.enabled) {
+      this.mapFilters.disable();
     }
   }
 

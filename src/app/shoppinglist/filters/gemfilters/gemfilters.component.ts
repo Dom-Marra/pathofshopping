@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 
 enum gemQualityTypes {
@@ -22,6 +22,7 @@ export class GemfiltersComponent implements OnInit {
   @Input() itemForm: FormGroup;                                                 //Main item form
 
   public gemFilters: FormGroup = new FormGroup({
+    gemFilters_disabled: new FormControl({value: false, disabled: true}),
     gem_alternate_quality: new FormGroup({
       option: new FormControl('')
     }),
@@ -35,22 +36,31 @@ export class GemfiltersComponent implements OnInit {
     })
   })
 
-  constructor(private cd: ChangeDetectorRef) { }
+  constructor() { }
 
   ngOnInit(): void {
     Object.keys(this.gemFilters.controls).forEach(key => {        //add controls to misc filters
       if (this.itemForm.controls[key]) {
         this.gemFilters.controls[key] = this.itemForm.controls[key];         //Retain data from item if it exists
       } else {
-        this.itemForm.addControl(key, this.gemFilters.get(key));      //Add new field if not
+        this.itemForm.addControl(key, this.gemFilters.get(key));             //Add new field if not
       }
+      if (this.gemFilters.controls[key].dirty) this.gemFilters.markAsDirty();       //Init dirty check
 
-      this.gemFilters.controls[key].valueChanges.subscribe(() => {    //Mark dirty when the controls are dirty
+      this.gemFilters.controls[key].valueChanges.subscribe(() => {                  //Mark dirty when the controls are dirty
         if (this.gemFilters.controls[key].dirty) this.gemFilters.markAsDirty();
       })
     });
 
-    this.cd.detectChanges();
+    this.gemFilters.controls.gemFilters_disabled.valueChanges.subscribe(disabled => {   //When disbaled changes to false, and the form is still disabled then enable it
+      if (!disabled && this.gemFilters.disabled) this.gemFilters.enable({emitEvent: false});
+    });
+  }
+
+  ngAfterContentChecked() {   //Disable the form when the disable value is true and the form is enabled
+    if (this.gemFilters.controls.gemFilters_disabled.value && this.gemFilters.enabled) {
+      this.gemFilters.disable({emitEvent: false, onlySelf: true});
+    }
   }
 
   /**

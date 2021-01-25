@@ -1,6 +1,6 @@
 <mat-expansion-panel class="filter-expansion-panel" #expansionPanel [disabled]="this.gemFilters.disabled">
     <mat-expansion-panel-header>
-        <app-filteractionbuttons [formGroup]="this.gemFilters" (disableChange)="this.gemFilters.disabled ? expansionPanel.close() : ''"></app-filteractionbuttons>
+        <app-filteractionbuttons [formGroup]="this.gemFilters" (disableChange)="this.gemFilters.disabled ? expansionPanel.close() : ''; this.gemFilters.controls.gemFilters_disabled.patchValue(this.gemFilters.disabled, {emitEvent: false, onlySelf: true})"></app-filteractionbuttons>
             Gem Filters
     </mat-expansion-panel-header>
     <ng-template matExpansionPanelContent>

@@ -1,6 +1,6 @@
 <mat-expansion-panel class="filter-expansion-panel" #expansionPanel [disabled]="this.tradeFilters.disabled">
     <mat-expansion-panel-header>
-        <app-filteractionbuttons [formGroup]="this.tradeFilters" (disableChange)="this.tradeFilters.disabled ? expansionPanel.close() : ''"></app-filteractionbuttons>
+        <app-filteractionbuttons [formGroup]="this.tradeFilters" (disableChange)="this.tradeFilters.disabled ? expansionPanel.close() : ''; this.tradeFilters.controls.disabled.patchValue(this.tradeFilters.disabled, {emitEvent: false, onlySelf: true})"></app-filteractionbuttons>
             Trade & Account Filters
     </mat-expansion-panel-header>
     <ng-template matExpansionPanelContent>

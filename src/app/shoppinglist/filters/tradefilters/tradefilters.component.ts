@@ -51,6 +51,7 @@ export class TradefiltersComponent implements OnInit {
   @Input() filterGroup: FormGroup;          //Filters from group to add filters to
 
   public tradeFilters = new FormGroup({     //Trade filters
+    disabled: new FormControl({value: false, disabled: true}),
     filters: new FormGroup({ 
       price: new FormGroup({
         min: new FormControl(),
@@ -76,6 +77,16 @@ export class TradefiltersComponent implements OnInit {
       this.tradeFilters = this.filterGroup.controls['trade_filters'] as FormGroup;    //Retain item data for trade filters
     } else {
       this.filterGroup.addControl('trade_filters', this.tradeFilters);                //Add trade filters to filter group
+    }
+
+    this.tradeFilters.controls.disabled.valueChanges.subscribe(disabled => {          //When disbaled changes to false, and the form is still disabled then enable it
+      if (!disabled && this.tradeFilters.disabled) this.tradeFilters.enable({emitEvent: false});
+    });
+  }
+
+  ngAfterContentChecked() {       //Disable the form when the disable value is true and the form is enabled
+    if (this.tradeFilters.controls.disabled.value && this.tradeFilters.enabled) {
+      this.tradeFilters.disable();
     }
   }
 

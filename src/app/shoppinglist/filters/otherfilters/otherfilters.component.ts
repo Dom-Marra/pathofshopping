@@ -14,6 +14,7 @@ export class OtherfiltersComponent implements OnInit {
   @Input() itemForm: FormGroup;                                           //Main item form
   
   public otherFilters: FormGroup = new FormGroup({                        //Other filters group
+    otherFilters_disabled: new FormControl({value: false, disabled: true}),
     quality: new FormGroup({
       min: new FormControl(''),
       max: new FormControl('')
@@ -68,12 +69,22 @@ export class OtherfiltersComponent implements OnInit {
         this.itemForm.addControl(key, this.otherFilters.get(key));          //Add field for data
       }
 
-      this.otherFilters.controls[key].valueChanges.subscribe(() => {        //Mark dirty when the controls are dirty
+      if (this.otherFilters.controls[key].dirty) this.otherFilters.markAsDirty();   //Init dirty check
+
+      this.otherFilters.controls[key].valueChanges.subscribe(() => {                //Mark dirty when the controls are dirty
         if (this.otherFilters.controls[key].dirty) this.otherFilters.markAsDirty();
-      })
+      });
     });
-    
-    this.cd.detectChanges();
+
+    this.otherFilters.controls.otherFilters_disabled.valueChanges.subscribe(disabled => {    //When disbaled changes to false, and the form is still disabled then enable it
+      if (!disabled && this.otherFilters.disabled) this.otherFilters.enable({emitEvent: false});
+    });
+  }
+
+  ngAfterContentChecked() {   //Disable the form when the disable value is true and the form is enabled
+    if (this.otherFilters.controls.otherFilters_disabled.value && this.otherFilters.enabled) {
+      this.otherFilters.disable({emitEvent: false, onlySelf: true});
+    }
   }
 
   /**

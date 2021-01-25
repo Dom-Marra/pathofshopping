@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { minmaxExtras } from '../../inputs/minmaxinput/minmaxinput.component';
 
@@ -11,9 +11,8 @@ export class SocketfiltersComponent implements OnInit {
 
   @Input() itemForm: FormGroup;                                           //Main item form
 
-  public loaded: boolean = false;                           //Used to defer loading of the inputs
-
   public socketFilters: FormGroup = new FormGroup({                       //Socket filters
+    disabled: new FormControl({value: false, disabled: true}),
     filters: new FormGroup({
       sockets: new FormGroup({
         r: new FormControl(''),
@@ -38,7 +37,7 @@ export class SocketfiltersComponent implements OnInit {
 
   public socketSocketsExtras: Array<minmaxExtras>;  //sockets extra input data
 
-  constructor(private cd: ChangeDetectorRef) {
+  constructor() {
   }
 
   ngOnInit(): void {
@@ -48,14 +47,19 @@ export class SocketfiltersComponent implements OnInit {
       this.itemForm.addControl('socket_filters', this.socketFilters);
     }
 
+    this.socketFilters.controls.disabled.valueChanges.subscribe(disabled => {     //When disbaled changes to false, and the form is still disabled then enable it
+      if (!disabled && this.socketFilters.disabled) this.socketFilters.enable({emitEvent: false});
+    });
+
     this.initLinksData();
     this.initSocketsData();
   }
   
-  ngAfterViewInit() {
-      this.loaded = true;
-      this.cd.detectChanges();
+  ngAfterContentChecked() {   //Disable the form when the disable value is true and the form is enabled
+    if (this.socketFilters.controls.disabled.value && this.socketFilters.enabled) {
+      this.socketFilters.disable();
     }
+  }
 
   private initLinksData() {
     this.socketLinksExtras = [                                                           //links extra input data
