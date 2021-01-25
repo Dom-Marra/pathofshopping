@@ -3,6 +3,7 @@ import { FormGroup, FormControl, FormArray } from '@angular/forms';
 import { QueryitemService } from './services/queryitem.service'
 import { Statfilter } from '../filters/statfilters/statfilter/statfilter';
 import { Item } from './itemdata/item';
+import { Resultdata } from './results/resultdata/resultdata';
 
 enum statusOptions {
   any = 'All',
@@ -188,11 +189,12 @@ export class ItemComponent implements OnInit {
   }
 
   /**
-   * Clears the Stats from the item
+   * Clears the item
    */
-  public clearStatFilters() {
-    this.itemData.statFilters = [];
-    (this.itemData.itemForm.get('queryForm.query.stats') as FormArray).clear();
+  public clear() {
+    this.itemData = new Item(this.itemData.itemForm.value.itemName);
+    this.showResults = false;
+    this.ngOnInit();
   }
 
   /**
