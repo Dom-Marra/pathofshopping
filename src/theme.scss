@@ -219,3 +219,32 @@ $pathofshopping-typography: mat-typography-config(
 }
 
 @include generate-warn-hover-colors();
+
+@mixin generate-autocomplete-classes {
+  @each $color in map-keys($pathofshopping-primary) {
+    @if ($color != 'contrast') {     
+      .autocomplete-panel-#{$color} {
+        background-color: mat-color($pathofshopping-primary, $color) !important;
+  
+        .mat-optgroup {
+            .mat-optgroup-label {
+                color: rgba(0, 0, 0, 0.3) !important;
+            }
+        }
+      
+        .mat-option {
+            .mat-option-text {
+              @include mat-typography-level-to-styles($pathofshopping-typography, body-1);
+              color: mat-color($pathofshopping-accent, 50) !important;
+            }
+        }
+      
+        .mat-option.mat-selected:not(.mat-active):not(:hover) {
+            background-color: rgba(0, 0, 0, 0.1) !important;
+        }
+      }
+    }
+  }
+}
+
+@include generate-autocomplete-classes();
