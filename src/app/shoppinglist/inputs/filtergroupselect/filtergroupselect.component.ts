@@ -16,6 +16,7 @@ export class FiltergroupselectComponent implements OnInit {
   @Input() styleType: stylesTypes = stylesTypes.normal;     //Style of the select
   @Input() disableDefault: boolean = false;                 //Whether the default control directive should be disabled
   @Input() default: any;                                    //Default value
+  @Input() autoCompleteClass: string = 'autocomplete-panel-300';
 
   public filter: Array<any>;                                //Filtered results
 

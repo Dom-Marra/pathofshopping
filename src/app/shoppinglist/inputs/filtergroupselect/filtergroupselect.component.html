@@ -12,7 +12,7 @@
                 
         <mat-icon matSuffix class="icon-dark" [class.rotate]="selectInputAutoComplete.isOpen">arrow_drop_down</mat-icon>
         <mat-autocomplete #selectInputAutoComplete="matAutocomplete" 
-                        [class]="'autocomplete-panel'" 
+                        [class]="autoCompleteClass" 
                         autoActiveFirstOption="'true'"
                         (optionSelected)="control.patchValue($event.option.value); selectInput.blur()">
             <mat-option *ngFor="let value of filter" [class.mat-selected]="value == selectEnum[control.value]" [value]="value">
