@@ -1,38 +1,40 @@
 import { FormArray, FormControl, FormGroup } from "@angular/forms";
+import { itemSaveData } from "src/app/models/itemSaveData";
 import { ItemForm } from "../formgroups/item-form";
+import { StatFilterForm } from "../formgroups/stat-filter-form";
+import { StatForm } from "../formgroups/stat-form";
 import { Resultdata } from "../resultdata/resultdata";
 
 export class Item {
 
     public resultData: Resultdata = new Resultdata();   //Data pertaining to the results
 
-    public itemForm = new ItemForm();
+    public itemForm = new ItemForm();                   //The main item data
 
-    constructor(public savedItemData?: any) { 
-        if (this.savedItemData != null) {
-            console.log(savedItemData);
+    constructor(public savedItemData?: itemSaveData) { 
+        if (this.savedItemData) {
             this.loadSaveData();
-            this.savedItemData = null;
         }
     }
 
+    /**
+     * Loads the saved item data
+     */
     public loadSaveData() {
-        this.itemForm = new FormGroup({});
-        this.generateControls(this.savedItemData, this.itemForm);
-    }
 
-    public generateControls(object, group?: FormGroup, array?: FormArray) {
-        for (const key in object) {
-            if (typeof object[key] === 'object' && object[key]) {
-                let control = Array.isArray(object[key]) ? new FormArray([]) : new FormGroup({});
+        //Have to add a new stat filter for each one saved
+        this.savedItemData.queryForm.query.stats.forEach(statGroup => {
+            let newStatGroup = new StatFilterForm();
+            (this.itemForm.get('queryForm.query.stats') as FormArray).push(newStatGroup);
 
-                group?.addControl(key, control);
-                array?.push(control);
-                this.generateControls(object[key], Array.isArray(object[key]) ? null : (control as FormGroup),  Array.isArray(object[key]) ? (control as FormArray) : null);
-            } else {
-                group?.addControl(key, new FormControl(object[key]));
-            }
-        }
+            //Have to add a stat for each on saved
+            statGroup.filters.forEach(filter => {
+                (newStatGroup.controls.filters as FormArray).push(new StatForm);
+            });
+        });
+
+        //Patch the saved values
+        this.itemForm.patchValue(this.savedItemData);
     }
 
     /**
