@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component, ElementRef, OnInit, QueryList, ViewChildr
 import { FormControl, FormGroup } from '@angular/forms';
 import { LeaguesService, leagueData } from '../../services/leagues.service';
 import { Item } from '../../classes/itemdata/item';
+import { itemSaveData } from 'src/app/models/itemSaveData';
 
 @Component({
   selector: 'app-shoppinglist',
@@ -46,13 +47,14 @@ export class ShoppinglistComponent implements OnInit {
   }
 
   /**
-   * Adds a new Item Component
+   * Adds a new Item to the shopping list
    * 
-   * @param itemData 
-   *        Item: data to bind when creating the item
+   * @param itemSaveData 
+   *        Saved data to initiate the new item with
    */
-  public addItem(itemData?: Item) {
-    this.items.push(itemData ? itemData : new Item());
+  public addItem(itemSaveData?: itemSaveData) {
+    let item: Item = new Item(itemSaveData);
+    this.items.push(item);
   }
 
   /**
