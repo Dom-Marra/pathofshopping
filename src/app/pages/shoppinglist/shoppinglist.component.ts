@@ -52,7 +52,7 @@ export class ShoppinglistComponent implements OnInit {
    *        Item: data to bind when creating the item
    */
   public addItem(itemData?: Item) {
-    this.items.push(itemData ? itemData : new Item('New Item'));
+    this.items.push(itemData ? itemData : new Item());
   }
 
   /**
