@@ -1,15 +1,14 @@
 import { FormArray, FormControl, FormGroup } from "@angular/forms";
+import { ItemForm } from "../formgroups/item-form";
 import { Resultdata } from "../resultdata/resultdata";
 
 export class Item {
 
     public resultData: Resultdata = new Resultdata();   //Data pertaining to the results
 
-    public itemForm = new FormGroup({               //Data pertaining to this item
-        itemName: new FormControl('New Item')
-    });
+    public itemForm = new ItemForm();
 
-    constructor(private name: string, public savedItemData?: any) { 
+    constructor(public savedItemData?: any) { 
         if (this.savedItemData != null) {
             console.log(savedItemData);
             this.loadSaveData();
