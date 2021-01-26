@@ -1,0 +1,150 @@
+@import '../../../theme.scss';
+
+.topbar-select {
+    background-color: mat-color($pathofshopping-primary, 400) !important;
+
+    .mat-option-text {
+        color: mat-color($pathofshopping-accent, 50);
+    }
+}
+
+#shoppinglist-maincontainer {
+    color: mat-color($pathofshopping-accent, 50);
+    min-height: 100%;
+    height: auto;
+    width: 100%;
+    padding-bottom: 50px;
+    background-color: mat-color($pathofshopping-primary, 800);
+
+    #top-bg-image-container {
+        position: relative;
+        background-position: center;
+        background-size: cover;
+        background-image: linear-gradient(to top, mat-color($pathofshopping-primary, 800) 5%, rgba(0,0,0,0)), 
+                            url('../../../assets/topBgImage.jpg');
+        height: 350px;
+
+        #top-title {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+        }
+    }
+
+    #shoppinglist-contents-container {  
+        position: relative;
+        transform: translateY(calc(-30px - (300px * 0.1)));
+        border-radius: 5px;
+        width: 90%;
+        margin: auto;
+        min-height: 500px;
+        height: auto;
+        background-color: mat-color($pathofshopping-primary, 600);
+
+        #shoppinglist-contents-top-bar {
+            border-radius: 5px 5px 0 0;
+            min-height: 60px;
+            width: 100%;
+            background-color: mat-color($pathofshopping-primary, 500);
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+
+            #shoppinglist-name-bar {
+                display: flex;
+                flex-wrap: wrap;
+                align-items: center;
+                justify-content: center;
+                overflow: hidden;
+                flex: 1 1 0px;
+                font-size: mat-font-size($pathofshopping-typography, subheading-2);
+        
+                #shoppinglist-name-output-wrapper {
+                    display: flex;
+                    align-items: center;
+                    max-width: 100%;
+        
+                    #shoppinglist-name-output {
+                        display: flex;
+                        align-items: center;
+                        text-align: center;
+                        margin: 0;
+                        padding: 0.25em;
+                        overflow: hidden;
+                        white-space: nowrap;
+                    }
+                }
+
+                .shopping-list-name-input {
+                    margin-top: -0.25em;
+                    flex: 1;
+                }
+            }
+
+            .top-bar-flex-wrap {
+                display: flex;
+                flex-wrap: wrap;
+                flex: 1 1 0px;
+
+                .league-select {
+                    flex: 0 1 auto;
+                    min-width: 150px;
+                }
+        
+                .action-button {
+                    margin: 1em;
+                    flex: 0 1 auto;
+    
+                    &:first-of-type {
+                        margin-left: auto;
+                    }
+                }
+            }
+        }
+
+        #shopping-list-contents {
+            padding-bottom: 2em;
+        }
+    }
+}
+
+@media only screen and (max-width: 1080px) {
+
+    #shoppinglist-maincontainer {
+        #shoppinglist-contents-container { 
+            #shoppinglist-contents-top-bar {
+
+                #shoppinglist-name-bar {
+                    margin-top: 0.5em;
+                    flex: 1 1 100%;
+
+                    .shopping-list-name-input {
+                        margin-top: -0.5em;
+                        flex: 1;
+                    }
+                }
+    
+                .top-bar-flex-wrap {
+                    order: 1;
+                    flex: 1 1 100%;
+    
+                    .league-select {
+                        flex: 1;
+                    }
+            
+                    .action-button {
+                        margin: 1em;
+                        flex: 1 1 auto;
+                        text-align: center;
+
+                        &:first-of-type {
+                            margin: 1em;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
