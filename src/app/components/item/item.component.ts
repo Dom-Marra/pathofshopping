@@ -22,25 +22,8 @@ export class ItemComponent implements OnInit {
   @ViewChildren("itemNameInput") itemNameInput: QueryList<ElementRef>;                            //Item name input element
   public readonly STATUS_OPTIONS: typeof statusOptions = statusOptions;
 
-  public editName: boolean = false;                        //Whether name is in edit mode or not
+  public editName: boolean = false;                         //Whether name is in edit mode or not
   public showResults: boolean = false;                      //Used to show results tab
-  public queryResults: Array<any> = [];                     //Query Results
-
-  public queryForm = new FormGroup({
-    query: new FormGroup({
-      stats: new FormArray([
-      ]),
-      status: new FormGroup({
-        option: new FormControl('online')
-      })
-    }),
-    sort: new FormGroup({
-      price: new FormControl("asc")
-    })
-  });
-
-  public misc_filters = new FormGroup({                    //misc filter group
-  })
 
   constructor(private cd: ChangeDetectorRef, private queryService: QueryitemService) {  
   }
@@ -56,14 +39,6 @@ export class ItemComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.itemData.itemForm.controls.queryForm != null) {              //Check if the current item already has data set
-      this.queryForm = this.itemData.itemForm.controls.queryForm as FormGroup;
-    } else {
-      (this.queryForm.get('query') as FormGroup).addControl('filters', new FormGroup({}));              //add filters group
-      this.misc_filters.addControl('filters', new FormGroup({}));                                       //add filters to misc
-      (this.queryForm.get('query.filters') as FormGroup).addControl('misc_filters', this.misc_filters); //add misc filter to query
-      this.itemData.itemForm.addControl('queryForm', this.queryForm);                                   //Add queryForm to itemForm
-    }
   }
 
   /**
@@ -81,8 +56,8 @@ export class ItemComponent implements OnInit {
     this.setSortBy(sortKey, sortValue);                                   //Set the sort data
 
     let data = {                                                          //create query data
-      query: (this.queryForm.controls.query as FormGroup).value,
-      sort: (this.queryForm.controls.sort as FormGroup).value
+      query: (this.itemData.itemForm.get('queryForm.query') as FormGroup).value,
+      sort: (this.itemData.itemForm.get('queryForm.sort') as FormGroup).value
     }
 
     data = this.removeEmpty(data);                            //clean the data
@@ -154,14 +129,14 @@ export class ItemComponent implements OnInit {
    *        sort value, either 'asc' for ascending, or 'desc' for descending
    */
   private setSortBy(key: string, value?: string) {
-    let currentSort = Object.keys((this.queryForm.controls.sort as FormGroup).getRawValue())[0];   //The current key in use
-    let sortValue = (this.queryForm.controls.sort as FormGroup).controls[currentSort].value;       //The current value
+    let currentSort = Object.keys((this.itemData.itemForm.get('queryForm.sort') as FormGroup).getRawValue())[0];   //The current key in use
+    let sortValue = (this.itemData.itemForm.get('queryForm.sort') as FormGroup).controls[currentSort].value;       //The current value
 
     if (currentSort == key) {
-      this.queryForm.controls['sort']['controls'][currentSort].patchValue(value ? value : sortValue == 'asc' ? 'desc' : 'asc');   //Alternate value if key is the same
+      this.itemData.itemForm.get('queryForm.sort')['controls'][currentSort].patchValue(value ? value : sortValue == 'asc' ? 'desc' : 'asc');   //Alternate value if key is the same
     } else {
-      (this.queryForm.controls.sort as FormGroup).removeControl(currentSort);                                      //Remove old control
-      (this.queryForm.controls.sort as FormGroup).addControl(key, new FormControl(value ? value : 'desc'));        //Add new control
+      (this.itemData.itemForm.get('queryForm.sort') as FormGroup).removeControl(currentSort);                                      //Remove old control
+      (this.itemData.itemForm.get('queryForm.sort') as FormGroup).addControl(key, new FormControl(value ? value : 'desc'));        //Add new control
     }
   }
 
@@ -170,7 +145,7 @@ export class ItemComponent implements OnInit {
    */
   public addStatGroup() {
     let newStatFilter = new StatForm();
-    (this.queryForm.get('query.stats') as FormArray).push(newStatFilter);
+    (this.itemData.itemForm.get('queryForm.query.stats') as FormArray).push(newStatFilter);
   }
 
   /**
@@ -180,8 +155,8 @@ export class ItemComponent implements OnInit {
    *        stat filter to remove 
    */
   public removeStatFilter(statFilter: FormGroup) {
-    let statsArryayIndex = (this.queryForm.get('query.stats') as FormArray).controls.indexOf(statFilter);
-    (this.queryForm.get('query.stats') as FormArray).removeAt(statsArryayIndex);
+    let statsArryayIndex = (this.itemData.itemForm.get('queryForm.query.stats') as FormArray).controls.indexOf(statFilter);
+    (this.itemData.itemForm.get('queryForm.query.stats') as FormArray).removeAt(statsArryayIndex);
   }
 
   /**
