@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnInit, 
 import { FormGroup, FormControl, FormArray } from '@angular/forms';
 import { QueryitemService } from '../../services/queryitem.service'
 import { Item } from '../../classes/itemdata/item';
-import { StatForm } from '../../classes/formgroups/stat-form';
+import { StatFilterForm } from 'src/app/classes/formgroups/stat-filter-form';
 
 enum statusOptions {
   any = 'All',
@@ -144,7 +144,7 @@ export class ItemComponent implements OnInit {
    * Adds a stat filter to the item data
    */
   public addStatGroup() {
-    let newStatFilter = new StatForm();
+    let newStatFilter = new StatFilterForm();
     (this.itemData.itemForm.get('queryForm.query.stats') as FormArray).push(newStatFilter);
   }
 
