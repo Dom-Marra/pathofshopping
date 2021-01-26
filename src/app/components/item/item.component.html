@@ -17,17 +17,17 @@
 
     <div class="item-contents">
         <div class="filters">
-            <app-typefilters class="filter type" [itemForm]="this.queryForm"></app-typefilters>
-            <app-weaponfilters class="filter" [itemForm]="queryForm['controls'].query['controls'].filters"></app-weaponfilters>
-            <app-armourfilters class="filter" [itemForm]="queryForm['controls'].query['controls'].filters"></app-armourfilters>
-            <app-socketfilters class="filter" [itemForm]="queryForm['controls'].query['controls'].filters"></app-socketfilters>
-            <app-requirements class="filter" [itemForm]="queryForm['controls'].query['controls'].filters"></app-requirements>
-            <app-mapfilters class="filter" [itemForm]="queryForm['controls'].query['controls'].filters"></app-mapfilters>
-            <app-specialbases class="filter" [itemForm]="queryForm['controls'].query['controls'].filters['controls'].misc_filters['controls'].filters"></app-specialbases>
-            <app-gemfilters class="filter" [itemForm]="queryForm['controls'].query['controls'].filters['controls'].misc_filters['controls'].filters"></app-gemfilters>
-            <app-otherfilters class="filter" [itemForm]="queryForm['controls'].query['controls'].filters['controls'].misc_filters['controls'].filters"></app-otherfilters>
-            <app-tradefilters class="filter" [filterGroup]="queryForm['controls'].query['controls'].filters"></app-tradefilters>
-            <app-statfilters class="filter" *ngFor="let statFilter of queryForm['controls'].query['controls'].stats['controls']" [statFilter]="statFilter" (filterRemoved)="removeStatFilter($event)"></app-statfilters>
+            <app-typefilters class="filter type" [queryForm]="this.itemData.itemForm['controls'].queryForm['controls'].query"></app-typefilters>
+            <app-weaponfilters class="filter" [weaponForm]="this.itemData.itemForm['controls'].queryForm['controls'].query['controls'].filters['controls'].weapon_filters"></app-weaponfilters>
+            <app-armourfilters class="filter" [armourForm]="this.itemData.itemForm['controls'].queryForm['controls'].query['controls'].filters['controls'].armour_filters"></app-armourfilters>
+            <app-socketfilters class="filter" [socketForm]="this.itemData.itemForm['controls'].queryForm['controls'].query['controls'].filters['controls'].socket_filters"></app-socketfilters>
+            <app-requirements class="filter" [requirementsForm]="this.itemData.itemForm['controls'].queryForm['controls'].query['controls'].filters['controls'].req_filters"></app-requirements>
+            <app-mapfilters class="filter" [mapForm]="this.itemData.itemForm['controls'].queryForm['controls'].query['controls'].filters['controls'].map_filters"></app-mapfilters>
+            <app-specialbases class="filter" [influenceForm]="this.itemData.itemForm['controls'].queryForm['controls'].query['controls'].filters['controls'].misc_filters.influenceForm"></app-specialbases>
+            <app-gemfilters class="filter" [gemForm]="this.itemData.itemForm['controls'].queryForm['controls'].query['controls'].filters['controls'].misc_filters.gemForm"></app-gemfilters>
+            <app-otherfilters class="filter" [otherForm]="this.itemData.itemForm['controls'].queryForm['controls'].query['controls'].filters['controls'].misc_filters.otherForm"></app-otherfilters>
+            <app-tradefilters class="filter" [tradeForm]="this.itemData.itemForm['controls'].queryForm['controls'].query['controls'].filters['controls'].trade_filters"></app-tradefilters>
+            <app-statfilters class="filter" *ngFor="let statFilter of this.itemData.itemForm['controls'].queryForm['controls'].query['controls'].stats['controls']" [statFilter]="statFilter" (filterRemoved)="removeStatFilter($event)"></app-statfilters>
             <button mat-button type="button" (click)="addStatGroup()" class="transparent-mat-button"><mat-icon>library_add</mat-icon> Stat Group</button>
             <div class="query-actions">
                 <div class="query-buttons">
@@ -41,10 +41,10 @@
                         <mat-icon>clear</mat-icon>Clear
                     </button>
                 </div>
-                <app-filtergroupselect class="status-field mat-input-400" autoCompleteClass='autocomplete-panel-300' default="online" inputName='Status' styleType="basicMaterial" [control]="queryForm['controls'].query['controls'].status['controls'].option" [selectEnum]="STATUS_OPTIONS"></app-filtergroupselect>
+                <app-filtergroupselect class="status-field mat-input-400" autoCompleteClass='autocomplete-panel-300' default="online" inputName='Status' styleType="basicMaterial" [control]="this.itemData.itemForm['controls'].queryForm['controls'].query['controls'].status['controls'].option" [selectEnum]="STATUS_OPTIONS"></app-filtergroupselect>
             </div>
         </div>
-        <app-results *ngIf="showResults" class="results" [resultData]="itemData.resultData" [currentSort]="this.queryForm.controls.sort.getRawValue()" (newSort)="queryIDs($event)"></app-results>
+        <app-results *ngIf="showResults" class="results" [resultData]="itemData.resultData" [currentSort]="this.itemData.itemForm['controls'].queryForm['controls'].query['controls'].sort.getRawValue()" (newSort)="queryIDs($event)"></app-results>
     </div>
 </form>
 
