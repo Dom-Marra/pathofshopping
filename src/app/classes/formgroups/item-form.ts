@@ -5,6 +5,7 @@ import { MiscForm } from "./misc-form";
 import { RequirementsForm } from "./requirements-form";
 import { SocketForm } from "./socket-form";
 import { TradeForm } from "./trade-form";
+import { TypeForm } from "./type-form";
 import { WeaponForm } from "./weapon-form";
 
 export class ItemForm extends FormGroup {
@@ -16,16 +17,6 @@ export class ItemForm extends FormGroup {
                   name: new FormControl(''),
                   term: new FormControl(''),
                   type: new FormControl(''),
-                  cat_rar: new FormGroup({
-                    filters: new FormGroup({
-                      category: new FormGroup({
-                        option: new FormControl('')
-                      }),
-                      rarity: new FormGroup({
-                        option: new FormControl('')
-                      }),
-                    })
-                  }),
                   filters: new FormGroup({
                       armour_filters: new ArmourForm(),
                       map_filters: new MapForm(),
@@ -33,7 +24,8 @@ export class ItemForm extends FormGroup {
                       req_filters: new RequirementsForm(),
                       socket_filters: new SocketForm(),
                       trade_filters: new TradeForm(),
-                      weapon_filters: new WeaponForm()
+                      weapon_filters: new WeaponForm(),
+                      type_filters: new TypeForm()
                   }),
                   stats: new FormArray([
                   ]),
