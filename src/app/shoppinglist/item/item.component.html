@@ -27,7 +27,7 @@
             <app-gemfilters class="filter" [itemForm]="queryForm['controls'].query['controls'].filters['controls'].misc_filters['controls'].filters"></app-gemfilters>
             <app-otherfilters class="filter" [itemForm]="queryForm['controls'].query['controls'].filters['controls'].misc_filters['controls'].filters"></app-otherfilters>
             <app-tradefilters class="filter" [filterGroup]="queryForm['controls'].query['controls'].filters"></app-tradefilters>
-            <app-statfilters class="filter" *ngFor="let filter of itemData.statFilters" [filter]="filter" (filterRemoved)="removeStatFilter($event)"></app-statfilters>
+            <app-statfilters class="filter" *ngFor="let statFilter of queryForm['controls'].query['controls'].stats['controls']" [statFilter]="statFilter" (filterRemoved)="removeStatFilter($event)"></app-statfilters>
             <button mat-button type="button" (click)="addStatGroup()" class="transparent-mat-button"><mat-icon>library_add</mat-icon> Stat Group</button>
             <div class="query-actions">
                 <div class="query-buttons">
