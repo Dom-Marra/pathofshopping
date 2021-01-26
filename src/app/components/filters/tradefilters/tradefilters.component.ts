@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { TradeForm } from 'src/app/classes/formgroups/trade-form';
 
 enum buyOutOptions{
   '' = 'Chaos Orb Equivalent',
@@ -48,45 +48,19 @@ export class TradefiltersComponent implements OnInit {
   public readonly SALE_TYPES: typeof saleTypes = saleTypes;
   public readonly BUY_OUT_OPTIONS: typeof buyOutOptions = buyOutOptions;
 
-  @Input() filterGroup: FormGroup;          //Filters from group to add filters to
-
-  public tradeFilters = new FormGroup({     //Trade filters
-    disabled: new FormControl({value: false, disabled: true}),
-    filters: new FormGroup({ 
-      price: new FormGroup({
-        min: new FormControl(),
-        max: new FormControl(),
-        option: new FormControl('')
-      }),
-      account: new FormGroup({
-        input: new FormControl()
-      }),
-      sale_type: new FormGroup({
-        option: new FormControl('')
-      }),
-      indexed: new FormGroup({
-        option: new FormControl('')
-      })
-    }),
-  })
+  @Input() tradeForm: TradeForm;          //Filters from group to add filters to
   
   constructor() { }
 
   ngOnInit(): void {
-    if (this.filterGroup.controls['trade_filters']) {
-      this.tradeFilters = this.filterGroup.controls['trade_filters'] as FormGroup;    //Retain item data for trade filters
-    } else {
-      this.filterGroup.addControl('trade_filters', this.tradeFilters);                //Add trade filters to filter group
-    }
-
-    this.tradeFilters.controls.disabled.valueChanges.subscribe(disabled => {          //When disbaled changes to false, and the form is still disabled then enable it
-      if (!disabled && this.tradeFilters.disabled) this.tradeFilters.enable({emitEvent: false});
+    this.tradeForm.controls.disabled.valueChanges.subscribe(disabled => {          //When disbaled changes to false, and the form is still disabled then enable it
+      if (!disabled && this.tradeForm.disabled) this.tradeForm.enable({emitEvent: false});
     });
   }
 
   ngAfterContentChecked() {       //Disable the form when the disable value is true and the form is enabled
-    if (this.tradeFilters.controls.disabled.value && this.tradeFilters.enabled) {
-      this.tradeFilters.disable();
+    if (this.tradeForm.controls.disabled.value && this.tradeForm.enabled) {
+      this.tradeForm.disable();
     }
   }
 
@@ -94,7 +68,7 @@ export class TradefiltersComponent implements OnInit {
    * Reset to inputs to default values
    */
   public reset() {
-    this.tradeFilters.reset();
+    this.tradeForm.reset();
   }
 
 }

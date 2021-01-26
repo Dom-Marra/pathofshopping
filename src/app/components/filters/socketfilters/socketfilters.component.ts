@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { SocketForm } from 'src/app/classes/formgroups/socket-form';
 import { minmaxExtras } from '../../inputs/minmaxinput/minmaxinput.component';
 
 @Component({
@@ -9,29 +9,7 @@ import { minmaxExtras } from '../../inputs/minmaxinput/minmaxinput.component';
 })
 export class SocketfiltersComponent implements OnInit {
 
-  @Input() itemForm: FormGroup;                                           //Main item form
-
-  public socketFilters: FormGroup = new FormGroup({                       //Socket filters
-    disabled: new FormControl({value: false, disabled: true}),
-    filters: new FormGroup({
-      sockets: new FormGroup({
-        r: new FormControl(''),
-        g: new FormControl(''),
-        b: new FormControl(''),
-        w: new FormControl(''),
-        min: new FormControl(''),
-        max: new FormControl('')
-      }),
-      links: new FormGroup({
-        r: new FormControl(''),
-        g: new FormControl(''),
-        b: new FormControl(''),
-        w: new FormControl(''),
-        min: new FormControl(''),
-        max: new FormControl('')
-      })
-    }),
-  })
+  @Input() socketForm: SocketForm;     //Socket form
 
   public socketLinksExtras: Array<minmaxExtras>;    //links extra input data
 
@@ -41,14 +19,8 @@ export class SocketfiltersComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.itemForm.controls['socket_filters']) {                               //Retain item socket data
-      this.socketFilters = this.itemForm.controls['socket_filters'] as FormGroup;
-    } else {                                                                      //Add field for socket data
-      this.itemForm.addControl('socket_filters', this.socketFilters);
-    }
-
-    this.socketFilters.controls.disabled.valueChanges.subscribe(disabled => {     //When disbaled changes to false, and the form is still disabled then enable it
-      if (!disabled && this.socketFilters.disabled) this.socketFilters.enable({emitEvent: false});
+    this.socketForm.controls.disabled.valueChanges.subscribe(disabled => {     //When disbaled changes to false, and the form is still disabled then enable it
+      if (!disabled && this.socketForm.disabled) this.socketForm.enable({emitEvent: false});
     });
 
     this.initLinksData();
@@ -56,26 +28,26 @@ export class SocketfiltersComponent implements OnInit {
   }
   
   ngAfterContentChecked() {   //Disable the form when the disable value is true and the form is enabled
-    if (this.socketFilters.controls.disabled.value && this.socketFilters.enabled) {
-      this.socketFilters.disable();
+    if (this.socketForm.controls.disabled.value && this.socketForm.enabled) {
+      this.socketForm.disable();
     }
   }
 
   private initLinksData() {
     this.socketLinksExtras = [                                                           //links extra input data
-      {label: 'Red', control: this.socketFilters.get('filters.links.r'), inputClass: 'socket-input-r'},
-      {label: 'Green', control: this.socketFilters.get('filters.links.g'), inputClass: 'socket-input-g'},
-      {label: 'Blue', control: this.socketFilters.get('filters.links.b'), inputClass: 'socket-input-b'},
-      {label: 'White', control: this.socketFilters.get('filters.links.w'), inputClass: 'socket-input-w'}
+      {label: 'Red', control: this.socketForm.get('filters.links.r'), inputClass: 'socket-input-r'},
+      {label: 'Green', control: this.socketForm.get('filters.links.g'), inputClass: 'socket-input-g'},
+      {label: 'Blue', control: this.socketForm.get('filters.links.b'), inputClass: 'socket-input-b'},
+      {label: 'White', control: this.socketForm.get('filters.links.w'), inputClass: 'socket-input-w'}
     ]
   }
 
   private initSocketsData() {
     this.socketSocketsExtras = [                                                         //sockets extra input data
-      {label: 'Red', control: this.socketFilters.get('filters.sockets.r'), inputClass: 'socket-input-r'},
-      {label: 'Green', control: this.socketFilters.get('filters.sockets.g'), inputClass: 'socket-input-g'},
-      {label: 'Blue', control: this.socketFilters.get('filters.sockets.b'), inputClass: 'socket-input-b'},
-      {label: 'White', control: this.socketFilters.get('filters.sockets.w'), inputClass: 'socket-input-w'}
+      {label: 'Red', control: this.socketForm.get('filters.sockets.r'), inputClass: 'socket-input-r'},
+      {label: 'Green', control: this.socketForm.get('filters.sockets.g'), inputClass: 'socket-input-g'},
+      {label: 'Blue', control: this.socketForm.get('filters.sockets.b'), inputClass: 'socket-input-b'},
+      {label: 'White', control: this.socketForm.get('filters.sockets.w'), inputClass: 'socket-input-w'}
     ]
   }
 
@@ -83,7 +55,7 @@ export class SocketfiltersComponent implements OnInit {
    * Reset to inputs to default values
    */
   public reset() {
-    this.socketFilters.reset();
+    this.socketForm.reset();
   }
 
 }

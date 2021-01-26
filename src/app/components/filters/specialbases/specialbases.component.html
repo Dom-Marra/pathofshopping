@@ -1,19 +1,19 @@
-<mat-expansion-panel class="filter-expansion-panel" #expansionPanel [disabled]="this.influenceFilters.disabled">
+<mat-expansion-panel class="filter-expansion-panel" #expansionPanel [disabled]="this.influenceForm.disabled">
     <mat-expansion-panel-header>
-        <app-filteractionbuttons [formGroup]="this.influenceFilters" (disableChange)="this.influenceFilters.disabled ? expansionPanel.close() : ''; this.influenceFilters.controls.influenceFilters_disabled.patchValue(this.influenceFilters.disabled, {emitEvent: false, onlySelf: true})"></app-filteractionbuttons>
+        <app-filteractionbuttons [formGroup]="this.influenceForm" (disableChange)="this.influenceForm.disabled ? expansionPanel.close() : ''; this.influenceForm.controls.influenceForm_disabled.patchValue(this.influenceForm.disabled, {emitEvent: false, onlySelf: true})"></app-filteractionbuttons>
             Influences & Special Bases
     </mat-expansion-panel-header>
     <ng-template matExpansionPanelContent>
         <div class="item-contents">
             <div appEqualflex class="field-wrapper">
-                <app-filtergroupselect class="field" inputName='Shaper Influence' [control]="influenceFilters['controls'].shaper_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
-                <app-filtergroupselect class="field" inputName='Elder Influence' [control]="influenceFilters['controls'].elder_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
-                <app-filtergroupselect class="field" inputName='Crusader Influence' [control]="influenceFilters['controls'].crusader_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
-                <app-filtergroupselect class="field" inputName='Redeemer Influence' [control]="influenceFilters['controls'].redeemer_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
-                <app-filtergroupselect class="field" inputName='Hunter Influence' [control]="influenceFilters['controls'].hunter_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
-                <app-filtergroupselect class="field" inputName='Warlord Influence' [control]="influenceFilters['controls'].warlord_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
-                <app-filtergroupselect class="field" inputName='Fractured' [control]="influenceFilters['controls'].fractured_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
-                <app-filtergroupselect class="field" inputName='Synthesised' [control]="influenceFilters['controls'].synthesised_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                <app-filtergroupselect class="field" inputName='Shaper Influence' [control]="influenceForm['controls'].shaper_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                <app-filtergroupselect class="field" inputName='Elder Influence' [control]="influenceForm['controls'].elder_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                <app-filtergroupselect class="field" inputName='Crusader Influence' [control]="influenceForm['controls'].crusader_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                <app-filtergroupselect class="field" inputName='Redeemer Influence' [control]="influenceForm['controls'].redeemer_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                <app-filtergroupselect class="field" inputName='Hunter Influence' [control]="influenceForm['controls'].hunter_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                <app-filtergroupselect class="field" inputName='Warlord Influence' [control]="influenceForm['controls'].warlord_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                <app-filtergroupselect class="field" inputName='Fractured' [control]="influenceForm['controls'].fractured_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                <app-filtergroupselect class="field" inputName='Synthesised' [control]="influenceForm['controls'].synthesised_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
             </div>
         </div>
     </ng-template>

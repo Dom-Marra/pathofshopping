@@ -1,15 +1,15 @@
-<mat-expansion-panel class="filter-expansion-panel" #expansionPanel [disabled]="this.requirementFilters.disabled">
+<mat-expansion-panel class="filter-expansion-panel" #expansionPanel [disabled]="this.requirementsForm.disabled">
     <mat-expansion-panel-header>
-        <app-filteractionbuttons [formGroup]="this.requirementFilters" (disableChange)="this.requirementFilters.disabled ? expansionPanel.close() : ''; this.requirementFilters.controls.disabled.patchValue(this.requirementFilters.disabled, {emitEvent: false, onlySelf: true})"></app-filteractionbuttons>
+        <app-filteractionbuttons [formGroup]="this.requirementsForm" (disableChange)="this.requirementsForm.disabled ? expansionPanel.close() : ''; this.requirementsForm.controls.disabled.patchValue(this.requirementsForm.disabled, {emitEvent: false, onlySelf: true})"></app-filteractionbuttons>
             Requirements
     </mat-expansion-panel-header>
     <ng-template matExpansionPanelContent>
         <div class="item-contents">
             <div appEqualflex class="field-wrapper">
-                <app-minmaxinput class="field" inputName="Level" [group]="this.requirementFilters['controls'].filters['controls'].lvl"></app-minmaxinput>
-                <app-minmaxinput class="field" inputName="Strength" [group]="this.requirementFilters['controls'].filters['controls'].str"></app-minmaxinput>
-                <app-minmaxinput class="field" inputName="Intelligence" [group]="this.requirementFilters['controls'].filters['controls'].int"></app-minmaxinput>
-                <app-minmaxinput class="field" inputName="Dexterity" [group]="this.requirementFilters['controls'].filters['controls'].dex"></app-minmaxinput>
+                <app-minmaxinput class="field" inputName="Level" [group]="this.requirementsForm['controls'].filters['controls'].lvl"></app-minmaxinput>
+                <app-minmaxinput class="field" inputName="Strength" [group]="this.requirementsForm['controls'].filters['controls'].str"></app-minmaxinput>
+                <app-minmaxinput class="field" inputName="Intelligence" [group]="this.requirementsForm['controls'].filters['controls'].int"></app-minmaxinput>
+                <app-minmaxinput class="field" inputName="Dexterity" [group]="this.requirementsForm['controls'].filters['controls'].dex"></app-minmaxinput>
             </div>
         </div>
     </ng-template>

@@ -100,82 +100,51 @@ export class TypefiltersComponent implements OnInit {
   public readonly ITEM_TYPES: typeof itemTypes = itemTypes;               //Used for item type selection
   public readonly ITEM_RARITIES: typeof itemRarities = itemRarities;      //Used for item rarity selection
 
-  @Input() itemForm: FormGroup;                                           //Main item form
+  @Input() queryForm: FormGroup;                            //Main query form
 
   public itemsToSearch: Array<searchItem> = [];            //POE items
   public filteredItems: Observable<Array<searchItem>>;     //Filtered results of the items
   public filteredTypes: Array<typeof itemTypes>;           //Filtered item types
   public filteredRarities: Array<typeof itemRarities>;     //filtered item rarities
 
-  public typeFilters: FormGroup = new FormGroup({
-    search: new FormControl(''),
-    term: new FormControl(),
-    type: new FormControl(),
-    name: new FormControl(),
-    cat_rar: new FormGroup({
-      filters: new FormGroup({
-        category: new FormGroup({
-          option: new FormControl('')
-        }),
-        rarity: new FormGroup({
-          option: new FormControl('')
-        }),
-      })
-    })
-  });
+  public search = new FormControl('');
 
   constructor(private itemSearch: ItemsearchService) { 
     this.itemsToSearch = this.itemSearch.getItems();                            //Init items to search
 
-    this.filteredItems = this.typeFilters.controls.search.valueChanges.pipe(    //filter items when item search changes
+    this.filteredItems = this.search.valueChanges.pipe(    //filter items when item search changes
       startWith(''),
       map(searchText => this.filterGroups(searchText))
     );
 
-    this.typeFilters.controls.search.valueChanges.subscribe(value => {          //Update term, type, and name controls
-        this.typeFilters.controls.type.patchValue('');          //clear type control
-        this.typeFilters.controls.name.patchValue('');          //clear name control
-        this.typeFilters.controls.term.patchValue(value);       //set term control
+    this.search.valueChanges.subscribe(value => {          //Update term, type, and name controls
+        this.queryForm.controls.type.patchValue('', {emitEvent: false});          //clear type control
+        this.queryForm.controls.name.patchValue('', {emitEvent: false});          //clear name control
+        this.queryForm.controls.term.patchValue(value, {emitEvent: false});       //set term control
     })
   }
 
   ngOnInit(): void {
-    if ((this.itemForm.get('query.filters') as FormGroup).controls['type_filters']) {
-      this.typeFilters.controls['cat_rar'] = (this.itemForm.get('query.filters') as FormGroup).controls['type_filters'];
+    if (this.queryForm.controls.term.value?.length > 0) {
+      this.search.patchValue(this.queryForm.controls.term.value);
     } else {
-      (this.itemForm.get('query.filters') as FormGroup).addControl('type_filters', this.typeFilters.get('cat_rar'));
+      if (this.queryForm.controls.name.value?.length > 0) this.search.patchValue(this.queryForm.controls.name.value);
+      if (this.queryForm.controls.type.value?.length > 0)  this.search.patchValue(this.queryForm.controls.search.value + " " + this.queryForm.controls.type.value);
     }
 
-    if ((this.itemForm.get('query') as FormGroup).controls['term']?.value?.length > 0) {
-      this.typeFilters.controls.term = (this.itemForm.get('query') as FormGroup).controls['term'];
-      this.typeFilters.controls.search.patchValue(this.typeFilters.controls.term.value);
-    } else {
-      (this.itemForm.get('query') as FormGroup).addControl('term', this.typeFilters.controls.term);
-
-      if ((this.itemForm.get('query') as FormGroup).controls['name']?.value?.length > 0) {
-        this.typeFilters.controls.name = (this.itemForm.get('query') as FormGroup).controls['name'];
-        this.typeFilters.controls.search.patchValue(this.typeFilters.controls.name.value);
-      } else {
-        (this.itemForm.get('query') as FormGroup).addControl('name', this.typeFilters.controls.name);
-      }
-
-      if ((this.itemForm.get('query') as FormGroup).controls['type']?.value?.length > 0) {
-        this.typeFilters.controls.type = (this.itemForm.get('query') as FormGroup).controls['type'];
-        this.typeFilters.controls.search.patchValue(this.typeFilters.controls.search.value + " " + this.typeFilters.controls.type.value);
-      } else {
-        (this.itemForm.get('query') as FormGroup).addControl('type', this.typeFilters.controls.type);
-      }
-    }
+    this.queryForm.valueChanges.subscribe(() => {
+      if (!this.queryForm.controls.term.value && !this.queryForm.controls.type.value && !this.queryForm.controls.name.value) this.search.reset('', {emitEvent: false})
+    })
   }
 
   /**
    * Processes the selected item from the item search autofill
    */
   public selectItem(item: searchItem["items"][0]) {
-      if (item.name) this.typeFilters.controls.name.patchValue(item.name);    //Set name
-      this.typeFilters.controls.type.patchValue(item.type);                   //set type
-      this.typeFilters.controls.term.patchValue('');                          //reset term control
-      this.typeFilters.controls.search.patchValue(item.text, {emitEvent: false, onlySelf: true}); //Set search
+      if (item.name) this.queryForm.controls.name.patchValue(item.name);    //Set name
+      this.queryForm.controls.type.patchValue(item.type);                   //set type
+      this.queryForm.controls.term.patchValue('');                          //reset term control
+      this.search.patchValue(item.text, {emitEvent: false, onlySelf: true}); //Set search
   }
   
   /**

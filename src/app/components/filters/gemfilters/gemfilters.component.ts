@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 
 enum gemQualityTypes {
   '' = 'All',
@@ -19,47 +19,19 @@ export class GemfiltersComponent implements OnInit {
 
   public readonly GEM_QUALITY_TYPES: typeof gemQualityTypes = gemQualityTypes;  //Used for gem quality type selection
 
-  @Input() itemForm: FormGroup;                                                 //Main item form
-
-  public gemFilters: FormGroup = new FormGroup({
-    gemFilters_disabled: new FormControl({value: false, disabled: true}),
-    gem_alternate_quality: new FormGroup({
-      option: new FormControl('')
-    }),
-    gem_level: new FormGroup({
-      min: new FormControl(''),
-      max: new FormControl('')
-    }),
-    gem_level_progress: new FormGroup({
-      min: new FormControl(''),
-      max: new FormControl('')
-    })
-  })
+  @Input() gemForm: FormGroup;   //Gem form from misc filters
 
   constructor() { }
 
   ngOnInit(): void {
-    Object.keys(this.gemFilters.controls).forEach(key => {        //add controls to misc filters
-      if (this.itemForm.controls[key]) {
-        this.gemFilters.controls[key] = this.itemForm.controls[key];         //Retain data from item if it exists
-      } else {
-        this.itemForm.addControl(key, this.gemFilters.get(key));             //Add new field if not
-      }
-      if (this.gemFilters.controls[key].dirty) this.gemFilters.markAsDirty();       //Init dirty check
-
-      this.gemFilters.controls[key].valueChanges.subscribe(() => {                  //Mark dirty when the controls are dirty
-        if (this.gemFilters.controls[key].dirty) this.gemFilters.markAsDirty();
-      })
-    });
-
-    this.gemFilters.controls.gemFilters_disabled.valueChanges.subscribe(disabled => {   //When disbaled changes to false, and the form is still disabled then enable it
-      if (!disabled && this.gemFilters.disabled) this.gemFilters.enable({emitEvent: false});
+    this.gemForm.controls.gemForm_disabled.valueChanges.subscribe(disabled => {   //When disbaled changes to false, and the form is still disabled then enable it
+      if (!disabled && this.gemForm.disabled) this.gemForm.enable({emitEvent: false});
     });
   }
 
   ngAfterContentChecked() {   //Disable the form when the disable value is true and the form is enabled
-    if (this.gemFilters.controls.gemFilters_disabled.value && this.gemFilters.enabled) {
-      this.gemFilters.disable({emitEvent: false, onlySelf: true});
+    if (this.gemForm.controls.gemForm_disabled.value && this.gemForm.enabled) {
+      this.gemForm.disable({emitEvent: false, onlySelf: true});
     }
   }
 
@@ -67,6 +39,6 @@ export class GemfiltersComponent implements OnInit {
    * Resets to default values for inputs
    */
   public reset() {
-    this.gemFilters.reset();
+    this.gemForm.reset();
   }
 }

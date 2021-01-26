@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { MapForm } from 'src/app/classes/formgroups/map-form';
 import { trueFlase } from '../../../enums/TrueFalseEnum';
 
 enum mapSeries {
@@ -41,63 +41,20 @@ export class MapfiltersComponent implements OnInit {
   public readonly MAP_SERIES: typeof mapSeries = mapSeries;               //used for map series selection
   public readonly TRUE_FALSE: typeof trueFlase = trueFlase;               //used for true false selection
 
-  @Input() itemForm: FormGroup;                                           //Main item form
-
-  public mapFilters: FormGroup = new FormGroup({
-    disabled: new FormControl({value: false, disabled: true}),
-    filters: new FormGroup({
-      map_region: new FormGroup(
-        {option: new FormControl('')}
-      ),
-      map_series: new FormGroup(
-        {option: new FormControl('')}
-      ),
-      map_shaped: new FormGroup(
-        {option: new FormControl('')}
-      ),
-      map_elder: new FormGroup(
-        {option: new FormControl('')}
-      ),
-      map_blighted: new FormGroup(
-        {option: new FormControl('')}
-      ),
-      map_tier: new FormGroup({
-        min: new FormControl(''),
-        max: new FormControl('')
-      }),
-      map_packsize: new FormGroup({
-        min: new FormControl(''),
-        max: new FormControl('')
-      }),
-      map_iiq: new FormGroup({
-        min: new FormControl(''),
-        max: new FormControl('')
-      }),
-      map_iir: new FormGroup({
-        min: new FormControl(''),
-        max: new FormControl('')
-      })
-    })
-  })
+  @Input() mapForm: MapForm;                                             //Main item form
 
   constructor() {
   }
 
   ngOnInit(): void {
-    if (this.itemForm.controls['map_filters']) {                              //Retain item map data if it exists
-      this.mapFilters = this.itemForm.controls['map_filters'] as FormGroup;
-    } else {
-      this.itemForm.addControl('map_filters', this.mapFilters);               //Add field for map data
-    }
-
-    this.mapFilters.controls.disabled.valueChanges.subscribe(disabled => {    //When disbaled changes to false, and the form is still disabled then enable it
-      if (!disabled && this.mapFilters.disabled) this.mapFilters.enable({emitEvent: false});
+    this.mapForm.controls.disabled.valueChanges.subscribe(disabled => {    //When disbaled changes to false, and the form is still disabled then enable it
+      if (!disabled && this.mapForm.disabled) this.mapForm.enable({emitEvent: false});
     });
   }
 
   ngAfterContentChecked() {   //Disable the form when the disable value is true and the form is enabled
-    if (this.mapFilters.controls.disabled.value && this.mapFilters.enabled) {
-      this.mapFilters.disable();
+    if (this.mapForm.controls.disabled.value && this.mapForm.enabled) {
+      this.mapForm.disable();
     }
   }
 
@@ -105,7 +62,7 @@ export class MapfiltersComponent implements OnInit {
    * Resets to default values for inputs
    */
   public reset() {
-    this.mapFilters.reset();
+    this.mapForm.reset();
   }
 
 }

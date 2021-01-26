@@ -1,23 +1,23 @@
-<mat-expansion-panel class="filter-expansion-panel" #expansionPanel [disabled]="this.otherFilters.disabled">
+<mat-expansion-panel class="filter-expansion-panel" #expansionPanel [disabled]="this.otherForm.disabled">
     <mat-expansion-panel-header>
-        <app-filteractionbuttons [formGroup]="this.otherFilters" (disableChange)="this.otherFilters.disabled ? expansionPanel.close() : ''; this.otherFilters.controls.otherFilters_disabled.patchValue(this.otherFilters.disabled, {emitEvent: false, onlySelf: true})"></app-filteractionbuttons>
+        <app-filteractionbuttons [formGroup]="this.otherForm" (disableChange)="this.otherForm.disabled ? expansionPanel.close() : ''; this.otherForm.controls.otherForm_disabled.patchValue(this.otherForm.disabled, {emitEvent: false, onlySelf: true})"></app-filteractionbuttons>
         Other
     </mat-expansion-panel-header>
     <ng-template matExpansionPanelContent>
         <div class="item-contents">
             <div appEqualflex class="field-wrapper">
-                <app-minmaxinput class="field" inputName="Quality" [group]="this.otherFilters['controls'].quality"></app-minmaxinput>
-                <app-minmaxinput class="field" inputName="Item Level" [group]="this.otherFilters['controls'].ilvl"></app-minmaxinput>
-                <app-minmaxinput class="field" inputName="Talisman Tier" [group]="this.otherFilters['controls'].talisman_tier"></app-minmaxinput>
-                <app-minmaxinput class="field" inputName="Stored Experience" [group]="this.otherFilters['controls'].stored_experience"></app-minmaxinput>
-                <app-minmaxinput class="field" inputName="Stack Size" [group]="this.otherFilters['controls'].stack_size"></app-minmaxinput>
-                <app-filtergroupselect class="field" inputName='Alternate Art' [control]="this.otherFilters['controls'].alternate_art['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
-                <app-filtergroupselect class="field" inputName='Identified' [control]="this.otherFilters['controls'].identified['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
-                <app-filtergroupselect class="field" inputName='Corrupted' [control]="this.otherFilters['controls'].corrupted['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
-                <app-filtergroupselect class="field" inputName='Mirrored' [control]="this.otherFilters['controls'].mirrored['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
-                <app-filtergroupselect class="field" inputName='Crafted' [control]="this.otherFilters['controls'].crafted['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
-                <app-filtergroupselect class="field" inputName='Veiled' [control]="this.otherFilters['controls'].veiled['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
-                <app-filtergroupselect class="field" inputName='Enchanted' [control]="this.otherFilters['controls'].enchanted['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                <app-minmaxinput class="field" inputName="Quality" [group]="this.otherForm['controls'].quality"></app-minmaxinput>
+                <app-minmaxinput class="field" inputName="Item Level" [group]="this.otherForm['controls'].ilvl"></app-minmaxinput>
+                <app-minmaxinput class="field" inputName="Talisman Tier" [group]="this.otherForm['controls'].talisman_tier"></app-minmaxinput>
+                <app-minmaxinput class="field" inputName="Stored Experience" [group]="this.otherForm['controls'].stored_experience"></app-minmaxinput>
+                <app-minmaxinput class="field" inputName="Stack Size" [group]="this.otherForm['controls'].stack_size"></app-minmaxinput>
+                <app-filtergroupselect class="field" inputName='Alternate Art' [control]="this.otherForm['controls'].alternate_art['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                <app-filtergroupselect class="field" inputName='Identified' [control]="this.otherForm['controls'].identified['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                <app-filtergroupselect class="field" inputName='Corrupted' [control]="this.otherForm['controls'].corrupted['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                <app-filtergroupselect class="field" inputName='Mirrored' [control]="this.otherForm['controls'].mirrored['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                <app-filtergroupselect class="field" inputName='Crafted' [control]="this.otherForm['controls'].crafted['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                <app-filtergroupselect class="field" inputName='Veiled' [control]="this.otherForm['controls'].veiled['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                <app-filtergroupselect class="field" inputName='Enchanted' [control]="this.otherForm['controls'].enchanted['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
             </div>
         </div>
     </ng-template>
