@@ -1,9 +1,8 @@
 import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnInit, Output, QueryList, ViewChildren } from '@angular/core';
 import { FormGroup, FormControl, FormArray } from '@angular/forms';
 import { QueryitemService } from './services/queryitem.service'
-import { Statfilter } from '../filters/statfilters/statfilter/statfilter';
 import { Item } from './itemdata/item';
-import { Resultdata } from './results/resultdata/resultdata';
+import { StatForm } from './shared/stat-form';
 
 enum statusOptions {
   any = 'All',
@@ -170,8 +169,8 @@ export class ItemComponent implements OnInit {
    * Adds a stat filter to the item data
    */
   public addStatGroup() {
-    let newStatGroup = new Statfilter(this.itemData.itemForm.get('queryForm.query.stats') as FormArray);
-    this.itemData.statFilters.push(newStatGroup);
+    let newStatFilter = new StatForm();
+    (this.queryForm.get('query.stats') as FormArray).push(newStatFilter);
   }
 
   /**
@@ -180,21 +179,17 @@ export class ItemComponent implements OnInit {
    * @param statFilter
    *        stat filter to remove 
    */
-  public removeStatFilter(statFilter: Statfilter) {
-    let statFiltersIndex = this.itemData.statFilters.indexOf(statFilter);
-    this.itemData.statFilters.splice(statFiltersIndex, 1);
-
-    let statsArryayIndex = statFilter.statsFormArray.controls.indexOf(statFilter.statFilters);
-    statFilter.statsFormArray.removeAt(statsArryayIndex);
+  public removeStatFilter(statFilter: FormGroup) {
+    let statsArryayIndex = (this.queryForm.get('query.stats') as FormArray).controls.indexOf(statFilter);
+    (this.queryForm.get('query.stats') as FormArray).removeAt(statsArryayIndex);
   }
 
   /**
    * Clears the item
    */
   public clear() {
-    this.itemData = new Item(this.itemData.itemForm.value.itemName);
+    this.itemData.clear();
     this.showResults = false;
-    this.ngOnInit();
   }
 
   /**
