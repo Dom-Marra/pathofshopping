@@ -23,7 +23,7 @@ export class ShoppinglistComponent implements OnInit {
 
   constructor(private cd: ChangeDetectorRef, private league: LeaguesService) { 
     this.LEAGUES = this.league.getLeagues();
-    this.items.push(new Item('New Item'));
+    this.addItem();
   }
 
   ngOnInit(): void {
@@ -52,7 +52,7 @@ export class ShoppinglistComponent implements OnInit {
    *        Item: data to bind when creating the item
    */
   public addItem(itemData?: Item) {
-    this.items.push(itemData ? itemData : new Item('New Item'));
+    this.items.push(itemData ? itemData : item);
   }
 
   /**
