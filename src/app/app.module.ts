@@ -21,6 +21,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatDialogModule } from '@angular/material/dialog';
 
 //Components
 import { DigitsonlyDirective } from './directives/digitsonly.directive';
@@ -44,6 +45,7 @@ import { TradefiltersComponent } from './components/filters/tradefilters/tradefi
 import { ControldefaultsDirective } from './directives/controldefaults.directive';
 import { InputwrapperComponent } from './components/inputs/inputwrapper/inputwrapper.component';
 import { FilteractionbuttonsComponent } from './components/filters/filteractionbuttons/filteractionbuttons.component';
+import { SavedialogComponent } from './components/savedialog/savedialog.component';
 
 //Angular Fire
 import { AngularFireModule } from '@angular/fire';
@@ -76,7 +78,8 @@ import { environment } from 'src/environments/environment';
     TradefiltersComponent,
     ControldefaultsDirective,
     InputwrapperComponent,
-    FilteractionbuttonsComponent
+    FilteractionbuttonsComponent,
+    SavedialogComponent
   ],
   imports: [
     BrowserModule,
@@ -97,10 +100,14 @@ import { environment } from 'src/environments/environment';
     MatPaginatorModule,
     MatButtonToggleModule,
     MatProgressSpinnerModule,
+    MatDialogModule,
     AngularFireModule.initializeApp(environment.firebase)
   ],
   exports: [ ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [
+    SavedialogComponent
+  ]
 })
 export class AppModule { }
