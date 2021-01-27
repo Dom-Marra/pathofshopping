@@ -3,17 +3,17 @@
         <div *ngIf="minmaxExtras.length > 0" class="sub-min-max-fields">
             <mat-form-field *ngFor="let extra of minmaxExtras" [class]="extra.inputClass">
                 <mat-label>{{extra.label}}</mat-label>
-                <input appControldefaults [default]="defaultValue" digitsonly matInput type="text" autocomplete="off" [formControl]="extra.control">
+                <input appControldefaults [default]="defaultValue" digitsonly float='true' matInput type="text" autocomplete="off" [formControl]="extra.control">
             </mat-form-field>
         </div>
         <div class="min-max-fields">
             <mat-form-field>
                 <mat-label>Min</mat-label>
-                <input appControldefaults [default]="defaultValues.max" digitsonly matInput type="text" autocomplete="off" formControlName="min">
+                <input appControldefaults [default]="defaultValues.max" digitsonly float='true' matInput type="text" autocomplete="off" formControlName="min">
             </mat-form-field>
             <mat-form-field>
                 <mat-label>Max</mat-label>
-                <input appControldefaults [default]="defaultValues.min" digitsonly matInput type="text" autocomplete="off" formControlName="max">
+                <input appControldefaults [default]="defaultValues.min" digitsonly float='true'matInput type="text" autocomplete="off" formControlName="max">
             </mat-form-field>
         </div>
     </div>
