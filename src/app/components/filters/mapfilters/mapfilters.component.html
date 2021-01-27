@@ -1,0 +1,21 @@
+<mat-expansion-panel class="filter-expansion-panel" #expansionPanel [disabled]="this.mapForm.disabled">
+    <mat-expansion-panel-header>
+        <app-filteractionbuttons [formGroup]="this.mapForm" (disableChange)="this.mapForm.disabled ? expansionPanel.close() : ''; this.mapForm.controls.disabled.patchValue(this.mapForm.disabled, {emitEvent: false, onlySelf: true})"></app-filteractionbuttons>
+            Map Filters
+    </mat-expansion-panel-header>
+    <ng-template matExpansionPanelContent>
+        <div class="item-contents">
+            <div appEqualflex class="field-wrapper">
+                <app-filtergroupselect class="field" inputName='Region' [control]="mapForm['controls'].filters['controls'].map_region['controls'].option" [selectEnum]="MAP_REGION"></app-filtergroupselect>
+                <app-filtergroupselect class="field" inputName='Series' [control]="mapForm['controls'].filters['controls'].map_series['controls'].option" [selectEnum]="MAP_SERIES"></app-filtergroupselect>
+                <app-filtergroupselect class="field" inputName='Shaped' [control]="mapForm['controls'].filters['controls'].map_shaped['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                <app-filtergroupselect class="field" inputName='Elder' [control]="mapForm['controls'].filters['controls'].map_elder['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                <app-filtergroupselect class="field" inputName='Blighted' [control]="mapForm['controls'].filters['controls'].map_blighted['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                <app-minmaxinput class="field" inputName="Tier" [group]="this.mapForm['controls'].filters['controls'].map_tier"></app-minmaxinput>
+                <app-minmaxinput class="field" inputName="Packsize" [group]="this.mapForm['controls'].filters['controls'].map_packsize"></app-minmaxinput>
+                <app-minmaxinput class="field" inputName="IIQ" [group]="this.mapForm['controls'].filters['controls'].map_iiq"></app-minmaxinput>
+                <app-minmaxinput class="field" inputName="IIR" [group]="this.mapForm['controls'].filters['controls'].map_iir"></app-minmaxinput>
+            </div>
+        </div>
+    </ng-template>
+</mat-expansion-panel>

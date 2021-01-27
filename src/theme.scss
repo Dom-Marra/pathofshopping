@@ -1,5 +1,4 @@
 @import '~@angular/material/theming';
-@include mat-core();
 
 $pathofshopping-primary: (
     50 : #e8e9ec,
@@ -67,7 +66,38 @@ $pathofshopping-accent: (
     )
 );
 
-$pathofshopping-warn: mat-palette($mat-red);
+$pathofshopping-warn: (
+  50 : #f8e7e0,
+  100 : #ecc2b3,
+  200 : #e09a80,
+  300 : #d4714d,
+  400 : #ca5226,
+  500 : #c13400,
+  600 : #bb2f00,
+  700 : #b32700,
+  800 : #ab2100,
+  900 : #9e1500,
+  A100 : #ffccc9,
+  A200 : #ff9d96,
+  A400 : #ff6d63,
+  A700 : #ff5649,
+  contrast: (
+      50 : #000000,
+      100 : #000000,
+      200 : #000000,
+      300 : #000000,
+      400 : #ffffff,
+      500 : #ffffff,
+      600 : #ffffff,
+      700 : #ffffff,
+      800 : #ffffff,
+      900 : #ffffff,
+      A100 : #000000,
+      A200 : #000000,
+      A400 : #000000,
+      A700 : #000000,
+  )
+);
 
 $pathofshopping-theme: mat-light-theme((
   color: (
@@ -79,9 +109,145 @@ $pathofshopping-theme: mat-light-theme((
 
 $pathofshopping-typography: mat-typography-config(
   $font-family: 'Poppins',
-  $headline: mat-typography-level(45px, normal, 600),
-  $title: mat-typography-level(35px, normal, 400),
-  $subheading-2: mat-typography-level(24px, normal, 400),
-  $body-1: mat-typography-level(18px, normal, 300),
-  $caption: mat-typography-level(16px, normal, 300),
+  $headline: mat-typography-level(28px, 1.6, 400),
+  $title: mat-typography-level(22px, 1.6, 400),
+  $subheading-2: mat-typography-level(18px, 1.6, 400),
+  $body-1: mat-typography-level(13px, 1.6, 300),
+  $caption: mat-typography-level(11px, 1.6, 300),
 );
+
+@include mat-core($pathofshopping-typography);
+
+@mixin colorize-mat-form-field($bg-color) {
+
+  background-color: $bg-color;
+
+  .mat-form-field-underline, .mat-form-field-ripple {
+    background-color: darken($bg-color, 10%);
+  }
+}
+
+@mixin input-color-class($number) {
+  .mat-input-#{$number} {
+    .mat-form-field { 
+      @include colorize-mat-form-field(mat-color($pathofshopping-primary, $number));
+    }
+  }
+}
+
+@mixin generate-input-color-class() {
+  @each $color in map-keys($pathofshopping-primary) {
+    @if ($color != 'contrast') { 
+      @include input-color-class($color);
+    }
+  }
+}
+
+@include generate-input-color-class();
+
+@mixin generate-button-color-class() {
+  @each $color in map-keys($pathofshopping-primary) {
+    @if ($color != 'contrast') {             
+      .mat-button-#{$color} {
+        background-color: mat-color($pathofshopping-primary, $color);
+        padding-top: 0.5em;
+        padding-bottom: 0.5em;
+        @include mat-typography-level-to-styles($pathofshopping-typography, body-1);
+        color: mat-color($pathofshopping-accent, 50);
+
+        .mat-button-wrapper {
+          display: flex;
+          align-items: center;
+          justify-content: center
+        }
+      }
+    }
+  }
+}
+
+@include generate-button-color-class();
+
+.transparent-mat-button {
+  background-color: transparent;
+  color: transparentize($color:  mat-color($pathofshopping-accent, 50), $amount: 0.3) !important;
+  padding-top: 0.5em !important;
+  padding-bottom: 0.5em !important;
+  transition: color 0.15s ease-in-out !important;
+  @include mat-typography-level-to-styles($pathofshopping-typography, body-1);
+
+  &:hover {
+    color: transparentize($color:  mat-color($pathofshopping-accent, 50), $amount: 0.1) !important;
+  }
+
+  .mat-button-wrapper {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+}
+
+.fix-height-mat-icon {
+  padding: 0 !important;
+  font-size: 1em !important;
+  height: 1.6em !important;
+  width: 1.6em !important;
+  
+  .mat-icon {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    height: 1.1em !important;
+    width: 1.1em !important;
+    font-size: 1.1em !important;
+    line-height: 1.1em !important;
+  }
+}
+
+@mixin generate-warn-hover-colors {
+  @each $color in map-keys($pathofshopping-warn) {
+    @if ($color != 'contrast') {     
+      .warn-#{$color} {
+        transition: color 0.15s ease-in-out !important;
+
+        &.lock-color {
+          color: mat-color($pathofshopping-warn, $color) !important;
+        }
+        
+        &:hover {
+          color: mat-color($pathofshopping-warn, $color) !important;
+        }
+      }   
+    }
+  }
+}
+
+@include generate-warn-hover-colors();
+
+@mixin generate-autocomplete-classes {
+  @each $color in map-keys($pathofshopping-primary) {
+    @if ($color != 'contrast') {     
+      .autocomplete-panel-#{$color} {
+        background-color: mat-color($pathofshopping-primary, $color) !important;
+  
+        .mat-optgroup {
+            .mat-optgroup-label {
+                color: rgba(0, 0, 0, 0.3) !important;
+            }
+        }
+      
+        .mat-option {
+            .mat-option-text {
+              @include mat-typography-level-to-styles($pathofshopping-typography, body-1);
+              color: mat-color($pathofshopping-accent, 50) !important;
+            }
+        }
+      
+        .mat-option.mat-selected:not(.mat-active):not(:hover) {
+            background-color: rgba(0, 0, 0, 0.1) !important;
+        }
+      }
+    }
+  }
+}
+
+@include generate-autocomplete-classes();
