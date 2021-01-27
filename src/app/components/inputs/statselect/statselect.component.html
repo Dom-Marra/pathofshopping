@@ -19,7 +19,7 @@
                     
                 <mat-icon matSuffix class="icon-dark" [class.rotate]="searchableStats.isOpen">arrow_drop_down</mat-icon>
                 <mat-autocomplete #searchableStats="matAutocomplete" 
-                                [class]="'autocomplete-panel'"
+                                [class]="'autocomplete-panel-300'"
                                 autoActiveFirstOption="'true'"
                                 (optionSelected)="setStat($event.option.value); statInput.blur();">
                     <mat-optgroup *ngFor="let search of filteredStats" [label]="search.category">
@@ -63,7 +63,7 @@
         
                 <mat-icon matSuffix class="icon-dark" [class.rotate]="searchableStatOptions.isOpen">arrow_drop_down</mat-icon>
                 <mat-autocomplete #searchableStatOptions="matAutocomplete" 
-                                [class]="'autocomplete-panel'" 
+                                [class]="'autocomplete-panel-300'" 
                                 autoActiveFirstOption="'true'"
                                 (optionSelected)=" statOptionInput.blur(); setStatOption($event.option.value)">
                     <mat-option *ngFor="let option of filteredStatOptions" [value]="option">
