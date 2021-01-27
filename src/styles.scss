@@ -271,3 +271,7 @@ mat-icon {
     }
   }
 }
+
+.error-snack-bar {
+  background-color: mat-color($pathofshopping-warn, 900);
+}
