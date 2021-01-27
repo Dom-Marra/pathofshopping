@@ -22,6 +22,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 //Components
 import { DigitsonlyDirective } from './directives/digitsonly.directive';
@@ -101,6 +102,7 @@ import { environment } from 'src/environments/environment';
     MatButtonToggleModule,
     MatProgressSpinnerModule,
     MatDialogModule,
+    MatSnackBarModule,
     AngularFireModule.initializeApp(environment.firebase)
   ],
   exports: [ ],
