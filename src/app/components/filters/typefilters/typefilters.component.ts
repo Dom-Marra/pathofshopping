@@ -128,8 +128,8 @@ export class TypefiltersComponent implements OnInit {
     if (this.queryForm.controls.term.value?.length > 0) {
       this.search.patchValue(this.queryForm.controls.term.value);
     } else {
-      if (this.queryForm.controls.name.value?.length > 0) this.search.patchValue(this.queryForm.controls.name.value);
-      if (this.queryForm.controls.type.value?.length > 0)  this.search.patchValue(this.queryForm.controls.search.value + " " + this.queryForm.controls.type.value);
+      if (this.queryForm.controls.name.value?.length > 0) this.search.patchValue(this.queryForm.controls.name.value, {emitEvent: false});
+      if (this.queryForm.controls.type.value?.length > 0) this.search.patchValue(this.search.value + " " + this.queryForm.controls.type.value, {emitEvent: false});
     }
 
     this.queryForm.valueChanges.subscribe(() => {
