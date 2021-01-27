@@ -3,6 +3,7 @@ import { FormGroup, FormControl, FormArray } from '@angular/forms';
 import { QueryitemService } from '../../services/queryitem.service'
 import { Item } from '../../classes/itemdata/item';
 import { StatFilterForm } from 'src/app/classes/formgroups/stat-filter-form';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 enum statusOptions {
   any = 'All',
@@ -25,7 +26,7 @@ export class ItemComponent implements OnInit {
   public editName: boolean = false;                         //Whether name is in edit mode or not
   public showResults: boolean = false;                      //Used to show results tab
 
-  constructor(private cd: ChangeDetectorRef, private queryService: QueryitemService) {  
+  constructor(private cd: ChangeDetectorRef, private queryService: QueryitemService, private snackBar: MatSnackBar) {  
   }
 
   ngAfterViewInit() {
@@ -54,7 +55,6 @@ export class ItemComponent implements OnInit {
     this.itemData.resultData.reset();                           //Reset previous results
 
     this.setSortBy(sortKey, sortValue);                                   //Set the sort data
-
     let data = {                                                          //create query data
       query: (this.itemData.itemForm.get('queryForm.query') as FormGroup).value,
       sort: (this.itemData.itemForm.get('queryForm.sort') as FormGroup).value
@@ -62,22 +62,42 @@ export class ItemComponent implements OnInit {
 
     data = this.removeEmpty(data);                            //clean the data
 
-    let fetchSub = this.queryService.fetchResults(data, this.league).subscribe((fetch: any) => {       //Fetch items based on data
-      if (fetch.result != null && fetch.result.length > 0) {
+    let fetchSub = this.queryService.fetchResults(data, this.league).subscribe(
+      (fetch: any) => {       //Fetch items based on data
+        if (fetch.result != null && fetch.result.length > 0) {
 
-        //Set item query data
-        this.itemData.resultData.queryProps = {
-          psuedos: this.getPsuedoQuery(data),
-          res: fetch.result,
-          total: fetch.total,
-          inexact: fetch.inexact,
-          id: fetch.id
+          //Set item query data
+          this.itemData.resultData.queryProps = {
+            psuedos: this.getPsuedoQuery(data),
+            res: fetch.result,
+            total: fetch.total,
+            inexact: fetch.inexact,
+            id: fetch.id
+          }
+
+          //Show results and close sub
+          this.showResults = true;
+          fetchSub.unsubscribe();
+        } else {
+          this.displayErrorSnackBar('No results found. Please widen parameters');
         }
+    },
+    (error) => {    //Handle http error
+      this.displayErrorSnackBar(error);
+    }
+    );
+  }
 
-        //Show results and close sub
-        this.showResults = true;
-        fetchSub.unsubscribe();
-      }
+  /**
+   * Displays error message
+   * 
+   * @param err 
+   *        string: error message
+   */
+  public displayErrorSnackBar(err: string) {
+    this.snackBar.open(err, 'close', {
+      panelClass: 'error-snack-bar',
+      duration: 3000
     });
   }
 
