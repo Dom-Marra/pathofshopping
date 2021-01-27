@@ -205,3 +205,9 @@ mat-icon {
       fill: none;
   }
 }
+
+.mat-spinner {   
+  circle {
+    stroke: mat-color($pathofshopping-primary, 300);
+  }
+}
