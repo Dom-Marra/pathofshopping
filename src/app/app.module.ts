@@ -21,7 +21,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
-//Feather Import
+//Components
 import { DigitsonlyDirective } from './directives/digitsonly.directive';
 import { ItemComponent } from './components/item/item.component';
 import { EqualflexDirective } from './directives/equalflex.directive';
@@ -44,7 +44,9 @@ import { ControldefaultsDirective } from './directives/controldefaults.directive
 import { InputwrapperComponent } from './components/inputs/inputwrapper/inputwrapper.component';
 import { FilteractionbuttonsComponent } from './components/filters/filteractionbuttons/filteractionbuttons.component';
 
-
+//Angular Fire
+import { AngularFireModule } from '@angular/fire';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [
@@ -92,7 +94,8 @@ import { FilteractionbuttonsComponent } from './components/filters/filteractionb
     MatProgressBarModule,
     MatTabsModule,
     MatPaginatorModule,
-    MatButtonToggleModule
+    MatButtonToggleModule,
+    AngularFireModule.initializeApp(environment.firebase)
   ],
   exports: [ ],
   providers: [],
