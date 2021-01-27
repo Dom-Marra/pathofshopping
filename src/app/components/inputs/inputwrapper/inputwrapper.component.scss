@@ -12,6 +12,9 @@
     }
 
     .input-label {
+        display: flex;
+        align-items: center;
+        line-height: normal;
         padding: 1em;
         margin: 0;
         flex: 1;
@@ -21,6 +24,7 @@
     }
 
     .flexed-inputs {
+        min-width: 150px;
         flex: 4;
     }
 }
