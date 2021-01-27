@@ -8,6 +8,7 @@ import { FirebaseService } from 'src/app/services/firebase.service';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { SavedialogComponent } from 'src/app/components/savedialog/savedialog.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-shoppinglist',
@@ -32,7 +33,8 @@ export class ShoppinglistComponent implements OnInit {
               private league: LeaguesService, 
               private fireService: FirebaseService,
               private activeRoute: ActivatedRoute,
-              private dialog: MatDialog) { 
+              private dialog: MatDialog,
+              private snackBar: MatSnackBar) { 
     this.LEAGUES = this.league.getLeagues();
 
     this.activeRoute.queryParamMap.subscribe(params => {
@@ -124,20 +126,38 @@ export class ShoppinglistComponent implements OnInit {
 
     this.fireService.getShoppingList(list).then(doc => {      //Try to get the document
       
-      (doc.data() as shoppingListSaveData).savedItems         //Add items
-      .forEach((save: itemSaveData) => {
-        this.addItem(save);
-      });
+      if (doc.exists) {
+        (doc.data() as shoppingListSaveData).savedItems.forEach((save: itemSaveData) => {   //Add items
+          this.addItem(save);
+        });
 
-      //Set league and name
-      this.shoppingList.controls.name.patchValue((doc.data() as shoppingListSaveData).name);
-      this.shoppingList.controls.league.patchValue((doc.data() as shoppingListSaveData).league);
+        //Set league and name
+        this.shoppingList.controls.name.patchValue((doc.data() as shoppingListSaveData).name);
+        this.shoppingList.controls.league.patchValue((doc.data() as shoppingListSaveData).league);
+        this.loading = false;
 
-      this.loading = false;
-    }).catch(err => {                                         //TODO: Handle errs
-      console.log(err);
-      this.loading = false;
+      } else {  //Doc doesn't exist
+        this.displayErrorSnackBar('Error: No such list exists!');
+        this.addItem();
+        this.loading = false;
+      }
+    }).catch(() => {      //Err while trying to read the doc     
+      this.displayErrorSnackBar('Error: Could not load the list');
       this.addItem();
+      this.loading = false;
+    })
+  }
+
+  /**
+   * Displays an err through a snackbar
+   * 
+   * @param err 
+   *        string: error message
+   */
+  public displayErrorSnackBar(err: string) {
+    this.snackBar.open(err, 'close', {
+      panelClass: 'error-snack-bar',
+      duration: 3000
     })
   }
 }
