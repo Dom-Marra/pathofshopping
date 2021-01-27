@@ -6,7 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ShoppinglistComponent } from './shoppinglist/shoppinglist.component';
+import { ShoppinglistComponent } from './pages/shoppinglist/shoppinglist.component';
 
 //Material Imports
 import { MatSelectModule } from '@angular/material/select';
@@ -20,31 +20,37 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
-//Feather Import
-import { DigitsonlyDirective } from './digitsonly.directive';
-import { ItemComponent } from './shoppinglist/item/item.component';
-import { EqualflexDirective } from './equalflex.directive';
-import { FiltergroupselectComponent } from './shoppinglist/inputs/filtergroupselect/filtergroupselect.component';
-import { MinmaxinputComponent } from './shoppinglist/inputs/minmaxinput/minmaxinput.component';
-import { StatselectComponent } from './shoppinglist/filters/statfilters/statselect/statselect.component';
-import { WeaponfiltersComponent } from './shoppinglist/filters/weaponfilters/weaponfilters.component';
-import { ArmourfiltersComponent } from './shoppinglist/filters/armourfilters/armourfilters.component';
-import { SocketfiltersComponent } from './shoppinglist/filters/socketfilters/socketfilters.component';
-import { RequirementsComponent } from './shoppinglist/filters/requirements/requirements.component';
-import { MapfiltersComponent } from './shoppinglist/filters/mapfilters/mapfilters.component';
-import { SpecialbasesComponent } from './shoppinglist/filters/specialbases/specialbases.component';
-import { GemfiltersComponent } from './shoppinglist/filters/gemfilters/gemfilters.component';
-import { OtherfiltersComponent } from './shoppinglist/filters/otherfilters/otherfilters.component';
-import { StatfiltersComponent } from './shoppinglist/filters/statfilters/statfilters.component';
-import { TypefiltersComponent } from './shoppinglist/filters/typefilters/typefilters.component';
-import { ResultsComponent, ParseModsPipe, ParserPipe, ParseDivsPipe} from './shoppinglist/item/results/results.component';
-import { TradefiltersComponent } from './shoppinglist/filters/tradefilters/tradefilters.component';
-import { ControldefaultsDirective } from './controldefaults.directive';
-import { InputwrapperComponent } from './shoppinglist/inputs/inputwrapper/inputwrapper.component';
-import { FilteractionbuttonsComponent } from './shoppinglist/filters/filteractionbuttons/filteractionbuttons.component';
+//Components
+import { DigitsonlyDirective } from './directives/digitsonly.directive';
+import { ItemComponent } from './components/item/item.component';
+import { EqualflexDirective } from './directives/equalflex.directive';
+import { FiltergroupselectComponent } from './components/inputs/filtergroupselect/filtergroupselect.component';
+import { MinmaxinputComponent } from './components/inputs/minmaxinput/minmaxinput.component';
+import { StatselectComponent } from './components/inputs/statselect/statselect.component';
+import { WeaponfiltersComponent } from './components/filters/weaponfilters/weaponfilters.component';
+import { ArmourfiltersComponent } from './components/filters/armourfilters/armourfilters.component';
+import { SocketfiltersComponent } from './components/filters/socketfilters/socketfilters.component';
+import { RequirementsComponent } from './components/filters/requirements/requirements.component';
+import { MapfiltersComponent } from './components/filters/mapfilters/mapfilters.component';
+import { SpecialbasesComponent } from './components/filters/specialbases/specialbases.component';
+import { GemfiltersComponent } from './components/filters/gemfilters/gemfilters.component';
+import { OtherfiltersComponent } from './components/filters/otherfilters/otherfilters.component';
+import { StatfiltersComponent } from './components/filters/statfilters/statfilters.component';
+import { TypefiltersComponent } from './components/filters/typefilters/typefilters.component';
+import { ResultsComponent, ParseModsPipe, ParserPipe, ParseDivsPipe} from './components/results/results.component';
+import { TradefiltersComponent } from './components/filters/tradefilters/tradefilters.component';
+import { ControldefaultsDirective } from './directives/controldefaults.directive';
+import { InputwrapperComponent } from './components/inputs/inputwrapper/inputwrapper.component';
+import { FilteractionbuttonsComponent } from './components/filters/filteractionbuttons/filteractionbuttons.component';
+import { SavedialogComponent } from './components/savedialog/savedialog.component';
 
-
+//Angular Fire
+import { AngularFireModule } from '@angular/fire';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [
@@ -73,7 +79,8 @@ import { FilteractionbuttonsComponent } from './shoppinglist/filters/filteractio
     TradefiltersComponent,
     ControldefaultsDirective,
     InputwrapperComponent,
-    FilteractionbuttonsComponent
+    FilteractionbuttonsComponent,
+    SavedialogComponent
   ],
   imports: [
     BrowserModule,
@@ -92,10 +99,17 @@ import { FilteractionbuttonsComponent } from './shoppinglist/filters/filteractio
     MatProgressBarModule,
     MatTabsModule,
     MatPaginatorModule,
-    MatButtonToggleModule
+    MatButtonToggleModule,
+    MatProgressSpinnerModule,
+    MatDialogModule,
+    MatSnackBarModule,
+    AngularFireModule.initializeApp(environment.firebase)
   ],
   exports: [ ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [
+    SavedialogComponent
+  ]
 })
 export class AppModule { }

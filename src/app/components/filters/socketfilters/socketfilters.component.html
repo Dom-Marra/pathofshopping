@@ -1,0 +1,14 @@
+<mat-expansion-panel #panel class="filter-expansion-panel" #expansionPanel [disabled]="this.socketForm.disabled">
+    <mat-expansion-panel-header>
+        <app-filteractionbuttons [formGroup]="this.socketForm" (disableChange)="this.socketForm.disabled ? expansionPanel.close() : ''; this.socketForm.controls.disabled.patchValue(this.socketForm.disabled, {emitEvent: false, onlySelf: true})"></app-filteractionbuttons>
+            Socket Filters
+    </mat-expansion-panel-header>
+    <ng-template matExpansionPanelContent>
+        <div class="item-contents">
+            <div class="field-wrapper socket-field-wrapper">
+                <app-minmaxinput class="field" inputName="Sockets" [group]="this.socketForm['controls'].filters['controls'].sockets" [minmaxExtras]="socketSocketsExtras"></app-minmaxinput>
+                <app-minmaxinput class="field" inputName="Links" [group]="this.socketForm['controls'].filters['controls'].links" [minmaxExtras]="socketLinksExtras"></app-minmaxinput>
+            </div>
+        </div>
+    </ng-template>
+</mat-expansion-panel>

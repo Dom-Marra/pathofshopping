@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "pathofshopping": {
+      "hosting": {
+        "pathofshopping": [
+          "pathofshopping"
+        ]
+      }
+    }
+  }
+}
