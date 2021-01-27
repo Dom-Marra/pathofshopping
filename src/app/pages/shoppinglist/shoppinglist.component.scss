@@ -8,6 +8,22 @@
     }
 }
 
+#loading-panel {
+    margin: auto;
+    width: auto;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 1em;
+    justify-content: center;
+    border-radius: 4px;
+
+    h3 {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+
 #shoppinglist-maincontainer {
     color: mat-color($pathofshopping-accent, 50);
     min-height: 100%;
