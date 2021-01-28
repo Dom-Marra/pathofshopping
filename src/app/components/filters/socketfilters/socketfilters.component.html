@@ -9,7 +9,7 @@
                 <app-inputwrapper class="field">
                     <span class="input-label" label>Sockets</span>
                     <div class="inputs">
-                        <div class="socket-colors" class="flexed-inputs">
+                        <div class="socket-colors flexed-inputs">
                             <mat-form-field *ngFor="let extra of socketSocketsExtras" [class]="extra.inputClass">
                                 <mat-label>{{extra.label}}</mat-label>
                                 <input appControldefaults [default]="defaultValue" digitsonly float='true' matInput type="text" autocomplete="off" [formControl]="extra.control">
@@ -21,7 +21,7 @@
                 <app-inputwrapper class="field">
                     <span class="input-label" label>Links</span> 
                     <div class="inputs">
-                        <div class="socket-colors" class="flexed-inputs">
+                        <div class="socket-colors flexed-inputs">
                             <mat-form-field *ngFor="let extra of socketLinksExtras" [class]="extra.inputClass">
                                 <mat-label>{{extra.label}}</mat-label>
                                 <input appControldefaults [default]="defaultValue" digitsonly float='true' matInput type="text" autocomplete="off" [formControl]="extra.control">
