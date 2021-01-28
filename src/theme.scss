@@ -212,10 +212,6 @@ $pathofshopping-typography: mat-typography-config(
         &.lock-color {
           color: mat-color($pathofshopping-warn, $color) !important;
         }
-        
-        &:hover {
-          color: mat-color($pathofshopping-warn, $color) !important;
-        }
       }   
     }
   }
