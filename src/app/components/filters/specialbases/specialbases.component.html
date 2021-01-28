@@ -1,7 +1,7 @@
 <mat-expansion-panel class="filter-expansion-panel" #expansionPanel [disabled]="this.influenceForm.disabled">
     <mat-expansion-panel-header>
         <app-filteractionbuttons [formGroup]="this.influenceForm" (disableChange)="this.influenceForm.disabled ? expansionPanel.close() : ''; this.influenceForm.controls.influenceForm_disabled.patchValue(this.influenceForm.disabled, {emitEvent: false, onlySelf: true})"></app-filteractionbuttons>
-            Influences & Special Bases
+            Special Bases
     </mat-expansion-panel-header>
     <ng-template matExpansionPanelContent>
         <div class="item-contents">
