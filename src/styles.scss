@@ -66,10 +66,17 @@ mat-icon {
   .mat-content {
       height: 100%;
       display: flex;
-      flex-wrap: wrap;
       align-items: center;
       justify-content: flex-start;
       padding: 0 0.15em;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+  }
+
+  &.stat-filter {
+    .mat-content {
+      flex-wrap: wrap;
+    }
   }
 
   .field-wrapper {
