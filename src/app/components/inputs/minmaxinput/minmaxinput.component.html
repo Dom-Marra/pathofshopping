@@ -1,10 +1,4 @@
 <div [formGroup]="group" class="min-max-inputs">
-    <div *ngIf="minmaxExtras.length > 0" class="sub-min-max-fields">
-        <mat-form-field *ngFor="let extra of minmaxExtras" [class]="extra.inputClass">
-            <mat-label>{{extra.label}}</mat-label>
-            <input appControldefaults [default]="defaultValue" digitsonly float='true' matInput type="text" autocomplete="off" [formControl]="extra.control">
-        </mat-form-field>
-    </div>
     <div class="min-max-fields">
         <mat-form-field>
             <mat-label>Min</mat-label>
