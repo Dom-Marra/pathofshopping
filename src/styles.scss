@@ -272,3 +272,15 @@ mat-icon {
 .error-snack-bar {
   background-color: mat-color($pathofshopping-warn, 900);
 }
+
+@media only screen and (max-width: 610px) {
+
+  .socket-field-wrapper {
+    .input-wrapper {
+      .input-label {
+        flex-basis: 100% !important;
+      }
+    }
+  }
+  
+}
