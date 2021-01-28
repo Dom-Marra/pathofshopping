@@ -88,5 +88,35 @@
     }
 }
 
+@media only screen and (max-width: 500px) {
+    .item-container {
+        .item-contents {
+            .filters {
+                .query-actions {
+                    width: 100%;
+                    display: flex;
+                    flex-wrap: wrap;
+                    align-items: center;
+                    margin: 1em auto;
+    
+                    .query-buttons {
+                        flex: 1 1 100%;
+                        display: flex;
+                        flex-wrap: wrap;
+                        order: 1;
+    
+                        .query-button {
+                            flex: 1 1 auto;
+                            margin: 0.5em 0.25em;
+                        }
+                    } 
 
+                    .status-field {
+                        flex: 1 1 100%;
+                    }
+                }
+            }
+        }
+    }
+}
 
