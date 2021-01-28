@@ -1,5 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { stylesTypes } from '../../../enums/styleTypes';
+import { Component , OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-inputwrapper',
@@ -8,9 +7,6 @@ import { stylesTypes } from '../../../enums/styleTypes';
 })
 export class InputwrapperComponent implements OnInit {
 
-  @Input() inputName: string;                             //Name of the input
-  @Input() styleType: stylesTypes = stylesTypes.normal;   //Style of the select
-  
   constructor() { }
 
   ngOnInit(): void {
