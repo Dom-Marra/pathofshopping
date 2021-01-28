@@ -164,3 +164,11 @@
         }
     }
 }
+
+@media only screen and (max-width: 768px) { 
+    #shoppinglist-maincontainer { 
+        #shoppinglist-contents-container {
+            width: 95%;
+        }
+    }
+}
