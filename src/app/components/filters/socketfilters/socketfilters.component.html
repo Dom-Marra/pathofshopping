@@ -6,8 +6,13 @@
     <ng-template matExpansionPanelContent>
         <div class="item-contents">
             <div class="field-wrapper socket-field-wrapper">
-                <app-minmaxinput class="field" inputName="Sockets" [group]="this.socketForm['controls'].filters['controls'].sockets" [minmaxExtras]="socketSocketsExtras"></app-minmaxinput>
-                <app-minmaxinput class="field" inputName="Links" [group]="this.socketForm['controls'].filters['controls'].links" [minmaxExtras]="socketLinksExtras"></app-minmaxinput>
+                <app-inputwrapper class="field">
+                    <span label>Sockets</span>  <app-minmaxinput [group]="this.socketForm['controls'].filters['controls'].sockets" [minmaxExtras]="socketSocketsExtras"></app-minmaxinput>
+                </app-inputwrapper>
+                <app-inputwrapper class="field">
+                    <span label>Links</span> 
+                    <app-minmaxinput [group]="this.socketForm['controls'].filters['controls'].links" [minmaxExtras]="socketLinksExtras"></app-minmaxinput>
+                </app-inputwrapper>
             </div>
         </div>
     </ng-template>

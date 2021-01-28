@@ -6,9 +6,18 @@
     <ng-template matExpansionPanelContent>
         <div class="item-contents">
             <div appEqualflex class="field-wrapper">
-                <app-minmaxinput class="field" inputName="Level" [group]="this.gemForm['controls'].gem_level"></app-minmaxinput>
-                <app-minmaxinput class="field" inputName="Experience (%)" [group]="this.gemForm['controls'].gem_level_progress"></app-minmaxinput>
-                <app-filtergroupselect class="field" inputName='Quality Type' [control]="this.gemForm['controls'].gem_alternate_quality['controls'].option" [selectEnum]="GEM_QUALITY_TYPES"></app-filtergroupselect>
+                <app-inputwrapper class="field">
+                    <span label>Level</span> 
+                    <app-minmaxinput [group]="this.gemForm['controls'].gem_level"></app-minmaxinput>
+                </app-inputwrapper>
+                <app-inputwrapper class="field">
+                    <span label>Experience (%)</span> 
+                    <app-minmaxinput [group]="this.gemForm['controls'].gem_level_progress"></app-minmaxinput>
+                </app-inputwrapper>
+                <app-inputwrapper class="field">
+                    <span label>Quality Type</span> 
+                    <app-filtergroupselect [control]="this.gemForm['controls'].gem_alternate_quality['controls'].option" [selectEnum]="GEM_QUALITY_TYPES"></app-filtergroupselect>
+                </app-inputwrapper>
             </div>
         </div>
     </ng-template>

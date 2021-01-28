@@ -6,14 +6,38 @@
     <ng-template matExpansionPanelContent>
         <div class="item-contents">
             <div appEqualflex class="field-wrapper">
-                <app-filtergroupselect class="field" inputName='Shaper Influence' [control]="influenceForm['controls'].shaper_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
-                <app-filtergroupselect class="field" inputName='Elder Influence' [control]="influenceForm['controls'].elder_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
-                <app-filtergroupselect class="field" inputName='Crusader Influence' [control]="influenceForm['controls'].crusader_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
-                <app-filtergroupselect class="field" inputName='Redeemer Influence' [control]="influenceForm['controls'].redeemer_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
-                <app-filtergroupselect class="field" inputName='Hunter Influence' [control]="influenceForm['controls'].hunter_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
-                <app-filtergroupselect class="field" inputName='Warlord Influence' [control]="influenceForm['controls'].warlord_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
-                <app-filtergroupselect class="field" inputName='Fractured' [control]="influenceForm['controls'].fractured_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
-                <app-filtergroupselect class="field" inputName='Synthesised' [control]="influenceForm['controls'].synthesised_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                <app-inputwrapper class="field">
+                    <span label>Shaper Influence</span> 
+                    <app-filtergroupselect [control]="influenceForm['controls'].shaper_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                </app-inputwrapper>
+                <app-inputwrapper class="field">
+                    <span label>Elder Influence</span> 
+                    <app-filtergroupselect [control]="influenceForm['controls'].elder_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                </app-inputwrapper>
+                <app-inputwrapper class="field">
+                    <span label>Crusader Influence</span> 
+                    <app-filtergroupselect [control]="influenceForm['controls'].crusader_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                </app-inputwrapper>
+                <app-inputwrapper class="field">
+                    <span label>Redeemer Influence</span> 
+                    <app-filtergroupselect [control]="influenceForm['controls'].redeemer_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                </app-inputwrapper>
+                <app-inputwrapper class="field">
+                    <span label>Hunter Influence</span> 
+                    <app-filtergroupselect [control]="influenceForm['controls'].hunter_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                </app-inputwrapper>
+                <app-inputwrapper class="field">
+                    <span label>Warlord Influence</span> 
+                    <app-filtergroupselect [control]="influenceForm['controls'].warlord_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                </app-inputwrapper>
+                <app-inputwrapper class="field">
+                    <span label>Fractured</span> 
+                    <app-filtergroupselect [control]="influenceForm['controls'].fractured_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                </app-inputwrapper>
+                <app-inputwrapper class="field">
+                    <span label>Synthesised</span> 
+                    <app-filtergroupselect [control]="influenceForm['controls'].synthesised_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                </app-inputwrapper>
             </div>
         </div>
     </ng-template>

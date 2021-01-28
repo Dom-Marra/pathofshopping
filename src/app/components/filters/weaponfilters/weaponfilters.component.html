@@ -6,12 +6,30 @@
     <ng-template matExpansionPanelContent>
         <div class="item-contents">
             <div appEqualflex class="field-wrapper">
-                <app-minmaxinput class="field" inputName="Damage" [group]="this.weaponForm['controls'].filters['controls'].damage"></app-minmaxinput>
-                <app-minmaxinput class="field" inputName="Attacks Per Second" [group]="this.weaponForm['controls'].filters['controls'].aps"></app-minmaxinput>
-                <app-minmaxinput class="field" inputName="Critical Strike Chance" [group]="this.weaponForm['controls'].filters['controls'].crit"></app-minmaxinput>
-                <app-minmaxinput class="field" inputName="Total DPS" [group]="this.weaponForm['controls'].filters['controls'].dps"></app-minmaxinput>
-                <app-minmaxinput class="field" inputName="Physcial DPS" [group]="this.weaponForm['controls'].filters['controls'].pdps"></app-minmaxinput>
-                <app-minmaxinput class="field" inputName="Elemental DPS" [group]="this.weaponForm['controls'].filters['controls'].edps"></app-minmaxinput>
+                <app-inputwrapper class="field">
+                    <span label>Damage</span> 
+                    <app-minmaxinput [group]="this.weaponForm['controls'].filters['controls'].damage"></app-minmaxinput>
+                </app-inputwrapper>
+                <app-inputwrapper class="field">
+                    <span label>Attacks Per Second</span> 
+                    <app-minmaxinput [group]="this.weaponForm['controls'].filters['controls'].aps"></app-minmaxinput>
+                </app-inputwrapper>
+                <app-inputwrapper class="field">
+                    <span label>Critical Strike Chance</span> 
+                    <app-minmaxinput [group]="this.weaponForm['controls'].filters['controls'].crit"></app-minmaxinput>
+                </app-inputwrapper>
+                <app-inputwrapper class="field">
+                    <span label>Total DPS</span> 
+                    <app-minmaxinput [group]="this.weaponForm['controls'].filters['controls'].dps"></app-minmaxinput>
+                </app-inputwrapper>
+                <app-inputwrapper class="field">
+                    <span label>Physcial DPS</span> 
+                    <app-minmaxinput [group]="this.weaponForm['controls'].filters['controls'].pdps"></app-minmaxinput>
+                </app-inputwrapper>
+                <app-inputwrapper class="field">
+                    <span label>Elemental DPS</span> 
+                    <app-minmaxinput [group]="this.weaponForm['controls'].filters['controls'].edps"></app-minmaxinput>
+                </app-inputwrapper>
             </div>
         </div>
     </ng-template>
