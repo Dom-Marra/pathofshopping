@@ -1,11 +1,11 @@
-<app-inputwrapper matAutocompleteOrigin #autoCompleteHost="matAutocompleteOrigin" class="stat-select">
+<div matAutocompleteOrigin #autoCompleteHost="matAutocompleteOrigin" class="stat-select">
 
-    <div class="stat-select-wrapper">
-        <div class="stat-selector mat-input-500">
-            <div class="stat-selector-buttons">
-                <app-filteractionbuttons disableClear="true" includeDelete="true" (remove)="deleteStatFilter()" [formGroup]="this.statGroup" (disableChange)="this.statGroup.controls.disabled.patchValue(this.statGroup.disabled, {emitEvent: false, onlySelf: true})"></app-filteractionbuttons>
-            </div>
-           
+    <div class="stat-selector-wrapper">
+        <div class="stat-selector-buttons">
+            <app-filteractionbuttons disableClear="true" includeDelete="true" (remove)="deleteStatFilter()" [formGroup]="this.statGroup" (disableChange)="this.statGroup.controls.disabled.patchValue(this.statGroup.disabled, {emitEvent: false, onlySelf: true})"></app-filteractionbuttons>
+        </div>
+
+        <div class="stat-selector flexed-inputs mat-input-500">
             <mat-form-field floatLabel="never">
                 <input #statInput matInput type="text" autocomplete="off" 
                     [matAutocomplete]="searchableStats" 
@@ -30,27 +30,19 @@
                 </mat-autocomplete>
             </mat-form-field>
         </div>
-        
+    </div>
     
-        <div *ngIf="this.statGroup.controls.selectedStat.value && this.statGroup.controls.selectedStat.value.option == null && isWeight" class="stat-min-max-fields mat-input-600">
+    <div *ngIf="this.statGroup.controls.selectedStat.value" class="stat-inputs">
+        <div *ngIf="isWeight" class="stat-weight flexed-inputs mat-input-600">
             <mat-form-field>
                 <mat-label>Weight</mat-label>
                 <input digitsonly matInput type="text" autocomplete="off" [formControl]="this.statGroup['controls'].value['controls'].weight">
             </mat-form-field>
         </div>
     
-        <div *ngIf="this.statGroup.controls.selectedStat.value && this.statGroup.controls.selectedStat.value.option == null && !isWeight" class="stat-min-max-fields mat-input-600">
-            <mat-form-field>
-                <mat-label>Min</mat-label>
-                <input digitsonly matInput type="text" autocomplete="off" [formControl]="this.statGroup['controls'].value['controls'].min">
-            </mat-form-field>
-            <mat-form-field>
-                <mat-label>Max</mat-label>
-                <input digitsonly matInput type="text" autocomplete="off" [formControl]="this.statGroup['controls'].value['controls'].max">
-            </mat-form-field>
-        </div>
+        <app-minmaxinput *ngIf="this.statGroup.controls.selectedStat.value.option == null && !isWeight" class="stat-min-max-fields mat-input-600" [styleType]="'basicMaterial'" [group]="this.statGroup['controls'].value"></app-minmaxinput>
     
-        <div *ngIf="this.statGroup.controls.selectedStat.value && this.statGroup.controls.selectedStat.value.option != null" class="stat-option-select mat-input-600">
+        <div *ngIf="this.statGroup.controls.selectedStat.value.option != null" class="stat-option-select flexed-inputs mat-input-600">
             <mat-form-field floatLabel='never'>
                 <input #statOptionInput matInput type="text"  autocomplete="off" 
                         [matAutocomplete]="searchableStatOptions" 
@@ -73,4 +65,5 @@
             </mat-form-field>
         </div>
     </div>
-</app-inputwrapper>
+
+</div>
