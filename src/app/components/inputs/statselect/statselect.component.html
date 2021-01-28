@@ -51,7 +51,8 @@
                         (input)="filteredStatOptions = filterStatOptions($event.target.value)"
                         [value]="this.statGroup.controls.selectedStatOption.value?.text ? this.statGroup.controls.selectedStatOption.value.text : 'Select Option'"
                         (focus)="$event.target.value = ''; filteredStatOptions = filterStatOptions('')"
-                        (blur)="$event.target.value = this.statGroup.controls.selectedStatOption.value?.text ? this.statGroup.controls.selectedStatOption.value.text : 'Select Option'">
+                        (blur)="$event.target.value = this.statGroup.controls.selectedStatOption.value?.text ? this.statGroup.controls.selectedStatOption.value.text : 'Select Option'"
+                        [disabled]="this.statGroup.disabled">
         
                 <mat-icon matSuffix class="icon-dark" [class.rotate]="searchableStatOptions.isOpen">arrow_drop_down</mat-icon>
                 <mat-autocomplete #searchableStatOptions="matAutocomplete" 
