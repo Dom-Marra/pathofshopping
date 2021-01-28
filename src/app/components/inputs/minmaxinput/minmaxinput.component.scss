@@ -1,5 +1,9 @@
 @import '../../../../theme.scss';
 
+:host {
+    flex: 1;
+}
+
 .min-max-inputs {
     display: flex;
     align-items: stretch;

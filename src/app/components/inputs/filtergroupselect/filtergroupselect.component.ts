@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
 import { ControldefaultsDirective } from 'src/app/directives/controldefaults.directive';
-import { stylesTypes } from '../../../enums/styleTypes';
 
 @Component({
   selector: 'app-filtergroupselect',
@@ -13,7 +12,6 @@ export class FiltergroupselectComponent implements OnInit {
   @Input() inputName: string;                               //Name of the input
   @Input() control: AbstractControl;                        //Form control of the input
   @Input() selectEnum: any;                                 //Enum for values
-  @Input() styleType: stylesTypes = stylesTypes.normal;     //Style of the select
   @Input() disableDefault: boolean = false;                 //Whether the default control directive should be disabled
   @Input() default: any;                                    //Default value
   @Input() autoCompleteClass: string = 'autocomplete-panel-300';
