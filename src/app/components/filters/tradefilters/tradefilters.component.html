@@ -8,10 +8,12 @@
             <div appEqualflex class="field-wrapper">
                 <app-inputwrapper class="field">
                     <span label>Account Name</span> 
-                    <mat-form-field floatLabel='never'>
-                        <mat-label>Account Name</mat-label>
-                        <input matInput appControldefaults [formControl]="tradeForm['controls'].filters['controls'].account['controls'].input" autocomplete="off">
-                    </mat-form-field>
+                    <div class="flexed-inputs">
+                        <mat-form-field floatLabel='never'>
+                            <mat-label>Account Name</mat-label>
+                            <input matInput appControldefaults [formControl]="tradeForm['controls'].filters['controls'].account['controls'].input" autocomplete="off">
+                        </mat-form-field>
+                    </div>
                 </app-inputwrapper>
                 <app-inputwrapper class="field" matAutocompleteOrigin #listedSelect="matAutocompleteOrigin">
                     <span label>Listed</span> 
