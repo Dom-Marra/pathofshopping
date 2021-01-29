@@ -118,10 +118,10 @@ export class TypefiltersComponent implements OnInit {
     );
 
     this.search.valueChanges.subscribe(value => {          //Update term, type, and name controls
-        this.queryForm.controls.type.patchValue('', {emitEvent: false});          //clear type control
-        this.queryForm.controls.name.patchValue('', {emitEvent: false});          //clear name control
-        this.queryForm.controls.term.patchValue(value, {emitEvent: false});       //set term control
-    })
+      this.queryForm.controls.type.patchValue('', {emitEvent: false});          //clear type control
+      this.queryForm.controls.name.patchValue('', {emitEvent: false});          //clear name control
+      this.queryForm.controls.term.patchValue(value, {emitEvent: false});       //set term control
+    });
   }
 
   ngOnInit(): void {
@@ -147,20 +147,6 @@ export class TypefiltersComponent implements OnInit {
       this.search.patchValue(item.text, {emitEvent: false, onlySelf: true}); //Set search
   }
   
-  /**
-   * Filters enumeration objects based on search text
-   * 
-   * @param searchText
-   *        string: search text 
-   * @param enumToFilter 
-   *        typeof enum: the enumeration to filter
-   */
-  public filterEnums(searchText: string, enumToFilter: any): Array<any> {
-    const text = searchText.toLowerCase();
-
-    return Object.keys(enumToFilter).filter(key => enumToFilter[key].toLowerCase().indexOf(text.toLocaleLowerCase()) != -1);
-  }
-
   /**
    * Filters the items from each category of the search items
    * 
