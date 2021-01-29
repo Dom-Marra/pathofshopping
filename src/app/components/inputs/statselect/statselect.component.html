@@ -24,7 +24,7 @@
                                 autoActiveFirstOption="'true'"
                                 (optionSelected)="setStat($event.option.value); statInput.blur();">
                     <mat-optgroup *ngFor="let search of filteredStats" [label]="search.category">
-                        <mat-option *ngFor="let item of search.stats | slice:0:25;" [value]="item">
+                        <mat-option *ngFor="let item of search.stats | slice:0:25;" [class.mat-selected]="item.id == this.statGroup.controls.id.value" [value]="item">
                             {{item.text}}
                         </mat-option>
                     </mat-optgroup>
@@ -61,7 +61,7 @@
                                 (closed)="statOptionInput.blur()" 
                                 autoActiveFirstOption="'true'"
                                 (optionSelected)=" statOptionInput.blur(); setStatOption($event.option.value)">
-                    <mat-option *ngFor="let option of filteredStatOptions" [value]="option">
+                    <mat-option *ngFor="let option of filteredStatOptions" [class.mat-selected]="option.id == this.statGroup['controls'].value['controls'].option.value" [value]="option">
                         {{option.text}}
                     </mat-option>
                 </mat-autocomplete>

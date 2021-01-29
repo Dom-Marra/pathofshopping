@@ -17,7 +17,7 @@
                         (closed)="selectInput.blur()"
                         autoActiveFirstOption="'true'"
                         (optionSelected)="control.patchValue($event.option.value); selectInput.blur()">
-            <mat-option *ngFor="let value of filter" [class.mat-selected]="value == selectEnum[control.value]" [value]="value">
+            <mat-option *ngFor="let value of filter" [class.mat-selected]="value == control.value" [value]="value">
                 {{selectEnum[value]}}
             </mat-option>
         </mat-autocomplete>
