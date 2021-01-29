@@ -2,6 +2,7 @@
     <mat-label *ngIf="inputName">{{inputName}}</mat-label>
     <input #selectInput matInput type="text"  autocomplete="off" 
             [matAutocomplete]="selectInputAutoComplete" 
+            [matAutocompleteConnectedTo]="autoCompleteHost"
             [placeholder]="selectEnum[control.value]"
             (input)="filter = filterEnums($event.target.value, selectEnum)"
             [value]="selectEnum[control.value]"

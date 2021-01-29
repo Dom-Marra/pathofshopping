@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
+import { _MatAutocompleteBase } from '@angular/material/autocomplete';
 import { ControldefaultsDirective } from 'src/app/directives/controldefaults.directive';
 
 @Component({
@@ -15,6 +16,7 @@ export class FiltergroupselectComponent implements OnInit {
   @Input() disableDefault: boolean = false;                 //Whether the default control directive should be disabled
   @Input() default: any;                                    //Default value
   @Input() autoCompleteClass: string = 'autocomplete-panel-300';
+  @Input() autoCompleteHost: _MatAutocompleteBase;
 
   public filter: Array<any>;                                //Filtered results
 
@@ -29,6 +31,8 @@ export class FiltergroupselectComponent implements OnInit {
       this.controlDefault.default = this.default;
       this.controlDefault.ngOnInit();
     }
+
+    this.filter = Object.keys(this.selectEnum);     //Autofill the results
   }
 
   /**
