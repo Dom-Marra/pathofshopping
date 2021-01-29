@@ -6,37 +6,37 @@
     <ng-template matExpansionPanelContent>
         <div class="item-contents">
             <div appEqualflex class="field-wrapper">
-                <app-inputwrapper class="field">
+                <app-inputwrapper class="field" matAutocompleteOrigin #shaperSelect="matAutocompleteOrigin">
                     <span label>Shaper Influence</span> 
-                    <app-filtergroupselect [control]="influenceForm['controls'].shaper_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                    <app-filtergroupselect [autoCompleteHost]='shaperSelect' [control]="influenceForm['controls'].shaper_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
                 </app-inputwrapper>
-                <app-inputwrapper class="field">
+                <app-inputwrapper class="field" matAutocompleteOrigin #elderSelect="matAutocompleteOrigin">
                     <span label>Elder Influence</span> 
-                    <app-filtergroupselect [control]="influenceForm['controls'].elder_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                    <app-filtergroupselect [autoCompleteHost]='elderSelect' [control]="influenceForm['controls'].elder_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
                 </app-inputwrapper>
-                <app-inputwrapper class="field">
+                <app-inputwrapper class="field" matAutocompleteOrigin #crusaderSelect="matAutocompleteOrigin">
                     <span label>Crusader Influence</span> 
-                    <app-filtergroupselect [control]="influenceForm['controls'].crusader_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                    <app-filtergroupselect [autoCompleteHost]='crusaderSelect' [control]="influenceForm['controls'].crusader_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
                 </app-inputwrapper>
-                <app-inputwrapper class="field">
+                <app-inputwrapper class="field" matAutocompleteOrigin #redeemerSelect="matAutocompleteOrigin">
                     <span label>Redeemer Influence</span> 
-                    <app-filtergroupselect [control]="influenceForm['controls'].redeemer_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                    <app-filtergroupselect [autoCompleteHost]='redeemerSelect' [control]="influenceForm['controls'].redeemer_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
                 </app-inputwrapper>
-                <app-inputwrapper class="field">
+                <app-inputwrapper class="field" matAutocompleteOrigin #hunterSelect="matAutocompleteOrigin">
                     <span label>Hunter Influence</span> 
-                    <app-filtergroupselect [control]="influenceForm['controls'].hunter_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                    <app-filtergroupselect [autoCompleteHost]='hunterSelect' [control]="influenceForm['controls'].hunter_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
                 </app-inputwrapper>
-                <app-inputwrapper class="field">
+                <app-inputwrapper class="field" matAutocompleteOrigin #warlordSelect="matAutocompleteOrigin">
                     <span label>Warlord Influence</span> 
-                    <app-filtergroupselect [control]="influenceForm['controls'].warlord_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                    <app-filtergroupselect [autoCompleteHost]='warlordSelect' [control]="influenceForm['controls'].warlord_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
                 </app-inputwrapper>
-                <app-inputwrapper class="field">
+                <app-inputwrapper class="field" matAutocompleteOrigin #fracturedSelect="matAutocompleteOrigin">
                     <span label>Fractured</span> 
-                    <app-filtergroupselect [control]="influenceForm['controls'].fractured_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                    <app-filtergroupselect [autoCompleteHost]='fracturedSelect' [control]="influenceForm['controls'].fractured_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
                 </app-inputwrapper>
-                <app-inputwrapper class="field">
+                <app-inputwrapper class="field" matAutocompleteOrigin #synthesisedSelect="matAutocompleteOrigin">
                     <span label>Synthesised</span> 
-                    <app-filtergroupselect [control]="influenceForm['controls'].synthesised_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                    <app-filtergroupselect [autoCompleteHost]='synthesisedSelect' [control]="influenceForm['controls'].synthesised_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
                 </app-inputwrapper>
             </div>
         </div>

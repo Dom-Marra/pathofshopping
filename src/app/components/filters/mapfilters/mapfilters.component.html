@@ -6,25 +6,25 @@
     <ng-template matExpansionPanelContent>
         <div class="item-contents">
             <div appEqualflex class="field-wrapper">
-                <app-inputwrapper class="field">
+                <app-inputwrapper class="field" matAutocompleteOrigin #regionSelect="matAutocompleteOrigin">
                     <span label>Region</span> 
-                    <app-filtergroupselect [control]="mapForm['controls'].filters['controls'].map_region['controls'].option" [selectEnum]="MAP_REGION"></app-filtergroupselect>
+                    <app-filtergroupselect [autoCompleteHost]='regionSelect' [control]="mapForm['controls'].filters['controls'].map_region['controls'].option" [selectEnum]="MAP_REGION"></app-filtergroupselect>
                 </app-inputwrapper>
-                <app-inputwrapper class="field">
+                <app-inputwrapper class="field" matAutocompleteOrigin #seriesSelect="matAutocompleteOrigin">
                     <span label>Series</span> 
-                    <app-filtergroupselect [control]="mapForm['controls'].filters['controls'].map_series['controls'].option" [selectEnum]="MAP_SERIES"></app-filtergroupselect>
+                    <app-filtergroupselect [autoCompleteHost]='seriesSelect' [control]="mapForm['controls'].filters['controls'].map_series['controls'].option" [selectEnum]="MAP_SERIES"></app-filtergroupselect>
                 </app-inputwrapper>
-                <app-inputwrapper class="field">
+                <app-inputwrapper class="field" matAutocompleteOrigin #shapedSelect="matAutocompleteOrigin">
                     <span label>Shaped</span> 
-                    <app-filtergroupselect [control]="mapForm['controls'].filters['controls'].map_shaped['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                    <app-filtergroupselect [autoCompleteHost]='shapedSelect' [control]="mapForm['controls'].filters['controls'].map_shaped['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
                 </app-inputwrapper>
-                <app-inputwrapper class="field">
+                <app-inputwrapper class="field" matAutocompleteOrigin #elderSelect="matAutocompleteOrigin">
                     <span label>Elder</span> 
-                    <app-filtergroupselect [control]="mapForm['controls'].filters['controls'].map_elder['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                    <app-filtergroupselect [autoCompleteHost]='elderSelect' [control]="mapForm['controls'].filters['controls'].map_elder['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
                 </app-inputwrapper>
-                <app-inputwrapper class="field">
+                <app-inputwrapper class="field" matAutocompleteOrigin #blightedSelect="matAutocompleteOrigin">
                     <span label>Blighted</span> 
-                    <app-filtergroupselect [control]="mapForm['controls'].filters['controls'].map_blighted['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                    <app-filtergroupselect [autoCompleteHost]='blightedSelect' [control]="mapForm['controls'].filters['controls'].map_blighted['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
                 </app-inputwrapper>
                 <app-inputwrapper class="field">
                     <span label>Tier</span> 

@@ -14,9 +14,9 @@
                     <span label>Experience (%)</span> 
                     <app-minmaxinput [group]="this.gemForm['controls'].gem_level_progress"></app-minmaxinput>
                 </app-inputwrapper>
-                <app-inputwrapper class="field">
+                <app-inputwrapper class="field" matAutocompleteOrigin #qualitySelect="matAutocompleteOrigin">
                     <span label>Quality Type</span> 
-                    <app-filtergroupselect [control]="this.gemForm['controls'].gem_alternate_quality['controls'].option" [selectEnum]="GEM_QUALITY_TYPES"></app-filtergroupselect>
+                    <app-filtergroupselect [autoCompleteHost]='qualitySelect' [control]="this.gemForm['controls'].gem_alternate_quality['controls'].option" [selectEnum]="GEM_QUALITY_TYPES"></app-filtergroupselect>
                 </app-inputwrapper>
             </div>
         </div>

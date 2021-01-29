@@ -26,33 +26,33 @@
                     <span label>Stack Size</span> 
                     <app-minmaxinput [group]="this.otherForm['controls'].stack_size"></app-minmaxinput>
                 </app-inputwrapper>
-                <app-inputwrapper class="field">
+                <app-inputwrapper class="field" matAutocompleteOrigin #altArtSelect="matAutocompleteOrigin">
                     <span label>Alternate Art</span> 
-                    <app-filtergroupselect [control]="this.otherForm['controls'].alternate_art['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                    <app-filtergroupselect [autoCompleteHost]='altArtSelect' [control]="this.otherForm['controls'].alternate_art['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
                 </app-inputwrapper>
-                <app-inputwrapper class="field">
+                <app-inputwrapper class="field" matAutocompleteOrigin #identifiedSelect="matAutocompleteOrigin">
                     <span label>Identified</span> 
-                    <app-filtergroupselect [control]="this.otherForm['controls'].identified['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                    <app-filtergroupselect [autoCompleteHost]='identifiedSelect' [control]="this.otherForm['controls'].identified['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
                 </app-inputwrapper>
-                <app-inputwrapper class="field">
+                <app-inputwrapper class="field" matAutocompleteOrigin #corruptedSelect="matAutocompleteOrigin">
                     <span label>Corrupted</span> 
-                    <app-filtergroupselect [control]="this.otherForm['controls'].corrupted['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                    <app-filtergroupselect [autoCompleteHost]='corruptedSelect' [control]="this.otherForm['controls'].corrupted['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
                 </app-inputwrapper>
-                <app-inputwrapper class="field">
+                <app-inputwrapper class="field" matAutocompleteOrigin #mirroredSelect="matAutocompleteOrigin">
                     <span label>Mirrored</span> 
-                    <app-filtergroupselect [control]="this.otherForm['controls'].mirrored['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                    <app-filtergroupselect [autoCompleteHost]='mirroredSelect' [control]="this.otherForm['controls'].mirrored['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
                 </app-inputwrapper>
-                <app-inputwrapper class="field">
+                <app-inputwrapper class="field" matAutocompleteOrigin #craftedSelect="matAutocompleteOrigin">
                     <span label>Crafted</span> 
-                    <app-filtergroupselect [control]="this.otherForm['controls'].crafted['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                    <app-filtergroupselect [autoCompleteHost]='craftedSelect' [control]="this.otherForm['controls'].crafted['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
                 </app-inputwrapper>
-                <app-inputwrapper class="field">
+                <app-inputwrapper class="field" matAutocompleteOrigin #veiledSelect="matAutocompleteOrigin">
                     <span label>Veiled</span> 
-                    <app-filtergroupselect [control]="this.otherForm['controls'].veiled['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                    <app-filtergroupselect [autoCompleteHost]='veiledSelect' [control]="this.otherForm['controls'].veiled['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
                 </app-inputwrapper>
-                <app-inputwrapper class="field">
+                <app-inputwrapper class="field" matAutocompleteOrigin #enchantedSelect="matAutocompleteOrigin">
                     <span label>Enchanted</span> 
-                    <app-filtergroupselect [control]="this.otherForm['controls'].enchanted['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                    <app-filtergroupselect [autoCompleteHost]='enchantedSelect' [control]="this.otherForm['controls'].enchanted['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
                 </app-inputwrapper>
             </div>
         </div>
