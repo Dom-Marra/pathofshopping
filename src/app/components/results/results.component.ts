@@ -1,9 +1,9 @@
 import { Component, ElementRef, EventEmitter, Input, KeyValueDiffer, KeyValueDiffers, OnInit, Output, Pipe, PipeTransform, QueryList, ViewChildren } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { Subscription } from 'rxjs';
-import { QueryitemService } from 'src/app/services/queryitem.service';
 import { Currency } from '../../enums/currency';
 import { Resultdata } from '../../classes/resultdata/resultdata';
+import { PoeService } from 'src/app/services/poe.service';
 
 interface modData {
   text: string,
@@ -75,7 +75,7 @@ export class ResultsComponent implements OnInit {
   public inProgress: boolean = false;                 //Whether the query is in progress or not
 
   public differ: KeyValueDiffer<any, any>;            //Used to detect changes in the queryProps
-  constructor(private queryService: QueryitemService, private kvDiffers: KeyValueDiffers) { }
+  constructor(private poeAPI: PoeService, private kvDiffers: KeyValueDiffers) { }
 
   ngOnInit(): void { 
     this.differ = this.kvDiffers.find(this.resultData).create();    //Create the differ
@@ -131,7 +131,7 @@ export class ResultsComponent implements OnInit {
     this.inProgress = true;                               //Set in progress
 
     //Get items
-    query = this.queryService.fetchItems(results, "?query=" + this.resultData.queryProps.id + "&" + this.resultData.queryProps.psuedos)
+    query = this.poeAPI.fetch(results, "?query=" + this.resultData.queryProps.id + "&" + this.resultData.queryProps.psuedos)
     .subscribe((items: any) => {  
       this.resultData.queryData = this.resultData.queryData.concat(items.result);          //Add results   
       this.resultData.retrievedItems = this.resultData.retrievedItems.concat(results);     //Add the IDs as retrieved  

@@ -1,19 +1,15 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder, FormArray } from '@angular/forms';
+import { FormGroup, FormControl } from '@angular/forms';
 import { StatForm } from 'src/app/classes/formgroups/stat-form';
-import { statCategory, StatsearchService } from '../../../services/statsearch.service';
+import { poeCategorizedStats } from 'src/app/models/poeCategorizedStats';
+import { PoeService } from 'src/app/services/poe.service';
 
-export const filterSearch = (items: any, searchText: string): any => {    //Filters items by search text
+export const filterSearch = (stats: poeCategorizedStats['stats'], searchText: string): poeCategorizedStats['stats'] => {
   const text = searchText.toLowerCase().trim().split(/\s+/);
 
-  return items.filter(item => {
+  return stats.filter(stat => {
     return text.filter(text => {
-      
-      if (text.length > 0) {
-        return item.text.toLowerCase().indexOf(text) != -1;
-      }
-      
-      return false;
+      return stat.text.toLowerCase().indexOf(text) != -1;
     }).length == text.length;
   });
 }
@@ -29,11 +25,14 @@ export class StatselectComponent implements OnInit {
   @Input() isWeight: boolean = false;                                               //Whether this stat is under a wieghted sum filter group
   @Input() statGroup: StatForm;                                                     //Stat data that belongs to this selector
   
-  public filteredStats: Array<statCategory>;                            //Filtered Stats
-  public filteredStatOptions: statCategory['stats'][0]['option'];       //Filtered Stat Options
+  public filteredStats: Array<poeCategorizedStats> = [];                       //Filtered Stats
+  public filteredStatOptions: poeCategorizedStats['stats'][0]['option'];       //Filtered Stat Options
+  public statsToSearch: Array<poeCategorizedStats>;
 
-  constructor(private statSearch: StatsearchService, private fb: FormBuilder) { 
-    this.filteredStats = this.statSearch.getStats();                    //Init stats to search
+  constructor(private poeAPI: PoeService) { 
+    //Init stats to search
+    this.statsToSearch = this.poeAPI.getStats();
+    this.filteredStats = this.poeAPI.getStats();  
   }
 
   ngOnInit(): void {
@@ -58,16 +57,19 @@ export class StatselectComponent implements OnInit {
    *        string: text to filter by
    * 
    * @returns 
-   *       Array<searchItem>: The filtered results
+   *       Array<poeCategorizedStats>: The filtered results
    */
-  public filterStats(searchText: string): Array<statCategory> {
+  public filterStats(searchText: string): Array<poeCategorizedStats> {
 
-    this.filteredStats = this.statSearch.getStats();
+    if (!this.statsToSearch) return;
+    if (!searchText) return this.statsToSearch;
 
-    return this.filteredStats.map(statCategory => ({
+    this.filteredStats = this.statsToSearch.map(statCategory => ({
     category: statCategory.category, 
     stats: filterSearch(statCategory.stats, searchText)
-    })).filter(statSearch => statSearch.stats.length > 0);
+    }));
+
+    return this.filteredStats.filter(statSearch => statSearch.stats.length > 0)
   }
 
   /**
@@ -104,7 +106,7 @@ export class StatselectComponent implements OnInit {
    * Will reset option control in value form group if the stat is min max based,
    * or reset the min max controls in said form group if said stat is option based
    */
-  public setStat(stat: statCategory['stats'][0]) {
+  public setStat(stat: poeCategorizedStats['stats'][0]) {
       this.statGroup.controls.id.patchValue(stat.id);
       this.statGroup.controls.selectedStat.patchValue(stat);
 
@@ -124,7 +126,7 @@ export class StatselectComponent implements OnInit {
    * @param option 
    *          option to set
    */
-  public setStatOption(option: statCategory['stats'][0]['option'][0]) {
+  public setStatOption(option: poeCategorizedStats['stats'][0]['option'][0]) {
     this.statGroup.controls.selectedStatOption.patchValue(option);
     this.statGroup['controls'].value['controls'].option.patchValue(option.id);
   }

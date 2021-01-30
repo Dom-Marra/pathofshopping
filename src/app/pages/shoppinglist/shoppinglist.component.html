@@ -3,7 +3,7 @@
         <h1 id="top-title">Path of Shopping</h1>
     </div>
     
-    <div *ngIf="!loading" id="shoppinglist-contents-container">
+    <div *ngIf="!listLoading && !poeLoading" id="shoppinglist-contents-container">
         <div id="shoppinglist-contents-top-bar">
             <div class="top-bar-flex-wrap">
                 <app-filtergroupselect class="league-select mat-input-500" autoCompleteClass='autocomplete-panel-400' inputName='League' [control]="this.shoppingList.controls.league" [selectEnum]="LEAGUES" [disableDefault]="true"></app-filtergroupselect>
@@ -35,8 +35,8 @@
         </div>
     </div>
 
-    <div *ngIf="loading" id="loading-panel">
-        <h3>Loading List, Please Wait</h3>
+    <div *ngIf="listLoading || poeLoading" id="loading-panel">
+        <h3>Loading... Please Wait</h3>
         <mat-progress-spinner class="mat-spinner" mode="indeterminate"></mat-progress-spinner>
     </div>
 </div>

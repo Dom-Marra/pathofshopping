@@ -1,9 +1,9 @@
 import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnInit, Output, QueryList, ViewChildren } from '@angular/core';
 import { FormGroup, FormControl, FormArray } from '@angular/forms';
-import { QueryitemService } from '../../services/queryitem.service'
 import { Item } from '../../classes/itemdata/item';
 import { StatFilterForm } from 'src/app/classes/formgroups/stat-filter-form';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { PoeService } from 'src/app/services/poe.service';
 
 enum statusOptions {
   any = 'All',
@@ -26,7 +26,7 @@ export class ItemComponent implements OnInit {
   public editName: boolean = false;                         //Whether name is in edit mode or not
   public showResults: boolean = false;                      //Used to show results tab
 
-  constructor(private cd: ChangeDetectorRef, private queryService: QueryitemService, private snackBar: MatSnackBar) {  
+  constructor(private cd: ChangeDetectorRef, private snackBar: MatSnackBar, private poe: PoeService) {  
   }
 
   ngAfterViewInit() {
@@ -62,7 +62,7 @@ export class ItemComponent implements OnInit {
 
     data = this.removeEmpty(data);                            //clean the data
 
-    let fetchSub = this.queryService.fetchResults(data, this.league).subscribe(
+    let fetchSub = this.poe.search(data, this.league).subscribe(
       (fetch: any) => {       //Fetch items based on data
         if (fetch.result != null && fetch.result.length > 0) {
 

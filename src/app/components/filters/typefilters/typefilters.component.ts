@@ -2,7 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
-import { ItemsearchService, searchItem } from 'src/app/services/itemsearch.service';
+import { poeCategorizedItems } from 'src/app/models/poeCategorizedItems';
+import { PoeService } from 'src/app/services/poe.service';
 
 enum itemRarities {
   '' = 'All',
@@ -73,7 +74,7 @@ enum itemTypes {
   'currency.incubator' = 'Incubator',
 }
 
-export const filterSearch = (items: searchItem['items'], searchText: string): searchItem['items'] => {    //Filters items by search text
+export const filterSearch = (items: poeCategorizedItems['items'], searchText: string): poeCategorizedItems['items'] => {    //Filters items by search text
   if (typeof searchText != 'string') return items;
 
   const text = searchText.toLowerCase().trim().split(/\s+/);
@@ -102,15 +103,15 @@ export class TypefiltersComponent implements OnInit {
 
   @Input() queryForm: FormGroup;                            //Main query form
 
-  public itemsToSearch: Array<searchItem> = [];            //POE items
-  public filteredItems: Observable<Array<searchItem>>;     //Filtered results of the items
+  public itemsToSearch: Array<poeCategorizedItems> = [];   //POE items
+  public filteredItems: Observable<Array<poeCategorizedItems>>;     //Filtered results of the items
   public filteredTypes: Array<typeof itemTypes>;           //Filtered item types
   public filteredRarities: Array<typeof itemRarities>;     //filtered item rarities
 
   public search = new FormControl('');
 
-  constructor(private itemSearch: ItemsearchService) { 
-    this.itemsToSearch = this.itemSearch.getItems();                            //Init items to search
+  constructor(private poeAPI: PoeService) {                    
+    this.itemsToSearch = this.poeAPI.getItems();            //Init items to search
 
     this.filteredItems = this.search.valueChanges.pipe(    //filter items when item search changes
       startWith(''),
@@ -140,7 +141,7 @@ export class TypefiltersComponent implements OnInit {
   /**
    * Processes the selected item from the item search autofill
    */
-  public selectItem(item: searchItem["items"][0]) {
+  public selectItem(item: poeCategorizedItems["items"][0]) {
       if (item.name) this.queryForm.controls.name.patchValue(item.name);    //Set name
       this.queryForm.controls.type.patchValue(item.type);                   //set type
       this.queryForm.controls.term.patchValue('');                          //reset term control
@@ -154,15 +155,13 @@ export class TypefiltersComponent implements OnInit {
    *        string: text to filter by
    * 
    * @returns 
-   *       Array<searchItem>: The filtered results
+   *       Array<poeCategorizedItems>: The filtered results
    */
-  private filterGroups(searchText: string): Array<searchItem> {
+  private filterGroups(searchText: string): Array<poeCategorizedItems> {
 
-    if (searchText != '') {
-      return this.itemsToSearch.map(searchItem => ({category: searchItem.category, items: filterSearch(searchItem.items, searchText)}))
-      .filter(searchItem => searchItem.items.length > 0);
-    } else {
-      return [];
-    }
+    if (!searchText) return this.itemsToSearch;     //Return whole list on empty search
+
+    return this.itemsToSearch.map(searchItem => ({category: searchItem.category, items: filterSearch(searchItem.items, searchText)}))
+    .filter(searchItem => searchItem.items.length > 0);
   }
 }
