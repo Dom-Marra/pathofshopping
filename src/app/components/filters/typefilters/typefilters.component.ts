@@ -145,7 +145,7 @@ export class TypefiltersComponent implements OnInit {
       if (item.name) this.queryForm.controls.name.patchValue(item.name);    //Set name
       this.queryForm.controls.type.patchValue(item.type);                   //set type
       this.queryForm.controls.term.patchValue('');                          //reset term control
-      this.search.patchValue(item.text, {emitEvent: false, onlySelf: true}); //Set search
+      this.search.patchValue(item.text); //Set search
   }
   
   /**
