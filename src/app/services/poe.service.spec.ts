@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { ItemsearchService } from './itemsearch.service';
+import { PoeService } from './poe.service';
 
-describe('ItemsearchService', () => {
-  let service: ItemsearchService;
+describe('PoeService', () => {
+  let service: PoeService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(ItemsearchService);
+    service = TestBed.inject(PoeService);
   });
 
   it('should be created', () => {

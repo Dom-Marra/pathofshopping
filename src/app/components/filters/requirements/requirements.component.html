@@ -6,10 +6,22 @@
     <ng-template matExpansionPanelContent>
         <div class="item-contents">
             <div appEqualflex class="field-wrapper">
-                <app-minmaxinput class="field" inputName="Level" [group]="this.requirementsForm['controls'].filters['controls'].lvl"></app-minmaxinput>
-                <app-minmaxinput class="field" inputName="Strength" [group]="this.requirementsForm['controls'].filters['controls'].str"></app-minmaxinput>
-                <app-minmaxinput class="field" inputName="Intelligence" [group]="this.requirementsForm['controls'].filters['controls'].int"></app-minmaxinput>
-                <app-minmaxinput class="field" inputName="Dexterity" [group]="this.requirementsForm['controls'].filters['controls'].dex"></app-minmaxinput>
+                <app-inputwrapper class="field">
+                    <span label>Level</span> 
+                    <app-minmaxinput [group]="this.requirementsForm['controls'].filters['controls'].lvl"></app-minmaxinput>
+                </app-inputwrapper>
+                <app-inputwrapper class="field">
+                    <span label>Strength</span> 
+                    <app-minmaxinput [group]="this.requirementsForm['controls'].filters['controls'].str"></app-minmaxinput>
+                </app-inputwrapper>
+                <app-inputwrapper class="field">
+                    <span label>Intelligence</span> 
+                    <app-minmaxinput [group]="this.requirementsForm['controls'].filters['controls'].int"></app-minmaxinput>
+                </app-inputwrapper>
+                <app-inputwrapper class="field">
+                    <span label>Dexterity</span> 
+                    <app-minmaxinput [group]="this.requirementsForm['controls'].filters['controls'].dex"></app-minmaxinput>
+                </app-inputwrapper>
             </div>
         </div>
     </ng-template>

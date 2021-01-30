@@ -6,12 +6,11 @@
     border-radius: 4px;
     background-color: mat-color($pathofshopping-primary, 600);
     overflow: hidden;
-
-    &.basicMaterial {
-        background-color: transparent;
-    }
-
+    
     .input-label {
+        display: flex;
+        align-items: center;
+        line-height: normal;
         padding: 1em;
         margin: 0;
         flex: 1;
@@ -20,7 +19,8 @@
         color: mat-color($pathofshopping-accent, 50);
     }
 
-    .flexed-inputs {
+    .inputs {
+        min-width: 150px;
         flex: 4;
     }
 }

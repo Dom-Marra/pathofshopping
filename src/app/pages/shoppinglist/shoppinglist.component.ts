@@ -1,6 +1,5 @@
 import { ChangeDetectorRef, Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { LeaguesService, leagueData } from '../../services/leagues.service';
 import { Item } from '../../classes/itemdata/item';
 import { itemSaveData } from 'src/app/models/itemSaveData';
 import { shoppingListSaveData } from 'src/app/models/shoppingListSaveData';
@@ -9,6 +8,8 @@ import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { SavedialogComponent } from 'src/app/components/savedialog/savedialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { PoeService } from 'src/app/services/poe.service';
+import { leagueData } from 'src/app/models/leagueData';
 
 @Component({
   selector: 'app-shoppinglist',
@@ -19,8 +20,9 @@ export class ShoppinglistComponent implements OnInit {
 
   @ViewChildren("shoppingListNameInput") shoppingListNameInput: QueryList<ElementRef>;            //Item name input element
   
-  public loading: boolean;                                          //If the shopping list is loading data from firebase
-  public LEAGUES: leagueData;                                       //Used for iterating over leaguess
+  public listLoading: boolean;                                      //If the shopping list is loading data from firebase
+  public poeLoading: boolean;                                       //If the poe api data is loading
+  public LEAGUES: leagueData = {};                                  //Used for iterating over leaguess
   public editShoppingListName: boolean = false;                     //Whether the shopping list input is disabled or not
   public items: Array<Item> = [];                                   //Stores item data
 
@@ -30,12 +32,21 @@ export class ShoppinglistComponent implements OnInit {
   })
 
   constructor(private cd: ChangeDetectorRef, 
-              private league: LeaguesService, 
+              private poeAPI: PoeService, 
               private fireService: FirebaseService,
               private activeRoute: ActivatedRoute,
               private dialog: MatDialog,
               private snackBar: MatSnackBar) { 
-    this.LEAGUES = this.league.getLeagues();
+
+    
+    let poeAPILoad = this.poeAPI.loaded.subscribe(loaded => {
+      this.poeLoading = !loaded;
+
+      if (loaded) {
+        this.LEAGUES = this.poeAPI.getLeagues();
+        poeAPILoad.unsubscribe();
+      }
+    });
 
     this.activeRoute.queryParamMap.subscribe(params => {
       if (params.get('list')) {
@@ -122,7 +133,7 @@ export class ShoppinglistComponent implements OnInit {
    *        id of the shopping list document
    */
   public load(list: string) {
-    this.loading = true;          //Set loading to true
+    this.listLoading = true;          //Set loading to true
 
     this.fireService.getShoppingList(list).then(doc => {      //Try to get the document
       
@@ -134,17 +145,17 @@ export class ShoppinglistComponent implements OnInit {
         //Set league and name
         this.shoppingList.controls.name.patchValue((doc.data() as shoppingListSaveData).name);
         this.shoppingList.controls.league.patchValue((doc.data() as shoppingListSaveData).league);
-        this.loading = false;
+        this.listLoading = false;
 
       } else {  //Doc doesn't exist
         this.displayErrorSnackBar('Error: No such list exists!');
         this.addItem();
-        this.loading = false;
+        this.listLoading = false;
       }
     }).catch(() => {      //Err while trying to read the doc     
       this.displayErrorSnackBar('Error: Could not load the list');
       this.addItem();
-      this.loading = false;
+      this.listLoading = false;
     })
   }
 

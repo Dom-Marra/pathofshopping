@@ -48,7 +48,8 @@ mat-icon {
     }
 
     .mat-expansion-indicator {
-      margin: 0 20px;
+      margin-left: 5px;
+      margin-right: 10px;
 
       &:after {
         color: rgba(0, 0, 0, 0.3);
@@ -65,14 +66,17 @@ mat-icon {
   .mat-content {
       height: 100%;
       display: flex;
-      flex-wrap: wrap;
       align-items: center;
       justify-content: flex-start;
       padding: 0 0.15em;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+  }
 
-      .header-text {
-        padding: 0 0.25em;
-      }
+  &.stat-filter {
+    .mat-content {
+      flex-wrap: wrap;
+    }
   }
 
   .field-wrapper {
@@ -274,4 +278,16 @@ mat-icon {
 
 .error-snack-bar {
   background-color: mat-color($pathofshopping-warn, 900);
+}
+
+@media only screen and (max-width: 610px) {
+
+  .socket-field-wrapper {
+    .input-wrapper {
+      .input-label {
+        flex-basis: 100% !important;
+      }
+    }
+  }
+  
 }

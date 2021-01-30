@@ -1,19 +1,43 @@
 <mat-expansion-panel class="filter-expansion-panel" #expansionPanel [disabled]="this.influenceForm.disabled">
     <mat-expansion-panel-header>
         <app-filteractionbuttons [formGroup]="this.influenceForm" (disableChange)="this.influenceForm.disabled ? expansionPanel.close() : ''; this.influenceForm.controls.influenceForm_disabled.patchValue(this.influenceForm.disabled, {emitEvent: false, onlySelf: true})"></app-filteractionbuttons>
-            Influences & Special Bases
+            Special Bases
     </mat-expansion-panel-header>
     <ng-template matExpansionPanelContent>
         <div class="item-contents">
             <div appEqualflex class="field-wrapper">
-                <app-filtergroupselect class="field" inputName='Shaper Influence' [control]="influenceForm['controls'].shaper_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
-                <app-filtergroupselect class="field" inputName='Elder Influence' [control]="influenceForm['controls'].elder_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
-                <app-filtergroupselect class="field" inputName='Crusader Influence' [control]="influenceForm['controls'].crusader_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
-                <app-filtergroupselect class="field" inputName='Redeemer Influence' [control]="influenceForm['controls'].redeemer_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
-                <app-filtergroupselect class="field" inputName='Hunter Influence' [control]="influenceForm['controls'].hunter_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
-                <app-filtergroupselect class="field" inputName='Warlord Influence' [control]="influenceForm['controls'].warlord_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
-                <app-filtergroupselect class="field" inputName='Fractured' [control]="influenceForm['controls'].fractured_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
-                <app-filtergroupselect class="field" inputName='Synthesised' [control]="influenceForm['controls'].synthesised_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                <app-inputwrapper class="field" matAutocompleteOrigin #shaperSelect="matAutocompleteOrigin">
+                    <span label>Shaper Influence</span> 
+                    <app-filtergroupselect [autoCompleteHost]='shaperSelect' [control]="influenceForm['controls'].shaper_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                </app-inputwrapper>
+                <app-inputwrapper class="field" matAutocompleteOrigin #elderSelect="matAutocompleteOrigin">
+                    <span label>Elder Influence</span> 
+                    <app-filtergroupselect [autoCompleteHost]='elderSelect' [control]="influenceForm['controls'].elder_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                </app-inputwrapper>
+                <app-inputwrapper class="field" matAutocompleteOrigin #crusaderSelect="matAutocompleteOrigin">
+                    <span label>Crusader Influence</span> 
+                    <app-filtergroupselect [autoCompleteHost]='crusaderSelect' [control]="influenceForm['controls'].crusader_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                </app-inputwrapper>
+                <app-inputwrapper class="field" matAutocompleteOrigin #redeemerSelect="matAutocompleteOrigin">
+                    <span label>Redeemer Influence</span> 
+                    <app-filtergroupselect [autoCompleteHost]='redeemerSelect' [control]="influenceForm['controls'].redeemer_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                </app-inputwrapper>
+                <app-inputwrapper class="field" matAutocompleteOrigin #hunterSelect="matAutocompleteOrigin">
+                    <span label>Hunter Influence</span> 
+                    <app-filtergroupselect [autoCompleteHost]='hunterSelect' [control]="influenceForm['controls'].hunter_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                </app-inputwrapper>
+                <app-inputwrapper class="field" matAutocompleteOrigin #warlordSelect="matAutocompleteOrigin">
+                    <span label>Warlord Influence</span> 
+                    <app-filtergroupselect [autoCompleteHost]='warlordSelect' [control]="influenceForm['controls'].warlord_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                </app-inputwrapper>
+                <app-inputwrapper class="field" matAutocompleteOrigin #fracturedSelect="matAutocompleteOrigin">
+                    <span label>Fractured</span> 
+                    <app-filtergroupselect [autoCompleteHost]='fracturedSelect' [control]="influenceForm['controls'].fractured_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                </app-inputwrapper>
+                <app-inputwrapper class="field" matAutocompleteOrigin #synthesisedSelect="matAutocompleteOrigin">
+                    <span label>Synthesised</span> 
+                    <app-filtergroupselect [autoCompleteHost]='synthesisedSelect' [control]="influenceForm['controls'].synthesised_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                </app-inputwrapper>
             </div>
         </div>
     </ng-template>

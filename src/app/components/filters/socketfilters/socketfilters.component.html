@@ -6,8 +6,30 @@
     <ng-template matExpansionPanelContent>
         <div class="item-contents">
             <div class="field-wrapper socket-field-wrapper">
-                <app-minmaxinput class="field" inputName="Sockets" [group]="this.socketForm['controls'].filters['controls'].sockets" [minmaxExtras]="socketSocketsExtras"></app-minmaxinput>
-                <app-minmaxinput class="field" inputName="Links" [group]="this.socketForm['controls'].filters['controls'].links" [minmaxExtras]="socketLinksExtras"></app-minmaxinput>
+                <app-inputwrapper class="field">
+                    <span class="input-label" label>Sockets</span>
+                    <div class="inputs">
+                        <div class="socket-colors flexed-inputs">
+                            <mat-form-field *ngFor="let extra of socketSocketsExtras" [class]="extra.inputClass">
+                                <mat-label>{{extra.label}}</mat-label>
+                                <input appControldefaults [default]="defaultValue" digitsonly float='true' matInput type="text" autocomplete="off" [formControl]="extra.control">
+                            </mat-form-field>
+                        </div>
+                        <app-minmaxinput [group]="this.socketForm['controls'].filters['controls'].sockets" [minmaxExtras]="socketSocketsExtras"></app-minmaxinput>
+                    </div>  
+                </app-inputwrapper>
+                <app-inputwrapper class="field">
+                    <span class="input-label" label>Links</span> 
+                    <div class="inputs">
+                        <div class="socket-colors flexed-inputs">
+                            <mat-form-field *ngFor="let extra of socketLinksExtras" [class]="extra.inputClass">
+                                <mat-label>{{extra.label}}</mat-label>
+                                <input appControldefaults [default]="defaultValue" digitsonly float='true' matInput type="text" autocomplete="off" [formControl]="extra.control">
+                            </mat-form-field>
+                        </div>
+                        <app-minmaxinput [group]="this.socketForm['controls'].filters['controls'].links" [minmaxExtras]="socketLinksExtras"></app-minmaxinput>
+                    </div>
+                </app-inputwrapper>
             </div>
         </div>
     </ng-template>

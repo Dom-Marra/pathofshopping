@@ -6,15 +6,42 @@
     <ng-template matExpansionPanelContent>
         <div class="item-contents">
             <div appEqualflex class="field-wrapper">
-                <app-filtergroupselect class="field" inputName='Region' [control]="mapForm['controls'].filters['controls'].map_region['controls'].option" [selectEnum]="MAP_REGION"></app-filtergroupselect>
-                <app-filtergroupselect class="field" inputName='Series' [control]="mapForm['controls'].filters['controls'].map_series['controls'].option" [selectEnum]="MAP_SERIES"></app-filtergroupselect>
-                <app-filtergroupselect class="field" inputName='Shaped' [control]="mapForm['controls'].filters['controls'].map_shaped['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
-                <app-filtergroupselect class="field" inputName='Elder' [control]="mapForm['controls'].filters['controls'].map_elder['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
-                <app-filtergroupselect class="field" inputName='Blighted' [control]="mapForm['controls'].filters['controls'].map_blighted['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
-                <app-minmaxinput class="field" inputName="Tier" [group]="this.mapForm['controls'].filters['controls'].map_tier"></app-minmaxinput>
-                <app-minmaxinput class="field" inputName="Packsize" [group]="this.mapForm['controls'].filters['controls'].map_packsize"></app-minmaxinput>
-                <app-minmaxinput class="field" inputName="IIQ" [group]="this.mapForm['controls'].filters['controls'].map_iiq"></app-minmaxinput>
-                <app-minmaxinput class="field" inputName="IIR" [group]="this.mapForm['controls'].filters['controls'].map_iir"></app-minmaxinput>
+                <app-inputwrapper class="field" matAutocompleteOrigin #regionSelect="matAutocompleteOrigin">
+                    <span label>Region</span> 
+                    <app-filtergroupselect [autoCompleteHost]='regionSelect' [control]="mapForm['controls'].filters['controls'].map_region['controls'].option" [selectEnum]="MAP_REGION"></app-filtergroupselect>
+                </app-inputwrapper>
+                <app-inputwrapper class="field" matAutocompleteOrigin #seriesSelect="matAutocompleteOrigin">
+                    <span label>Series</span> 
+                    <app-filtergroupselect [autoCompleteHost]='seriesSelect' [control]="mapForm['controls'].filters['controls'].map_series['controls'].option" [selectEnum]="MAP_SERIES"></app-filtergroupselect>
+                </app-inputwrapper>
+                <app-inputwrapper class="field" matAutocompleteOrigin #shapedSelect="matAutocompleteOrigin">
+                    <span label>Shaped</span> 
+                    <app-filtergroupselect [autoCompleteHost]='shapedSelect' [control]="mapForm['controls'].filters['controls'].map_shaped['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                </app-inputwrapper>
+                <app-inputwrapper class="field" matAutocompleteOrigin #elderSelect="matAutocompleteOrigin">
+                    <span label>Elder</span> 
+                    <app-filtergroupselect [autoCompleteHost]='elderSelect' [control]="mapForm['controls'].filters['controls'].map_elder['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                </app-inputwrapper>
+                <app-inputwrapper class="field" matAutocompleteOrigin #blightedSelect="matAutocompleteOrigin">
+                    <span label>Blighted</span> 
+                    <app-filtergroupselect [autoCompleteHost]='blightedSelect' [control]="mapForm['controls'].filters['controls'].map_blighted['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                </app-inputwrapper>
+                <app-inputwrapper class="field">
+                    <span label>Tier</span> 
+                    <app-minmaxinput [group]="this.mapForm['controls'].filters['controls'].map_tier"></app-minmaxinput>
+                </app-inputwrapper>
+                <app-inputwrapper class="field">
+                    <span label>Packsize</span> 
+                    <app-minmaxinput [group]="this.mapForm['controls'].filters['controls'].map_packsize"></app-minmaxinput>
+                </app-inputwrapper>
+                <app-inputwrapper class="field">
+                    <span label>IIQ</span> 
+                    <app-minmaxinput [group]="this.mapForm['controls'].filters['controls'].map_iiq"></app-minmaxinput>
+                </app-inputwrapper>
+                <app-inputwrapper class="field">
+                    <span label>IIR</span> 
+                    <app-minmaxinput [group]="this.mapForm['controls'].filters['controls'].map_iir"></app-minmaxinput>
+                </app-inputwrapper>
             </div>
         </div>
     </ng-template>

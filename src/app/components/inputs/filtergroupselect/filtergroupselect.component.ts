@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
+import { _MatAutocompleteBase } from '@angular/material/autocomplete';
 import { ControldefaultsDirective } from 'src/app/directives/controldefaults.directive';
-import { stylesTypes } from '../../../enums/styleTypes';
 
 @Component({
   selector: 'app-filtergroupselect',
@@ -13,10 +13,10 @@ export class FiltergroupselectComponent implements OnInit {
   @Input() inputName: string;                               //Name of the input
   @Input() control: AbstractControl;                        //Form control of the input
   @Input() selectEnum: any;                                 //Enum for values
-  @Input() styleType: stylesTypes = stylesTypes.normal;     //Style of the select
   @Input() disableDefault: boolean = false;                 //Whether the default control directive should be disabled
   @Input() default: any;                                    //Default value
   @Input() autoCompleteClass: string = 'autocomplete-panel-300';
+  @Input() autoCompleteHost: _MatAutocompleteBase;
 
   public filter: Array<any>;                                //Filtered results
 
@@ -31,6 +31,8 @@ export class FiltergroupselectComponent implements OnInit {
       this.controlDefault.default = this.default;
       this.controlDefault.ngOnInit();
     }
+
+    this.filter = Object.keys(this.selectEnum);     //Autofill the results
   }
 
   /**

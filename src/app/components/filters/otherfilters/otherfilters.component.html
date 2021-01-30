@@ -6,18 +6,54 @@
     <ng-template matExpansionPanelContent>
         <div class="item-contents">
             <div appEqualflex class="field-wrapper">
-                <app-minmaxinput class="field" inputName="Quality" [group]="this.otherForm['controls'].quality"></app-minmaxinput>
-                <app-minmaxinput class="field" inputName="Item Level" [group]="this.otherForm['controls'].ilvl"></app-minmaxinput>
-                <app-minmaxinput class="field" inputName="Talisman Tier" [group]="this.otherForm['controls'].talisman_tier"></app-minmaxinput>
-                <app-minmaxinput class="field" inputName="Stored Experience" [group]="this.otherForm['controls'].stored_experience"></app-minmaxinput>
-                <app-minmaxinput class="field" inputName="Stack Size" [group]="this.otherForm['controls'].stack_size"></app-minmaxinput>
-                <app-filtergroupselect class="field" inputName='Alternate Art' [control]="this.otherForm['controls'].alternate_art['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
-                <app-filtergroupselect class="field" inputName='Identified' [control]="this.otherForm['controls'].identified['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
-                <app-filtergroupselect class="field" inputName='Corrupted' [control]="this.otherForm['controls'].corrupted['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
-                <app-filtergroupselect class="field" inputName='Mirrored' [control]="this.otherForm['controls'].mirrored['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
-                <app-filtergroupselect class="field" inputName='Crafted' [control]="this.otherForm['controls'].crafted['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
-                <app-filtergroupselect class="field" inputName='Veiled' [control]="this.otherForm['controls'].veiled['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
-                <app-filtergroupselect class="field" inputName='Enchanted' [control]="this.otherForm['controls'].enchanted['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                <app-inputwrapper class="field">
+                    <span label>Quality</span> 
+                    <app-minmaxinput [group]="this.otherForm['controls'].quality"></app-minmaxinput>
+                </app-inputwrapper>
+                <app-inputwrapper class="field">
+                    <span label>Item Level</span> 
+                    <app-minmaxinput [group]="this.otherForm['controls'].ilvl"></app-minmaxinput>
+                </app-inputwrapper>
+                <app-inputwrapper class="field">
+                    <span label>Talisman Tier</span> 
+                    <app-minmaxinput [group]="this.otherForm['controls'].talisman_tier"></app-minmaxinput>
+                </app-inputwrapper>
+                <app-inputwrapper class="field">
+                    <span label>Stored Experience</span> 
+                    <app-minmaxinput [group]="this.otherForm['controls'].stored_experience"></app-minmaxinput>
+                </app-inputwrapper>
+                <app-inputwrapper class="field">
+                    <span label>Stack Size</span> 
+                    <app-minmaxinput [group]="this.otherForm['controls'].stack_size"></app-minmaxinput>
+                </app-inputwrapper>
+                <app-inputwrapper class="field" matAutocompleteOrigin #altArtSelect="matAutocompleteOrigin">
+                    <span label>Alternate Art</span> 
+                    <app-filtergroupselect [autoCompleteHost]='altArtSelect' [control]="this.otherForm['controls'].alternate_art['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                </app-inputwrapper>
+                <app-inputwrapper class="field" matAutocompleteOrigin #identifiedSelect="matAutocompleteOrigin">
+                    <span label>Identified</span> 
+                    <app-filtergroupselect [autoCompleteHost]='identifiedSelect' [control]="this.otherForm['controls'].identified['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                </app-inputwrapper>
+                <app-inputwrapper class="field" matAutocompleteOrigin #corruptedSelect="matAutocompleteOrigin">
+                    <span label>Corrupted</span> 
+                    <app-filtergroupselect [autoCompleteHost]='corruptedSelect' [control]="this.otherForm['controls'].corrupted['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                </app-inputwrapper>
+                <app-inputwrapper class="field" matAutocompleteOrigin #mirroredSelect="matAutocompleteOrigin">
+                    <span label>Mirrored</span> 
+                    <app-filtergroupselect [autoCompleteHost]='mirroredSelect' [control]="this.otherForm['controls'].mirrored['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                </app-inputwrapper>
+                <app-inputwrapper class="field" matAutocompleteOrigin #craftedSelect="matAutocompleteOrigin">
+                    <span label>Crafted</span> 
+                    <app-filtergroupselect [autoCompleteHost]='craftedSelect' [control]="this.otherForm['controls'].crafted['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                </app-inputwrapper>
+                <app-inputwrapper class="field" matAutocompleteOrigin #veiledSelect="matAutocompleteOrigin">
+                    <span label>Veiled</span> 
+                    <app-filtergroupselect [autoCompleteHost]='veiledSelect' [control]="this.otherForm['controls'].veiled['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                </app-inputwrapper>
+                <app-inputwrapper class="field" matAutocompleteOrigin #enchantedSelect="matAutocompleteOrigin">
+                    <span label>Enchanted</span> 
+                    <app-filtergroupselect [autoCompleteHost]='enchantedSelect' [control]="this.otherForm['controls'].enchanted['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                </app-inputwrapper>
             </div>
         </div>
     </ng-template>

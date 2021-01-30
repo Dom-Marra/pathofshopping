@@ -6,17 +6,31 @@
     <ng-template matExpansionPanelContent>
         <div class="item-contents">
             <div appEqualflex class="field-wrapper">
-                <app-inputwrapper wrapper class="field" inputName="Account Name">
-                    <mat-form-field floatLabel='never'>
-                        <mat-label>Account Name</mat-label>
-                        <input matInput [formControl]="tradeForm['controls'].filters['controls'].account['controls'].input" autocomplete="off">
-                    </mat-form-field>
+                <app-inputwrapper class="field">
+                    <span label>Account Name</span> 
+                    <div class="flexed-inputs">
+                        <mat-form-field floatLabel='never'>
+                            <mat-label>Account Name</mat-label>
+                            <input matInput appControldefaults [formControl]="tradeForm['controls'].filters['controls'].account['controls'].input" autocomplete="off">
+                        </mat-form-field>
+                    </div>
                 </app-inputwrapper>
-                        
-                <app-filtergroupselect class="field" inputName='Listed' [control]="tradeForm['controls'].filters['controls'].indexed['controls'].option" [selectEnum]="LISTED_OPTIONS"></app-filtergroupselect>
-                <app-filtergroupselect class="field" inputName='Sale Type' [control]="tradeForm['controls'].filters['controls'].sale_type['controls'].option" [selectEnum]="SALE_TYPES"></app-filtergroupselect>
-                <app-filtergroupselect class="field" inputName='Buyout Currency' [control]="tradeForm['controls'].filters['controls'].price['controls'].option" [selectEnum]="BUY_OUT_OPTIONS"></app-filtergroupselect>
-                <app-minmaxinput class="field" inputName="Buyout Price" [group]="this.tradeForm['controls'].filters['controls'].price"></app-minmaxinput>
+                <app-inputwrapper class="field" matAutocompleteOrigin #listedSelect="matAutocompleteOrigin">
+                    <span label>Listed</span> 
+                    <app-filtergroupselect [autoCompleteHost]='listedSelect' [control]="tradeForm['controls'].filters['controls'].indexed['controls'].option" [selectEnum]="LISTED_OPTIONS"></app-filtergroupselect>
+                </app-inputwrapper>
+                <app-inputwrapper class="field" matAutocompleteOrigin #saleTypeSelect="matAutocompleteOrigin">
+                    <span label>Sale Type</span> 
+                    <app-filtergroupselect [autoCompleteHost]='saleTypeSelect' [control]="tradeForm['controls'].filters['controls'].sale_type['controls'].option" [selectEnum]="SALE_TYPES"></app-filtergroupselect>
+                </app-inputwrapper>
+                <app-inputwrapper class="field" matAutocompleteOrigin #buyoutSelect="matAutocompleteOrigin">
+                    <span label>Buyout Currency</span> 
+                    <app-filtergroupselect [autoCompleteHost]='buyoutSelect' [control]="tradeForm['controls'].filters['controls'].price['controls'].option" [selectEnum]="BUY_OUT_OPTIONS"></app-filtergroupselect>
+                </app-inputwrapper>
+                <app-inputwrapper class="field">
+                    <span label>Buyout Price</span> 
+                    <app-minmaxinput [group]="this.tradeForm['controls'].filters['controls'].price"></app-minmaxinput>
+                </app-inputwrapper>
             </div>
         </div>
     </ng-template>

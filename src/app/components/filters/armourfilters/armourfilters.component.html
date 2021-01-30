@@ -6,10 +6,22 @@
     <ng-template matExpansionPanelContent>
         <div class="item-contents">
             <div appEqualflex class="field-wrapper">
-                <app-minmaxinput class="field" inputName="Armour" [group]="this.armourForm['controls'].filters['controls'].ar"></app-minmaxinput>
-                <app-minmaxinput class="field" inputName="Energy Shield" [group]="this.armourForm['controls'].filters['controls'].es"></app-minmaxinput>
-                <app-minmaxinput class="field" inputName="Evasion" [group]="this.armourForm['controls'].filters['controls'].ev"></app-minmaxinput>
-                <app-minmaxinput class="field" inputName="Block Chance" [group]="this.armourForm['controls'].filters['controls'].block"></app-minmaxinput>
+                <app-inputwrapper class="field">
+                    <span label>Armour</span> 
+                    <app-minmaxinput [group]="this.armourForm['controls'].filters['controls'].ar"></app-minmaxinput>
+                </app-inputwrapper>
+                <app-inputwrapper class="field">
+                    <span label>Energy Shield</span>
+                    <app-minmaxinput [group]="this.armourForm['controls'].filters['controls'].es"></app-minmaxinput>
+                </app-inputwrapper>
+                <app-inputwrapper class="field">
+                    <span label>Evasion</span>
+                    <app-minmaxinput [group]="this.armourForm['controls'].filters['controls'].ev"></app-minmaxinput>
+                </app-inputwrapper>
+                <app-inputwrapper class="field">
+                    <span label>Block Chance</span>
+                    <app-minmaxinput [group]="this.armourForm['controls'].filters['controls'].block"></app-minmaxinput>
+                </app-inputwrapper>
             </div>
         </div>
     </ng-template>

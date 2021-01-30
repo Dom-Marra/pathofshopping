@@ -1,10 +1,10 @@
 <mat-expansion-panel class="filter-expansion-panel stat-filter" #expansionPanel [disabled]="this.statFilter.disabled">
     <mat-expansion-panel-header>
         <app-filteractionbuttons disableClear="true" includeDelete="true" (remove)="remove()" [formGroup]="this.statFilter" (disableChange)="this.statFilter.disabled ? expansionPanel.close() : ''; this.statFilter.controls.disabled.patchValue(this.statFilter.disabled, {emitEvent: false, onlySelf: true})"></app-filteractionbuttons>
-        <span class="header-text">Stat Filter</span>
+        Stat Filter
         <div class="type-selector mat-input-400">
-            <app-filtergroupselect class="selector-input" disableDefault='true' (click)="$event.stopImmediatePropagation()" inputName='Filter Type' [styleType]="'basicMaterial'" [control]="this.statFilter['controls'].type" [selectEnum]="FILTER_TYPES"></app-filtergroupselect>
-            <app-minmaxinput class="selector-input" (click)="$event.stopImmediatePropagation()" *ngIf="this.statFilter['controls'].type.value == 'count' || this.statFilter['controls'].type.value == 'weight'" [group]="this.statFilter['controls'].value" [styleType]="'basicMaterial'"></app-minmaxinput>
+            <app-filtergroupselect class="selector-input" disableDefault='true' (click)="$event.stopImmediatePropagation()" inputName='Filter Type' [control]="this.statFilter['controls'].type" [selectEnum]="FILTER_TYPES"></app-filtergroupselect>
+            <app-minmaxinput class="selector-input" (click)="$event.stopImmediatePropagation()" *ngIf="this.statFilter['controls'].type.value == 'count' || this.statFilter['controls'].type.value == 'weight'" [group]="this.statFilter['controls'].value"></app-minmaxinput>
         </div>
     </mat-expansion-panel-header>
     <ng-template matExpansionPanelContent>

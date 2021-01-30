@@ -1,6 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { AbstractControl } from '@angular/forms';
 import { SocketForm } from 'src/app/classes/formgroups/socket-form';
-import { minmaxExtras } from '../../inputs/minmaxinput/minmaxinput.component';
+
+export interface socketData {
+  label: string,
+  control: AbstractControl,
+  inputClass: string
+}
 
 @Component({
   selector: 'app-socketfilters',
@@ -11,9 +17,9 @@ export class SocketfiltersComponent implements OnInit {
 
   @Input() socketForm: SocketForm;     //Socket form
 
-  public socketLinksExtras: Array<minmaxExtras>;    //links extra input data
+  public socketLinksExtras: Array<socketData>;    //links extra input data
 
-  public socketSocketsExtras: Array<minmaxExtras>;  //sockets extra input data
+  public socketSocketsExtras: Array<socketData>;  //sockets extra input data
 
   constructor() {
   }
@@ -35,19 +41,19 @@ export class SocketfiltersComponent implements OnInit {
 
   private initLinksData() {
     this.socketLinksExtras = [                                                           //links extra input data
-      {label: 'Red', control: this.socketForm.get('filters.links.r'), inputClass: 'socket-input-r'},
-      {label: 'Green', control: this.socketForm.get('filters.links.g'), inputClass: 'socket-input-g'},
-      {label: 'Blue', control: this.socketForm.get('filters.links.b'), inputClass: 'socket-input-b'},
-      {label: 'White', control: this.socketForm.get('filters.links.w'), inputClass: 'socket-input-w'}
+      {label: 'R', control: this.socketForm.get('filters.links.r'), inputClass: 'socket-input-r'},
+      {label: 'G', control: this.socketForm.get('filters.links.g'), inputClass: 'socket-input-g'},
+      {label: 'B', control: this.socketForm.get('filters.links.b'), inputClass: 'socket-input-b'},
+      {label: 'W', control: this.socketForm.get('filters.links.w'), inputClass: 'socket-input-w'}
     ]
   }
 
   private initSocketsData() {
     this.socketSocketsExtras = [                                                         //sockets extra input data
-      {label: 'Red', control: this.socketForm.get('filters.sockets.r'), inputClass: 'socket-input-r'},
-      {label: 'Green', control: this.socketForm.get('filters.sockets.g'), inputClass: 'socket-input-g'},
-      {label: 'Blue', control: this.socketForm.get('filters.sockets.b'), inputClass: 'socket-input-b'},
-      {label: 'White', control: this.socketForm.get('filters.sockets.w'), inputClass: 'socket-input-w'}
+      {label: 'R', control: this.socketForm.get('filters.sockets.r'), inputClass: 'socket-input-r'},
+      {label: 'G', control: this.socketForm.get('filters.sockets.g'), inputClass: 'socket-input-g'},
+      {label: 'B', control: this.socketForm.get('filters.sockets.b'), inputClass: 'socket-input-b'},
+      {label: 'W', control: this.socketForm.get('filters.sockets.w'), inputClass: 'socket-input-w'}
     ]
   }
 
