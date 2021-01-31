@@ -1,4 +1,5 @@
 import { FormControl, FormGroup } from "@angular/forms";
+import { Defaultvaluecontrol } from "../defaultvaluecontrol";
 
 export class ArmourForm extends FormGroup {
 
@@ -7,20 +8,20 @@ export class ArmourForm extends FormGroup {
             disabled: new FormControl({value: false, disabled: true}),
             filters: new FormGroup({
             ar: new FormGroup({
-                min: new FormControl(''),
-                max: new FormControl('')
+                min: new Defaultvaluecontrol('', ''),
+                max: new Defaultvaluecontrol('', '')
             }),
             es: new FormGroup({
-                min: new FormControl(''),
-                max: new FormControl('')
+                min: new Defaultvaluecontrol('', ''),
+                max: new Defaultvaluecontrol('', '')
             }),
             ev: new FormGroup({
-                min: new FormControl(''),
-                max: new FormControl('')
+                min: new Defaultvaluecontrol('', ''),
+                max: new Defaultvaluecontrol('', '')
             }),
             block: new FormGroup({
-                min: new FormControl(''),
-                max: new FormControl('')
+                min: new Defaultvaluecontrol('', ''),
+                max: new Defaultvaluecontrol('', '')
             })
             })
         });

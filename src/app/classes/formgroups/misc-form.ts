@@ -1,4 +1,5 @@
 import { FormControl, FormGroup } from "@angular/forms";
+import { Defaultvaluecontrol } from "../defaultvaluecontrol";
 
 export class MiscForm extends FormGroup {
 
@@ -44,80 +45,80 @@ export class MiscForm extends FormGroup {
             influenceForm_disabled: new FormControl({value: false, disabled: true}),  
             filters: new FormGroup({
               gem_alternate_quality: new FormGroup({
-                option: new FormControl('')
+                option: new Defaultvaluecontrol('', '')
               }),
               gem_level: new FormGroup({
-                min: new FormControl(''),
-                max: new FormControl('')
+                min: new Defaultvaluecontrol('', ''),
+                max: new Defaultvaluecontrol('', '')
               }),
               gem_level_progress: new FormGroup({
-                min: new FormControl(''),
-                max: new FormControl('')
+                min: new Defaultvaluecontrol('', ''),
+                max: new Defaultvaluecontrol('', '')
               }),
               quality: new FormGroup({
-                min: new FormControl(''),
-                max: new FormControl('')
+                min: new Defaultvaluecontrol('', ''),
+                max: new Defaultvaluecontrol('', '')
               }),
               ilvl: new FormGroup({
-                min: new FormControl(''),
-                max: new FormControl('')
+                min: new Defaultvaluecontrol('', ''),
+                max: new Defaultvaluecontrol('', '')
               }),
               talisman_tier: new FormGroup({
-                min: new FormControl(''),
-                max: new FormControl('')
+                min: new Defaultvaluecontrol('', ''),
+                max: new Defaultvaluecontrol('', '')
               }),
               stored_experience: new FormGroup({
-                min: new FormControl(''),
-                max: new FormControl('')
+                min: new Defaultvaluecontrol('', ''),
+                max: new Defaultvaluecontrol('', '')
               }),
               stack_size: new FormGroup({
-                min: new FormControl(''),
-                max: new FormControl('')
+                min: new Defaultvaluecontrol('', ''),
+                max: new Defaultvaluecontrol('', '')
               }),
               alternate_art: new FormGroup({ 
-                option: new FormControl('')
+                option: new Defaultvaluecontrol('', '')
               }),
               identified: new FormGroup({ 
-                option: new FormControl('')
+                option: new Defaultvaluecontrol('', '')
               }),
               corrupted: new FormGroup({ 
-                option: new FormControl('')
+                option: new Defaultvaluecontrol('', '')
               }),
               mirrored: new FormGroup({ 
-                option: new FormControl('')
+                option: new Defaultvaluecontrol('', '')
               }),
               crafted: new FormGroup({ 
-                option: new FormControl('')
+                option: new Defaultvaluecontrol('', '')
               }),
               veiled: new FormGroup({ 
-                option: new FormControl('')
+                option: new Defaultvaluecontrol('', '')
               }),
               enchanted: new FormGroup({ 
-                option: new FormControl('')
+                option: new Defaultvaluecontrol('', '')
               }),        
               shaper_item: new FormGroup({
-                option: new FormControl('')
+                option: new Defaultvaluecontrol('', '')
               }),
               elder_item: new FormGroup({
-                option: new FormControl('')
+                option: new Defaultvaluecontrol('', '')
               }),
               crusader_item: new FormGroup({
-                option: new FormControl('')
+                option: new Defaultvaluecontrol('', '')
               }),
               redeemer_item: new FormGroup({
-                option: new FormControl('')
+                option: new Defaultvaluecontrol('', '')
               }),
               hunter_item: new FormGroup({
-                option: new FormControl('')
+                option: new Defaultvaluecontrol('', '')
               }),
               warlord_item: new FormGroup({
-                option: new FormControl('')
+                option: new Defaultvaluecontrol('', '')
               }),
               fractured_item: new FormGroup({
-                option: new FormControl('')
+                option: new Defaultvaluecontrol('', '')
               }),
               synthesised_item: new FormGroup({
-                option: new FormControl('')
+                option: new Defaultvaluecontrol('', '')
               })
             })
         });

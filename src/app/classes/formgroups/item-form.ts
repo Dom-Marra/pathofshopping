@@ -1,4 +1,5 @@
 import { FormArray, FormControl, FormGroup } from "@angular/forms";
+import { Defaultvaluecontrol } from "../defaultvaluecontrol";
 import { ArmourForm } from "./armour-form";
 import { MapForm } from "./map-form";
 import { MiscForm } from "./misc-form";
@@ -30,7 +31,7 @@ export class ItemForm extends FormGroup {
                   stats: new FormArray([
                   ]),
                   status: new FormGroup({
-                    option: new FormControl('online')
+                    option: new Defaultvaluecontrol('online', 'online'),
                   })
                 }),
                 sort: new FormGroup({

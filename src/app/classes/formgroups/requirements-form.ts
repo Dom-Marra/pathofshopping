@@ -1,4 +1,5 @@
 import { FormControl, FormGroup } from "@angular/forms";
+import { Defaultvaluecontrol } from "../defaultvaluecontrol";
 
 export class RequirementsForm extends FormGroup {
 
@@ -7,20 +8,20 @@ export class RequirementsForm extends FormGroup {
             disabled: new FormControl({value: false, disabled: true}),
             filters: new FormGroup({
               lvl: new FormGroup({
-                min: new FormControl(''),
-                max: new FormControl('')
+                min: new Defaultvaluecontrol('', ''),
+                max: new Defaultvaluecontrol('', ''),
               }),
               str: new FormGroup({
-                min: new FormControl(''),
-                max: new FormControl('')
+                min: new Defaultvaluecontrol('', ''),
+                max: new Defaultvaluecontrol('', '')
               }),
               dex: new FormGroup({
-                min: new FormControl(''),
-                max: new FormControl('')
+                min: new Defaultvaluecontrol('', ''),
+                max: new Defaultvaluecontrol('', '')
               }),
               int: new FormGroup({
-                min: new FormControl(''),
-                max: new FormControl('')
+                min: new Defaultvaluecontrol('', ''),
+                max: new Defaultvaluecontrol('', '')
               })
             }),
         });
