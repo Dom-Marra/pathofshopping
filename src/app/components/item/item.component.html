@@ -41,7 +41,7 @@
                         <mat-icon>clear</mat-icon>Clear
                     </button>
                 </div>
-                <app-filtergroupselect class="status-field mat-input-400" autoCompleteClass='autocomplete-panel-300' default="online" inputName='Status' styleType="basicMaterial" [control]="this.itemData.itemForm['controls'].queryForm['controls'].query['controls'].status['controls'].option" [selectEnum]="STATUS_OPTIONS"></app-filtergroupselect>
+                <app-filtergroupselect class="status-field mat-input-400" autoCompleteClass='autocomplete-panel-300' inputName='Status' styleType="basicMaterial" [control]="this.itemData.itemForm['controls'].queryForm['controls'].query['controls'].status['controls'].option" [selectEnum]="STATUS_OPTIONS"></app-filtergroupselect>
             </div>
         </div>
         <app-results *ngIf="showResults" class="results" [resultData]="itemData.resultData" [currentSort]="this.itemData.itemForm['controls'].queryForm['controls'].sort.getRawValue()" (newSort)="queryIDs($event)"></app-results>
