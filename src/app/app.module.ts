@@ -51,6 +51,9 @@ import { SavedialogComponent } from './components/savedialog/savedialog.componen
 import { AngularFireModule } from '@angular/fire';
 import { environment } from 'src/environments/environment';
 
+//Adsense
+import { AdsenseModule } from 'ng2-adsense';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -101,7 +104,10 @@ import { environment } from 'src/environments/environment';
     MatProgressSpinnerModule,
     MatDialogModule,
     MatSnackBarModule,
-    AngularFireModule.initializeApp(environment.firebase)
+    AngularFireModule.initializeApp(environment.firebase),
+    AdsenseModule.forRoot({
+      adClient: 'ca-pub-3594808744469486'
+    })
   ],
   exports: [ ],
   providers: [],

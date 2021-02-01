@@ -30,28 +30,17 @@
     height: auto;
     width: 100%;
     padding-bottom: 50px;
-    background-color: mat-color($pathofshopping-primary, 800);
 
-    #top-bg-image-container {
-        position: relative;
-        background-position: center;
-        background-size: cover;
-        background-image: linear-gradient(to top, mat-color($pathofshopping-primary, 800) 5%, rgba(0,0,0,0)), 
-                            url('../../../assets/topBgImage.jpg');
-        height: 350px;
-
-        #top-title {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 90%;
-        }
+    #top-title {
+        height: 300px;
+        display: flex;
+        align-items: center;
+        width: 95%;
+        margin: auto;
     }
 
     #shoppinglist-contents-container {  
         position: relative;
-        transform: translateY(calc(-30px - (300px * 0.1)));
         border-radius: 5px;
         width: 90%;
         margin: auto;
