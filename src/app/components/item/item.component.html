@@ -1,11 +1,11 @@
 <form class="item-container">
     <div class="item-header-container mat-input-400">
-        <button mat-icon-button class="transparent-mat-button warn-700" (click)="remove()">
+        <button type="button" mat-icon-button class="transparent-mat-button warn-700 hoverable" (click)="remove()">
             <mat-icon>delete</mat-icon>
         </button>
         <div *ngIf="!editName" class="item-name">
             <h4>{{itemData.itemForm.value.itemName.length > 0 ? itemData.itemForm.value.itemName : 'Item Name'}}</h4>
-            <button (click)="editName = true" mat-icon-button class="transparent-mat-button fix-height-mat-icon"><mat-icon>edit</mat-icon></button>
+            <button type="button" (click)="editName = true" mat-icon-button class="transparent-mat-button fix-height-mat-icon"><mat-icon>edit</mat-icon></button>
         </div>
         <mat-form-field class="item-name-input" *ngIf="editName" [floatLabel]="'never'">
             <input #itemNameInput matInput 
@@ -31,7 +31,7 @@
             <button mat-button type="button" (click)="addStatGroup()" class="transparent-mat-button"><mat-icon>library_add</mat-icon> Stat Group</button>
             <div class="query-actions">
                 <div class="query-buttons">
-                    <button class="query-button search mat-button-300" mat-flat-button type="button" (click)="queryIDs('price', 'asc')">
+                    <button class="query-button search mat-button-300" mat-flat-button (click)="queryIDs('price', 'asc')">
                         <mat-icon>search</mat-icon>Search
                     </button>
                     <button class="query-button mat-button-600" mat-flat-button type="button" (click)="this.showResults = !this.showResults" *ngIf="this.itemData.resultData.queryProps || this.showResults">
