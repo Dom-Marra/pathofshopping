@@ -5,7 +5,7 @@ const axios = require('axios');
 
 export const getPOEStats = functions.https.onRequest((request, response) => {
 
-    response.set('Access-Control-Allow-Origin', 'http://localhost:5000');
+    response.set('Access-Control-Allow-Origin', 'https://www.pathofshopping.com');
     response.set('Access-Control-Allow-Methods', 'GET');
 
     const POE_STATS: string = '/data/stats';
@@ -24,7 +24,7 @@ export const getPOEStats = functions.https.onRequest((request, response) => {
 
 export const getPOEItems = functions.https.onRequest((request, response) => {
 
-    response.set('Access-Control-Allow-Origin', 'http://localhost:5000');
+    response.set('Access-Control-Allow-Origin', 'https://www.pathofshopping.com');
     response.set('Access-Control-Allow-Methods', 'GET');
 
     const POE_ITEMS: string = '/data/items';
@@ -42,7 +42,7 @@ export const getPOEItems = functions.https.onRequest((request, response) => {
 
 export const getPOELeagues = functions.https.onRequest((request, response) => {
 
-    response.set('Access-Control-Allow-Origin', 'http://localhost:5000');
+    response.set('Access-Control-Allow-Origin', 'https://www.pathofshopping.com');
     response.set('Access-Control-Allow-Methods', 'GET');
 
     const POE_LEAGUES: string = '/data/leagues';
@@ -60,7 +60,7 @@ export const getPOELeagues = functions.https.onRequest((request, response) => {
 
 export const poeFetch = functions.https.onRequest((request, response) => {
 
-    response.set('Access-Control-Allow-Origin', 'http://localhost:5000');
+    response.set('Access-Control-Allow-Origin', 'https://www.pathofshopping.com');
     response.set('Access-Control-Allow-Methods', 'POST');
     response.set('Access-Control-Allow-Headers', 'Content-Type');
 
@@ -83,7 +83,7 @@ export const poeFetch = functions.https.onRequest((request, response) => {
 
 export const poeSearch = functions.https.onRequest((request, response) => {
 
-    response.set('Access-Control-Allow-Origin', 'http://localhost:5000');
+    response.set('Access-Control-Allow-Origin', 'https://www.pathofshopping.com');
     response.set('Access-Control-Allow-Methods', 'POST');
     response.set('Access-Control-Allow-Headers', 'Content-Type');
 
