@@ -12,7 +12,7 @@ body {
   background-repeat: no-repeat;
   background-position: center 100%;
   background-size: cover;
-  background-image: linear-gradient(to top, mat-color($pathofshopping-primary, 800) 30%, rgba(0,0,0,0)), url('./assets/topBgImage.jpg');
+  background-image: linear-gradient(to top, mat-color($pathofshopping-primary, 800) 30%, rgba(0,0,0,0)), url('assets/topBgImage.png');
   background-color: mat-color($pathofshopping-primary, 800);
   margin: 0;  
 }
