@@ -8,7 +8,7 @@
     }
 }
 
-#loading-panel {
+#loading-panel, #error-panel {
     margin: auto;
     width: auto;
     display: flex;
@@ -20,6 +20,19 @@
     h3 {
         width: 100%;
         text-align: center;
+    }
+}
+
+#error-panel  {
+    background-color: mat-color($pathofshopping-warn, 700);
+    width: 500px;
+    max-width: 70%;
+    
+    .mat-icon {
+        height: 75px;
+        width: 75px;
+        margin: 15px;
+        font-size: 75px;
     }
 }
 
