@@ -141,11 +141,12 @@ export class TypefiltersComponent implements OnInit {
       if (itemCats.length == 1 && itemCats[0].items.length == 1 && itemCats[0].items[0].text.toLocaleLowerCase() == itemTerm.toLocaleLowerCase()) {
         itemName = itemCats[0].items[0].name;
         itemType = itemCats[0].items[0].type;
-        itemTerm = null;
       } 
     } else {
       this.search.patchValue(itemTerm);
     }
+
+    if (itemName || itemType) itemTerm = null;
 
     //Patch values
     this.queryForm.controls.name.patchValue(itemName ? itemName : '', {emitEvent: false});
