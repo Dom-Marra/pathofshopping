@@ -19,7 +19,7 @@
     .type-filters {
         flex-wrap: wrap;
     
-        .search-field {
+        .search-field, .type-field, .rarity-field  {
             flex-basis: 100%;
         }
     }
