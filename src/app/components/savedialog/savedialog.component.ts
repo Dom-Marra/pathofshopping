@@ -20,7 +20,7 @@ export class SavedialogComponent implements OnInit {
     
     //Return the URL on successful upload
     this.data.then(docRef => {                                    
-      this.url = 'localhost:4200/shoppinglist?list=' + docRef.id;
+      this.url = 'www.pathofshopping.com/shoppinglist?list=' + docRef.id;
       this.header = 'List Saved';
     }).catch(() => { 
 
