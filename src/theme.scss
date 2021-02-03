@@ -239,7 +239,13 @@ $pathofshopping-typography: mat-typography-config(
         }
       
         .mat-option {
+            height: auto !important;
+            min-height: 48px !important;
+            padding: 5px 10px !important;
+
             .mat-option-text {
+              white-space: pre-wrap !important;
+              word-wrap: break-word !important;
               @include mat-typography-level-to-styles($pathofshopping-typography, body-1);
               color: mat-color($pathofshopping-accent, 50) !important;
             }
