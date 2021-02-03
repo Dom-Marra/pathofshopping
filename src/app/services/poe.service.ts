@@ -65,11 +65,9 @@ export class PoeService {
         return items;
       }),
       catchError((err) => {
-        console.log(err);
         return throwError('Unable to connect to the service.');
       })
     ).subscribe((items) => {
-      console.log(items);
       this.poeItems = items;
         if (this.leagueData && this.poeStats) this.loaded.next(true);
         poeItemsSetter.unsubscribe();
@@ -129,12 +127,10 @@ export class PoeService {
         return stats;
       }),
       catchError((err) => {
-        console.log(err);
         return throwError('Unable to connect to the service.');
       })
     ).subscribe(
       (stats) => {
-        console.log(stats);
         this.poeStats = stats;
         if (this.leagueData && this.poeItems) this.loaded.next(true);
         poeStatsSetter.unsubscribe();
@@ -167,12 +163,10 @@ export class PoeService {
         return leagues;
       }),
       catchError((err) => {
-        console.log(err);
         return throwError('Unable to connect to the service.');
       })
     ).subscribe(
       (leagues) => {
-        console.log(leagues);
         this.leagueData = leagues;
         if (this.poeItems && this.poeStats) this.loaded.next(true);
         poeLeaguesSetter.unsubscribe();
