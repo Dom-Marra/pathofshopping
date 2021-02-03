@@ -1,4 +1,5 @@
 import { FormControl, FormGroup } from "@angular/forms";
+import { Defaultvaluecontrol } from "../defaultvaluecontrol";
 
 export class TradeForm extends FormGroup {
 
@@ -7,18 +8,18 @@ export class TradeForm extends FormGroup {
             disabled: new FormControl({value: false, disabled: true}),
             filters: new FormGroup({ 
               price: new FormGroup({
-                min: new FormControl(),
-                max: new FormControl(),
-                option: new FormControl('')
+                min: new Defaultvaluecontrol(''),
+                max: new Defaultvaluecontrol(''),
+                option:new Defaultvaluecontrol('', ''),
               }),
               account: new FormGroup({
-                input: new FormControl()
+                input: new Defaultvaluecontrol('', ''),
               }),
               sale_type: new FormGroup({
-                option: new FormControl('')
+                option: new Defaultvaluecontrol('', ''),
               }),
               indexed: new FormGroup({
-                option: new FormControl('')
+                option: new Defaultvaluecontrol('', ''),
               })
             }),
         });

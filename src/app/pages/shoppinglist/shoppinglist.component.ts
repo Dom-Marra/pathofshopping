@@ -26,6 +26,8 @@ export class ShoppinglistComponent implements OnInit {
   public editShoppingListName: boolean = false;                     //Whether the shopping list input is disabled or not
   public items: Array<Item> = [];                                   //Stores item data
 
+  public errMsg: string;                                            //Error Message to display
+
   public shoppingList = new FormGroup({                             //Shopping list base inputs
     league: new FormControl(),
     name: new FormControl('Your Shopping List')
@@ -39,14 +41,19 @@ export class ShoppinglistComponent implements OnInit {
               private snackBar: MatSnackBar) { 
 
     
-    let poeAPILoad = this.poeAPI.loaded.subscribe(loaded => {
-      this.poeLoading = !loaded;
+    let poeAPILoad = this.poeAPI.loaded.subscribe(
+      (loaded) => {
+        this.poeLoading = !loaded;
 
-      if (loaded) {
-        this.LEAGUES = this.poeAPI.getLeagues();
-        poeAPILoad.unsubscribe();
+        if (loaded) {
+          this.LEAGUES = this.poeAPI.getLeagues();
+          poeAPILoad.unsubscribe();
+        }
+      },
+      (error) => {
+        this.errMsg = error;
       }
-    });
+    );
 
     this.activeRoute.queryParamMap.subscribe(params => {
       if (params.get('list')) {

@@ -203,11 +203,18 @@ $pathofshopping-typography: mat-typography-config(
   }
 }
 
-@mixin generate-warn-hover-colors {
+@mixin generate-warn-toggle-colors {
   @each $color in map-keys($pathofshopping-warn) {
     @if ($color != 'contrast') {     
       .warn-#{$color} {
         transition: color 0.15s ease-in-out !important;
+
+        &.hoverable {
+          &:hover {
+            color: mat-color($pathofshopping-warn, $color) !important;
+          }
+        }
+        
 
         &.lock-color {
           color: mat-color($pathofshopping-warn, $color) !important;
@@ -217,7 +224,7 @@ $pathofshopping-typography: mat-typography-config(
   }
 }
 
-@include generate-warn-hover-colors();
+@include generate-warn-toggle-colors();
 
 @mixin generate-autocomplete-classes {
   @each $color in map-keys($pathofshopping-primary) {

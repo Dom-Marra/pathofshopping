@@ -7,7 +7,7 @@
                 <mat-icon class="icon-light">clear</mat-icon>
             </button>
             <mat-autocomplete #searchableItems="matAutocomplete" (optionSelected)="selectItem($event.option.value)" [class]="'autocomplete-panel-300'" (closed)="searchInput.blur()">
-                <mat-optgroup *ngFor="let itemGroup of filteredItems | async" [label]="itemGroup.category">
+                <mat-optgroup *ngFor="let itemGroup of filteredItems | async" [label]="itemGroup.category ? itemGroup.category : 'Misc'">
                     <mat-option *ngFor="let item of itemGroup.items | slice:0:25;" [value]="item"
                     [class.mat-selected]="(this.queryForm.controls.name.value ? this.queryForm.controls.name.value + ' ' + this.queryForm.controls.type.value : this.queryForm.controls.type.value)  == item.text">
                         {{item.text}}

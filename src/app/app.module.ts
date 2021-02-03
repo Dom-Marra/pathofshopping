@@ -43,7 +43,6 @@ import { StatfiltersComponent } from './components/filters/statfilters/statfilte
 import { TypefiltersComponent } from './components/filters/typefilters/typefilters.component';
 import { ResultsComponent, ParseModsPipe, ParserPipe, ParseDivsPipe} from './components/results/results.component';
 import { TradefiltersComponent } from './components/filters/tradefilters/tradefilters.component';
-import { ControldefaultsDirective } from './directives/controldefaults.directive';
 import { InputwrapperComponent } from './components/inputs/inputwrapper/inputwrapper.component';
 import { FilteractionbuttonsComponent } from './components/filters/filteractionbuttons/filteractionbuttons.component';
 import { SavedialogComponent } from './components/savedialog/savedialog.component';
@@ -51,6 +50,9 @@ import { SavedialogComponent } from './components/savedialog/savedialog.componen
 //Angular Fire
 import { AngularFireModule } from '@angular/fire';
 import { environment } from 'src/environments/environment';
+
+//Adsense
+import { AdsenseModule } from 'ng2-adsense';
 
 @NgModule({
   declarations: [
@@ -77,7 +79,6 @@ import { environment } from 'src/environments/environment';
     ParserPipe,
     ParseDivsPipe,
     TradefiltersComponent,
-    ControldefaultsDirective,
     InputwrapperComponent,
     FilteractionbuttonsComponent,
     SavedialogComponent
@@ -103,7 +104,10 @@ import { environment } from 'src/environments/environment';
     MatProgressSpinnerModule,
     MatDialogModule,
     MatSnackBarModule,
-    AngularFireModule.initializeApp(environment.firebase)
+    AngularFireModule.initializeApp(environment.firebase),
+    AdsenseModule.forRoot({
+      adClient: 'ca-pub-3594808744469486'
+    })
   ],
   exports: [ ],
   providers: [],

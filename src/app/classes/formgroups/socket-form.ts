@@ -1,4 +1,5 @@
 import { FormControl, FormGroup } from "@angular/forms";
+import { Defaultvaluecontrol } from "../defaultvaluecontrol";
 
 export class SocketForm extends FormGroup {
 
@@ -7,20 +8,20 @@ export class SocketForm extends FormGroup {
             disabled: new FormControl({value: false, disabled: true}),
             filters: new FormGroup({
               sockets: new FormGroup({
-                r: new FormControl(''),
-                g: new FormControl(''),
-                b: new FormControl(''),
-                w: new FormControl(''),
-                min: new FormControl(''),
-                max: new FormControl('')
+                r: new Defaultvaluecontrol('', ''),
+                g: new Defaultvaluecontrol('', ''),
+                b: new Defaultvaluecontrol('', ''),
+                w: new Defaultvaluecontrol('', ''),
+                min: new Defaultvaluecontrol('', ''),
+                max: new Defaultvaluecontrol('', ''),
               }),
               links: new FormGroup({
-                r: new FormControl(''),
-                g: new FormControl(''),
-                b: new FormControl(''),
-                w: new FormControl(''),
-                min: new FormControl(''),
-                max: new FormControl('')
+                r: new Defaultvaluecontrol('', ''),
+                g: new Defaultvaluecontrol('', ''),
+                b: new Defaultvaluecontrol('', ''),
+                w: new Defaultvaluecontrol('', ''),
+                min: new Defaultvaluecontrol('', ''),
+                max: new Defaultvaluecontrol('', ''),
               })
             }),
         });

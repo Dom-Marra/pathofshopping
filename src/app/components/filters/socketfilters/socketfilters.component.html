@@ -12,7 +12,7 @@
                         <div class="socket-colors flexed-inputs">
                             <mat-form-field *ngFor="let extra of socketSocketsExtras" [class]="extra.inputClass">
                                 <mat-label>{{extra.label}}</mat-label>
-                                <input appControldefaults [default]="defaultValue" digitsonly float='true' matInput type="text" autocomplete="off" [formControl]="extra.control">
+                                <input digitsonly float='true' matInput type="text" autocomplete="off" [formControl]="extra.control">
                             </mat-form-field>
                         </div>
                         <app-minmaxinput [group]="this.socketForm['controls'].filters['controls'].sockets" [minmaxExtras]="socketSocketsExtras"></app-minmaxinput>
@@ -24,7 +24,7 @@
                         <div class="socket-colors flexed-inputs">
                             <mat-form-field *ngFor="let extra of socketLinksExtras" [class]="extra.inputClass">
                                 <mat-label>{{extra.label}}</mat-label>
-                                <input appControldefaults [default]="defaultValue" digitsonly float='true' matInput type="text" autocomplete="off" [formControl]="extra.control">
+                                <input digitsonly float='true' matInput type="text" autocomplete="off" [formControl]="extra.control">
                             </mat-form-field>
                         </div>
                         <app-minmaxinput [group]="this.socketForm['controls'].filters['controls'].links" [minmaxExtras]="socketLinksExtras"></app-minmaxinput>
