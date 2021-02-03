@@ -1,8 +1,11 @@
 {
     "/api/*": {
-      "target": "https://www.pathofexile.com",
+      "target": "https://us-central1-pathofshopping.cloudfunctions.net",
       "secure": true,
       "changeOrigin": true,
-      "logLevel": "info"
+      "logLevel": "info",
+      "pathRewrite": {
+        "^/api/": "/"
+      }
     }
   }
