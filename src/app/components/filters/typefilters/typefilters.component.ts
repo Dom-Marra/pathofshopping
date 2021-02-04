@@ -74,23 +74,6 @@ enum itemTypes {
   'currency.incubator' = 'Incubator',
 }
 
-export const filterSearch = (items: poeCategorizedItems['items'], searchText: string): poeCategorizedItems['items'] => {    //Filters items by search text
-  if (typeof searchText != 'string') return items;
-
-  const text = searchText.toLowerCase().trim().split(/\s+/);
-
-  return items.filter(item => {
-    return text.filter(text => {
-      
-      if (text.length > 0) {
-        return item.text.toLowerCase().indexOf(text) != -1;
-      }
-      
-      return false;
-    }).length == text.length;
-  });
-}
-
 @Component({
   selector: 'app-typefilters',
   templateUrl: './typefilters.component.html',
@@ -104,25 +87,15 @@ export class TypefiltersComponent implements OnInit {
   @Input() queryForm: FormGroup;                            //Main query form
 
   public itemsToSearch: Array<poeCategorizedItems> = [];   //POE items
-  public filteredItems: Observable<Array<poeCategorizedItems>>;     //Filtered results of the items
+  public filteredItems: Array<poeCategorizedItems>;        //Filtered results of the items
   public filteredTypes: Array<typeof itemTypes>;           //Filtered item types
   public filteredRarities: Array<typeof itemRarities>;     //filtered item rarities
+  public exactMatchFound: boolean;                         //Determines if the given search string has an exact item match
 
   public search = new FormControl('');
 
   constructor(private poeAPI: PoeService) {                    
     this.itemsToSearch = this.poeAPI.getItems();            //Init items to search
-
-    this.filteredItems = this.search.valueChanges.pipe(    //filter items when item search changes
-      startWith(''),
-      map(searchText => this.filterGroups(searchText))
-    );
-
-    this.search.valueChanges.subscribe(value => {          //Update term, type, and name controls
-      this.queryForm.controls.type.patchValue('', {emitEvent: false});          //clear type control
-      this.queryForm.controls.name.patchValue('', {emitEvent: false});          //clear name control
-      this.queryForm.controls.term.patchValue(value, {emitEvent: false});       //set term control
-    });
   }
 
   ngOnInit(): void {
@@ -134,18 +107,51 @@ export class TypefiltersComponent implements OnInit {
     }
 
     this.queryForm.valueChanges.subscribe(() => {
-      if (!this.queryForm.controls.term.value && !this.queryForm.controls.type.value && !this.queryForm.controls.name.value) this.search.reset('', {emitEvent: false})
-    })
+      if (!(this.queryForm.controls.term.value || this.queryForm.controls.type.value || this.queryForm.controls.name.value)) this.search.reset('')
+    });
+
+    this.filteredItems = this.filterGroups(this.search.value);
   }
 
   /**
    * Processes the selected item from the item search autofill
    */
   public selectItem(item: poeCategorizedItems["items"][0]) {
-      if (item.name) this.queryForm.controls.name.patchValue(item.name);    //Set name
-      this.queryForm.controls.type.patchValue(item.type);                   //set type
-      this.queryForm.controls.term.patchValue('');                          //reset term control
-      this.search.patchValue(item.text); //Set search
+    this.search.patchValue(item.text);              //Set search
+    this.setNTT(item.name, item.type, item.text);
+  }
+
+  /**
+   * Sets the name, term and type for the query form depending on inputted name & type, or 
+   * the search value
+   * 
+   * @param itemName
+   *        string: the items name 
+   * @param itemType 
+   *        string: the items type
+   * @param itemTerm
+   *        string: term for the search
+   */
+  public setNTT(itemName?: string, itemType?: string, itemTerm?: string) {
+
+    if (!itemName && !itemType && itemTerm) {
+      let itemCats = this.filterGroups(itemTerm);     //Filter items based on input
+
+      //Check if input exactly matches only 1 item, then set the item name and type
+      if (itemCats.length == 1 && itemCats[0].items.length == 1 && itemCats[0].items[0].text.toLocaleLowerCase() == itemTerm.toLocaleLowerCase()) {
+        itemName = itemCats[0].items[0].name;
+        itemType = itemCats[0].items[0].type;
+      } 
+    } else {
+      this.search.patchValue(itemTerm);
+    }
+
+    if (itemName || itemType) itemTerm = null;
+
+    //Patch values
+    this.queryForm.controls.name.patchValue(itemName ? itemName : '', {emitEvent: false});
+    this.queryForm.controls.type.patchValue(itemType ? itemType : '', {emitEvent: false});
+    this.queryForm.controls.term.patchValue(itemTerm ? itemTerm : '', {emitEvent: false});
   }
   
   /**
@@ -157,11 +163,44 @@ export class TypefiltersComponent implements OnInit {
    * @returns 
    *       Array<poeCategorizedItems>: The filtered results
    */
-  private filterGroups(searchText: string): Array<poeCategorizedItems> {
+  public filterGroups(searchText: string): Array<poeCategorizedItems> {
 
     if (!searchText) return this.itemsToSearch;     //Return whole list on empty search
 
-    return this.itemsToSearch.map(searchItem => ({category: searchItem.category, items: filterSearch(searchItem.items, searchText)}))
+    this.exactMatchFound = null;
+
+    return this.itemsToSearch.map(searchItem => ({category: searchItem.category, items: this.filterSearch(searchItem.items, searchText)}))
     .filter(searchItem => searchItem.items.length > 0);
+  }
+
+  /**
+   * Filters the items with a given search string, and sets the exact match found variable based on results
+   * 
+   * @param items 
+   *        Array of items to search
+   * @param searchText 
+   *        search string
+   */
+  public filterSearch(items: poeCategorizedItems['items'], searchText: string): poeCategorizedItems['items'] {    //Filters items by search text
+    if (typeof searchText != 'string') return items;
+  
+    const text = searchText.toLowerCase().trim().split(/\s+/);
+  
+    return items.filter(item => {
+      return text.filter(text => {
+
+        if (searchText.toLowerCase().trim() == item.text.toLocaleLowerCase()) {
+          this.exactMatchFound = true;
+        } else if (!this.exactMatchFound) {
+          this.exactMatchFound = false;
+        }
+        
+        if (text.length > 0) {
+          return item.text.toLowerCase().indexOf(text) != -1;
+        }
+        
+        return false;
+      }).length == text.length;
+    });
   }
 }
