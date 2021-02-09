@@ -2,7 +2,7 @@ import { DigitsonlyDirective } from './digitsonly.directive';
 
 describe('DigitsonlyDirective', () => {
   it('should create an instance', () => {
-    const directive = new DigitsonlyDirective();
+    const directive = new DigitsonlyDirective(null, null);
     expect(directive).toBeTruthy();
   });
 });
