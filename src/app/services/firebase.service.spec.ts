@@ -3,7 +3,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 
 import { FirebaseService } from './firebase.service';
 
-fdescribe('FirebaseService', () => {
+describe('FirebaseService', () => {
   let service: FirebaseService;
 
   const refSpy = jasmine.createSpyObj('ref', ['get']);
