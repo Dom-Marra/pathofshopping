@@ -19,7 +19,7 @@ export class DigitsonlyStubDirective {
   @Input() float: boolean;
 }
 
-fdescribe('MinmaxinputComponent', () => {
+describe('MinmaxinputComponent', () => {
   let component: MinmaxinputComponent;
   let fixture: ComponentFixture<MinmaxinputComponent>;
   let mockFormGroup: FormGroup;
