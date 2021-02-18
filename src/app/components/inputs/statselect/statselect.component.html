@@ -41,7 +41,7 @@
             </mat-form-field>
         </div>
     
-        <app-minmaxinput *ngIf="this.statGroup.controls.selectedStat.value.option == null && !isWeight" class="stat-min-max-fields mat-input-600" [styleType]="'basicMaterial'" [group]="this.statGroup['controls'].value"></app-minmaxinput>
+        <app-minmaxinput *ngIf="this.statGroup.controls.selectedStat.value.option == null && !isWeight" class="stat-min-max-fields mat-input-600" [group]="this.statGroup['controls'].value"></app-minmaxinput>
     
         <div *ngIf="this.statGroup.controls.selectedStat.value.option != null" class="stat-option-select flexed-inputs mat-input-600">
             <mat-form-field floatLabel='never'>
