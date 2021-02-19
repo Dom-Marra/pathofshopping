@@ -1,78 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { startWith, map } from 'rxjs/operators';
 import { poeCategorizedItems } from 'src/app/models/poeCategorizedItems';
+import { simpleData } from 'src/app/models/simpleData';
 import { PoeService } from 'src/app/services/poe.service';
-
-enum itemRarities {
-  '' = 'All',
-  normal = 'Normal',
-  magic = 'Magic',
-  rare = 'Rare',
-  unique = 'Unique',
-  uniqueFoil = 'Unique Relic',
-  nonunique = 'Non Unique'
-}
-
-enum itemTypes {
-  '' = 'All',
-  weapon = 'All Weapons',
-  'weapon.one' = 'One-Handed Weapon',
-  'weapon.onemelee' = 'One-Handed Melee Weapon',
-  'weapon.twomelee' = 'Two-Handed Melee Weapon',
-  'weapon.bow' = 'Bow',
-  'weapon.claw' = 'Claw',
-  'weapon.dagger' = 'All Daggers',
-  'weapon.basedagger' = 'Base Dagger',
-  'weapon.runicdagger' = 'Runic Dagger',
-  'weapon.oneaxe' = 'One-Handed Axe',
-  'weapon.onemace' = 'One-Handed Mace',
-  'weapon.onesword' = 'One-Handed Sword',
-  'weapon.sceptre' = 'Sceptre',
-  'weapon.staff' = 'All Staffs',
-  'weapon.basestaff' = 'Base Staffs',
-  'weapon.warstaff' = 'War Staffs',
-  'weapon.twoaxe' = 'Two-Handed Axe',
-  'weapon.twosword' = 'Two-Handed Sword',
-  'weapon.wand' = 'Wand',
-  'weapon.rod' = 'Rod',
-  'armour' = 'All Armour',
-  'armour.chest' = 'Body Armour',
-  'armour.boots' = 'Boots',
-  'armour.gloves' = 'Gloves',
-  'armour.helmet' = 'Helmet',
-  'armour.shield' = 'Shield',
-  'armour.quiver' = 'Quiver',
-  'accessory' = 'Accessory',
-  'accessory.amulet' = 'Amulet',
-  'accessory.belt' = 'Belt',
-  'accessory.ring' = 'Ring',
-  'accessory.trinket' = 'Trinket',
-  'gem' = 'All Gems',
-  'gem.activegem' = 'Skill Gem',
-  'gem.supportgem' = 'Support Gem',
-  'gem.supportgemplus' = 'Awakened Support Gem',
-  'jewel' = 'All Jewels',
-  'jewel.base' = 'Base Jewel',
-  'jewel.abyss' = 'Abyss Jewel',
-  'jewel.cluster' = 'Cluster Jewel',
-  'flask' = 'Flask',
-  'map' = 'Map',
-  'map.fragment' = 'Map Fragment',
-  'map.scarab' = 'Scarab',
-  'watchstone' = 'Watchstone',
-  'leaguestone' = 'Leaguestone',
-  'prophecy' = 'Prophecy',
-  'card' = 'Divination Card',
-  'monster.beast' = 'Beast',
-  'monster.sample' = 'Metamorph Sample',
-  'currency' = 'All Currencies',
-  'currency.piece' = 'Unique Fragment',
-  'currency.resonator' = 'Resonator',
-  'currency.fossil' = 'Fossil',
-  'currency.incubator' = 'Incubator',
-}
+import { SimpleDataService } from 'src/app/services/simpledata.service';
 
 @Component({
   selector: 'app-typefilters',
@@ -81,20 +12,85 @@ enum itemTypes {
 })
 export class TypefiltersComponent implements OnInit {
 
-  public readonly ITEM_TYPES: typeof itemTypes = itemTypes;               //Used for item type selection
-  public readonly ITEM_RARITIES: typeof itemRarities = itemRarities;      //Used for item rarity selection
-
   @Input() queryForm: FormGroup;                            //Main query form
 
   public itemsToSearch: Array<poeCategorizedItems> = [];   //POE items
   public filteredItems: Array<poeCategorizedItems>;        //Filtered results of the items
-  public filteredTypes: Array<typeof itemTypes>;           //Filtered item types
-  public filteredRarities: Array<typeof itemRarities>;     //filtered item rarities
   public exactMatchFound: boolean;                         //Determines if the given search string has an exact item match
+
+  public itemRarities: Array<simpleData> = [
+    {id: '' , text: 'All'},
+    {id: 'normal', text: 'Normal'},
+    {id: 'magic', text: 'Magic'},
+    {id: 'rare', text: 'Rare'},
+    {id: 'unique', text: 'Unique'},
+    {id: 'uniqueFoil', text: 'Unique Relic'},
+    {id: 'nonunique', text: 'Non Unique'}
+  ]
+
+  public itemTypes: Array<simpleData> = [ 
+    {id: '', text: 'All'},
+    {id: 'weapon', text: 'All Weapons'},
+    {id: 'weapon.one', text: 'One-Handed Weapon'},
+    {id: 'weapon.onemelee', text: 'One-Handed Melee Weapon'},
+    {id: 'weapon.twomelee', text: 'Two-Handed Melee Weapon'},
+    {id: 'weapon.bow', text: 'Bow'},
+    {id: 'weapon.claw', text: 'Claw'},
+    {id: 'weapon.dagger', text: 'All Daggers'},
+    {id: 'weapon.basedagger', text: 'Base Dagger'},
+    {id: 'weapon.runicdagger', text: 'Runic Dagger'},
+    {id: 'weapon.oneaxe', text: 'One-Handed Axe'},
+    {id: 'weapon.onemace', text: 'One-Handed Mace'},
+    {id: 'weapon.onesword', text: 'One-Handed Sword'},
+    {id: 'weapon.sceptre', text: 'Sceptre'},
+    {id: 'weapon.staff', text: 'All Staffs'},
+    {id: 'weapon.basestaff', text: 'Base Staffs'},
+    {id: 'weapon.warstaff', text: 'War Staffs'},
+    {id: 'weapon.twoaxe', text: 'Two-Handed Axe'},
+    {id: 'weapon.twosword', text: 'Two-Handed Sword'},
+    {id: 'weapon.wand', text: 'Wand'},
+    {id: 'weapon.rod', text: 'Rod'},
+    {id: 'armour', text: 'All Armour'},
+    {id: 'armour.chest', text: 'Body Armour'},
+    {id: 'armour.boots', text: 'Boots'},
+    {id: 'armour.gloves', text: 'Gloves'},
+    {id: 'armour.helmet', text: 'Helmet'},
+    {id: 'armour.shield', text: 'Shield'},
+    {id: 'armour.quiver', text: 'Quiver'},
+    {id: 'accessory', text: 'Accessory'},
+    {id: 'accessory.amulet', text: 'Amulet'},
+    {id: 'accessory.belt', text: 'Belt'},
+    {id: 'accessory.ring', text: 'Ring'},
+    {id: 'accessory.trinket', text: 'Trinket'},
+    {id: 'gem', text: 'All Gems'},
+    {id: 'gem.activegem', text: 'Skill Gem'},
+    {id: 'gem.supportgem', text: 'Support Gem'},
+    {id: 'gem.supportgemplus', text: 'Awakened Support Gem'},
+    {id: 'jewel', text: 'All Jewels'},
+    {id: 'jewel.base', text: 'Base Jewel'},
+    {id: 'jewel.abyss', text: 'Abyss Jewel'},
+    {id: 'jewel.cluster', text: 'Cluster Jewel'},
+    {id: 'flask', text: 'Flask'},
+    {id: 'map', text: 'Map'},
+    {id: 'map.fragment', text: 'Map Fragment'},
+    {id: 'map.scarab', text: 'Scarab'},
+    {id: 'watchstone', text: 'Watchstone'},
+    {id: 'leaguestone', text: 'Leaguestone'},
+    {id: 'prophecy', text: 'Prophecy'},
+    {id: 'card', text: 'Divination Card'},
+    {id: 'monster.beast', text: 'Beast'},
+    {id: 'monster.sample', text: 'Metamorph Sample'},
+    {id: 'currency', text: 'All Currencies'},
+    {id: 'currency.piece', text: 'Unique Fragment'},
+    {id: 'currency.resonator', text: 'Resonator'},
+    {id: 'currency.fossil', text: 'Fossil'},
+    {id: 'currency.incubator', text: 'Incubator'}
+  ]
+  
 
   public search = new FormControl('');
 
-  constructor(private poeAPI: PoeService) {                    
+  constructor(private poeAPI: PoeService, public simpleDataService: SimpleDataService) {                    
     this.itemsToSearch = this.poeAPI.getItems();            //Init items to search
   }
 

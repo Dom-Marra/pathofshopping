@@ -1,6 +1,6 @@
-import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { trueFlase } from '../../../enums/TrueFalseEnum';
+import { SimpleDataService } from 'src/app/services/simpledata.service';
 
 @Component({
   selector: 'app-otherfilters',
@@ -9,11 +9,9 @@ import { trueFlase } from '../../../enums/TrueFalseEnum';
 })
 export class OtherfiltersComponent implements OnInit {
 
-  public readonly TRUE_FALSE: typeof trueFlase = trueFlase;               //used for true false selection
-
   @Input() otherForm: FormGroup;        //otherForm from misc form
 
-  constructor(private cd: ChangeDetectorRef) { 
+  constructor(public simpleDataService: SimpleDataService) { 
   }
 
   ngOnInit(): void {

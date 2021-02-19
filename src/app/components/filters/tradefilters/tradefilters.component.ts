@@ -1,41 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { TradeForm } from 'src/app/classes/formgroups/trade-form';
-
-enum buyOutOptions{
-  '' = 'Chaos Orb Equivalent',
-  alt = "Orb of Alteration",
-  fusing = "Orb of Fusing",
-  alch = " Orb of Alchemy",
-  gcp = "Gemcutter's Prism",
-  exalted = "Exalted Orb",
-  chrom = "Chromatic Orb",
-  jewellers = "Jeweller's Orb",
-  chance = "Orb of Chance",
-  chisel = "Cartographer's Chisel",
-  scour = "Orb of Scouring",
-  blessed = "Blessed Orb",
-  regret = "Orb of Regret",
-  regal = "Regal Orb",
-  divine = "Divine Orb",
-  vaal = "Vaal Orb",
-}
-
-enum saleTypes {
-  any = 'All',
-  '' = 'Buyout or Fixed Price',
-  priced_with_info = 'Price With Note',
-  unpriced = 'No Price'
-}
-
-enum listedOptions {
-  '' = 'Any Date',
-  '1day' = 'Up To 1 Day Ago',
-  '3day' = 'Up To 3 Days Ago',
-  '1week' = 'Up To 1 Week Ago',
-  '2week' = 'Up To 2 Weeks Ago',
-  '1month' = 'Up To 1 Month Ago',
-  '2month' = 'Up To 2 Months Ago'
-}
+import { simpleData } from 'src/app/models/simpleData';
+import { SimpleDataService } from 'src/app/services/simpledata.service';
 
 @Component({
   selector: 'app-tradefilters',
@@ -44,13 +10,43 @@ enum listedOptions {
 })
 export class TradefiltersComponent implements OnInit {
 
-  public readonly LISTED_OPTIONS: typeof listedOptions = listedOptions;
-  public readonly SALE_TYPES: typeof saleTypes = saleTypes;
-  public readonly BUY_OUT_OPTIONS: typeof buyOutOptions = buyOutOptions;
+  public readonly listedOptions: Array<simpleData> = [
+    {id: '', text: 'Any Date'},
+    {id: '1day', text: 'Up To 1 Day Ago'},
+    {id: '3day', text: 'Up To 3 Days Ago'},
+    {id: '1week', text: 'Up To 1 Week Ago'},
+    {id: '2week', text: 'Up To 2 Weeks Ago'},
+    {id: '1month', text: 'Up To 1 Month Ago'},
+    {id: '2month', text: 'Up To 2 Months Ago'}
+  ]
+  public readonly saleTypes: Array<simpleData> = [
+    {id: 'any', text: 'All'},
+    {id: '', text: 'Buyout or Fixed Price'},
+    {id: 'priced_with_info', text: 'Price With Note'},
+    {id: 'unpriced', text: 'No Price'}
+  ]
+  public readonly buyOutOptons: Array<simpleData> = [
+    {id: '', text: 'Chaos Orb Equivalent'},
+    {id: 'alt', text: "Orb of Alteration"},
+    {id: 'fusing', text: "Orb of Fusing"},
+    {id: 'alch', text: " Orb of Alchemy"},
+    {id: 'gcp', text: "Gemcutter's Prism"},
+    {id: 'exalted', text: "Exalted Orb"},
+    {id: 'chrom', text: "Chromatic Orb"},
+    {id: 'jewellers', text: "Jeweller's Orb"},
+    {id: 'chance', text: "Orb of Chance"},
+    {id: 'chisel', text: "Cartographer's Chisel"},
+    {id: 'scour', text: "Orb of Scouring"},
+    {id: 'blessed', text: "Blessed Orb"},
+    {id: 'regret', text: "Orb of Regret"},
+    {id: 'regal', text: "Regal Orb"},
+    {id: 'divine', text: "Divine Orb"},
+    {id: 'vaal', text: "Vaal Orb"},
+  ]
 
   @Input() tradeForm: TradeForm;          //Filters from group to add filters to
   
-  constructor() { }
+  constructor(public simpleDataService: SimpleDataService) { }
 
   ngOnInit(): void {
     this.tradeForm.controls.disabled.valueChanges.subscribe(disabled => {          //When disbaled changes to false, and the form is still disabled then enable it

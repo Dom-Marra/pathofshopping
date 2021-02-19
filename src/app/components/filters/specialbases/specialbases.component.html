@@ -8,35 +8,75 @@
             <div appEqualflex class="field-wrapper">
                 <app-inputwrapper class="field" matAutocompleteOrigin #shaperSelect="matAutocompleteOrigin">
                     <span label>Shaper Influence</span> 
-                    <app-filtergroupselect [autoCompleteHost]='shaperSelect' [control]="influenceForm['controls'].shaper_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                    <app-searchselect [values]="simpleDataService.simpleTrueFalse"
+                                        [autoCompleteHost]='shaperSelect'
+                                        [filterBy]="simpleDataService.filterSimpleData"
+                                        [displayBy]="simpleDataService.displayByText"   
+                                        [setValue]="simpleDataService.getSelectedValue(influenceForm['controls'].shaper_item['controls'].option.value, simpleDataService.simpleTrueFalse)"
+                                        (selected)="influenceForm['controls'].shaper_item['controls'].option.patchValue($event.id)"></app-searchselect>
                 </app-inputwrapper>
                 <app-inputwrapper class="field" matAutocompleteOrigin #elderSelect="matAutocompleteOrigin">
                     <span label>Elder Influence</span> 
-                    <app-filtergroupselect [autoCompleteHost]='elderSelect' [control]="influenceForm['controls'].elder_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                    <app-searchselect [values]="simpleDataService.simpleTrueFalse"
+                                        [autoCompleteHost]='elderSelect'
+                                        [filterBy]="simpleDataService.filterSimpleData"
+                                        [displayBy]="simpleDataService.displayByText"   
+                                        [setValue]="simpleDataService.getSelectedValue(influenceForm['controls'].elder_item['controls'].option.value, simpleDataService.simpleTrueFalse)"
+                                        (selected)="influenceForm['controls'].elder_item['controls'].option.patchValue($event.id)"></app-searchselect> 
                 </app-inputwrapper>
                 <app-inputwrapper class="field" matAutocompleteOrigin #crusaderSelect="matAutocompleteOrigin">
                     <span label>Crusader Influence</span> 
-                    <app-filtergroupselect [autoCompleteHost]='crusaderSelect' [control]="influenceForm['controls'].crusader_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                    <app-searchselect [values]="simpleDataService.simpleTrueFalse"
+                                        [autoCompleteHost]='crusaderSelect'
+                                        [filterBy]="simpleDataService.filterSimpleData"
+                                        [displayBy]="simpleDataService.displayByText"   
+                                        [setValue]="simpleDataService.getSelectedValue(influenceForm['controls'].crusader_item['controls'].option.value, simpleDataService.simpleTrueFalse)"
+                                        (selected)="influenceForm['controls'].crusader_item['controls'].option.patchValue($event.id)"></app-searchselect>
                 </app-inputwrapper>
                 <app-inputwrapper class="field" matAutocompleteOrigin #redeemerSelect="matAutocompleteOrigin">
                     <span label>Redeemer Influence</span> 
-                    <app-filtergroupselect [autoCompleteHost]='redeemerSelect' [control]="influenceForm['controls'].redeemer_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                    <app-searchselect [values]="simpleDataService.simpleTrueFalse"
+                                        [autoCompleteHost]='redeemerSelect'
+                                        [filterBy]="simpleDataService.filterSimpleData"
+                                        [displayBy]="simpleDataService.displayByText"   
+                                        [setValue]="simpleDataService.getSelectedValue(influenceForm['controls'].redeemer_item['controls'].option.value, simpleDataService.simpleTrueFalse)"
+                                        (selected)="influenceForm['controls'].redeemer_item['controls'].option.patchValue($event.id)"></app-searchselect> 
                 </app-inputwrapper>
                 <app-inputwrapper class="field" matAutocompleteOrigin #hunterSelect="matAutocompleteOrigin">
                     <span label>Hunter Influence</span> 
-                    <app-filtergroupselect [autoCompleteHost]='hunterSelect' [control]="influenceForm['controls'].hunter_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                    <app-searchselect [values]="simpleDataService.simpleTrueFalse"
+                                        [autoCompleteHost]='hunterSelect'
+                                        [filterBy]="simpleDataService.filterSimpleData"
+                                        [displayBy]="simpleDataService.displayByText"   
+                                        [setValue]="simpleDataService.getSelectedValue(influenceForm['controls'].hunter_item['controls'].option.value, simpleDataService.simpleTrueFalse)"
+                                        (selected)="influenceForm['controls'].hunter_item['controls'].option.patchValue($event.id)"></app-searchselect> 
                 </app-inputwrapper>
                 <app-inputwrapper class="field" matAutocompleteOrigin #warlordSelect="matAutocompleteOrigin">
                     <span label>Warlord Influence</span> 
-                    <app-filtergroupselect [autoCompleteHost]='warlordSelect' [control]="influenceForm['controls'].warlord_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                    <app-searchselect [values]="simpleDataService.simpleTrueFalse"
+                                        [autoCompleteHost]='warlordSelect'
+                                        [filterBy]="simpleDataService.filterSimpleData"
+                                        [displayBy]="simpleDataService.displayByText"   
+                                        [setValue]="simpleDataService.getSelectedValue(influenceForm['controls'].warlord_item['controls'].option.value, simpleDataService.simpleTrueFalse)"
+                                        (selected)="influenceForm['controls'].warlord_item['controls'].option.patchValue($event.id)"></app-searchselect> 
                 </app-inputwrapper>
                 <app-inputwrapper class="field" matAutocompleteOrigin #fracturedSelect="matAutocompleteOrigin">
                     <span label>Fractured</span> 
-                    <app-filtergroupselect [autoCompleteHost]='fracturedSelect' [control]="influenceForm['controls'].fractured_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                    <app-searchselect [values]="simpleDataService.simpleTrueFalse"
+                                        [autoCompleteHost]='fracturedSelect'
+                                        [filterBy]="simpleDataService.filterSimpleData"
+                                        [displayBy]="simpleDataService.displayByText"   
+                                        [setValue]="simpleDataService.getSelectedValue(influenceForm['controls'].fractured_item['controls'].option.value, simpleDataService.simpleTrueFalse)"
+                                        (selected)="influenceForm['controls'].fractured_item['controls'].option.patchValue($event.id)"></app-searchselect> 
                 </app-inputwrapper>
                 <app-inputwrapper class="field" matAutocompleteOrigin #synthesisedSelect="matAutocompleteOrigin">
                     <span label>Synthesised</span> 
-                    <app-filtergroupselect [autoCompleteHost]='synthesisedSelect' [control]="influenceForm['controls'].synthesised_item['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                    <app-searchselect [values]="simpleDataService.simpleTrueFalse"
+                                        [autoCompleteHost]='synthesisedSelect'
+                                        [filterBy]="simpleDataService.filterSimpleData"
+                                        [displayBy]="simpleDataService.displayByText"   
+                                        [setValue]="simpleDataService.getSelectedValue(influenceForm['controls'].synthesised_item['controls'].option.value, simpleDataService.simpleTrueFalse)"
+                                        (selected)="influenceForm['controls'].synthesised_item['controls'].option.patchValue($event.id)"></app-searchselect> 
                 </app-inputwrapper>
             </div>
         </div>

@@ -3,16 +3,20 @@
         <mat-form-field>
             <mat-label>Search Items</mat-label>
             <input #searchInput matInput type="text" autocomplete="off" 
-            [matAutocomplete]="searchableItems"
-            (input)="filteredItems = filterGroups($event.target.value)"
-            (focus)="filteredItems = filterGroups($event.target.value)"
-            [value]="search.value">
+                    [matAutocomplete]="searchableItems"
+                    (input)="filteredItems = filterGroups($event.target.value)"
+                    (focus)="filteredItems = filterGroups($event.target.value)"
+                    [value]="search.value">
             <button mat-button type="button" *ngIf="this.search.value" matSuffix mat-icon-button aria-label="Clear" (click)="setNTT('', '', '')">
                 <mat-icon class="icon-light">clear</mat-icon>
             </button>
-            <mat-autocomplete #searchableItems="matAutocomplete" (optionSelected)="selectItem($event.option.value)" [class]="'autocomplete-panel-300'" 
-            (closed)="searchInput.blur(); searchInput.value == '' ? setNTT('', '', '') : searchInput.value = search.value">
-                <mat-option *ngIf="!exactMatchFound && searchInput.value.trim().length > 0" [value]="{name: null, type: null, text: searchInput.value.trim()}">{{searchInput.value.trim()}} (Custom)</mat-option>
+            <mat-autocomplete #searchableItems="matAutocomplete" 
+                                (optionSelected)="selectItem($event.option.value)" 
+                                [class]="'autocomplete-panel-300'" 
+                                (closed)="searchInput.blur(); searchInput.value == '' ? setNTT('', '', '') : searchInput.value = search.value">
+                <mat-optgroup *ngIf="!exactMatchFound && searchInput.value.trim().length > 0" label="Custom Search">
+                    <mat-option [value]="{name: null, type: null, text: searchInput.value.trim()}">{{searchInput.value.trim()}}</mat-option>
+                </mat-optgroup>
                 <mat-optgroup *ngFor="let itemGroup of filteredItems" [label]="itemGroup.category ? itemGroup.category : 'Misc'">
                     <mat-option *ngFor="let item of itemGroup.items | slice:0:25;" [value]="item"
                     [class.mat-selected]="(this.queryForm.controls.name.value ? this.queryForm.controls.name.value + ' ' + this.queryForm.controls.type.value : this.queryForm.controls.type.value)  == item.text">
@@ -22,6 +26,18 @@
             </mat-autocomplete>
         </mat-form-field>
     </div>
-    <app-filtergroupselect class="rarity-field" inputName="Item Rarity" [control]="this.queryForm['controls'].filters['controls'].type_filters['controls'].filters['controls'].rarity['controls'].option" [selectEnum]="ITEM_RARITIES"></app-filtergroupselect>
-    <app-filtergroupselect class="type-field" inputName="Item Type" [control]="this.queryForm['controls'].filters['controls'].type_filters['controls'].filters['controls'].category['controls'].option" [selectEnum]="ITEM_TYPES"></app-filtergroupselect>
+    <app-searchselect class="rarity-field" 
+                    inputName='Item Rarity'
+                    [values]="itemRarities"
+                    [filterBy]="simpleDataService.filterSimpleData"
+                    [displayBy]="simpleDataService.displayByText"   
+                    [setValue]="simpleDataService.getSelectedValue(this.queryForm['controls'].filters['controls'].type_filters['controls'].filters['controls'].rarity['controls'].option.value, itemRarities)"
+                    (selected)="this.queryForm['controls'].filters['controls'].type_filters['controls'].filters['controls'].rarity['controls'].option.patchValue($event.id)"></app-searchselect>
+    <app-searchselect class="rarity-field" 
+                    inputName='Item Type'
+                    [values]="itemTypes"
+                    [filterBy]="simpleDataService.filterSimpleData"
+                    [displayBy]="simpleDataService.displayByText"   
+                    [setValue]="simpleDataService.getSelectedValue(this.queryForm['controls'].filters['controls'].type_filters['controls'].filters['controls'].category['controls'].option.value, itemTypes)"
+                    (selected)="this.queryForm['controls'].filters['controls'].type_filters['controls'].filters['controls'].category['controls'].option.patchValue($event.id)"></app-searchselect>
 </div>
