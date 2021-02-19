@@ -4,22 +4,29 @@
         <input #selectInput matInput type="text"  autocomplete="off" 
                 [matAutocomplete]="selectInputAutoComplete" 
                 [matAutocompleteConnectedTo]="autoCompleteHost"
-                [placeholder]="selectEnum[control.value]"
-                (input)="filter = filterEnums($event.target.value, selectEnum)"
-                [value]="selectEnum[control.value]"
-                (focus)="$event.target.value = ''; filter = filterEnums('', selectEnum)"
-                (blur)="$event.target.value = selectEnum[control.value]"
-                [disabled]="this.control.disabled">
+                [placeholder]="getPlaceholder()"
+                (focus)="search.patchValue('')"
+                (blur)="selectValue(selectedValue)"
+                [formControl]="search">
                 
         <mat-icon matSuffix class="icon-dark" [class.rotate]="selectInputAutoComplete.isOpen">arrow_drop_down</mat-icon>
         <mat-autocomplete #selectInputAutoComplete="matAutocomplete" 
                         [class]="autoCompleteClass" 
                         (closed)="selectInput.blur()"
                         autoActiveFirstOption="'true'"
-                        (optionSelected)="control.patchValue($event.option.value); selectInput.blur()">
-            <mat-option *ngFor="let value of filter" [class.mat-selected]="value == control.value" [value]="value">
-                {{selectEnum[value]}}
-            </mat-option>
+                        (optionSelected)="selectValue($event.option.value, true); selectInput.blur();">
+            <ng-contianer *ngIf="groupOptions">
+                <mat-optgroup *ngFor="let group of filteredSearch | async" [label]="group[groupOptions.groupedBy]">
+                    <mat-option *ngFor="let value of group[groupOptions.groupedInto] | slice:0:25;" [class.mat-selected]="value == selectedValue" [value]="value">
+                        {{displayBy ? displayBy(value) : value}}
+                    </mat-option>
+                </mat-optgroup> 
+            </ng-contianer>
+            <ng-container *ngIf="!groupOptions">
+                <mat-option *ngFor="let value of filteredSearch | async" [class.mat-selected]="value == selectedValue" [value]="value">
+                    {{displayBy ? displayBy(value) : value}}
+                </mat-option>
+            </ng-container>
         </mat-autocomplete>
     </mat-form-field>
 </div>
