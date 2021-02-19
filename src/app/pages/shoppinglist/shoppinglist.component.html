@@ -4,7 +4,14 @@
     <div *ngIf="!listLoading && !poeLoading && !errMsg" id="shoppinglist-contents-container">
         <div id="shoppinglist-contents-top-bar">
             <div class="top-bar-flex-wrap">
-                <app-filtergroupselect class="league-select mat-input-500" autoCompleteClass='autocomplete-panel-400' inputName='League' [control]="this.shoppingList.controls.league" [selectEnum]="LEAGUES"></app-filtergroupselect>
+                <app-searchselect class="league-select mat-input-500" 
+                                    autoCompleteClass='autocomplete-panel-400' 
+                                    inputName='League'
+                                    [values]="leagues"
+                                    [filterBy]="filterService.filterSimpleData"
+                                    [displayBy]="filterService.displayByText"
+                                    [setValue]="filterService.getSelectedValue(this.shoppingList.controls.league.value, leagues)"
+                                    (selected)="this.shoppingList.controls.league.patchValue($event.id)"></app-searchselect>
             </div>
             <div id="shoppinglist-name-bar" class="mat-input-500">
                 <mat-form-field *ngIf="editShoppingListName" floatLabel="never" class="shopping-list-name-input">
