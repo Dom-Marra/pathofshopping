@@ -6,6 +6,12 @@ import { simpleData } from '../models/simpleData';
 })
 export class SimpleDataService {
 
+  public readonly simpleTrueFalse: Array<simpleData> = [
+    {id: '', text: 'All'},
+    {id: 'true', text: 'Yes'},
+    {id: 'false', text: 'No'}
+  ];
+
   /**
    * Filters object keys based on search text
    * 
