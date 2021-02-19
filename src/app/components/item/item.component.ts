@@ -4,11 +4,8 @@ import { Item } from '../../classes/itemdata/item';
 import { StatFilterForm } from 'src/app/classes/formgroups/stat-filter-form';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { PoeService } from 'src/app/services/poe.service';
-
-enum statusOptions {
-  any = 'All',
-  online = 'Online'
-}
+import { simpleData } from 'src/app/models/simpleData';
+import { SimpleDataService } from 'src/app/services/simpledata.service';
 
 @Component({
   selector: 'app-item',
@@ -21,12 +18,18 @@ export class ItemComponent implements OnInit {
   @Input() itemData: Item;
   @Input() league: string;
   @ViewChildren("itemNameInput") itemNameInput: QueryList<ElementRef>;                            //Item name input element
-  public readonly STATUS_OPTIONS: typeof statusOptions = statusOptions;
 
   public editName: boolean = false;                         //Whether name is in edit mode or not
   public showResults: boolean = false;                      //Used to show results tab
+  public statusOptions: Array<simpleData> = [               //Status options
+    {id: 'any', text: 'All'},
+    {id: 'online', text: 'Online'}
+  ];
 
-  constructor(private cd: ChangeDetectorRef, private snackBar: MatSnackBar, private poe: PoeService) {  
+  constructor(private cd: ChangeDetectorRef, 
+              private snackBar: MatSnackBar, 
+              private poe: PoeService,
+              public simpleDataService: SimpleDataService) {  
   }
 
   ngAfterViewInit() {
