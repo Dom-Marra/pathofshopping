@@ -40,7 +40,7 @@ export class ShoppinglistComponent implements OnInit {
               private activeRoute: ActivatedRoute,
               private dialog: MatDialog,
               private snackBar: MatSnackBar,
-              public filterService: SimpleDataService) { 
+              public simpleDataService: SimpleDataService) { 
 
     
     let poeAPILoad = this.poeAPI.loaded.subscribe(
