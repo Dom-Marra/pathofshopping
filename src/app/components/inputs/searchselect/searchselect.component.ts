@@ -6,11 +6,11 @@ import { Observable } from 'rxjs';
 import { filter, map, startWith } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-filtergroupselect',
-  templateUrl: './filtergroupselect.component.html',
-  styleUrls: ['./filtergroupselect.component.scss']
+  selector: 'app-searchselect',
+  templateUrl: './searchselect.component.html',
+  styleUrls: ['./searchselect.component.scss']
 })
-export class FiltergroupselectComponent implements OnInit {
+export class SearchSelectComponent implements OnInit {
 
   @Input() inputName: string;                                       //Name of the input
   @Input() values: any;                                             //Values for the autocomplete
