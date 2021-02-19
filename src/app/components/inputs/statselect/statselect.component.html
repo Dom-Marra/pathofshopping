@@ -13,6 +13,7 @@
                         [disabled]="this.statGroup.disabled"
                         [autoCompleteClass]="'autocomplete-panel-300'"
                         [autoCompleteHost]='autoCompleteHost'
+                        [setValue]="this.statGroup.controls.selectedStat.value"
                         (selected)="setStat($event)"></app-searchselect>
     </div>
     
@@ -35,6 +36,7 @@
                         [disabled]="this.statGroup.disabled"
                         [autoCompleteClass]="'autocomplete-panel-300'"
                         [autoCompleteHost]='autoCompleteHost'
+                        [setValue]="this.statGroup.controls.selectedStatOption.value"
                         (selected)="setStatOption($event)"></app-searchselect>
     </div>
 </div>
