@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FiltergroupselectComponent } from './filtergroupselect.component';
+import { SearchSelectComponent } from './searchselect.component';
 
 describe('FiltergroupselectComponent', () => {
-  let component: FiltergroupselectComponent;
-  let fixture: ComponentFixture<FiltergroupselectComponent>;
+  let component: SearchSelectComponent;
+  let fixture: ComponentFixture<SearchSelectComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FiltergroupselectComponent ]
+      declarations: [ SearchSelectComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FiltergroupselectComponent);
+    fixture = TestBed.createComponent(SearchSelectComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
