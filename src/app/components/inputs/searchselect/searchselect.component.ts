@@ -1,5 +1,5 @@
 import { isDefined } from '@angular/compiler/src/util';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { _MatAutocompleteBase } from '@angular/material/autocomplete';
 import { Observable } from 'rxjs';
@@ -12,6 +12,8 @@ import { filter, map, startWith } from 'rxjs/operators';
 })
 export class SearchSelectComponent implements OnInit {
 
+  @Input() clearOnFocus: boolean = true;                            //Whether on focus to clear the input
+  @Input() clearable: boolean = false;                              //Whether the input can be cleared
   @Input() inputName: string;                                       //Name of the input
   @Input() values: any;                                             //Values for the autocomplete
   @Input() groupOptions: {                                          //Group options
@@ -32,39 +34,68 @@ export class SearchSelectComponent implements OnInit {
     }
   }             
   @Output() selected: EventEmitter<any> = new EventEmitter<any>();  //Emits the value selection
+  @Output() cleared: EventEmitter<void> = new EventEmitter<void>(); //Emits when the input hase been cleared
 
   public selectedValue: any = null;                         //The current selected value
   public search: FormControl = new FormControl('');         //Search form control
   public filteredSearch: Observable<Array<any>>;            //Filtered results
+  public selectingOption: boolean = false;                  //An option is currently in the process of being selected
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.setValue) {     //update the selected value on setValue change
+      this.selectValue(this.setValue);
+    }
+  }
+
   ngAfterContentInit() {
-    if (this.setValue != null) {
+    if (this.setValue != null) {                            //set the value if it has one provided
       this.selectValue(this.setValue);
     }
 
-    this.filteredSearch = this.search.valueChanges.pipe(
+    this.filteredSearch = this.search.valueChanges.pipe(    //filter the values 
       startWith(''),
       filter(value => typeof value == 'string'),
       map(value =>  this.filterBy(value, this.values))
     );
   }
 
+  /**
+   * Updates the selected value and can emit an event providing the value
+   * 
+   * @param value 
+   *        any: the value to select
+   * @param emitEvent 
+   *        boolean: whether to emit an event or not
+   */
   public selectValue(value: any, emitEvent?: boolean): void {
     this.selectedValue = value;
-    this.search.patchValue(this.displayBy ? this.displayBy(value): value, {emitEvent: false});
+    this.search.patchValue(this.displayBy ? this.displayBy(value): value, {emitEvent: false, onlySelf: true});
     if (emitEvent) this.selected.emit(this.selectedValue);
   }
 
+  /**
+   * Returns a value that should be used as the placeholder
+   * 
+   * @returns
+   *        string: the placeholder
+   */
   public getPlaceholder(): string {
-    
-    if (isDefined(this.selectedValue)) return this.displayBy ? this.displayBy(this.selectedValue) : this.selectedValue;
+    if (this.selectedValue && !this.clearable) return this.displayBy ? this.displayBy(this.selectedValue) : this.selectedValue;
     if (this.inputName) return this.inputName;
 
     return this.placeholder;
+  }
+
+  /**
+   * Clears the search control and emits a cleared event
+   */
+  public clear(): void {
+    this.search.patchValue('');
+    this.cleared.emit();
   }
 }
