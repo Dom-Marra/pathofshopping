@@ -1,30 +1,22 @@
 <div class="type-filters mat-input-400" [formGroup]="queryForm">
     <div class="flexed-inputs search-field">
-        <mat-form-field>
-            <mat-label>Search Items</mat-label>
-            <input #searchInput matInput type="text" autocomplete="off" 
-                    [matAutocomplete]="searchableItems"
-                    (input)="filteredItems = filterGroups($event.target.value)"
-                    (focus)="filteredItems = filterGroups($event.target.value)"
-                    [value]="search.value">
-            <button mat-button type="button" *ngIf="this.search.value" matSuffix mat-icon-button aria-label="Clear" (click)="setNTT('', '', '')">
-                <mat-icon class="icon-light">clear</mat-icon>
-            </button>
-            <mat-autocomplete #searchableItems="matAutocomplete" 
-                                (optionSelected)="selectItem($event.option.value)" 
-                                [class]="'autocomplete-panel-300'" 
-                                (closed)="searchInput.blur(); searchInput.value == '' ? setNTT('', '', '') : searchInput.value = search.value">
-                <mat-optgroup *ngIf="!exactMatchFound && searchInput.value.trim().length > 0" label="Custom Search">
-                    <mat-option [value]="{name: null, type: null, text: searchInput.value.trim()}">{{searchInput.value.trim()}}</mat-option>
-                </mat-optgroup>
-                <mat-optgroup *ngFor="let itemGroup of filteredItems" [label]="itemGroup.category ? itemGroup.category : 'Misc'">
-                    <mat-option *ngFor="let item of itemGroup.items | slice:0:25;" [value]="item"
-                    [class.mat-selected]="(this.queryForm.controls.name.value ? this.queryForm.controls.name.value + ' ' + this.queryForm.controls.type.value : this.queryForm.controls.type.value)  == item.text">
-                        {{item.text}}
-                    </mat-option>
-                </mat-optgroup>
-            </mat-autocomplete>
-        </mat-form-field>
+        <app-searchselect inputName='Search Items'
+                            [values]="itemsToSearch"
+                            [filterBy]="filterGroups.bind(this)"
+                            [displayBy]="displayItemBy"   
+                            [setValue]="{
+                                name:  this.queryForm.controls.name.value,
+                                type:  this.queryForm.controls.type.value,
+                                text:  this.queryForm.controls.term.value ? this.queryForm.controls.term.value : 
+                                      (this.queryForm.controls.name.value ? this.queryForm.controls.name.value + ' ' : '') + 
+                                      (this.queryForm.controls.type.value ? this.queryForm.controls.type.value : '')
+                              }"
+                            [clearOnFocus]='false'
+                            [groupOptions]="{groupedBy: 'category', groupedInto: 'items'}"
+                            (selected)="setNTT($event.name, $event.type, $event.text)"
+                            [clearable]="true"
+                            (cleared)="setNTT('', '', '')"></app-searchselect>
+
     </div>
     <app-searchselect class="rarity-field" 
                     inputName='Item Rarity'
