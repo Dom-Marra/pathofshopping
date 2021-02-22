@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, DebugElement, EventEmitter, Input, NO_ERRORS_SCHEMA, Output } from '@angular/core';
-import { ComponentFixture, fakeAsync, flushMicrotasks, TestBed, tick, waitForAsync } from '@angular/core/testing';
-import { AbstractControl, ReactiveFormsModule } from '@angular/forms';
+import { ComponentFixture, fakeAsync, flushMicrotasks, TestBed } from '@angular/core/testing';
+import { ReactiveFormsModule } from '@angular/forms';
 import { MatDialog, MatDialogActions } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { By } from '@angular/platform-browser';
@@ -9,7 +9,6 @@ import { BehaviorSubject, of } from 'rxjs';
 import { Item } from 'src/app/classes/itemdata/item';
 import { SavedialogComponent } from 'src/app/components/savedialog/savedialog.component';
 import { itemSaveData } from 'src/app/models/itemSaveData';
-import { leagueData } from 'src/app/models/leagueData';
 import { shoppingListSaveData } from 'src/app/models/shoppingListSaveData';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { PoeService } from 'src/app/services/poe.service';
@@ -20,13 +19,29 @@ import { MatTabGroupHarness } from '@angular/material/tabs/testing';
 import { ShoppinglistComponent } from './shoppinglist.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { simpleData } from 'src/app/models/simpleData';
+import { SimpleDataService } from 'src/app/services/simpledata.service';
 
 class MockPoeService {
   public loaded: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  public leagues: leagueData = {Ritual: 'Ritual'};
+  public leagues: Array<simpleData> = [{id: 'Ritual', text: 'Ritual'}];
 
-  public getLeagues(): leagueData {
+  public getLeagues(): Array<simpleData> {
     return this.leagues;
+  }
+}
+
+class MockSimpleDataService { 
+  public filterSimpleData(searchText: string, values: Array<simpleData>): Array<simpleData> {
+    return []
+  }
+
+  public displayByText(value: simpleData): simpleData {
+    return null;
+  }
+
+  public getSelectedValue(id: string, values: Array<simpleData>): simpleData {
+    return null;
   }
 }
 
@@ -38,11 +53,17 @@ class MockSnackBar {
   public open(msg: string, action: string, options: MatSnackBarConfig) {}
 }
 
-@Component({selector: 'app-filtergroupselect', template: ''})
-class FiltergroupselectStubComponent {
-  @Input() inputName: string;                               
-  @Input() control: AbstractControl;        
-  @Input() selectEnum: any;        
+@Component({selector: 'app-searchselect', template: ''})
+class SearchSelectStubComponent {                                     
+  @Input() values: any;                                             
+  @Input() groupOptions: any;
+  @Input() autoCompleteClass: string;                  
+  @Input() setValue: any;                                    
+  @Input() placeholder: string;                   
+  @Input() filterBy: any;        
+  @Input() displayBy: any;      
+  @Input() inputName: any;        
+  @Output() selected: EventEmitter<any> = new EventEmitter<any>();  
 }
 
 @Component({selector: 'app-item', template: ''})
@@ -60,12 +81,13 @@ describe('ShoppinglistComponent', () => {
   let snackBar: MatSnackBar;
   let matDialog: MatDialog;
   let fixture: ComponentFixture<ShoppinglistComponent>;
+  let stubSimpleDataService: SimpleDataService;
 
   const firebaseServiceSpy = jasmine.createSpyObj('FirebaseService', ['getShoppingList', 'addShoppingList']);
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ShoppinglistComponent, ItemStubComponent, FiltergroupselectStubComponent ],
+      declarations: [ ShoppinglistComponent, ItemStubComponent, SearchSelectStubComponent ],
       providers: [
         ShoppinglistComponent,
         {provide: PoeService, useClass: MockPoeService},
@@ -73,7 +95,8 @@ describe('ShoppinglistComponent', () => {
         {provide: FirebaseService, useValue: firebaseServiceSpy},
         {provide: MatDialog, useClass: MockMatDialog},
         {provide: MatSnackBar, useClass: MockSnackBar},
-        {provide: ActivatedRoute, useValue: {snapshot: {queryParamMap: convertToParamMap(null)}}}
+        {provide: ActivatedRoute, useValue: {snapshot: {queryParamMap: convertToParamMap(null)}}},
+        {provide: SimpleDataService, useClass: MockSimpleDataService}
       ],
       imports: [ ReactiveFormsModule, MatTabsModule, NoopAnimationsModule ],
       schemas: [NO_ERRORS_SCHEMA]
@@ -88,7 +111,7 @@ describe('ShoppinglistComponent', () => {
     snackBar = TestBed.inject(MatSnackBar);
     activeRoute = TestBed.inject(ActivatedRoute);
     matDialog = TestBed.inject(MatDialog);
-    
+    stubSimpleDataService = TestBed.inject(SimpleDataService);
     fixture.detectChanges();
   });
 
@@ -123,28 +146,32 @@ describe('ShoppinglistComponent', () => {
     });
 
     it('should set leagues', () => {
-      expect(component.LEAGUES).toEqual(poeService.getLeagues());
+      expect(component.leagues).toEqual(poeService.getLeagues());
     });
   });
 
-  describe('LEAGUES is set and shoppingList league form control is not set', () => {
-    it('should set the league control to the first league', () => {
-      let leagueControl = component.shoppingList.controls.league;
-      const firstLeague = poeService.getLeagues()[Object.keys(poeService.getLeagues())[0]];
+  it('should patch the league control value to the first league id if the value is empty', () => {
+    let leagueControl = component.shoppingList.controls.league;
+    const firstLeague = poeService.getLeagues()[0].id;
 
-      leagueControl.patchValue(null);
-      component.LEAGUES = poeService.getLeagues();
+    leagueControl.patchValue(null);
+    component.leagues = poeService.getLeagues();
 
-      fixture.detectChanges();
+    fixture.detectChanges();
 
-      expect(leagueControl.value).toEqual(firstLeague);
-    })
-  })
+    expect(leagueControl.value).toEqual(firstLeague);
+  });
 
   describe('No Query Params Provided', () => {
     it('should call addItem', () => {
       spyOn(ShoppinglistComponent.prototype, 'addItem');
-      let component = new ShoppinglistComponent(TestBed.inject(ChangeDetectorRef), TestBed.inject(PoeService), TestBed.inject(FirebaseService), TestBed.inject(ActivatedRoute), TestBed.inject(MatDialog), TestBed.inject(MatSnackBar));
+      let component = new ShoppinglistComponent(TestBed.inject(ChangeDetectorRef), 
+                                                TestBed.inject(PoeService), 
+                                                TestBed.inject(FirebaseService), 
+                                                TestBed.inject(ActivatedRoute), 
+                                                TestBed.inject(MatDialog), 
+                                                TestBed.inject(MatSnackBar),
+                                                TestBed.inject(SimpleDataService));
       expect(component.addItem).toHaveBeenCalled();
     });
   });
@@ -197,7 +224,13 @@ describe('ShoppinglistComponent', () => {
 
     it('should call the load method', () => {
       spyOn(ShoppinglistComponent.prototype, 'load');
-      let component = new ShoppinglistComponent(TestBed.inject(ChangeDetectorRef), TestBed.inject(PoeService), TestBed.inject(FirebaseService), TestBed.inject(ActivatedRoute), TestBed.inject(MatDialog), TestBed.inject(MatSnackBar));
+      let component = new ShoppinglistComponent(TestBed.inject(ChangeDetectorRef), 
+                                                TestBed.inject(PoeService), 
+                                                TestBed.inject(FirebaseService), 
+                                                TestBed.inject(ActivatedRoute), 
+                                                TestBed.inject(MatDialog), 
+                                                TestBed.inject(MatSnackBar),
+                                                TestBed.inject(SimpleDataService));
       expect(component.load).toHaveBeenCalledWith(mockListID);
     })
 
@@ -756,29 +789,30 @@ describe('ShoppinglistComponent', () => {
       });
     });
 
-    describe('League Selector', () => {
-      let leagueSelector: FiltergroupselectStubComponent;
+    describe('league searchSelect component', () => {
+      let leagueSelector: DebugElement;
 
       beforeEach(() => {
-        leagueSelector = fixture.debugElement.query(By.css('app-filtergroupselect')).componentInstance as FiltergroupselectStubComponent;
+        leagueSelector = fixture.debugElement.query(By.css('app-searchselect'));
       });
 
-      it('should bind shoppinglist league control', () => {
-        expect(leagueSelector.control).toEqual(component.shoppingList.controls.league);
-      });
-
-      it('should bind "League" as the label', () => {
-        expect(leagueSelector.inputName).toEqual('League');
-      });
-
-      it('should bind the components leagues as the selectEnum', () => {
-        const mockLeagues = {MockLeague: 'Mock League'};
-        component.LEAGUES = mockLeagues;
+      it('should update the league control value to the emitted selected value', () => {
+        leagueSelector.triggerEventHandler('selected', {id: 'MockLeague', text: 'Mock Legaue'});
         fixture.detectChanges();
-
-        expect(leagueSelector.selectEnum).toEqual(mockLeagues);
+  
+        expect(component.shoppingList.controls.league.value).toEqual('MockLeague');
       });
 
+      it('should set the right inputs on the component', () => {
+        let leagueSelectorComp = leagueSelector.componentInstance as SearchSelectStubComponent;
+  
+        expect(leagueSelectorComp.autoCompleteClass).toEqual('autocomplete-panel-400');
+        expect(leagueSelectorComp.values).toEqual(component.leagues);
+        expect(leagueSelectorComp.filterBy).toEqual(stubSimpleDataService.filterSimpleData);
+        expect(leagueSelectorComp.displayBy).toEqual(stubSimpleDataService.displayByText);
+        expect(leagueSelectorComp.inputName).toEqual('League');
+        expect(leagueSelectorComp.setValue).toEqual(stubSimpleDataService.getSelectedValue(component.shoppingList.controls.league.value, component.leagues));
+      });
     });
   });
 });
