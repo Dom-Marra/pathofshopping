@@ -1,10 +1,8 @@
-import { HarnessLoader } from '@angular/cdk/testing/component-harness';
 import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
 import { Component, DebugElement, Directive, EventEmitter, Input, Output, SimpleChange } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { MatAutocomplete, MatAutocompleteModule } from '@angular/material/autocomplete';
-import { MatAutocompleteHarness } from '@angular/material/autocomplete/testing';
+import { AbstractControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { MatAutocompleteModule, MatAutocompleteOrigin } from '@angular/material/autocomplete';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatFormFieldHarness } from '@angular/material/form-field/testing';
 import { MatInputModule } from '@angular/material/input';
@@ -19,16 +17,23 @@ import { FilteractionbuttonsComponent } from '../../filters/filteractionbuttons/
 
 import { StatselectComponent } from './statselect.component';
 
-@Component({selector: 'app-filtergroupselect', template: ''})
-class FiltergroupselectStubComponent {
-  @Input() inputName: string;                               
-  @Input() control: AbstractControl;        
-  @Input() selectEnum: any;        
+@Component({selector: 'app-searchselect', template: ''})
+class SearchSelectStubComponent {                                     
+  @Input() values: any;                                             
+  @Input() groupOptions: any;
+  @Input() autoCompleteClass: string;    
+  @Input() autoCompleteHost: any;                  
+  @Input() setValue: any;                                    
+  @Input() placeholder: string;                   
+  @Input() filterBy: any;        
+  @Input() displayBy: any;      
+  @Input() disabled: any;        
+  @Output() selected: EventEmitter<any> = new EventEmitter<any>();  
 }
 
 @Component({selector: 'app-minmaxinput', template: ''})
 class MinMaxStubComponent {                          
-  @Input() group: FormGroup;    
+  @Input() group: AbstractControl;    
 }
 
 @Component({selector: 'app-filteractionbuttons', template: ''})
@@ -91,15 +96,15 @@ class MockPoeService {
   }
 }
 
-fdescribe('StatselectComponent', () => {
+describe('StatselectComponent', () => {
   let component: StatselectComponent;
   let fixture: ComponentFixture<StatselectComponent>;
   let poeMockService: PoeService;
   let statForm: StatForm;
 
   beforeEach(async () => {
-    await TestBed.configureTestingModule({ //FIX
-      declarations: [ StatselectComponent, FilteractionbuttonsStubComponent, MinMaxStubComponent, FiltergroupselectStubComponent ],
+    await TestBed.configureTestingModule({
+      declarations: [ StatselectComponent, FilteractionbuttonsStubComponent, MinMaxStubComponent, SearchSelectStubComponent ],
       providers: [
         {provide: PoeService, useClass: MockPoeService},
         {provide: DigitsonlyDirective, useClass: DigitsonlyStubDirective}
@@ -120,8 +125,7 @@ fdescribe('StatselectComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should set the stats variables', () => {
-    expect(component.filteredStats).toEqual(poeMockService.getStats());
+  it('should set the statsToSearch', () => {
     expect(component.statsToSearch).toEqual(poeMockService.getStats());
   });
 
@@ -148,13 +152,13 @@ fdescribe('StatselectComponent', () => {
   describe('filterStats method', () => {
 
     it('should return all stats when the search text is false', () => {
-      let returnedValue = component.filterStats('');
+      let returnedValue = component.filterStats('', component.statsToSearch);
 
       expect(returnedValue).toEqual(poeMockService.getStats());
     });
 
     it('should properly filter stats based on search text', () => {
-      let returnedValue = component.filterStats('Stat 2');
+      let returnedValue = component.filterStats('Stat 2', component.statsToSearch);
       let expectedResults: Array<poeCategorizedStats> = [
         {
           category: 'Mock Category 1',
@@ -196,7 +200,7 @@ fdescribe('StatselectComponent', () => {
 
   it('should be able to properly filter stat options', () => {
     component.statGroup.controls.selectedStat.patchValue(poeMockService.getStats()[1].stats[1]);
-    let returnedValue = component.filterStatOptions('Option_2');
+    let returnedValue = component.filterStatOptions('Option_2', component.statGroup.controls.selectedStat.value.option);
     let expectedResults = [
       {
         id: 'mock.mock_2_stat_2_option_2',
@@ -320,152 +324,36 @@ fdescribe('StatselectComponent', () => {
     });
   });
 
-  describe('stat selector auto complete', () => {
-    let loader: HarnessLoader;
-    let autocomplete: MatAutocompleteHarness;
-    let formfield: MatFormFieldHarness;
-    let control: MatInputHarness;
+  describe('stat searchSelect', () => {
 
-    beforeEach(async () => {
-      loader = TestbedHarnessEnvironment.loader(fixture);
+    let statSearcher: DebugElement;
 
-      autocomplete = (await loader.getAllHarnesses(MatAutocompleteHarness))[0];
-      formfield = (await loader.getAllHarnesses(MatFormFieldHarness))[0];
-      control = await formfield.getControl() as MatInputHarness;
+    beforeEach(() => {
+      statSearcher = fixture.debugElement.query(By.css('app-searchselect'));
+    })
+
+    it('should call setStat when the stat selector selected event emits', () => {
+      spyOn(component,'setStat');
+      statSearcher.triggerEventHandler('selected', {id: 'MockValue', text: 'Mock Value'});
+
+      expect(component.setStat).toHaveBeenCalledWith({id: 'MockValue', text: 'Mock Value'});
     });
 
-    it('should have the placeholder as "Add Stat Filter" when no stat is selected', async () => {
-      let placeholder = await control.getPlaceholder();
-      
-      expect(placeholder).toEqual("Add Stat Filter");
+    it('should set the right inputs on the component', () => {
+      let statSearcherComp = statSearcher.componentInstance as SearchSelectStubComponent;
+      let autoCompleteHost = fixture.debugElement.query(By.css('.stat-select')).injector.get(MatAutocompleteOrigin);
+
+      expect(statSearcherComp.autoCompleteClass).toEqual('autocomplete-panel-300');
+      expect(statSearcherComp.placeholder).toEqual('Add Stat');
+      expect(statSearcherComp.values).toEqual(component.statsToSearch);
+      expect(statSearcherComp.groupOptions).toEqual({groupedBy: 'category', groupedInto: 'stats'});
+      expect(statSearcherComp.filterBy).toEqual(component.filterStats);
+      expect(statSearcherComp.displayBy).toEqual(component.statDisplayBy);
+      expect(statSearcherComp.disabled).toEqual(component.statGroup.disabled);
+      expect(statSearcherComp.autoCompleteHost).toEqual(autoCompleteHost);
+      expect(statSearcherComp.setValue).toEqual(component.statGroup.controls.selectedStat.value);
     });
 
-    it('should have the placeholder as the selected stat text', async () => {
-      component.statGroup.controls.selectedStat.patchValue(poeMockService.getStats()[0].stats[0]);
-      
-      let placeholder = await control.getPlaceholder();
-
-      expect(placeholder).toEqual(poeMockService.getStats()[0].stats[0].text);
-    });
-
-    it('should set the filterstats to the return value of filterStats method on input', async () => {
-      const returnedValue: Array<poeCategorizedStats> = [
-        {category: 'mock', stats: []}
-      ];
-
-      spyOn(component, 'filterStats').and.returnValue(returnedValue);
-
-      await control.setValue('Mock');
-
-      expect(component.filterStats).toHaveBeenCalledWith('Mock');
-      expect(component.filteredStats).toEqual(returnedValue);
-    });
-
-    it('should have a value of "Add Stat Filter" when no is stat is selected', async () => {
-      let value = await autocomplete.getValue();
-
-      expect(value).toEqual("Add Stat Filter");
-    });
-
-    it('should have a value of the selected stat text', async () => {
-      component.statGroup.controls.selectedStat.patchValue(poeMockService.getStats()[0].stats[0]);
-
-      let value = await autocomplete.getValue();
-
-      expect(value).toEqual(poeMockService.getStats()[0].stats[0].text);
-    });
-
-    it('should reset input value on focus', async () => {
-      await control.focus();
-
-      let value = await autocomplete.getValue();
-
-      expect(value).toEqual('');
-    });
-
-    it('should set the filteredSats to return value of the filterStats with "" param on input focus', async () => {
-      const returnedValue: Array<poeCategorizedStats> = [
-        {category: 'mock', stats: []}
-      ];
-
-      spyOn(component, 'filterStats').and.returnValue(returnedValue);
-      await control.focus();
-
-      expect(component.filterStats).toHaveBeenCalledWith("");
-      expect(component.filteredStats).toEqual(returnedValue);
-    });
-
-    it('should set the value of the input to the selected stat text on blur', async () => {
-      component.statGroup.controls.selectedStat.patchValue(poeMockService.getStats()[0].stats[0]);
-
-      await autocomplete.enterText('mock');
-      await control.blur();
-
-      expect(await autocomplete.getValue()).toEqual(poeMockService.getStats()[0].stats[0].text);
-    });
-
-    it('should set the value of the input to "Add Stat Filter" on blur when no stat is selected', async () => {
-      await autocomplete.enterText('mock');
-      await control.blur();
-
-      expect(await autocomplete.getValue()).toEqual("Add Stat Filter");
-    });
-
-    it('should have the disable state of the input equal to the statgroups disable state', async () => {
-      component.statGroup.disable();
-      expect(await control.isDisabled()).toEqual(true);
-
-      component.statGroup.enable();
-      expect(await control.isDisabled()).toEqual(false);
-    });
-
-    it('should blur the input when the panel emits closed event', async () => {
-      let autocompletepanel = fixture.debugElement.query(By.css('mat-autocomplete'));
-  
-      await autocomplete.focus();
-      
-      (autocompletepanel.componentInstance as MatAutocomplete).closed.emit();
-  
-      expect(await autocomplete.isFocused()).toEqual(false);
-    });
-
-    it('should call setStat with the selected value on auto complete select', async () => {
-  
-      spyOn(component, 'setStat');
-      let text = poeMockService.getStats()[0].stats[0].text;
-  
-      await autocomplete.enterText('random text'); //Need this for some reason
-      await autocomplete.focus();
-      await autocomplete.selectOption({text: text});
-  
-      expect(component.setStat).toHaveBeenCalledWith(poeMockService.getStats()[0].stats[0]);
-    });
-  
-    it('should blur the input when an option is selected', async () => {
-      let text = poeMockService.getStats()[0].stats[0].text;
-  
-      await autocomplete.enterText('random text'); //Need this for some reason
-      await autocomplete.focus();
-      await autocomplete.selectOption({text: text});
-  
-      expect(await autocomplete.isFocused()).toEqual(false);
-    });
-
-    it('should add rotate class to the mat icon when the panel is open', async () => {
-      let matIcon = fixture.debugElement.query(By.css('mat-icon'));
-  
-      await autocomplete.enterText('random text'); //Need this for some reason
-      await autocomplete.focus();
-      await autocomplete.isOpen();
-  
-      expect(matIcon.classes.rotate).toEqual(true);
-    });
-  
-    it('should remove rotate class to the mat icon when the panel is closed', async () => {
-      let matIcon = fixture.debugElement.query(By.css('mat-icon'));
-  
-      expect(matIcon.classes).not.toContain('rotate');
-    });
   });
 
   describe('stat-inputs container', () => {
@@ -517,7 +405,7 @@ fdescribe('StatselectComponent', () => {
       fixture.detectChanges();
 
       let loader = TestbedHarnessEnvironment.loader(fixture);
-      let formfield = (await loader.getAllHarnesses(MatFormFieldHarness))[1];
+      let formfield = await loader.getHarness(MatFormFieldHarness);
       expect(await formfield.getLabel()).toEqual('Weight');
     });
 
@@ -540,9 +428,90 @@ fdescribe('StatselectComponent', () => {
       fixture.detectChanges();
 
       let loader = TestbedHarnessEnvironment.loader(fixture);
-      let formfield = (await loader.getAllHarnesses(MatFormFieldHarness))[1];
+      let formfield = await loader.getHarness(MatFormFieldHarness);
       expect(await (await formfield.getControl() as MatInputHarness).getValue()).toEqual('1');
     });
   });
 
+  describe('minmaxinput component', () => {
+
+    it('should not exist when the isWeight is true', () => {
+      component.statGroup.controls.selectedStat.patchValue(poeMockService.getStats()[0].stats[0]);
+      component.isWeight = true;
+      component.ngOnChanges({isWeight: new SimpleChange(false, true, false)});
+      fixture.detectChanges();
+
+      let minmaxinput = fixture.debugElement.query(By.css('app-minmaxinput'));
+
+      expect(minmaxinput).not.toBeTruthy();
+    });
+
+    it('should not exist when the selectedStat has options', () => {
+      component.statGroup.controls.selectedStat.patchValue(poeMockService.getStats()[1].stats[1]);
+      fixture.detectChanges();
+
+      let minmaxinput = fixture.debugElement.query(By.css('app-minmaxinput'));
+
+      expect(minmaxinput).not.toBeTruthy();
+    });
+
+    it('should exist when the selectedStat has no options', () => {
+      component.statGroup.controls.selectedStat.patchValue(poeMockService.getStats()[0].stats[0]);
+      fixture.detectChanges();
+
+      let minmaxinput = fixture.debugElement.query(By.css('app-minmaxinput'));
+
+      expect(minmaxinput).toBeTruthy();
+    });
+
+    it('should use the statGroup value control as the group input', () => {
+      component.statGroup.controls.selectedStat.patchValue(poeMockService.getStats()[0].stats[0]);
+      fixture.detectChanges();
+
+      let minmaxinput = fixture.debugElement.query(By.css('app-minmaxinput')).componentInstance as MinMaxStubComponent;
+
+      expect(minmaxinput.group).toEqual(component.statGroup.controls.value);
+    });
+  });
+
+  describe('stat option searchSelect', () => {
+
+    it('should not exist when the selectedStat has no options', () => {
+      component.statGroup.controls.selectedStat.patchValue(poeMockService.getStats()[0].stats[0]);
+      fixture.detectChanges();
+
+      let optionSearcher = fixture.debugElement.queryAll(By.css('app-searchselect'))[1];
+
+      expect(optionSearcher).not.toBeTruthy();
+    });
+
+    it('should call setStatOption when the option selector selected event emits', () => {
+      spyOn(component,'setStatOption');
+      
+      component.statGroup.controls.selectedStat.patchValue(poeMockService.getStats()[1].stats[1]);
+      fixture.detectChanges();
+
+      let optionSearcher = fixture.debugElement.queryAll(By.css('app-searchselect'))[1];
+      optionSearcher.triggerEventHandler('selected', {id: 'MockValue', text: 'Mock Value'});
+
+      expect(component.setStatOption).toHaveBeenCalledWith({id: 'MockValue', text: 'Mock Value'});
+    });
+
+    it('should set the right inputs on the component', () => {
+      component.statGroup.controls.selectedStat.patchValue(poeMockService.getStats()[1].stats[1]);
+      fixture.detectChanges();
+
+      let optionSearcher = fixture.debugElement.queryAll(By.css('app-searchselect'))[1].componentInstance as SearchSelectStubComponent;
+      let autoCompleteHost = fixture.debugElement.query(By.css('.stat-select')).injector.get(MatAutocompleteOrigin);
+
+      expect(optionSearcher.autoCompleteClass).toEqual('autocomplete-panel-300');
+      expect(optionSearcher.placeholder).toEqual('Add Option');
+      expect(optionSearcher.values).toEqual(component.statGroup.controls.selectedStat.value.option);
+      expect(optionSearcher.filterBy).toEqual(component.filterStatOptions);
+      expect(optionSearcher.displayBy).toEqual(component.optionDisplayBy);
+      expect(optionSearcher.disabled).toEqual(component.statGroup.disabled);
+      expect(optionSearcher.autoCompleteHost).toEqual(autoCompleteHost);
+      expect(optionSearcher.setValue).toEqual(component.statGroup.controls.selectedStatOption.value);
+    });
+  });
 });
