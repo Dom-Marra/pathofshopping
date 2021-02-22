@@ -1,4 +1,3 @@
-import { isDefined } from '@angular/compiler/src/util';
 import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { _MatAutocompleteBase } from '@angular/material/autocomplete';
