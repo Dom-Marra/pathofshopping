@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
 import { BehaviorSubject, throwError } from 'rxjs';
-import { leagueData } from '../models/leagueData';
 import { poeCategorizedItems } from '../models/poeCategorizedItems';
 import { poeCategorizedStats } from '../models/poeCategorizedStats';
+import { simpleData } from '../models/simpleData';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +19,7 @@ export class PoeService {
   private readonly POE_SEARCH: string = 'https://us-central1-pathofshopping.cloudfunctions.net/poeSearch';
 
   //POE API Data
-  private leagueData: leagueData;
+  private leagueData: Array<simpleData>;
   private poeItems: Array<poeCategorizedItems>; 
   private poeStats: Array<poeCategorizedStats>; 
 
@@ -154,10 +154,10 @@ export class PoeService {
   private setLeagues() {
     let poeLeaguesSetter = this.http.get(this.POE_LEAGUES).pipe(
       map((data: any) => {
-        let leagues: leagueData = {};
+        let leagues: Array<simpleData> = [];
 
         data.result.forEach(league => {
-          leagues[league.id] = league.text;
+          leagues.push({id: league.id, text: league.text});
         });
 
         return leagues;
@@ -180,7 +180,7 @@ export class PoeService {
   /**
    * Returns the leagues from the poe API
    */
-  public getLeagues(): leagueData {
+  public getLeagues(): Array<simpleData> {
     return this.leagueData;
   }
 

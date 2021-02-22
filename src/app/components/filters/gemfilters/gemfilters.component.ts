@@ -1,14 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-
-enum gemQualityTypes {
-  '' = 'All',
-  '"0"' = 'Default',
-  'alternate' = 'Only Alternatives',
-  '"1"' = 'Anomalous',
-  '"2"' = 'Divergent',
-  '"3"' = 'Phantasmal',
-}
+import { simpleData } from 'src/app/models/simpleData';
+import { SimpleDataService } from 'src/app/services/simpledata.service';
 
 @Component({
   selector: 'app-gemfilters',
@@ -17,11 +10,18 @@ enum gemQualityTypes {
 })
 export class GemfiltersComponent implements OnInit {
 
-  public readonly GEM_QUALITY_TYPES: typeof gemQualityTypes = gemQualityTypes;  //Used for gem quality type selection
+  public gemQualityTypes: Array<simpleData> = [
+    {id: '', text: 'All'},
+    {id: '"0"', text: 'Default'},
+    {id: 'alternate', text: 'Only Alternatives'},
+    {id: '"1"', text: 'Anomalous'},
+    {id: '"2"', text: 'Divergent'},
+    {id: '"3"', text: 'Phantasmal'},
+  ]
 
   @Input() gemForm: FormGroup;   //Gem form from misc filters
 
-  constructor() { }
+  constructor(public simpleDataService: SimpleDataService) { }
 
   ngOnInit(): void {
     this.gemForm.controls.gemForm_disabled.valueChanges.subscribe(disabled => {   //When disbaled changes to false, and the form is still disabled then enable it

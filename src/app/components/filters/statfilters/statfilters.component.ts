@@ -1,14 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormGroup } from '@angular/forms';
+import { simpleData } from 'src/app/models/simpleData';
+import { SimpleDataService } from 'src/app/services/simpledata.service';
 import { StatForm } from '../../../classes/formgroups/stat-form';
-
-enum filterTypes {
-  and = 'And',
-  if = 'If',
-  not = 'Not',
-  count = 'Count',
-  weight = 'Weighted Sum'
-}
 
 @Component({
   selector: 'app-statfilters',
@@ -17,12 +11,18 @@ enum filterTypes {
 })
 export class StatfiltersComponent implements OnInit {
 
-  public readonly FILTER_TYPES: typeof filterTypes = filterTypes;                               //Used to cycle over filter types
+  public filterTypes: Array<simpleData> = [
+      {id: 'and', text: 'And'},
+      {id: 'if', text: 'If'},
+      {id: 'not', text: 'Not'},
+      {id: 'count', text: 'Count'},
+      {id: 'weight', text: 'Weighted Sum'}
+  ]
 
   @Input() statFilter: FormGroup;                                                              //Filter data
   @Output() filterRemoved: EventEmitter<FormGroup> = new EventEmitter<FormGroup>();             //Emitter for removal
 
-  constructor() { }
+  constructor(public simpleDataService: SimpleDataService) { }
 
   ngOnInit(): void {
   }

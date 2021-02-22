@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { trueFlase } from '../../../enums/TrueFalseEnum';
+import { SimpleDataService } from 'src/app/services/simpledata.service';
 
 @Component({
   selector: 'app-specialbases',
@@ -8,12 +8,10 @@ import { trueFlase } from '../../../enums/TrueFalseEnum';
   styleUrls: ['./specialbases.component.scss']
 })
 export class SpecialbasesComponent implements OnInit {
-
-  public readonly TRUE_FALSE: typeof trueFlase = trueFlase;               //used for true false selection
   
   @Input() influenceForm: FormGroup;   //Influence Form from misc form
 
-  constructor() {
+  constructor(public simpleDataService: SimpleDataService) {
   }  
 
   ngOnInit(): void {

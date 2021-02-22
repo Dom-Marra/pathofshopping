@@ -4,16 +4,6 @@ import { StatForm } from 'src/app/classes/formgroups/stat-form';
 import { poeCategorizedStats } from 'src/app/models/poeCategorizedStats';
 import { PoeService } from 'src/app/services/poe.service';
 
-export const filterSearch = (stats: poeCategorizedStats['stats'], searchText: string): poeCategorizedStats['stats'] => {
-  const text = searchText.toLowerCase().trim().split(/\s+/);
-
-  return stats.filter(stat => {
-    return text.filter(text => {
-      return stat.text.toLowerCase().indexOf(text) != -1;
-    }).length == text.length;
-  });
-}
-
 @Component({
   selector: 'app-statselect',
   templateUrl: './statselect.component.html',
@@ -25,15 +15,12 @@ export class StatselectComponent implements OnInit {
   @Input() isWeight: boolean = false;                                               //Whether this stat is under a wieghted sum filter group
   @Input() statGroup: StatForm;                                                     //Stat data that belongs to this selector
   
-  public filteredStats: Array<poeCategorizedStats> = [];                       //Filtered Stats
   public filteredStatOptions: poeCategorizedStats['stats'][0]['option'];       //Filtered Stat Options
   public statsToSearch: Array<poeCategorizedStats>;
 
   constructor(private poeAPI: PoeService) { 
-    //Init stats to search
-    this.statsToSearch = this.poeAPI.getStats();
-    this.filteredStats = this.poeAPI.getStats();  
-  }
+    this.statsToSearch = this.poeAPI.getStats();                               //Init stats to search
+  } 
 
   ngOnInit(): void {
   }
@@ -51,25 +38,56 @@ export class StatselectComponent implements OnInit {
   }
 
   /**
+   * Function to return the text value of a stat object
+   * 
+   * @param stat 
+   *        The stat to extract the text vaue from
+   * @returns
+   *        string: text value of the stat
+   */
+  public statDisplayBy(stat: poeCategorizedStats['stats'][0]) {
+    return stat?.text;
+  }
+
+  /**
+   * Function to return the text value of an option object
+   * 
+   * @param option
+   *        The option to extract the text value from 
+   * @returns
+   *        string: text value of the option
+   */
+  public optionDisplayBy(option: poeCategorizedStats['stats'][0]['option'][0]) {
+    return option?.text;
+  }
+
+  /**
    * Filters the items from each category of the search items
    * 
    * @param searchText
    *        string: text to filter by
    * 
+   * @param values
+   *        Array<poeCategorizedStats>: the values to filter by
+   * 
    * @returns 
    *       Array<poeCategorizedStats>: The filtered results
    */
-  public filterStats(searchText: string): Array<poeCategorizedStats> {
+  public filterStats(searchText: string, values: Array<poeCategorizedStats>): Array<poeCategorizedStats> {
+    if (!searchText) return values;
 
-    if (!this.statsToSearch) return;
-    if (!searchText) return this.statsToSearch;
+    let filteredStats = values.map(statCategory => ({
+      category: statCategory.category, 
+      stats: statCategory.stats.filter(stat => {
+        const text = searchText.toLowerCase().trim().split(/\s+/);
 
-    this.filteredStats = this.statsToSearch.map(statCategory => ({
-    category: statCategory.category, 
-    stats: filterSearch(statCategory.stats, searchText)
+        return text.filter(text => {
+          return stat.text.toLowerCase().indexOf(text) != -1;
+        }).length == text.length;
+      })
     }));
 
-    return this.filteredStats.filter(statSearch => statSearch.stats.length > 0)
+    return filteredStats.filter(statSearch => statSearch.stats.length > 0);
   }
 
   /**
@@ -77,9 +95,13 @@ export class StatselectComponent implements OnInit {
    * 
    * @param searchText 
    *        string: text to filter by
+   * @param values
+   *         poeCategorizedStats['stats'][0]['option']: The options to filter by
+   * 
+   * @returns  poeCategorizedStats['stats'][0]['option']: The filtered results
    */
-  public filterStatOptions(searchText: string) {
-    let statOptions = this.statGroup.controls.selectedStat.value.option.filter(stat => {
+  public filterStatOptions(searchText: string, values: poeCategorizedStats['stats'][0]['option']) {
+    let statOptions = values.filter(stat => {
       return stat.text.toLowerCase().indexOf(searchText.toLowerCase()) != -1;
     });
 

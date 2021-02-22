@@ -28,31 +28,66 @@
                 </app-inputwrapper>
                 <app-inputwrapper class="field" matAutocompleteOrigin #altArtSelect="matAutocompleteOrigin">
                     <span label>Alternate Art</span> 
-                    <app-filtergroupselect [autoCompleteHost]='altArtSelect' [control]="this.otherForm['controls'].alternate_art['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                    <app-searchselect [values]="simpleDataService.simpleTrueFalse"
+                                        [autoCompleteHost]='altArtSelect' 
+                                        [filterBy]="simpleDataService.filterSimpleData"
+                                        [displayBy]="simpleDataService.displayByText"   
+                                        [setValue]="simpleDataService.getSelectedValue(this.otherForm['controls'].alternate_art['controls'].option.value, simpleDataService.simpleTrueFalse)"
+                                        (selected)="this.otherForm['controls'].alternate_art['controls'].option.patchValue($event.id)"></app-searchselect> 
                 </app-inputwrapper>
                 <app-inputwrapper class="field" matAutocompleteOrigin #identifiedSelect="matAutocompleteOrigin">
                     <span label>Identified</span> 
-                    <app-filtergroupselect [autoCompleteHost]='identifiedSelect' [control]="this.otherForm['controls'].identified['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                    <app-searchselect [values]="simpleDataService.simpleTrueFalse"
+                                        [autoCompleteHost]='identifiedSelect' 
+                                        [filterBy]="simpleDataService.filterSimpleData"
+                                        [displayBy]="simpleDataService.displayByText"   
+                                        [setValue]="simpleDataService.getSelectedValue(this.otherForm['controls'].identified['controls'].option.value, simpleDataService.simpleTrueFalse)"
+                                        (selected)="this.otherForm['controls'].identified['controls'].option.patchValue($event.id)"></app-searchselect> 
                 </app-inputwrapper>
                 <app-inputwrapper class="field" matAutocompleteOrigin #corruptedSelect="matAutocompleteOrigin">
                     <span label>Corrupted</span> 
-                    <app-filtergroupselect [autoCompleteHost]='corruptedSelect' [control]="this.otherForm['controls'].corrupted['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                    <app-searchselect [values]="simpleDataService.simpleTrueFalse"
+                                        [autoCompleteHost]='corruptedSelect'
+                                        [filterBy]="simpleDataService.filterSimpleData"
+                                        [displayBy]="simpleDataService.displayByText"   
+                                        [setValue]="simpleDataService.getSelectedValue(this.otherForm['controls'].corrupted['controls'].option.value, simpleDataService.simpleTrueFalse)"
+                                        (selected)="this.otherForm['controls'].corrupted['controls'].option.patchValue($event.id)"></app-searchselect> 
                 </app-inputwrapper>
                 <app-inputwrapper class="field" matAutocompleteOrigin #mirroredSelect="matAutocompleteOrigin">
                     <span label>Mirrored</span> 
-                    <app-filtergroupselect [autoCompleteHost]='mirroredSelect' [control]="this.otherForm['controls'].mirrored['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                    <app-searchselect [values]="simpleDataService.simpleTrueFalse"
+                                        [autoCompleteHost]='mirroredSelect'
+                                        [filterBy]="simpleDataService.filterSimpleData"
+                                        [displayBy]="simpleDataService.displayByText"   
+                                        [setValue]="simpleDataService.getSelectedValue(this.otherForm['controls'].mirrored['controls'].option.value, simpleDataService.simpleTrueFalse)"
+                                        (selected)="this.otherForm['controls'].mirrored['controls'].option.patchValue($event.id)"></app-searchselect> 
                 </app-inputwrapper>
                 <app-inputwrapper class="field" matAutocompleteOrigin #craftedSelect="matAutocompleteOrigin">
                     <span label>Crafted</span> 
-                    <app-filtergroupselect [autoCompleteHost]='craftedSelect' [control]="this.otherForm['controls'].crafted['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                    <app-searchselect [values]="simpleDataService.simpleTrueFalse"
+                                        [autoCompleteHost]='craftedSelect'
+                                        [filterBy]="simpleDataService.filterSimpleData"
+                                        [displayBy]="simpleDataService.displayByText"   
+                                        [setValue]="simpleDataService.getSelectedValue(this.otherForm['controls'].crafted['controls'].option.value, simpleDataService.simpleTrueFalse)"
+                                        (selected)="this.otherForm['controls'].crafted['controls'].option.patchValue($event.id)"></app-searchselect>
                 </app-inputwrapper>
                 <app-inputwrapper class="field" matAutocompleteOrigin #veiledSelect="matAutocompleteOrigin">
                     <span label>Veiled</span> 
-                    <app-filtergroupselect [autoCompleteHost]='veiledSelect' [control]="this.otherForm['controls'].veiled['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                    <app-searchselect [values]="simpleDataService.simpleTrueFalse"
+                                        [autoCompleteHost]='veiledSelect' 
+                                        [filterBy]="simpleDataService.filterSimpleData"
+                                        [displayBy]="simpleDataService.displayByText"   
+                                        [setValue]="simpleDataService.getSelectedValue(this.otherForm['controls'].veiled['controls'].option.value, simpleDataService.simpleTrueFalse)"
+                                        (selected)="this.otherForm['controls'].veiled['controls'].option.patchValue($event.id)"></app-searchselect> 
                 </app-inputwrapper>
                 <app-inputwrapper class="field" matAutocompleteOrigin #enchantedSelect="matAutocompleteOrigin">
                     <span label>Enchanted</span> 
-                    <app-filtergroupselect [autoCompleteHost]='enchantedSelect' [control]="this.otherForm['controls'].enchanted['controls'].option" [selectEnum]="TRUE_FALSE"></app-filtergroupselect>
+                    <app-searchselect [values]="simpleDataService.simpleTrueFalse"
+                                        [autoCompleteHost]='enchantedSelect'
+                                        [filterBy]="simpleDataService.filterSimpleData"
+                                        [displayBy]="simpleDataService.displayByText"   
+                                        [setValue]="simpleDataService.getSelectedValue(this.otherForm['controls'].enchanted['controls'].option.value, simpleDataService.simpleTrueFalse)"
+                                        (selected)="this.otherForm['controls'].enchanted['controls'].option.patchValue($event.id)"></app-searchselect> 
                 </app-inputwrapper>
             </div>
         </div>
