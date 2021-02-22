@@ -6,7 +6,7 @@
                 [matAutocompleteConnectedTo]="autoCompleteHost"
                 [placeholder]="getPlaceholder()"
                 [formControl]="search"
-                (blur)="selectingOption ? '' : 
+                (blur)="selectingOption ? selectInput.focus() : 
                         (clearable && !search.value ? clear() : search.patchValue(displayBy ? displayBy(selectedValue) : selectedValue, {emitEvent: false}))">
         
         <span matSuffix>
