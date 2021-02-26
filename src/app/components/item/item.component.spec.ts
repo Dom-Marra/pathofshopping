@@ -95,7 +95,7 @@ class StatFiltersStub {
   @Output() filterRemoved: EventEmitter<any> = new EventEmitter<any>();
 }
 
-fdescribe('ItemComponent', () => {
+describe('ItemComponent', () => {
   const mockLeague = 'Mock League';
 
   let component: ItemComponent;
