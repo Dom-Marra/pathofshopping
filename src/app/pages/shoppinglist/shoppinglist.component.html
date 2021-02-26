@@ -20,7 +20,7 @@
                            (blur)="editShoppingListName = false" (keydown.enter)="shoppingListNameInput.blur()">
                 </mat-form-field>
                 <div id="shoppinglist-name-output-wrapper" *ngIf="!editShoppingListName">
-                    <h3 id="shoppinglist-name-output">{{ this.shoppingList.value.name.length > 0 ? this.shoppingList.value.name : 'Your Shopping List' }}</h3>
+                    <h3 id="shoppinglist-name-output">{{ this.shoppingList.value.name?.length > 0 ? this.shoppingList.value.name : 'Your Shopping List' }}</h3>
                     <button (click)="editShoppingListName = true" mat-icon-button class="transparent-mat-button fix-height-mat-icon"><mat-icon>edit</mat-icon></button>
                 </div>
             </div>
@@ -31,7 +31,7 @@
         </div>
         <div id="shopping-list-contents">
             <mat-tab-group class="item-tabs" animationDuration="0ms" dynamicHeight>
-                <mat-tab *ngFor="let item of items" [label]="item.itemForm.value.itemName">
+                <mat-tab *ngFor="let item of items" [label]="item.itemForm.value.itemName ? item.itemForm.value.itemName : 'New Item'">
                     <ng-template matTabContent>
                         <app-item [itemData]="item" [league]="this.shoppingList.value.league" (deleteItem)="deleteItem($event)"></app-item>
                     </ng-template>

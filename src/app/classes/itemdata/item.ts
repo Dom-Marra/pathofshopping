@@ -23,12 +23,12 @@ export class Item {
     public loadSaveData() {
 
         //Have to add a new stat filter for each one saved
-        this.savedItemData.queryForm.query.stats.forEach(statGroup => {
+        this.savedItemData.queryForm.query.stats?.forEach(statGroup => {
             let newStatGroup = new StatFilterForm();
             (this.itemForm.get('queryForm.query.stats') as FormArray).push(newStatGroup);
 
             //Have to add a stat for each on saved
-            statGroup.filters.forEach(filter => {
+            statGroup.filters?.forEach(filter => {
                 (newStatGroup.controls.filters as FormArray).push(new StatForm);
             });
         });

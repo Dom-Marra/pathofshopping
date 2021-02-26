@@ -46,7 +46,7 @@ describe('PoeService', () => {
     });
 
     it('should properly set the poe leagues data', () => {
-      expect(service.getLeagues()).toEqual({testLeagueName: 'Test League Name To Print'});
+      expect(service.getLeagues()).toEqual([{id: 'testLeagueName', text: 'Test League Name To Print'}]);
     });
 
     it('should use GET method while retrieving POE Items', () => {

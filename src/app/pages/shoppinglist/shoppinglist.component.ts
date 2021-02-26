@@ -32,7 +32,7 @@ export class ShoppinglistComponent implements OnInit {
   public shoppingList = new FormGroup({                             //Shopping list base inputs
     league: new FormControl(),
     name: new FormControl('Your Shopping List')
-  })
+  });
 
   constructor(private cd: ChangeDetectorRef, 
               private poeAPI: PoeService, 
@@ -57,14 +57,13 @@ export class ShoppinglistComponent implements OnInit {
       }
     );
 
-    this.activeRoute.queryParamMap.subscribe(params => {
-      if (params.get('list')) {
-        this.load(params.get('list'));
-      } else {
-        this.addItem();
-      }
-    })
-    
+    let queryParam = this.activeRoute.snapshot.queryParamMap.get('list');
+
+    if (queryParam) {
+      this.load(queryParam);
+    } else {
+      this.addItem();
+    }
   }
 
   ngOnInit(): void {
@@ -154,13 +153,13 @@ export class ShoppinglistComponent implements OnInit {
         //Set league and name
         this.shoppingList.controls.name.patchValue((doc.data() as shoppingListSaveData).name);
         this.shoppingList.controls.league.patchValue((doc.data() as shoppingListSaveData).league);
-        this.listLoading = false;
 
       } else {  //Doc doesn't exist
         this.displayErrorSnackBar('Error: No such list exists!');
         this.addItem();
-        this.listLoading = false;
       }
+
+      this.listLoading = false;
     }).catch(() => {      //Err while trying to read the doc     
       this.displayErrorSnackBar('Error: Could not load the list');
       this.addItem();
