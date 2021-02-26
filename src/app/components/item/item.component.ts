@@ -4,11 +4,9 @@ import { Item } from '../../classes/itemdata/item';
 import { StatFilterForm } from 'src/app/classes/formgroups/stat-filter-form';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { PoeService } from 'src/app/services/poe.service';
-
-enum statusOptions {
-  any = 'All',
-  online = 'Online'
-}
+import { simpleData } from 'src/app/models/simpleData';
+import { SimpleDataService } from 'src/app/services/simpledata.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-item',
@@ -21,12 +19,19 @@ export class ItemComponent implements OnInit {
   @Input() itemData: Item;
   @Input() league: string;
   @ViewChildren("itemNameInput") itemNameInput: QueryList<ElementRef>;                            //Item name input element
-  public readonly STATUS_OPTIONS: typeof statusOptions = statusOptions;
 
   public editName: boolean = false;                         //Whether name is in edit mode or not
   public showResults: boolean = false;                      //Used to show results tab
+  public statusOptions: Array<simpleData> = [               //Status options
+    {id: 'any', text: 'All'},
+    {id: 'online', text: 'Online'}
+  ];
+  private _fetchSub: Subscription = new Subscription();     //Init fetch sub
 
-  constructor(private cd: ChangeDetectorRef, private snackBar: MatSnackBar, private poe: PoeService) {  
+  constructor(private cd: ChangeDetectorRef, 
+              private snackBar: MatSnackBar, 
+              private poe: PoeService,
+              public simpleDataService: SimpleDataService) {  
   }
 
   ngAfterViewInit() {
@@ -62,7 +67,7 @@ export class ItemComponent implements OnInit {
 
     data = this.removeEmpty(data);                            //clean the data
 
-    let fetchSub = this.poe.search(data, this.league).subscribe(
+    this._fetchSub = this.poe.search(data, this.league).subscribe(
       (fetch: any) => {       //Fetch items based on data
         if (fetch.result != null && fetch.result.length > 0) {
 
@@ -77,7 +82,7 @@ export class ItemComponent implements OnInit {
 
           //Show results and close sub
           this.showResults = true;
-          fetchSub.unsubscribe();
+          this._fetchSub.unsubscribe();
         } else {
           this.displayErrorSnackBar('No results found. Please widen parameters');
         }
@@ -94,7 +99,7 @@ export class ItemComponent implements OnInit {
    * @param err 
    *        string: error message
    */
-  public displayErrorSnackBar(err: string) {
+  private displayErrorSnackBar(err: string) {
     this.snackBar.open(err, 'close', {
       panelClass: 'error-snack-bar',
       duration: 3000
@@ -126,12 +131,15 @@ export class ItemComponent implements OnInit {
    * @param obj 
    *        Object: object to remove empty fields from
    */
-  public removeEmpty(obj: any): any {
+  private removeEmpty(obj: any): any {
 
     Object.keys(obj).forEach(key => {                                                       //cycle through fields
       if (obj[key] && typeof obj[key] === 'object') this.removeEmpty(obj[key]);             //If it has nested objects cycle through
-      else if (obj[key] == null || obj[key] == "all" || obj[key] == "") delete obj[key];    //delete field if empty, or has a value of all
-  
+      else if (obj[key] == null || obj[key] == "all" || obj[key] == "")  {                  //delete field if empty, or has a value of all
+        if (Array.isArray(obj)) obj.splice(parseInt(key), 1);
+        else delete obj[key];
+      }
+
       if (!obj[key] || typeof obj[key] !== "object") return;                                //return if the current value is not a object
   
       if (Object.keys(obj[key]).length === 0) delete obj[key];                              //delete empty objects

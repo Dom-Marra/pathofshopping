@@ -2,11 +2,11 @@
     <div class="min-max-fields">
         <mat-form-field>
             <mat-label>Min</mat-label>
-            <input digitsonly float='true' matInput type="text" autocomplete="off" formControlName="min">
+            <input digitsonly [float]='true' matInput type="text" autocomplete="off" formControlName="min">
         </mat-form-field>
         <mat-form-field>
             <mat-label>Max</mat-label>
-            <input digitsonly float='true'matInput type="text" autocomplete="off" formControlName="max">
+            <input digitsonly [float]='true' matInput type="text" autocomplete="off" formControlName="max">
         </mat-form-field>
     </div>
 </div>

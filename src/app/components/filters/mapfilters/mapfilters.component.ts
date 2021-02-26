@@ -1,34 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MapForm } from 'src/app/classes/formgroups/map-form';
-import { trueFlase } from '../../../enums/TrueFalseEnum';
-
-enum mapSeries {
-  '' = 'All',
-  current = 'Current',
-  harvest = 'Harvest',
-  delirium = 'Delirium',
-  metamorph = 'Metamorph',
-  blight = 'Blight',
-  legion = 'Legion',
-  synthesis = 'Synthesis',
-  betrayal = 'Betrayal',
-  worfortheatlas = 'War for The Atlas',
-  atlasofworlds = 'Atlas of Worlds',
-  theawakening = 'The Awakening',
-  legacy = 'Legacy'
-}
-
-enum mapRegion {
-  '' = 'All',
-  otl = "Haewark Hamlet",
-  itl = "Tirn's End",
-  itr = "Lex Proxima",
-  otr = "Lex Ejoris",
-  obl = "New Vastir",
-  ibl = "Glennach Cairn",
-  ibr = "Valdo's Rest",
-  obr = "Lira Arthain"
-}
+import { simpleData } from 'src/app/models/simpleData';
+import { SimpleDataService } from 'src/app/services/simpledata.service';
 
 @Component({
   selector: 'app-mapfilters',
@@ -37,13 +10,36 @@ enum mapRegion {
 })
 export class MapfiltersComponent implements OnInit {
 
-  public readonly MAP_REGION: typeof mapRegion = mapRegion;               //Used for map region selection
-  public readonly MAP_SERIES: typeof mapSeries = mapSeries;               //used for map series selection
-  public readonly TRUE_FALSE: typeof trueFlase = trueFlase;               //used for true false selection
+  public readonly mapRegions: Array<simpleData> = [     //Used for map region selection
+    {id: '', text: 'All'},
+    {id: 'otl', text: "Haewark Hamlet"},
+    {id: 'itl', text: "Tirn's End"},
+    {id: 'itr', text: "Lex Proxima"},
+    {id: 'otr', text: "Lex Ejoris"},
+    {id: 'obl', text: "New Vastir"},
+    {id: 'ibl', text: "Glennach Cairn"},
+    {id: 'ibr', text: "Valdo's Rest"},
+    {id: 'obr', text: "Lira Arthain"}
+  ];               
+  public readonly mapSeries: Array<simpleData> = [     //used for map series selection
+    {id: '', text: 'All'},
+    {id: 'current', text: 'Current'},
+    {id: 'harvest', text: 'Harvest'},
+    {id: 'delirium', text: 'Delirium'},
+    {id: 'metamorph', text: 'Metamorph'},
+    {id: 'blight', text: 'Blight'},
+    {id: 'legion', text: 'Legion'},
+    {id: 'synthesis', text: 'Synthesis'},
+    {id: 'betrayal', text: 'Betrayal'},
+    {id: 'worfortheatlas', text: 'War for The Atlas'},
+    {id: 'atlasofworlds', text: 'Atlas of Worlds'},
+    {id: 'theawakening', text: 'The Awakening'},
+    {id: 'legacy', text: 'Legacy'}
+  ];               
 
   @Input() mapForm: MapForm;                                             //Main item form
 
-  constructor() {
+  constructor(public simpleDataService: SimpleDataService) {
   }
 
   ngOnInit(): void {

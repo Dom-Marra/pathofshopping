@@ -15,8 +15,13 @@
                     <app-minmaxinput [group]="this.gemForm['controls'].gem_level_progress"></app-minmaxinput>
                 </app-inputwrapper>
                 <app-inputwrapper class="field" matAutocompleteOrigin #qualitySelect="matAutocompleteOrigin">
-                    <span label>Quality Type</span> 
-                    <app-filtergroupselect [autoCompleteHost]='qualitySelect' [control]="this.gemForm['controls'].gem_alternate_quality['controls'].option" [selectEnum]="GEM_QUALITY_TYPES"></app-filtergroupselect>
+                    <span label>Quality Type</span>
+                    <app-searchselect [values]="gemQualityTypes"
+                                        [autoCompleteHost]='qualitySelect' 
+                                        [filterBy]="simpleDataService.filterSimpleData"
+                                        [displayBy]="simpleDataService.displayByText"   
+                                        [setValue]="simpleDataService.getSelectedValue(this.gemForm['controls'].gem_alternate_quality['controls'].option.value, gemQualityTypes)"
+                                        (selected)="this.gemForm['controls'].gem_alternate_quality['controls'].option.patchValue($event.id)"></app-searchselect> 
                 </app-inputwrapper>
             </div>
         </div>

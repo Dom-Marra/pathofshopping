@@ -4,7 +4,14 @@
     <div *ngIf="!listLoading && !poeLoading && !errMsg" id="shoppinglist-contents-container">
         <div id="shoppinglist-contents-top-bar">
             <div class="top-bar-flex-wrap">
-                <app-filtergroupselect class="league-select mat-input-500" autoCompleteClass='autocomplete-panel-400' inputName='League' [control]="this.shoppingList.controls.league" [selectEnum]="LEAGUES"></app-filtergroupselect>
+                <app-searchselect class="league-select mat-input-500" 
+                                    autoCompleteClass='autocomplete-panel-400' 
+                                    inputName='League'
+                                    [values]="leagues"
+                                    [filterBy]="simpleDataService.filterSimpleData"
+                                    [displayBy]="simpleDataService.displayByText"
+                                    [setValue]="simpleDataService.getSelectedValue(this.shoppingList.controls.league.value, leagues)"
+                                    (selected)="this.shoppingList.controls.league.patchValue($event.id)"></app-searchselect>
             </div>
             <div id="shoppinglist-name-bar" class="mat-input-500">
                 <mat-form-field *ngIf="editShoppingListName" floatLabel="never" class="shopping-list-name-input">
@@ -13,7 +20,7 @@
                            (blur)="editShoppingListName = false" (keydown.enter)="shoppingListNameInput.blur()">
                 </mat-form-field>
                 <div id="shoppinglist-name-output-wrapper" *ngIf="!editShoppingListName">
-                    <h3 id="shoppinglist-name-output">{{ this.shoppingList.value.name.length > 0 ? this.shoppingList.value.name : 'Your Shopping List' }}</h3>
+                    <h3 id="shoppinglist-name-output">{{ this.shoppingList.value.name?.length > 0 ? this.shoppingList.value.name : 'Your Shopping List' }}</h3>
                     <button (click)="editShoppingListName = true" mat-icon-button class="transparent-mat-button fix-height-mat-icon"><mat-icon>edit</mat-icon></button>
                 </div>
             </div>
@@ -24,7 +31,7 @@
         </div>
         <div id="shopping-list-contents">
             <mat-tab-group class="item-tabs" animationDuration="0ms" dynamicHeight>
-                <mat-tab *ngFor="let item of items" [label]="item.itemForm.value.itemName">
+                <mat-tab *ngFor="let item of items" [label]="item.itemForm.value.itemName ? item.itemForm.value.itemName : 'New Item'">
                     <ng-template matTabContent>
                         <app-item [itemData]="item" [league]="this.shoppingList.value.league" (deleteItem)="deleteItem($event)"></app-item>
                     </ng-template>

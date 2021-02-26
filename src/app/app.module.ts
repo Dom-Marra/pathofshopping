@@ -28,7 +28,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { DigitsonlyDirective } from './directives/digitsonly.directive';
 import { ItemComponent } from './components/item/item.component';
 import { EqualflexDirective } from './directives/equalflex.directive';
-import { FiltergroupselectComponent } from './components/inputs/filtergroupselect/filtergroupselect.component';
+import { SearchSelectComponent } from './components/inputs/searchselect/searchselect.component';
 import { MinmaxinputComponent } from './components/inputs/minmaxinput/minmaxinput.component';
 import { StatselectComponent } from './components/inputs/statselect/statselect.component';
 import { WeaponfiltersComponent } from './components/filters/weaponfilters/weaponfilters.component';
@@ -58,7 +58,7 @@ import { environment } from 'src/environments/environment';
     DigitsonlyDirective,
     ItemComponent,
     EqualflexDirective,
-    FiltergroupselectComponent,
+    SearchSelectComponent,
     MinmaxinputComponent,
     StatselectComponent,
     WeaponfiltersComponent,

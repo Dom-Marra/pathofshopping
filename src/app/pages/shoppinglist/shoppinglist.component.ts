@@ -9,7 +9,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { SavedialogComponent } from 'src/app/components/savedialog/savedialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { PoeService } from 'src/app/services/poe.service';
-import { leagueData } from 'src/app/models/leagueData';
+import { SimpleDataService } from 'src/app/services/simpledata.service';
+import { simpleData } from 'src/app/models/simpleData';
 
 @Component({
   selector: 'app-shoppinglist',
@@ -22,7 +23,7 @@ export class ShoppinglistComponent implements OnInit {
   
   public listLoading: boolean;                                      //If the shopping list is loading data from firebase
   public poeLoading: boolean;                                       //If the poe api data is loading
-  public LEAGUES: leagueData = {};                                  //Used for iterating over leaguess
+  public leagues: Array<simpleData> = [];                           //Used for iterating over leaguess
   public editShoppingListName: boolean = false;                     //Whether the shopping list input is disabled or not
   public items: Array<Item> = [];                                   //Stores item data
 
@@ -31,14 +32,15 @@ export class ShoppinglistComponent implements OnInit {
   public shoppingList = new FormGroup({                             //Shopping list base inputs
     league: new FormControl(),
     name: new FormControl('Your Shopping List')
-  })
+  });
 
   constructor(private cd: ChangeDetectorRef, 
               private poeAPI: PoeService, 
               private fireService: FirebaseService,
               private activeRoute: ActivatedRoute,
               private dialog: MatDialog,
-              private snackBar: MatSnackBar) { 
+              private snackBar: MatSnackBar,
+              public simpleDataService: SimpleDataService) { 
 
     
     let poeAPILoad = this.poeAPI.loaded.subscribe(
@@ -46,7 +48,7 @@ export class ShoppinglistComponent implements OnInit {
         this.poeLoading = !loaded;
 
         if (loaded) {
-          this.LEAGUES = this.poeAPI.getLeagues();
+          this.leagues = this.poeAPI.getLeagues();
           poeAPILoad.unsubscribe();
         }
       },
@@ -55,22 +57,21 @@ export class ShoppinglistComponent implements OnInit {
       }
     );
 
-    this.activeRoute.queryParamMap.subscribe(params => {
-      if (params.get('list')) {
-        this.load(params.get('list'));
-      } else {
-        this.addItem();
-      }
-    })
-    
+    let queryParam = this.activeRoute.snapshot.queryParamMap.get('list');
+
+    if (queryParam) {
+      this.load(queryParam);
+    } else {
+      this.addItem();
+    }
   }
 
   ngOnInit(): void {
   }
 
   ngDoCheck() {
-    if (this.shoppingList.controls.league.value == null && Object.keys(this.LEAGUES).length > 0) {
-      this.shoppingList.controls.league.patchValue(this.LEAGUES[Object.keys(this.LEAGUES)[0]]);
+    if (this.shoppingList.controls.league.value == null && this.leagues.length > 0) {
+      this.shoppingList.controls.league.patchValue(this.leagues[0].id);
     }
   }
 
@@ -152,13 +153,13 @@ export class ShoppinglistComponent implements OnInit {
         //Set league and name
         this.shoppingList.controls.name.patchValue((doc.data() as shoppingListSaveData).name);
         this.shoppingList.controls.league.patchValue((doc.data() as shoppingListSaveData).league);
-        this.listLoading = false;
 
       } else {  //Doc doesn't exist
         this.displayErrorSnackBar('Error: No such list exists!');
         this.addItem();
-        this.listLoading = false;
       }
+
+      this.listLoading = false;
     }).catch(() => {      //Err while trying to read the doc     
       this.displayErrorSnackBar('Error: Could not load the list');
       this.addItem();
