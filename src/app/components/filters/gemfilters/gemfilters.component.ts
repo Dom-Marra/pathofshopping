@@ -33,6 +33,26 @@ export class GemfiltersComponent implements OnInit {
     if (this.gemForm.controls.gemForm_disabled.value && this.gemForm.enabled) {
       this.gemForm.disable({emitEvent: false, onlySelf: true});
     }
+
+    for (const control in this.gemForm.controls) {
+      this.gemForm.controls[control].valueChanges.subscribe(() => {
+        this.checkIfDirty();
+      });
+    }
+  }
+
+  /**
+   * Checks if the any of the controls are dirty and marks the formgroup as dirty if true
+   */
+  public checkIfDirty() {
+    let dirty = false;
+
+    for (const control in this.gemForm.controls) { 
+      if (this.gemForm.controls[control].dirty) dirty = true;
+    }
+    
+    if (dirty) this.gemForm.markAsDirty();
+    else this.gemForm.markAsPristine();
   }
 
   /**

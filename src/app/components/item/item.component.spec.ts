@@ -516,17 +516,17 @@ describe('ItemComponent', () => {
 
       it('should use the influenceForm group from the misc_filters as the influenceForm input on the specialbases component', () => {
         let specialbasesComp = fixture.debugElement.query(By.css('app-specialbases')).componentInstance as SpecialBasesStub;
-        expect(specialbasesComp.influenceForm).toEqual(filterGroup.get('misc_filters')['influenceForm'] as FormGroup);
+        expect(specialbasesComp.influenceForm).toEqual(component.itemData.influenceForm);
       });
 
       it('should use the gemForm group from the misc_filters as the gemForm input on the gemfilters', () =>{
         let gemFiltersComp = fixture.debugElement.query(By.css('app-gemfilters')).componentInstance as GemFiltersStub;
-        expect(gemFiltersComp.gemForm).toEqual(filterGroup.get('misc_filters')['gemForm'] as FormGroup);
+        expect(gemFiltersComp.gemForm).toEqual(component.itemData.gemForm);
       });
 
       it('should use the otherFrom group from the misc_filters as the otherForm input on the otherFilters', () =>{
         let otherFiltersComp = fixture.debugElement.query(By.css('app-otherfilters')).componentInstance as OtherFiltersStub;
-        expect(otherFiltersComp.otherForm).toEqual(filterGroup.get('misc_filters')['otherForm'] as FormGroup);
+        expect(otherFiltersComp.otherForm).toEqual(component.itemData.otherForm);
       });
 
       it('should use the trade_filters form group as the tradeForm input on tradefilters', () => {

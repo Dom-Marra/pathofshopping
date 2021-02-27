@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ArmourForm } from 'src/app/classes/formgroups/armour-form';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-armourfilters',
@@ -8,7 +8,7 @@ import { ArmourForm } from 'src/app/classes/formgroups/armour-form';
 })
 export class ArmourfiltersComponent implements OnInit {
 
-  @Input() armourForm: ArmourForm;    //Amour Form
+  @Input() armourForm: FormGroup;    //Amour Form
 
   constructor() { 
   }

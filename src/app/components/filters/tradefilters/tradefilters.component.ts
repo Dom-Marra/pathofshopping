@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { TradeForm } from 'src/app/classes/formgroups/trade-form';
+import { FormGroup } from '@angular/forms';
 import { simpleData } from 'src/app/models/simpleData';
 import { SimpleDataService } from 'src/app/services/simpledata.service';
 
@@ -44,7 +44,7 @@ export class TradefiltersComponent implements OnInit {
     {id: 'vaal', text: "Vaal Orb"},
   ]
 
-  @Input() tradeForm: TradeForm;          //Filters from group to add filters to
+  @Input() tradeForm: FormGroup;          //Filters from group to add filters to
   
   constructor(public simpleDataService: SimpleDataService) { }
 

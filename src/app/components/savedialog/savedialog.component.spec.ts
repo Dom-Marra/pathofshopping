@@ -23,7 +23,7 @@ class MatDialogRefStub {
   public addPanelClass(className: string) { };
 }
 
-fdescribe('SavedialogComponent', () => {
+describe('SavedialogComponent', () => {
   let component: SavedialogComponent;
   let fixture: ComponentFixture<SavedialogComponent>;
   let matDialogDataPromise: Promise<any> = new Promise((resolve, reject) => {});
