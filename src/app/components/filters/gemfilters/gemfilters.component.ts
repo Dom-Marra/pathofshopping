@@ -54,11 +54,4 @@ export class GemfiltersComponent implements OnInit {
     if (dirty) this.gemForm.markAsDirty();
     else this.gemForm.markAsPristine();
   }
-
-  /**
-   * Resets to default values for inputs
-   */
-  public reset() {
-    this.gemForm.reset();
-  }
 }
