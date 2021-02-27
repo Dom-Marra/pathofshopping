@@ -38,6 +38,9 @@ export class SocketfiltersComponent implements OnInit {
     }
   }
 
+  /**
+   * Sets the socketLinksExtras data
+   */
   private initLinksData() {
     this.socketLinksExtras = [                                                           //links extra input data
       {label: 'R', control: this.socketForm.get('filters.links.r'), inputClass: 'socket-input-r'},
@@ -47,6 +50,9 @@ export class SocketfiltersComponent implements OnInit {
     ]
   }
 
+  /**
+   * Sets the socketSocketExtras data
+   */
   private initSocketsData() {
     this.socketSocketsExtras = [                                                         //sockets extra input data
       {label: 'R', control: this.socketForm.get('filters.sockets.r'), inputClass: 'socket-input-r'},
@@ -55,12 +61,4 @@ export class SocketfiltersComponent implements OnInit {
       {label: 'W', control: this.socketForm.get('filters.sockets.w'), inputClass: 'socket-input-w'}
     ]
   }
-
-  /**
-   * Reset to inputs to default values
-   */
-  public reset() {
-    this.socketForm.reset();
-  }
-
 }
