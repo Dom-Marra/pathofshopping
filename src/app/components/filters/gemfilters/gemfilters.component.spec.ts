@@ -144,11 +144,11 @@ describe('GemfiltersComponent', () => {
         await expansionHarness.toggle();
         let inputwrapper = fixture.debugElement.queryAll(By.css('app-inputwrapper'));
 
-        let arInput = inputwrapper[0].query(By.css('app-minmaxinput')).componentInstance as MinMaxInputStub;
-        let esInput = inputwrapper[1].query(By.css('app-minmaxinput')).componentInstance as MinMaxInputStub;
+        let gemLevelInput = inputwrapper[0].query(By.css('app-minmaxinput')).componentInstance as MinMaxInputStub;
+        let gemelvlProgInput = inputwrapper[1].query(By.css('app-minmaxinput')).componentInstance as MinMaxInputStub;
 
-        expect(arInput.group).toBe(component.gemForm.get('gem_level') as FormGroup);
-        expect(esInput.group).toBe(component.gemForm.get('gem_level_progress') as FormGroup);
+        expect(gemLevelInput.group).toBe(component.gemForm.get('gem_level') as FormGroup);
+        expect(gemelvlProgInput.group).toBe(component.gemForm.get('gem_level_progress') as FormGroup);
       });
     });
 
