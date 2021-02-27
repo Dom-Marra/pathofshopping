@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { MapForm } from 'src/app/classes/formgroups/map-form';
+import { FormGroup } from '@angular/forms';
 import { simpleData } from 'src/app/models/simpleData';
 import { SimpleDataService } from 'src/app/services/simpledata.service';
 
@@ -37,7 +37,7 @@ export class MapfiltersComponent implements OnInit {
     {id: 'legacy', text: 'Legacy'}
   ];               
 
-  @Input() mapForm: MapForm;                                             //Main item form
+  @Input() mapForm: FormGroup;                                             //Main item form
 
   constructor(public simpleDataService: SimpleDataService) {
   }

@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { AbstractControl } from '@angular/forms';
-import { SocketForm } from 'src/app/classes/formgroups/socket-form';
+import { AbstractControl, FormGroup } from '@angular/forms';
 
 export interface socketData {
   label: string,
@@ -15,7 +14,7 @@ export interface socketData {
 })
 export class SocketfiltersComponent implements OnInit {
 
-  @Input() socketForm: SocketForm;     //Socket form
+  @Input() socketForm: FormGroup;     //Socket form
 
   public socketLinksExtras: Array<socketData>;    //links extra input data
 
