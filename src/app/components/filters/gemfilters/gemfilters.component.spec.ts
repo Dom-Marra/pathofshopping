@@ -167,7 +167,8 @@ describe('GemfiltersComponent', () => {
       it('should set the inputs correctly', async () => {
         let searchSelectComp =  searchselect.componentInstance as SearchSelectStubComponent
         let autocomplethost = inputwrapper[2].injector.get(MatAutocompleteOrigin);
-
+        
+        expect(searchSelectComp.values).toEqual(component.gemQualityTypes);
         expect(searchSelectComp.autoCompleteHost).toEqual(autocomplethost);
         expect(searchSelectComp.filterBy).toEqual(simpleDataService.filterSimpleData);
         expect(searchSelectComp.displayBy).toEqual(simpleDataService.displayByText);
