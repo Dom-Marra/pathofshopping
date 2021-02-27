@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { RequirementsForm } from 'src/app/classes/formgroups/requirements-form';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-requirements',
@@ -8,7 +8,7 @@ import { RequirementsForm } from 'src/app/classes/formgroups/requirements-form';
 })
 export class RequirementsComponent implements OnInit {
 
-  @Input() requirementsForm: RequirementsForm;       //Req form
+  @Input() requirementsForm: FormGroup;       //Req form
 
   constructor() {
   }

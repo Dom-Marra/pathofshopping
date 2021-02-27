@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { WeaponForm } from 'src/app/classes/formgroups/weapon-form';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-weaponfilters',
@@ -8,7 +8,7 @@ import { WeaponForm } from 'src/app/classes/formgroups/weapon-form';
 })
 export class WeaponfiltersComponent implements OnInit {
 
-  @Input() weaponForm: WeaponForm;          //Weapon form
+  @Input() weaponForm: FormGroup;          //Weapon form
 
   constructor() { 
   }
