@@ -110,13 +110,6 @@ export class TypefiltersComponent implements OnInit {
   }
 
   /**
-   * Processes the selected item from the item search autofill
-   */
-  public selectItem(item: poeCategorizedItems["items"][0]) {
-    this.setNTT(item.name, item.type, item.text);
-  }
-
-  /**
    * Sets the name, term and type for the query form depending on inputted name & type, or 
    * the search value
    * 
@@ -185,12 +178,11 @@ export class TypefiltersComponent implements OnInit {
    * @param values 
    *        Array<poeCategorizedItem>: array to unshift from
    */
-  public shiftCustomSearch(shift: boolean, values: Array<poeCategorizedItems>) {
+  private shiftCustomSearch(shift: boolean, values: Array<poeCategorizedItems>) {
     if (values.indexOf(this.customItemSearch) == 0 && shift) {
       values.shift();
     } else if (values.indexOf(this.customItemSearch) == -1 && !shift) {
       values.unshift(this.customItemSearch);
     }
   }
-
 }
