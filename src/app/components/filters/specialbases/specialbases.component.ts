@@ -45,11 +45,4 @@ export class SpecialbasesComponent implements OnInit {
     if (dirty) this.influenceForm.markAsDirty();
     else this.influenceForm.markAsPristine();
   }
-
-  /**
-   * Resets to default values for inputs
-   */
-  public reset() {
-    this.influenceForm.reset();
-  }
 }
