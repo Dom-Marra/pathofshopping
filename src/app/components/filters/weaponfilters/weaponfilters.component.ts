@@ -24,11 +24,4 @@ export class WeaponfiltersComponent implements OnInit {
       this.weaponForm.disable();
     }
   }
-
-  /**
-   * Reset to inputs to default values
-   */
-  public reset() {
-    this.weaponForm.reset();
-  }
 }
