@@ -45,11 +45,4 @@ export class OtherfiltersComponent implements OnInit {
     if (dirty) this.otherForm.markAsDirty();
     else this.otherForm.markAsPristine();
   }
-
-  /**
-   * Resets to default values for inputs
-   */
-  public reset() {
-    this.otherForm.reset();
-  }
 }

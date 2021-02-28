@@ -24,11 +24,4 @@ export class RequirementsComponent implements OnInit {
       this.requirementsForm.disable();
     }
   }
-
-  /**
-   * Reset to inputs to default values
-   */
-  public reset() {
-    this.requirementsForm.reset();
-  }
 }

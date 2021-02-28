@@ -53,12 +53,4 @@ export class MapfiltersComponent implements OnInit {
       this.mapForm.disable();
     }
   }
-
-  /**
-   * Resets to default values for inputs
-   */
-  public reset() {
-    this.mapForm.reset();
-  }
-
 }

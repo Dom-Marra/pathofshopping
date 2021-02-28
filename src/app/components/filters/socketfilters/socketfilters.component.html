@@ -15,7 +15,7 @@
                                 <input digitsonly float='true' matInput type="text" autocomplete="off" [formControl]="extra.control">
                             </mat-form-field>
                         </div>
-                        <app-minmaxinput [group]="this.socketForm['controls'].filters['controls'].sockets" [minmaxExtras]="socketSocketsExtras"></app-minmaxinput>
+                        <app-minmaxinput [group]="this.socketForm['controls'].filters['controls'].sockets"></app-minmaxinput>
                     </div>  
                 </app-inputwrapper>
                 <app-inputwrapper class="field">
@@ -27,7 +27,7 @@
                                 <input digitsonly float='true' matInput type="text" autocomplete="off" [formControl]="extra.control">
                             </mat-form-field>
                         </div>
-                        <app-minmaxinput [group]="this.socketForm['controls'].filters['controls'].links" [minmaxExtras]="socketLinksExtras"></app-minmaxinput>
+                        <app-minmaxinput [group]="this.socketForm['controls'].filters['controls'].links"></app-minmaxinput>
                     </div>
                 </app-inputwrapper>
             </div>

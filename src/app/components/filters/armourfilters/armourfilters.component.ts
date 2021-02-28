@@ -24,11 +24,4 @@ export class ArmourfiltersComponent implements OnInit {
       this.armourForm.disable();
     }
   }
-
-  /**
-   * Reset to inputs to default values
-   */
-  public reset() {
-    this.armourForm.reset();
-  }
 }
