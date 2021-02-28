@@ -59,12 +59,4 @@ export class TradefiltersComponent implements OnInit {
       this.tradeForm.disable();
     }
   }
-
-  /**
-   * Reset to inputs to default values
-   */
-  public reset() {
-    this.tradeForm.reset();
-  }
-
 }
