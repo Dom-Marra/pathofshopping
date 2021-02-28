@@ -3,7 +3,7 @@ import { itemSaveData } from 'src/app/models/itemSaveData';
 import { Resultdata } from '../resultdata/resultdata';
 import { Item } from './item';
 
-fdescribe('Item', () => {
+describe('Item', () => {
   let item: Item;
 
   beforeEach(() => {
