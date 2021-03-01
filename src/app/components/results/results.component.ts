@@ -1,7 +1,6 @@
 import { Component, ElementRef, EventEmitter, Input, KeyValueDiffer, KeyValueDiffers, OnInit, Output, Pipe, PipeTransform, QueryList, ViewChildren } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { Subscription } from 'rxjs';
-import { Currency } from '../../enums/currency';
 import { Resultdata } from '../../classes/resultdata/resultdata';
 import { PoeService } from 'src/app/services/poe.service';
 
@@ -69,8 +68,6 @@ export class ResultsComponent implements OnInit {
   @Input() resultData: Resultdata;                     //Data pertaining to results
   @Input() currentSort: any;                           //The current sort option
   @Output() newSort = new EventEmitter<string>();      //New sort option emitter
-
-  public currencies: Currency = new Currency();       //Currencies
 
   public inProgress: boolean = false;                 //Whether the query is in progress or not
 
@@ -179,15 +176,17 @@ export class ResultsComponent implements OnInit {
   }
 
   /**
-   * Tracks ngFor items by the id of the item
+   * Returns the image for a specified currency ID
    * 
-   * @param index 
-   *        number: index of the item
-   * @param value 
-   *        any: the item from the query data
+   * @param currencyID 
+   *        string: currency id
    */
-  public trackyByID(index: number, value: any) {
-    return value.id;
+  public getCurrencyImage(currencyID: string): string {
+    let currencies = this.poeAPI.getPoeStatic().find(category => { return category.id == 'Currency'});
+
+    let currency = currencies.entries.find(currency => { return currency.id == currencyID});
+
+    return 'http://pathofexile.com' + currency.image;
   }
 
   /**
