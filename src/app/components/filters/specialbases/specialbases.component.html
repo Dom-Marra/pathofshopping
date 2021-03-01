@@ -12,6 +12,7 @@
                                         [autoCompleteHost]='shaperSelect'
                                         [filterBy]="simpleDataService.filterSimpleData"
                                         [displayBy]="simpleDataService.displayByText"   
+                                        [disabled]="this.influenceForm.disabled"
                                         [setValue]="simpleDataService.getSelectedValue(influenceForm['controls'].shaper_item['controls'].option.value, simpleDataService.simpleTrueFalse)"
                                         (selected)="influenceForm['controls'].shaper_item['controls'].option.patchValue($event.id)"></app-searchselect>
                 </app-inputwrapper>
@@ -21,6 +22,7 @@
                                         [autoCompleteHost]='elderSelect'
                                         [filterBy]="simpleDataService.filterSimpleData"
                                         [displayBy]="simpleDataService.displayByText"   
+                                        [disabled]="this.influenceForm.disabled"
                                         [setValue]="simpleDataService.getSelectedValue(influenceForm['controls'].elder_item['controls'].option.value, simpleDataService.simpleTrueFalse)"
                                         (selected)="influenceForm['controls'].elder_item['controls'].option.patchValue($event.id)"></app-searchselect> 
                 </app-inputwrapper>
@@ -30,6 +32,7 @@
                                         [autoCompleteHost]='crusaderSelect'
                                         [filterBy]="simpleDataService.filterSimpleData"
                                         [displayBy]="simpleDataService.displayByText"   
+                                        [disabled]="this.influenceForm.disabled"
                                         [setValue]="simpleDataService.getSelectedValue(influenceForm['controls'].crusader_item['controls'].option.value, simpleDataService.simpleTrueFalse)"
                                         (selected)="influenceForm['controls'].crusader_item['controls'].option.patchValue($event.id)"></app-searchselect>
                 </app-inputwrapper>
@@ -39,6 +42,7 @@
                                         [autoCompleteHost]='redeemerSelect'
                                         [filterBy]="simpleDataService.filterSimpleData"
                                         [displayBy]="simpleDataService.displayByText"   
+                                        [disabled]="this.influenceForm.disabled"
                                         [setValue]="simpleDataService.getSelectedValue(influenceForm['controls'].redeemer_item['controls'].option.value, simpleDataService.simpleTrueFalse)"
                                         (selected)="influenceForm['controls'].redeemer_item['controls'].option.patchValue($event.id)"></app-searchselect> 
                 </app-inputwrapper>
@@ -48,6 +52,7 @@
                                         [autoCompleteHost]='hunterSelect'
                                         [filterBy]="simpleDataService.filterSimpleData"
                                         [displayBy]="simpleDataService.displayByText"   
+                                        [disabled]="this.influenceForm.disabled"
                                         [setValue]="simpleDataService.getSelectedValue(influenceForm['controls'].hunter_item['controls'].option.value, simpleDataService.simpleTrueFalse)"
                                         (selected)="influenceForm['controls'].hunter_item['controls'].option.patchValue($event.id)"></app-searchselect> 
                 </app-inputwrapper>
@@ -57,6 +62,7 @@
                                         [autoCompleteHost]='warlordSelect'
                                         [filterBy]="simpleDataService.filterSimpleData"
                                         [displayBy]="simpleDataService.displayByText"   
+                                        [disabled]="this.influenceForm.disabled"
                                         [setValue]="simpleDataService.getSelectedValue(influenceForm['controls'].warlord_item['controls'].option.value, simpleDataService.simpleTrueFalse)"
                                         (selected)="influenceForm['controls'].warlord_item['controls'].option.patchValue($event.id)"></app-searchselect> 
                 </app-inputwrapper>
@@ -66,6 +72,7 @@
                                         [autoCompleteHost]='fracturedSelect'
                                         [filterBy]="simpleDataService.filterSimpleData"
                                         [displayBy]="simpleDataService.displayByText"   
+                                        [disabled]="this.influenceForm.disabled"
                                         [setValue]="simpleDataService.getSelectedValue(influenceForm['controls'].fractured_item['controls'].option.value, simpleDataService.simpleTrueFalse)"
                                         (selected)="influenceForm['controls'].fractured_item['controls'].option.patchValue($event.id)"></app-searchselect> 
                 </app-inputwrapper>
@@ -75,6 +82,7 @@
                                         [autoCompleteHost]='synthesisedSelect'
                                         [filterBy]="simpleDataService.filterSimpleData"
                                         [displayBy]="simpleDataService.displayByText"   
+                                        [disabled]="this.influenceForm.disabled"
                                         [setValue]="simpleDataService.getSelectedValue(influenceForm['controls'].synthesised_item['controls'].option.value, simpleDataService.simpleTrueFalse)"
                                         (selected)="influenceForm['controls'].synthesised_item['controls'].option.patchValue($event.id)"></app-searchselect> 
                 </app-inputwrapper>

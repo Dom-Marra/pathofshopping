@@ -10,6 +10,7 @@ describe('PoeService', () => {
   let getLeagueReq: TestRequest;
   let getItemsReq: TestRequest;
   let getStatsReq: TestRequest;
+  let getStaticReq: TestRequest;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -33,10 +34,11 @@ describe('PoeService', () => {
     getStatsReq = httpTestingController.expectOne('https://us-central1-pathofshopping.cloudfunctions.net/getPOEStats');
     let statsRes = {"result":[{"label":"Pseudo","entries":[{"id":"pseudo.pseudo_total_cold_resistance","text":"+#% total to Cold Resistance","type":"pseudo"}]}]};
     getStatsReq.flush(statsRes);
-  });
 
-  it('should be created', () => { 
-    expect(service).toBeTruthy();
+    //Static Service
+    getStaticReq = httpTestingController.expectOne('https://us-central1-pathofshopping.cloudfunctions.net/getPOEStatic');
+    let staticRes = {"result":[{"id":"Currency","label":"Currency","entries":[{"id":"alt","text":"Orb of Alteration","image":"\/image\/Art\/2DItems\/Currency\/CurrencyRerollMagic.png?v=6d9520174f6643e502da336e76b730d3"}]}]};
+    getStaticReq.flush(staticRes);
   });
 
   describe('Setting Shared Variables', () => {
@@ -63,6 +65,14 @@ describe('PoeService', () => {
 
     it('should properly set the poe stats data', () => {
       expect(service.getStats()).toEqual([{category: "Pseudo", stats: [{id:"pseudo.pseudo_total_cold_resistance",text:"+#% total to Cold Resistance"}]}]);
+    });
+
+    it('should use GET method to retrieve POE static data', () => {
+      expect(getStaticReq.request.method).toBe('GET');
+    });
+
+    it('should properly set the poe static data', () => {
+      expect(service.getPoeStatic()).toEqual([{"id":"Currency","label":"Currency","entries":[{"id":"alt","text":"Orb of Alteration","image":"\/image\/Art\/2DItems\/Currency\/CurrencyRerollMagic.png?v=6d9520174f6643e502da336e76b730d3"}]}]);
     });
 
     it('should have set the loaded value to true', () => {

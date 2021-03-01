@@ -10,6 +10,7 @@
                                 [values]="filterTypes"
                                 [filterBy]="simpleDataService.filterSimpleData"
                                 [displayBy]="simpleDataService.displayByText"   
+                                [disabled]="this.statFilter.disabled"
                                 [setValue]="simpleDataService.getSelectedValue(this.statFilter['controls'].type.value, filterTypes)"
                                 (selected)="this.statFilter['controls'].type.patchValue($event.id)"></app-searchselect>
             <app-minmaxinput class="selector-input" (click)="$event.stopImmediatePropagation()" *ngIf="this.statFilter['controls'].type.value == 'count' || this.statFilter['controls'].type.value == 'weight'" [group]="this.statFilter['controls'].value"></app-minmaxinput>

@@ -5,6 +5,7 @@ import { BehaviorSubject, throwError } from 'rxjs';
 import { poeCategorizedItems } from '../models/poeCategorizedItems';
 import { poeCategorizedStats } from '../models/poeCategorizedStats';
 import { simpleData } from '../models/simpleData';
+import { poeCategorizedStatic } from '../models/poeCategorizedStatic';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,7 @@ export class PoeService {
   private readonly POE_ITEMS: string = 'https://us-central1-pathofshopping.cloudfunctions.net/getPOEItems';
   private readonly POE_STATS: string = 'https://us-central1-pathofshopping.cloudfunctions.net/getPOEStats';
   private readonly POE_LEAGUES: string = 'https://us-central1-pathofshopping.cloudfunctions.net/getPOELeagues';
+  private readonly POE_STATIC: string = 'https://us-central1-pathofshopping.cloudfunctions.net/getPOEStatic';
   private readonly POE_FETCH: string = 'https://us-central1-pathofshopping.cloudfunctions.net/poeFetch';
   private readonly POE_SEARCH: string = 'https://us-central1-pathofshopping.cloudfunctions.net/poeSearch';
 
@@ -22,6 +24,7 @@ export class PoeService {
   private leagueData: Array<simpleData>;
   private poeItems: Array<poeCategorizedItems>; 
   private poeStats: Array<poeCategorizedStats>; 
+  private poeStatic: Array<poeCategorizedStatic>;
 
   //Whether the data has been loaded or not
   public loaded: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
@@ -30,6 +33,7 @@ export class PoeService {
     this.setLeagues();
     this.setItems();
     this.setStats();
+    this.setStatic();
   }
 
   /**
@@ -69,7 +73,7 @@ export class PoeService {
       })
     ).subscribe((items) => {
       this.poeItems = items;
-        if (this.leagueData && this.poeStats) this.loaded.next(true);
+        if (this.leagueData && this.poeStats && this.poeStatic) this.loaded.next(true);
         poeItemsSetter.unsubscribe();
       },
       (error) => {
@@ -132,7 +136,7 @@ export class PoeService {
     ).subscribe(
       (stats) => {
         this.poeStats = stats;
-        if (this.leagueData && this.poeItems) this.loaded.next(true);
+        if (this.leagueData && this.poeItems && this.poeStatic) this.loaded.next(true);
         poeStatsSetter.unsubscribe();
       },
       (error) => {
@@ -168,7 +172,7 @@ export class PoeService {
     ).subscribe(
       (leagues) => {
         this.leagueData = leagues;
-        if (this.poeItems && this.poeStats) this.loaded.next(true);
+        if (this.poeItems && this.poeStats && this.poeStatic) this.loaded.next(true);
         poeLeaguesSetter.unsubscribe();
       },
       (error) => {
@@ -182,6 +186,37 @@ export class PoeService {
    */
   public getLeagues(): Array<simpleData> {
     return this.leagueData;
+  }
+
+  /**
+   * Sets the poe static data
+   */
+  private setStatic() {
+    let poeStaticSetter = this.http.get(this.POE_STATIC)
+    .pipe(
+      map((data: any) => {
+        return data.result;
+      }),
+      catchError((err) => {
+        return throwError('Unable to connect to the service.');
+      })
+    ).subscribe(
+      (poeStatic: Array<poeCategorizedStatic>) => {
+        this.poeStatic = poeStatic;
+        if (this.poeItems && this.poeStats && this.leagueData) this.loaded.next(true);
+        poeStaticSetter.unsubscribe();
+      },
+      (error) => {
+        this.loaded.error(error);
+      }
+    );
+  }
+
+  /**
+   * returns the static data
+   */
+  public getPoeStatic(): Array<poeCategorizedStatic> {
+    return this.poeStatic;
   }
 
   /**
