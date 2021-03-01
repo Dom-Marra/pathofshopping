@@ -19,7 +19,8 @@
                     <app-searchselect [values]="gemQualityTypes"
                                         [autoCompleteHost]='qualitySelect' 
                                         [filterBy]="simpleDataService.filterSimpleData"
-                                        [displayBy]="simpleDataService.displayByText"   
+                                        [displayBy]="simpleDataService.displayByText"
+                                        [disabled]="this.gemForm.disabled"   
                                         [setValue]="simpleDataService.getSelectedValue(this.gemForm['controls'].gem_alternate_quality['controls'].option.value, gemQualityTypes)"
                                         (selected)="this.gemForm['controls'].gem_alternate_quality['controls'].option.patchValue($event.id)"></app-searchselect> 
                 </app-inputwrapper>

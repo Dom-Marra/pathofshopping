@@ -32,6 +32,7 @@
                                         [autoCompleteHost]='altArtSelect' 
                                         [filterBy]="simpleDataService.filterSimpleData"
                                         [displayBy]="simpleDataService.displayByText"   
+                                        [disabled]="this.otherForm.disabled"
                                         [setValue]="simpleDataService.getSelectedValue(this.otherForm['controls'].alternate_art['controls'].option.value, simpleDataService.simpleTrueFalse)"
                                         (selected)="this.otherForm['controls'].alternate_art['controls'].option.patchValue($event.id)"></app-searchselect> 
                 </app-inputwrapper>
@@ -41,6 +42,7 @@
                                         [autoCompleteHost]='identifiedSelect' 
                                         [filterBy]="simpleDataService.filterSimpleData"
                                         [displayBy]="simpleDataService.displayByText"   
+                                        [disabled]="this.otherForm.disabled"
                                         [setValue]="simpleDataService.getSelectedValue(this.otherForm['controls'].identified['controls'].option.value, simpleDataService.simpleTrueFalse)"
                                         (selected)="this.otherForm['controls'].identified['controls'].option.patchValue($event.id)"></app-searchselect> 
                 </app-inputwrapper>
@@ -50,6 +52,7 @@
                                         [autoCompleteHost]='corruptedSelect'
                                         [filterBy]="simpleDataService.filterSimpleData"
                                         [displayBy]="simpleDataService.displayByText"   
+                                        [disabled]="this.otherForm.disabled"
                                         [setValue]="simpleDataService.getSelectedValue(this.otherForm['controls'].corrupted['controls'].option.value, simpleDataService.simpleTrueFalse)"
                                         (selected)="this.otherForm['controls'].corrupted['controls'].option.patchValue($event.id)"></app-searchselect> 
                 </app-inputwrapper>
@@ -59,6 +62,7 @@
                                         [autoCompleteHost]='mirroredSelect'
                                         [filterBy]="simpleDataService.filterSimpleData"
                                         [displayBy]="simpleDataService.displayByText"   
+                                        [disabled]="this.otherForm.disabled"
                                         [setValue]="simpleDataService.getSelectedValue(this.otherForm['controls'].mirrored['controls'].option.value, simpleDataService.simpleTrueFalse)"
                                         (selected)="this.otherForm['controls'].mirrored['controls'].option.patchValue($event.id)"></app-searchselect> 
                 </app-inputwrapper>
@@ -68,6 +72,7 @@
                                         [autoCompleteHost]='craftedSelect'
                                         [filterBy]="simpleDataService.filterSimpleData"
                                         [displayBy]="simpleDataService.displayByText"   
+                                        [disabled]="this.otherForm.disabled"
                                         [setValue]="simpleDataService.getSelectedValue(this.otherForm['controls'].crafted['controls'].option.value, simpleDataService.simpleTrueFalse)"
                                         (selected)="this.otherForm['controls'].crafted['controls'].option.patchValue($event.id)"></app-searchselect>
                 </app-inputwrapper>
@@ -77,6 +82,7 @@
                                         [autoCompleteHost]='veiledSelect' 
                                         [filterBy]="simpleDataService.filterSimpleData"
                                         [displayBy]="simpleDataService.displayByText"   
+                                        [disabled]="this.otherForm.disabled"
                                         [setValue]="simpleDataService.getSelectedValue(this.otherForm['controls'].veiled['controls'].option.value, simpleDataService.simpleTrueFalse)"
                                         (selected)="this.otherForm['controls'].veiled['controls'].option.patchValue($event.id)"></app-searchselect> 
                 </app-inputwrapper>
@@ -86,6 +92,7 @@
                                         [autoCompleteHost]='enchantedSelect'
                                         [filterBy]="simpleDataService.filterSimpleData"
                                         [displayBy]="simpleDataService.displayByText"   
+                                        [disabled]="this.otherForm.disabled"
                                         [setValue]="simpleDataService.getSelectedValue(this.otherForm['controls'].enchanted['controls'].option.value, simpleDataService.simpleTrueFalse)"
                                         (selected)="this.otherForm['controls'].enchanted['controls'].option.patchValue($event.id)"></app-searchselect> 
                 </app-inputwrapper>

@@ -12,6 +12,7 @@
                                         [autoCompleteHost]='regionSelect' 
                                         [filterBy]="simpleDataService.filterSimpleData"
                                         [displayBy]="simpleDataService.displayByText"   
+                                        [disabled]="this.mapForm.disabled"
                                         [setValue]="simpleDataService.getSelectedValue(mapForm['controls'].filters['controls'].map_region['controls'].option.value, mapRegions)"
                                         (selected)="mapForm['controls'].filters['controls'].map_region['controls'].option.patchValue($event.id)"></app-searchselect> 
                 </app-inputwrapper>
@@ -21,6 +22,7 @@
                                         [autoCompleteHost]='seriesSelect' 
                                         [filterBy]="simpleDataService.filterSimpleData"
                                         [displayBy]="simpleDataService.displayByText"   
+                                        [disabled]="this.mapForm.disabled"
                                         [setValue]="simpleDataService.getSelectedValue(mapForm['controls'].filters['controls'].map_series['controls'].option.value, mapSeries)"
                                         (selected)="mapForm['controls'].filters['controls'].map_series['controls'].option.patchValue($event.id)"></app-searchselect> 
                 </app-inputwrapper>
@@ -30,6 +32,7 @@
                                         [autoCompleteHost]='shapedSelect' 
                                         [filterBy]="simpleDataService.filterSimpleData"
                                         [displayBy]="simpleDataService.displayByText"   
+                                        [disabled]="this.mapForm.disabled"
                                         [setValue]="simpleDataService.getSelectedValue(mapForm['controls'].filters['controls'].map_shaped['controls'].option.value, simpleDataService.simpleTrueFalse)"
                                         (selected)="mapForm['controls'].filters['controls'].map_shaped['controls'].option.patchValue($event.id)"></app-searchselect> 
                 </app-inputwrapper>
@@ -39,6 +42,7 @@
                                         [autoCompleteHost]='elderSelect' 
                                         [filterBy]="simpleDataService.filterSimpleData"
                                         [displayBy]="simpleDataService.displayByText"   
+                                        [disabled]="this.mapForm.disabled"
                                         [setValue]="simpleDataService.getSelectedValue(mapForm['controls'].filters['controls'].map_elder['controls'].option.value, simpleDataService.simpleTrueFalse)"
                                         (selected)="mapForm['controls'].filters['controls'].map_elder['controls'].option.patchValue($event.id)"></app-searchselect> 
                 </app-inputwrapper>
@@ -48,6 +52,7 @@
                                         [autoCompleteHost]='blightedSelect'
                                         [filterBy]="simpleDataService.filterSimpleData"
                                         [displayBy]="simpleDataService.displayByText"   
+                                        [disabled]="this.mapForm.disabled"
                                         [setValue]="simpleDataService.getSelectedValue(mapForm['controls'].filters['controls'].map_blighted['controls'].option.value, simpleDataService.simpleTrueFalse)"
                                         (selected)="mapForm['controls'].filters['controls'].map_blighted['controls'].option.patchValue($event.id)"></app-searchselect> 
                 </app-inputwrapper>
