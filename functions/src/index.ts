@@ -58,6 +58,23 @@ export const getPOELeagues = functions.https.onRequest((request, response) => {
     })
 });
 
+export const getPOEStatic = functions.https.onRequest((request, response) => {
+    response.set('Access-Control-Allow-Origin', 'https://www.pathofshopping.com');
+    response.set('Access-Control-Allow-Methods', 'GET');
+
+    const POE_STATIC: string = '/data/static';
+
+    axios.get(POE_API +POE_STATIC).then((res: any) => {
+        response.status(200).send(res.data);
+    }).catch((err: any) => {
+        if (err.response) {
+            response.status(err.response.status).send(err.message);
+        } else {
+            response.status(500).send(err.message);
+        }
+    });
+})
+
 export const poeFetch = functions.https.onRequest((request, response) => {
 
     response.set('Access-Control-Allow-Origin', 'https://www.pathofshopping.com');
