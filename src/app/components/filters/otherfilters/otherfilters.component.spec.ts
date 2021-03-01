@@ -37,6 +37,7 @@ class SearchSelectStubComponent {
   @Input() filterBy: any;        
   @Input() displayBy: any;      
   @Input() inputName: any;        
+  @Input() disabled: boolean; 
   @Output() selected: EventEmitter<any> = new EventEmitter<any>();  
 }
 
@@ -205,6 +206,7 @@ describe('OtherfiltersComponent', () => {
         let autocomplethost = inputwrapper[5].injector.get(MatAutocompleteOrigin);
 
         expect(searchSelectComp.values).toEqual(simpleDataService.simpleTrueFalse);
+        expect(searchSelectComp.disabled).toEqual(component.otherForm.disabled);
         expect(searchSelectComp.autoCompleteHost).toEqual(autocomplethost);
         expect(searchSelectComp.filterBy).toEqual(simpleDataService.filterSimpleData);
         expect(searchSelectComp.displayBy).toEqual(simpleDataService.displayByText);
@@ -234,6 +236,7 @@ describe('OtherfiltersComponent', () => {
         let autocomplethost = inputwrapper[6].injector.get(MatAutocompleteOrigin);
 
         expect(searchSelectComp.values).toEqual(simpleDataService.simpleTrueFalse);
+        expect(searchSelectComp.disabled).toEqual(component.otherForm.disabled);
         expect(searchSelectComp.autoCompleteHost).toEqual(autocomplethost);
         expect(searchSelectComp.filterBy).toEqual(simpleDataService.filterSimpleData);
         expect(searchSelectComp.displayBy).toEqual(simpleDataService.displayByText);
@@ -263,6 +266,7 @@ describe('OtherfiltersComponent', () => {
         let autocomplethost = inputwrapper[7].injector.get(MatAutocompleteOrigin);
 
         expect(searchSelectComp.values).toEqual(simpleDataService.simpleTrueFalse);
+        expect(searchSelectComp.disabled).toEqual(component.otherForm.disabled);
         expect(searchSelectComp.autoCompleteHost).toEqual(autocomplethost);
         expect(searchSelectComp.filterBy).toEqual(simpleDataService.filterSimpleData);
         expect(searchSelectComp.displayBy).toEqual(simpleDataService.displayByText);
@@ -292,6 +296,7 @@ describe('OtherfiltersComponent', () => {
         let autocomplethost = inputwrapper[8].injector.get(MatAutocompleteOrigin);
 
         expect(searchSelectComp.values).toEqual(simpleDataService.simpleTrueFalse);
+        expect(searchSelectComp.disabled).toEqual(component.otherForm.disabled);
         expect(searchSelectComp.autoCompleteHost).toEqual(autocomplethost);
         expect(searchSelectComp.filterBy).toEqual(simpleDataService.filterSimpleData);
         expect(searchSelectComp.displayBy).toEqual(simpleDataService.displayByText);
@@ -321,6 +326,7 @@ describe('OtherfiltersComponent', () => {
         let autocomplethost = inputwrapper[9].injector.get(MatAutocompleteOrigin);
 
         expect(searchSelectComp.values).toEqual(simpleDataService.simpleTrueFalse);
+        expect(searchSelectComp.disabled).toEqual(component.otherForm.disabled);
         expect(searchSelectComp.autoCompleteHost).toEqual(autocomplethost);
         expect(searchSelectComp.filterBy).toEqual(simpleDataService.filterSimpleData);
         expect(searchSelectComp.displayBy).toEqual(simpleDataService.displayByText);
@@ -350,6 +356,7 @@ describe('OtherfiltersComponent', () => {
         let autocomplethost = inputwrapper[10].injector.get(MatAutocompleteOrigin);
 
         expect(searchSelectComp.values).toEqual(simpleDataService.simpleTrueFalse);
+        expect(searchSelectComp.disabled).toEqual(component.otherForm.disabled);
         expect(searchSelectComp.autoCompleteHost).toEqual(autocomplethost);
         expect(searchSelectComp.filterBy).toEqual(simpleDataService.filterSimpleData);
         expect(searchSelectComp.displayBy).toEqual(simpleDataService.displayByText);
@@ -379,6 +386,7 @@ describe('OtherfiltersComponent', () => {
         let autocomplethost = inputwrapper[11].injector.get(MatAutocompleteOrigin);
 
         expect(searchSelectComp.values).toEqual(simpleDataService.simpleTrueFalse);
+        expect(searchSelectComp.disabled).toEqual(component.otherForm.disabled);
         expect(searchSelectComp.autoCompleteHost).toEqual(autocomplethost);
         expect(searchSelectComp.filterBy).toEqual(simpleDataService.filterSimpleData);
         expect(searchSelectComp.displayBy).toEqual(simpleDataService.displayByText);

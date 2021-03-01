@@ -42,6 +42,7 @@ class SearchSelectStubComponent {
   @Input() filterBy: any;        
   @Input() displayBy: any;      
   @Input() inputName: any;        
+  @Input() disabled: boolean; 
   @Output() selected: EventEmitter<any> = new EventEmitter<any>();  
 }
 
@@ -198,6 +199,7 @@ describe('TradefiltersComponent', () => {
         let autocomplethost = inputwrapper[1].injector.get(MatAutocompleteOrigin);
 
         expect(searchSelectComp.values).toEqual(component.listedOptions);
+        expect(searchSelectComp.disabled).toEqual(component.tradeForm.disabled);
         expect(searchSelectComp.autoCompleteHost).toEqual(autocomplethost);
         expect(searchSelectComp.filterBy).toEqual(simpleDataService.filterSimpleData);
         expect(searchSelectComp.displayBy).toEqual(simpleDataService.displayByText);
@@ -227,6 +229,7 @@ describe('TradefiltersComponent', () => {
         let autocomplethost = inputwrapper[2].injector.get(MatAutocompleteOrigin);
 
         expect(searchSelectComp.values).toEqual(component.saleTypes);
+        expect(searchSelectComp.disabled).toEqual(component.tradeForm.disabled);
         expect(searchSelectComp.autoCompleteHost).toEqual(autocomplethost);
         expect(searchSelectComp.filterBy).toEqual(simpleDataService.filterSimpleData);
         expect(searchSelectComp.displayBy).toEqual(simpleDataService.displayByText);
@@ -256,6 +259,7 @@ describe('TradefiltersComponent', () => {
         let autocomplethost = inputwrapper[3].injector.get(MatAutocompleteOrigin);
 
         expect(searchSelectComp.values).toEqual(component.buyOutOptons);
+        expect(searchSelectComp.disabled).toEqual(component.tradeForm.disabled);
         expect(searchSelectComp.autoCompleteHost).toEqual(autocomplethost);
         expect(searchSelectComp.filterBy).toEqual(simpleDataService.filterSimpleData);
         expect(searchSelectComp.displayBy).toEqual(simpleDataService.displayByText);

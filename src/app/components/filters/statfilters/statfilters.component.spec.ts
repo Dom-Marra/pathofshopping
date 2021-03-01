@@ -38,6 +38,7 @@ class SearchSelectStubComponent {
   @Input() filterBy: any;        
   @Input() displayBy: any;      
   @Input() inputName: any;        
+  @Input() disabled: boolean; 
   @Output() selected: EventEmitter<any> = new EventEmitter<any>();  
 }
 
@@ -151,6 +152,7 @@ describe('StatfiltersComponent', () => {
         let searchSelectComp =  searchselect.componentInstance as SearchSelectStubComponent
 
         expect(searchSelectComp.values).toEqual(component.filterTypes);
+        expect(searchSelectComp.disabled).toEqual(component.statFilter.disabled);
         expect(searchSelectComp.filterBy).toEqual(simpleDataService.filterSimpleData);
         expect(searchSelectComp.displayBy).toEqual(simpleDataService.displayByText);
         expect(searchSelectComp.setValue).toEqual(simpleDataService.getSelectedValue(component.statFilter.get('type').value, component.filterTypes));

@@ -36,7 +36,8 @@ class SearchSelectStubComponent {
   @Input() placeholder: string;                   
   @Input() filterBy: any;        
   @Input() displayBy: any;      
-  @Input() inputName: any;        
+  @Input() inputName: any;       
+  @Input() disabled: boolean; 
   @Output() selected: EventEmitter<any> = new EventEmitter<any>();  
 }
 
@@ -169,6 +170,7 @@ describe('GemfiltersComponent', () => {
         let autocomplethost = inputwrapper[2].injector.get(MatAutocompleteOrigin);
         
         expect(searchSelectComp.values).toEqual(component.gemQualityTypes);
+        expect(searchSelectComp.disabled).toEqual(component.gemForm.disabled);
         expect(searchSelectComp.autoCompleteHost).toEqual(autocomplethost);
         expect(searchSelectComp.filterBy).toEqual(simpleDataService.filterSimpleData);
         expect(searchSelectComp.displayBy).toEqual(simpleDataService.displayByText);
