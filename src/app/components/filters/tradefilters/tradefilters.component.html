@@ -21,6 +21,7 @@
                     [autoCompleteHost]='listedSelect'
                                         [filterBy]="simpleDataService.filterSimpleData"
                                         [displayBy]="simpleDataService.displayByText"   
+                                        [disabled]="this.tradeForm.disabled"
                                         [setValue]="simpleDataService.getSelectedValue(tradeForm['controls'].filters['controls'].indexed['controls'].option.value, listedOptions)"
                                         (selected)="tradeForm['controls'].filters['controls'].indexed['controls'].option.patchValue($event.id)"></app-searchselect>
                 </app-inputwrapper>
@@ -30,6 +31,7 @@
                                         [autoCompleteHost]='saleTypeSelect'
                                         [filterBy]="simpleDataService.filterSimpleData"
                                         [displayBy]="simpleDataService.displayByText"   
+                                        [disabled]="this.tradeForm.disabled"
                                         [setValue]="simpleDataService.getSelectedValue(tradeForm['controls'].filters['controls'].sale_type['controls'].option.value, saleTypes)"
                                         (selected)="tradeForm['controls'].filters['controls'].sale_type['controls'].option.patchValue($event.id)"></app-searchselect>
                 </app-inputwrapper>
@@ -39,6 +41,7 @@
                                         [autoCompleteHost]='buyoutSelect'
                                         [filterBy]="simpleDataService.filterSimpleData"
                                         [displayBy]="simpleDataService.displayByText"   
+                                        [disabled]="this.tradeForm.disabled"
                                         [setValue]="simpleDataService.getSelectedValue(tradeForm['controls'].filters['controls'].price['controls'].option.value, buyOutOptons)"
                                         (selected)="tradeForm['controls'].filters['controls'].price['controls'].option.patchValue($event.id)"></app-searchselect>
                 </app-inputwrapper>
