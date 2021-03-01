@@ -341,7 +341,7 @@
                 &nbsp;{{ item.listing.account.lastCharacterName}}
             </div>
             <div *ngIf="item.listing.price.currency" class="listing-info mat-small sortable" (click)="sortBy('price')">
-                x{{item.listing.price.amount}}&nbsp;<img class="currency-icon" src="{{this.currencies.getCurrencyIcon(item.listing.price.currency)}}">
+                x{{item.listing.price.amount}}&nbsp;<img class="currency-icon" src="{{this.getCurrencyImage(item.listing.price.currency)}}">
                 <mat-icon *ngIf="currentSort['price']" class="{{currentSort['price'] == 'desc' ? 'desc' : 'asc'}}">
                     {{currentSort['price'] == 'desc' ? 'arrow_downward' : 'arrow_upward'}}
                 </mat-icon>
