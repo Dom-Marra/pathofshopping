@@ -26,7 +26,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 //Components
 import { DigitsonlyDirective } from './directives/digitsonly.directive';
-import { ItemComponent } from './components/item/item.component';
+import { ItemComponent } from './components/itemForm/item.component';
 import { EqualflexDirective } from './directives/equalflex.directive';
 import { SearchSelectComponent } from './components/inputs/searchselect/searchselect.component';
 import { MinmaxinputComponent } from './components/inputs/minmaxinput/minmaxinput.component';
