@@ -9,7 +9,7 @@ import { SimpleDataService } from 'src/app/services/simpledata.service';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-item',
+  selector: 'app-itemForm',
   templateUrl: './item.component.html',
   styleUrls: ['./item.component.scss']
 })
