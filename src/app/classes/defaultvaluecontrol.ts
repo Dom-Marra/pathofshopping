@@ -17,7 +17,7 @@ export class Defaultvaluecontrol extends FormControl{
   private checkIfDefault() {
     if (this.value == null || this.value.length < 1) this.patchValue(this.defaultValue, {emitEvent: false, onlySelf: true});
 
-    if (this.value == this.defaultValue) {
+    if (this.value === this.defaultValue) {
       this.markAsPristine();
     } else {
       this.markAsDirty();
