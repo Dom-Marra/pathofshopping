@@ -1,0 +1,14 @@
+<div class="item-parsed-list item-detail">
+    <div>
+        <span class="display-0">
+            {{item.incubatedItem.progress}}/{{item.incubatedItem.total}}
+        </span>
+        <span>
+            level: {{item.incubatedItem.level}} {{item.incubatedItem.name}}
+        </span>
+        <mat-progress-bar class="item-progress-bar" 
+                        mode="determinate" 
+                        value="{{(item.incubatedItem.progress / item.incubatedItem.total) * 100}}">
+        </mat-progress-bar>
+    </div>
+</div>
