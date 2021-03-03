@@ -13,9 +13,11 @@ import { MatInputHarness } from '@angular/material/input/testing';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { of, throwError } from 'rxjs';
+import { BehaviorSubject, of, throwError } from 'rxjs';
 import { Item } from 'src/app/classes/itemdata/item';
+import { currentSortProperties } from 'src/app/models/currentSortProperties';
 import { simpleData } from 'src/app/models/simpleData';
+import { CurrentsortService } from 'src/app/services/currentsort.service';
 import { PoeService } from 'src/app/services/poe.service';
 import { SimpleDataService } from 'src/app/services/simpledata.service';
 
@@ -29,6 +31,10 @@ class PoeServiceStub {
   public search(data: any, league: string) {
     return of({});
   }
+}
+
+class CurrentsortServiceStub {
+  public currentSort: BehaviorSubject<currentSortProperties> = new BehaviorSubject<currentSortProperties>(null);
 }
 
 class SimpleDataServiceStub {
@@ -55,8 +61,6 @@ class SearchSelectStubComponent {
 @Component({selector: 'app-results', template: ''})
 class ResultsComponent {
   @Input() resultData: any;
-  @Input() currentSort: any;   
-  @Output() newSort = new EventEmitter<string>();
 }
 
 @Component({selector: 'app-typefilters'})
@@ -95,7 +99,7 @@ class StatFiltersStub {
   @Output() filterRemoved: EventEmitter<any> = new EventEmitter<any>();
 }
 
-describe('ItemFormComponent', () => {
+fdescribe('ItemFormComponent', () => {
   const mockLeague = 'Mock League';
 
   let component: ItemFormComponent;
@@ -103,6 +107,7 @@ describe('ItemFormComponent', () => {
   let snackBar: MatSnackBar;
   let poeService: PoeService;
   let simpleDataService: SimpleDataService;
+  let currentsortService: CurrentsortService;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -115,7 +120,8 @@ describe('ItemFormComponent', () => {
       providers: [
         {provide: MatSnackBar, useClass: SnackBarStub},
         {provide: PoeService, useClass: PoeServiceStub},
-        {provide: SimpleDataService, useClass: SimpleDataServiceStub}
+        {provide: SimpleDataService, useClass: SimpleDataServiceStub},
+        {provide: CurrentsortService, useclass: CurrentsortServiceStub}
       ],
       imports: [ ReactiveFormsModule, MatFormFieldModule, NoopAnimationsModule, FormsModule, MatIconModule, MatInputModule ]
     })
@@ -129,6 +135,7 @@ describe('ItemFormComponent', () => {
     snackBar = TestBed.inject(MatSnackBar);
     poeService = TestBed.inject(PoeService);
     simpleDataService = TestBed.inject(SimpleDataService);
+    currentsortService = TestBed.inject(CurrentsortService);
 
     component.league = mockLeague;
     component.itemData = new Item();
@@ -166,18 +173,27 @@ describe('ItemFormComponent', () => {
       });
     });
 
-    describe('queryIDs', () => {
+    describe('Currentsort service currentSort value change', () => {
+      
+      it('should call queryIDs', () => {
+        spyOn(component, 'queryIDs');
+        currentsortService.currentSort.next({sortKey: 'key'});
 
+        expect(component.queryIDs).toHaveBeenCalled();
+      })
+    });
+
+    describe('queryIDs', () =>{
       it('should reset previous resultData', () => {
         spyOn(component.itemData.resultData, 'reset');
-        component.queryIDs('price', 'asc');
+        component.queryIDs();
 
         expect(component.itemData.resultData.reset).toHaveBeenCalled();
       });
 
       it('should use the PoeService search method', () => {
         spyOn(poeService, 'search').and.returnValue(of({}));
-        component.queryIDs('price', 'asc');
+        component.queryIDs();
 
         expect(poeService.search).toHaveBeenCalled();
       });
@@ -207,7 +223,7 @@ describe('ItemFormComponent', () => {
         };
 
         spyOn(poeService, 'search').and.returnValue(of(fetch));
-        component.queryIDs('price', 'asc');
+        component.queryIDs();
 
         expect(component.itemData.resultData.queryProps).toEqual({
           psuedos: 'pseudos[]=pseudo.stat&pseudos[]=pseudo.stat2',
@@ -229,63 +245,9 @@ describe('ItemFormComponent', () => {
         };
 
         spyOn(poeService, 'search').and.returnValue(of(fetch));
-        component.queryIDs('price', 'asc');
+        component.queryIDs();
 
         expect(component.showResults).toBeTrue();
-      })
-
-      it('should set the sort values according to parameters', () => {
-        component.queryIDs('MockKey', 'MockValue');
-        expect(component.itemData.itemForm.get('queryForm.sort.MockKey')).toBeTruthy();
-        expect(component.itemData.itemForm.get('queryForm.sort.MockKey').value).toEqual('MockValue');
-
-      });
-
-      it('should not pass data with empty objects/fields or values with \'all\' to the PoeService search', () => {
-        let mockItemForm = new FormGroup({
-          queryForm: new FormGroup({
-            query: new FormGroup({
-              controlShouldBePresent: new FormControl('Value'),
-              controlShouldNotBePresent: new FormControl('all'),
-              arrayShouldNotBePresent: new FormArray([]),
-              arrayShouldBePresent: new FormArray([
-                new FormControl('Value'),
-                new FormControl(null)
-              ]),
-              objectShouldNotBePresent: new FormGroup({
-                wrongValue: new FormControl()
-              }),
-              objectShouldBePresent: new FormGroup({
-                wrongValue: new FormControl('all'),
-                rightValue: new FormControl('Value')
-              })
-            }),
-            sort: new FormGroup({           //This is must maintain a proper structure
-              price: new FormControl('asc')
-            })
-          })
-        });
-
-        const expectedData = {
-          query: {
-            controlShouldBePresent: 'Value',
-            arrayShouldBePresent: ['Value'],
-            objectShouldBePresent: {
-              rightValue: 'Value'
-            }
-          },
-          sort: {
-            price: 'asc'
-          }
-        };
-
-        component.itemData.itemForm = mockItemForm;
-        
-        spyOn(poeService, 'search').and.callFake((data: any, league: string): any => {
-          expect(data).toEqual(expectedData);
-          return of(throwError(null));
-        });
-        component.queryIDs('price', 'asc');
       });
 
       it('should open an error snackbar when the results are empty', () =>{
@@ -298,7 +260,7 @@ describe('ItemFormComponent', () => {
 
         spyOn(poeService, 'search').and.returnValue(of({}));
         spyOn(snackBar, 'open');
-        component.queryIDs('price', 'asc');
+        component.queryIDs();
 
         expect(snackBar.open).toHaveBeenCalledWith(err, 'close', snackbarOptions);
       });
@@ -313,11 +275,11 @@ describe('ItemFormComponent', () => {
 
         spyOn(poeService, 'search').and.returnValue(throwError(err));
         spyOn(snackBar, 'open');
-        component.queryIDs('price', 'asc');
+        component.queryIDs();
 
         expect(snackBar.open).toHaveBeenCalledWith(err, 'close', snackbarOptions);
       });
-    });
+    })
 
     describe('addStatGroup method', () => {
       it('should add a new statfilterform to the item data query form stats', () => {
@@ -577,11 +539,11 @@ describe('ItemFormComponent', () => {
         matIconHarness = (await loader.getAllHarnesses(MatIconHarness))[3];
       });
 
-      it('should call queryIDs on click with params \'price\' and \'asc\'', async () => {
-        spyOn(component, 'queryIDs');
+      it('should set the currentSort value with {sortKey: \'price\', sortValue: \'asc\'}', async () => {
+        spyOn(currentsortService.currentSort, 'next');
         await matButtonHarness.click();
 
-        expect(component.queryIDs).toHaveBeenCalledWith('price', 'asc');
+        expect(currentsortService.currentSort.next).toHaveBeenCalledWith({sortKey: 'price', sortValue: 'asc'});
       });
 
       it('should contain the search mat icon', async () => {
@@ -684,18 +646,6 @@ describe('ItemFormComponent', () => {
         let resultsComp = fixture.debugElement.query(By.css('app-results')).componentInstance as ResultsComponent;
 
         expect(resultsComp.resultData).toEqual(component.itemData.resultData);
-        expect(resultsComp.currentSort).toEqual((component.itemData.itemForm.get('queryForm.sort') as FormGroup).getRawValue());
-      });
-
-      it('should call queryIDs with the value of the newSort when emitted', () => {
-        component.showResults = true;
-        fixture.detectChanges();
-        spyOn(component, 'queryIDs');
-
-        let results = fixture.debugElement.query(By.css('app-results'));
-        results.triggerEventHandler('newSort', 'Mock Sort');
-
-        expect(component.queryIDs).toHaveBeenCalledWith('Mock Sort');
       });
     });
   });

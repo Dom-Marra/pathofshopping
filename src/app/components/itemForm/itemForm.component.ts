@@ -49,32 +49,25 @@ export class ItemFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.currentSort.currentSort.subscribe((val: currentSortProperties) => {
-      if (val) this.queryIDs(val.sortKey, val.sortValue);
+      if (!val) return;
+      this.setSortBy(val.sortKey, val.sortValue);
+      this.queryIDs();
     });
   }
 
   /**
-   * Fetches item IDs from the POE API using the query form data and inputted sort values
-   * 
-   * @param key
-   *        sort key, for example the hash of a stat
-   * @param value 
-   *        sort value, either 'asc' for ascending, or 'desc' for descending
+   * Fetches item IDs from the POE API using the query form data
    */
-  public queryIDs(sortKey: string, sortValue?: 'asc' | 'desc') {
+  public queryIDs() {
+    let data = this.removeEmpty({                               //create query data
+      query: (this.itemData.itemForm.get('queryForm.query') as FormGroup).value,
+      sort: (this.itemData.itemForm.get('queryForm.sort') as FormGroup).value
+    }); 
 
     this.itemData.resultData.reset();                           //Reset previous results
 
-    this.setSortBy(sortKey, sortValue);                                   //Set the sort data
-    let data = {                                                          //create query data
-      query: (this.itemData.itemForm.get('queryForm.query') as FormGroup).value,
-      sort: (this.itemData.itemForm.get('queryForm.sort') as FormGroup).value
-    }
-
-    data = this.removeEmpty(data);                            //clean the data
-
     this._fetchSub = this.poe.search(data, this.league).subscribe(
-      (fetch: any) => {       //Fetch items based on data
+      (fetch: any) => {                                        //Fetch items based on data
         if (fetch.result != null && fetch.result.length > 0) {
 
           //Set item query data
@@ -162,20 +155,19 @@ export class ItemFormComponent implements OnInit {
    * @param value 
    *        sort value, either 'asc' for ascending, or 'desc' for descending
    */
-  private setSortBy(key: string, value?: string) {
+  private setSortBy(key: string, value?: 'asc' | 'desc') {
     let currentSort = Object.keys((this.itemData.itemForm.get('queryForm.sort') as FormGroup).getRawValue())[0];   //The current key in use
-    let sortValue = (this.itemData.itemForm.get('queryForm.sort') as FormGroup).controls[currentSort].value;       //The current value
 
-    if (!value && currentSort != key) {
+    if (!value && currentSort != key) {             //Set the value for the sort to desc if its a new sort
       value = 'desc';
       this.currentSort.currentSort.value.sortValue = 'desc';
-    } else if (currentSort == key && !value) {
+    } else if (currentSort == key && !value) {      //Switch the value for the sort if the sort is the same but no value is provided
       this.itemData.itemForm.get('queryForm.sort')['controls'][currentSort].value == 'asc' ? value = 'desc' : value = 'asc';
       this.currentSort.currentSort.value.sortValue = (value as ('asc' | 'desc'));
     }
 
     if (currentSort == key) {
-      this.itemData.itemForm.get('queryForm.sort')['controls'][currentSort].patchValue(value ? value : sortValue == 'asc' ? 'desc' : 'asc');   //Alternate value if key is the same
+      this.itemData.itemForm.get('queryForm.sort')['controls'][currentSort].patchValue(value);   //Alternate value if key is the same
     } else {
       (this.itemData.itemForm.get('queryForm.sort') as FormGroup).removeControl(currentSort);                                      //Remove old control
       (this.itemData.itemForm.get('queryForm.sort') as FormGroup).addControl(key, new FormControl(value));                         //Add new control
