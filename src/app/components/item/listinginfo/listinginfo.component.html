@@ -1,0 +1,27 @@
+<div class="item-listing-info">
+    <div class="listing-info mat-small">
+        <mat-icon class="online-status {{listing.account.online ? listing.account.online.status : 'offline'}}">
+            {{listing.account.online ? 'person' : 'person_off'}}
+        </mat-icon>
+        &nbsp;{{ listing.account.lastCharacterName}}
+    </div>
+    <div *ngIf="listing.price.currency" 
+        class="listing-info mat-small sortable" 
+        (click)="currentSort.currentSort.next({sortKey: 'price'})">
+        x{{listing.price.amount}}&nbsp;<img class="currency-icon" src="{{this.getCurrencyImage(listing.price.currency)}}">
+        <mat-icon *ngIf="currentSort.currentSort.value.sortKey == 'price'" 
+                        class="{{currentSort.currentSort.value.sortValue}}">
+            {{currentSort.currentSort.value.sortValue == 'desc' ? 'arrow_downward' : 'arrow_upward'}}
+        </mat-icon>
+    </div>
+    <div class="listing-info mat-small sortable" (click)="currentSort.currentSort.next({sortKey: 'indexed'})">
+        <mat-icon class="time-icon">access_time</mat-icon>&nbsp;{{ subtractDate(listing.indexed)}}
+        <mat-icon *ngIf="currentSort.currentSort.value.sortKey == 'indexed'" 
+                        class="{{currentSort.currentSort.value.sortValue}}">
+            {{currentSort.currentSort.value.sortValue == 'desc' ? 'arrow_downward' : 'arrow_upward'}}
+        </mat-icon>
+    </div>
+    <button mat-button [cdkCopyToClipboard]="listing.whisper" class="listing-info mat-small">
+        <mat-icon>message</mat-icon>
+    </button>
+</div>
