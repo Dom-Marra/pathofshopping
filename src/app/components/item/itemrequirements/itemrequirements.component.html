@@ -1,0 +1,34 @@
+<div class="item-parsed-list">
+    <div *ngIf="item.talismanTier" 
+        class="sortable" 
+        (click)="currentSort.currentSort.next({sortKey: 'talisman_tier'})">
+        Talisman Tier: <span class="display-0">{{item.talismanTier}}</span>
+        <mat-icon *ngIf="currentSort.currentSort.value.sortKey == 'talisman_tier'" 
+                    class="{{currentSort.currentSort.value.sortValue}}">
+            {{currentSort.currentSort.value.sortValue == 'desc' ? 'arrow_downward' : 'arrow_upward'}}
+        </mat-icon>
+    </div>
+    <div *ngIf="item.ilvl" 
+        class="sortable" 
+        (click)="currentSort.currentSort.next({sortKey: 'ilvl'})">
+        Item Level: <span class="display-0">{{item.ilvl}}</span>
+        <mat-icon *ngIf="currentSort.currentSort.value.sortKey == 'ilvl'" 
+                        class="{{currentSort.currentSort.value.sortValue}}">
+            {{currentSort.currentSort.value.sortValue == 'desc' ? 'arrow_downward' : 'arrow_upward'}}
+        </mat-icon>
+    </div>
+    <div *ngIf="item.requirements" class="item-parsed-nested-list">
+        <span>Requires</span> 
+        <div *ngFor="let prop of item.requirements | parseProps" 
+            [class.sortable]="prop.type != null && PROP_VALUES['prop_' + prop.type]" 
+            (click)="PROP_VALUES['prop_' + prop.type] ? currentSort.currentSort.next({sortKey: PROP_VALUES['prop_' + prop.type]}) : ''">
+            <span *ngFor="let value of prop.values" class="{{value.display != null ? 'display-' + value.display : ''}}">
+                {{value.text}}
+            </span>
+            <mat-icon *ngIf="currentSort[PROP_VALUES['prop_' + prop.type]]" 
+                            class="{{currentSort.currentSort.value.sortValue}}">
+                {{currentSort.currentSort.value.sortValue == 'desc' ? 'arrow_downward' : 'arrow_upward'}}
+            </mat-icon>
+        </div>
+    </div>
+</div>

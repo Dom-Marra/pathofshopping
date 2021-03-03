@@ -1,0 +1,9 @@
+<ng-container *ngFor="let prop of modProperties">
+    <app-mod *ngFor="let mod of item | parseMods:prop.modPropString:prop.extendedPropName" 
+        [mod]='mod'
+        class="{{prop.specialClass}}">
+    </app-mod>
+</ng-container>
+<div class="projected-mod">
+    <ng-content></ng-content>
+</div>

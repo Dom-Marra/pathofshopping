@@ -1,0 +1,14 @@
+<div class="item-image-sockets item-detail">
+    <img src="{{item.icon}}" attr.aria-label="Image of {{item.name ? item.name : item.typeLine}}">
+    <div class="sockets" *ngIf="item.sockets" [style.width]="(item.w == 2 && item.sockets.length > 1) ? '92px' : '46px'">
+        <div class="socket {{socket.sColour}}" *ngFor="let socket of item.sockets; let i = index"
+        [class.right]="(item.w == 2 && (i == 1 || i == 2 || i == 5))"
+        [style.z-index]="item.sockets.length - i">
+            <span class="socket-connection-horiz {{(i == 1 || i == 2 || i == 5) ? 'to-right' : 'to-left'}}" 
+                    *ngIf="item.sockets[i + 1]?.group == socket.group && ((i + 1) % 2  && item.w == 2)"
+                    ></span>
+            <span class="socket-connection-vert"
+                    *ngIf="item.sockets[i + 1]?.group == socket.group && (!((i + 1) % 2) || item.w == 1)"></span>
+        </div>
+    </div>
+</div>

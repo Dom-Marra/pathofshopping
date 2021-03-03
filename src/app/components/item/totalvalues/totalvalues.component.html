@@ -1,0 +1,62 @@
+<div class="item-total-values mat-small">
+    <span (click)="currentSort.currentSort.next({sortKey: 'dps'})" 
+            class="total-value sortable" *ngIf="item.extended.dps">Max DPS:
+        <span class="value" [class.auged]="item.extended.dps_aug">
+            {{item.extended.dps}}
+        </span>
+        <mat-icon *ngIf="currentSort.currentSort.value.sortKey == 'dps'" 
+                        class="{{currentSort.currentSort.value.sortValue}}">
+            {{currentSort.currentSort.value.sortValue == 'desc' ? 'arrow_downward' : 'arrow_upward'}}
+        </mat-icon>
+    </span>
+    <span (click)="currentSort.currentSort.next({sortKey: 'edps'})" 
+            class="total-value sortable" *ngIf="item.extended.edps">Max eDPS:
+        <span class="value" [class.auged]="item.extended.edps_aug">
+            {{item.extended.edps}}
+        </span>
+        <mat-icon *ngIf="currentSort.currentSort.value.sortKey == 'edps'" 
+                        class="{{currentSort.currentSort.value.sortValue}}">
+            {{currentSort.currentSort.value.sortValue == 'desc' ? 'arrow_downward' : 'arrow_upward'}}
+        </mat-icon>
+    </span>
+    <span (click)="currentSort.currentSort.next({sortKey: 'pdps'})" 
+            class="total-value sortable" *ngIf="item.extended.pdps">Max pDPS:
+        <span class="value" [class.auged]="item.extended.pdps_aug">
+            {{item.extended.pdps}}
+        </span>
+        <mat-icon *ngIf="currentSort.currentSort.value.sortKey == 'pdps'" 
+                        class="{{currentSort.currentSort.value.sortValue}}">
+            {{currentSort.currentSort.value.sortValue == 'desc' ? 'arrow_downward' : 'arrow_upward'}}
+        </mat-icon>
+    </span>
+    <span (click)="currentSort.currentSort.next({sortKey: 'ev'})" 
+            class="total-value sortable" *ngIf="item.extended.ev">Max Evasion:
+        <span class="value" [class.auged]="item.extended.ev_aug">
+            {{item.extended.ev}}
+        </span>
+        <mat-icon *ngIf="currentSort.currentSort.value.sortKey == 'ev'" 
+                        class="{{currentSort.currentSort.value.sortValue}}">
+            {{currentSort.currentSort.value.sortValue == 'desc' ? 'arrow_downward' : 'arrow_upward'}}
+        </mat-icon>
+    </span>
+    <span (click)="currentSort.currentSort.next({sortKey: 'ar'})" 
+            class="total-value sortable" *ngIf="item.extended.ar">Max Armor:
+        <span class="value" [class.auged]="item.extended.ar_aug">
+            {{item.extended.ar}}
+        </span>
+        <mat-icon *ngIf="currentSort.currentSort.value.sortKey == 'ar'" 
+                        class="{{currentSort.currentSort.value.sortValue}}">
+            {{currentSort.currentSort.value.sortValue == 'desc' ? 'arrow_downward' : 'arrow_upward'}}
+        </mat-icon>
+    </span>
+    <span (click)="currentSort.currentSort.next({sortKey: 'es'})" 
+            class="total-value sortable" *ngIf="item.extended.es"> Max Energy Shield:
+        <span class="value" [class.auged]="item.extended.es_aug">
+            {{item.extended.es}}
+        </span>
+        <mat-icon *ngIf="currentSort.currentSort.value.sortKey == 'es'" 
+                        class="{{currentSort.currentSort.value.sortValue}}">
+            {{currentSort.currentSort.value.sortValue == 'desc' ? 'arrow_downward' : 'arrow_upward'}}
+        </mat-icon>
+    </span>
+</div>

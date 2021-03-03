@@ -1,57 +1,65 @@
-<form class="item-container">
-    <div class="item-header-container mat-input-400">
-        <button type="button" mat-icon-button class="transparent-mat-button warn-700 hoverable" (click)="remove()">
-            <mat-icon>delete</mat-icon>
-        </button>
-        <div *ngIf="!editName" class="item-name">
-            <h4>{{itemData.itemForm.value.itemName.length > 0 ? itemData.itemForm.value.itemName : 'Item Name'}}</h4>
-            <button type="button" (click)="editName = true" mat-icon-button class="transparent-mat-button fix-height-mat-icon"><mat-icon>edit</mat-icon></button>
-        </div>
-        <mat-form-field class="item-name-input" *ngIf="editName" [floatLabel]="'never'">
-            <input #itemNameInput matInput 
-                (keydown.enter)="$event.target.blur()"
-                (blur)="editName = false" type="text" autocomplete="off" placeholder="Item Name"  [formControl]="itemData.itemForm.controls.itemName">
-        </mat-form-field>
-    </div>
-        
-
-    <div class="item-contents">
-        <div class="filters">
-            <app-typefilters class="filter type" [queryForm]="this.itemData.itemForm['controls'].queryForm['controls'].query"></app-typefilters>
-            <app-weaponfilters class="filter" [weaponForm]="this.itemData.itemForm['controls'].queryForm['controls'].query['controls'].filters['controls'].weapon_filters"></app-weaponfilters>
-            <app-armourfilters class="filter" [armourForm]="this.itemData.itemForm['controls'].queryForm['controls'].query['controls'].filters['controls'].armour_filters"></app-armourfilters>
-            <app-socketfilters class="filter" [socketForm]="this.itemData.itemForm['controls'].queryForm['controls'].query['controls'].filters['controls'].socket_filters"></app-socketfilters>
-            <app-requirements class="filter" [requirementsForm]="this.itemData.itemForm['controls'].queryForm['controls'].query['controls'].filters['controls'].req_filters"></app-requirements>
-            <app-mapfilters class="filter" [mapForm]="this.itemData.itemForm['controls'].queryForm['controls'].query['controls'].filters['controls'].map_filters"></app-mapfilters>
-            <app-specialbases class="filter" [influenceForm]="this.itemData.influenceForm"></app-specialbases>
-            <app-gemfilters class="filter" [gemForm]="this.itemData.gemForm"></app-gemfilters>
-            <app-otherfilters class="filter" [otherForm]="this.itemData.otherForm"></app-otherfilters>
-            <app-tradefilters class="filter" [tradeForm]="this.itemData.itemForm['controls'].queryForm['controls'].query['controls'].filters['controls'].trade_filters"></app-tradefilters>
-            <app-statfilters class="filter" *ngFor="let statFilter of this.itemData.itemForm['controls'].queryForm['controls'].query['controls'].stats['controls']" [statFilter]="statFilter" (filterRemoved)="removeStatFilter($event)"></app-statfilters>
-            <button mat-button type="button" (click)="addStatGroup()" class="transparent-mat-button"><mat-icon>library_add</mat-icon> Stat Group</button>
-            <div class="query-actions">
-                <div class="query-buttons">
-                    <button class="query-button search mat-button-300" mat-flat-button (click)="queryIDs('price', 'asc')">
-                        <mat-icon>search</mat-icon>Search
-                    </button>
-                    <button class="query-button mat-button-600" mat-flat-button type="button" (click)="this.showResults = !this.showResults" *ngIf="this.itemData.resultData.queryProps || this.showResults">
-                        <mat-icon class="{{ showResults ? '' : 'rotate'}}">expand_less</mat-icon>{{ showResults ? 'Hide Results' : 'Show Results'}}
-                    </button>
-                    <button class="query-button mat-button-600" mat-flat-button type="button" (click)="clear()">
-                        <mat-icon>clear</mat-icon>Clear
-                    </button>
-                </div>
-                <app-searchselect class="status-field mat-input-400" 
-                                    autoCompleteClass='autocomplete-panel-300' 
-                                    inputName='Status'
-                                    [values]="statusOptions"
-                                    [filterBy]="simpleDataService.filterSimpleData"
-                                    [displayBy]="simpleDataService.displayByText"   
-                                    [setValue]="simpleDataService.getSelectedValue(this.itemData.itemForm['controls'].queryForm['controls'].query['controls'].status['controls'].option.value, statusOptions)"
-                                    (selected)="this.itemData.itemForm['controls'].queryForm['controls'].query['controls'].status['controls'].option.patchValue($event.id)"></app-searchselect>
+<div class="item-wrapper">
+    <app-itemimage class="item-image" [item]='item.item'></app-itemimage>
+    <div class="item-box rarity-{{item.item.frameType}}">
+        <app-itemheader [item]='item.item'></app-itemheader>
+        <div class="item-details-container">
+            <app-properties *ngIf="item.item.properties && item.item.properties.length > 0"
+                             class="item-detail"
+                             [item]="item.item">
+            </app-properties>
+            <app-itemrequirements *ngIf="item.item.requirements || item.item.ilvl || item.item.talismanTier"
+                                class="item-detail"
+                                [item]="item.item">
+            </app-itemrequirements>
+            <app-modlist *ngIf="item.item.enchantMods && item.item.enchantMods.length > 0"
+                        [item]="item.item"
+                        [modProperties]="enchantModProperties"
+                        class="item-detail">     
+            </app-modlist>
+            <app-modlist *ngIf="item.item.implicitMods && item.item.implicitMods.length > 0"
+                        [item]="item.item"
+                        [modProperties]="implicitModProperties"
+                        class="item-detail">     
+            </app-modlist>
+            <app-modlist *ngIf="(item.item.explicitMods || item.item.fracturedMods || item.item.craftedMods || item.item.corrupted || item.item.duplicated) && item.item.frameType != 6"
+                [item]="item.item"
+                [modProperties]="explicitModProperties"
+                class="item-detail">    
+                <p *ngIf="item.item.corrupted" style="color: #d20000; margin: 0; padding: 0.3em; text-align: center;">
+                    Corrupted
+                </p>
+                <p *ngIf="item.item.duplicated" style="color: rgb(100, 100, 255); margin: 0; padding: 0.3em; text-align: center;">
+                    Mirrored
+                </p> 
+            </app-modlist>
+            <app-divmods *ngIf="item.item.frameType == 6 && item.item.explicitMods"
+                            class="item-detail"
+                            [item]="item.item"> 
+            </app-divmods>
+            <div *ngIf="item.item.identified == false" class="item-mod-list item-detail">
+                <span class="mod corrupted">Unidentified</span>
             </div>
+            <div *ngIf="item.item.prophecyText" class="item-detail">
+                <span>{{item.item.prophecyText}}</span>
+            </div>
+            <app-additionalproperties class="item-detail" 
+                                        *ngIf="item.item.additionalProperties" 
+                                        [item]='item.item'>
+            </app-additionalproperties>
+            <app-incubator class="item-detail"  
+                            *ngIf="item.item.incubatedItem" 
+                            [item]='item.item'>
+            </app-incubator>
+            <app-totalvalues class="item-detail" 
+                            *ngIf="item.item.extended.dps || 
+                                    item.item.extended.edps || 
+                                    item.item.extended.pdps || 
+                                    item.item.extended.ev || 
+                                    item.item.extended.ar || 
+                                    item.item.extended.es"
+                            [item]='item.item'>
+            </app-totalvalues>
         </div>
-        <app-results *ngIf="showResults" class="results" [resultData]="itemData.resultData" [currentSort]="this.itemData.itemForm['controls'].queryForm['controls'].sort.getRawValue()" (newSort)="queryIDs($event)"></app-results>
     </div>
-</form>
-
+</div>
+<app-listinginfo [listing]="item.listing"></app-listinginfo>

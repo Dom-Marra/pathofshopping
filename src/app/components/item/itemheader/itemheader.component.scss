@@ -1,0 +1,71 @@
+.item-header {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-weight: 300;
+    min-height: 45px;
+
+    &.rarity-0 {
+        color:rgb(226, 226, 226);
+        background-color:rgb(90, 90, 90);
+    }
+    &.rarity-1 {
+        color: rgb(131, 132, 190);
+        background-color: rgb(71, 68, 95);
+    }
+    &.rarity-2 {
+        color: rgb(236,235,109);
+        background-color: rgb(120,89,33);
+    }
+    &.rarity-3 {
+        color: rgb(201, 106, 24);
+        background-color: rgb(107, 56, 34);
+    }
+    &.rarity-4 {
+        color: rgb(17, 185, 177);
+        background-color: rgb(11, 94, 89);
+    }
+    &.rarity-5 {
+        color: rgb(173, 160, 115);
+        background-color: rgb(92, 86, 65);
+    }
+    &.rarity-6 {
+        color: black;
+        background-color: rgb(159,147,135);
+    }
+    &.rarity-8 {
+        color: rgb(181,73,249);
+        background-color: rgb(91, 36, 126);
+    }
+    &.rarity-9 {
+        color: rgb(105,101,56);
+        background-color: rgb(25,51,75);
+        
+    }
+
+    .item-name, .item-type {
+        margin: 0;
+        padding-top: 0.1em;
+    }
+
+    .influence-icon-container {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        display: flex;
+        align-items: center;
+
+        .influence-icon-left {
+            margin-right: auto;
+            padding-left: 0.15em;
+        }
+
+        .influence-icon-right {
+            margin-left: auto;
+            padding-right: 0.15em;
+        }
+    }
+} 

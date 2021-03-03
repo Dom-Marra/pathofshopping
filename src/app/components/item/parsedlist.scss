@@ -1,0 +1,60 @@
+.item-parsed-list {
+    padding-top: 0.6em;
+    width: 95%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    text-align: center;
+
+    color: rgb(151, 151, 151);
+
+    &:last-child {
+        padding-bottom: 0.5em;
+    }
+
+    .display-0 {
+        color: white;
+    }
+
+    .display-1 {
+        color: rgb(100, 100, 255);
+    }
+
+    .display-4 {
+        color: rgb(223, 37, 4);
+    }
+
+    .display-5 {
+        color: rgb(132, 226, 230);
+    }
+
+    .display-6 {
+        color: rgb(255, 238, 0);
+    }
+
+    .display-7 {
+        color: rgb(182, 38, 182);
+    }
+
+    .unmet {
+        color: #d20000;
+    }
+
+    &:after {
+        order: 2;
+    }
+
+    .item-parsed-nested-list {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        text-align: center;
+        justify-content: center;
+
+        & > * {
+            padding-left: 0.15em;
+            padding-right: 0.15em;
+        }
+    }
+}
