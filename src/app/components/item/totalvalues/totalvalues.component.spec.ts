@@ -76,6 +76,16 @@ describe('TotalvaluesComponent', () => {
         expect(dpsTotalEl.nativeElement.textContent).toContain(mockedValue);
       });
 
+      it('should call next on the currentValue behavior subject from the currentValue service with {sortKey: \'dps\'}', () => {
+        mockExtended['dps'] = mockedValue;
+        fixture.detectChanges();
+        let dpsTotalEl = fixture.debugElement.query(By.css('.total-value'));
+        spyOn(component.currentSort.currentSort, 'next');
+        dpsTotalEl.triggerEventHandler('click', {});
+
+        expect(component.currentSort.currentSort.next).toHaveBeenCalledWith({sortKey: 'dps'});
+      });
+
       it('should not contain the sort arrow component if the currentSort serive currentSort.sortKey != \'dps\'',  () => {
         mockExtended['dps'] = mockedValue;
         component.currentSort.currentSort.next({sortKey: mockedValue, sortValue: 'asc'});
@@ -124,6 +134,16 @@ describe('TotalvaluesComponent', () => {
         let edpsTotalEl = fixture.debugElement.query(By.css('.total-value'));
 
         expect(edpsTotalEl.nativeElement.textContent).toContain(mockedValue);
+      });
+
+      it('should call next on the currentValue behavior subject from the currentValue service with {sortKey: \'edps\'}', () => {
+        mockExtended['edps'] = mockedValue;
+        fixture.detectChanges();
+        let edpsTotalEl = fixture.debugElement.query(By.css('.total-value'));
+        spyOn(component.currentSort.currentSort, 'next');
+        edpsTotalEl.triggerEventHandler('click', {});
+
+        expect(component.currentSort.currentSort.next).toHaveBeenCalledWith({sortKey: 'edps'});
       });
 
       it('should not contain the sort arrow component if the currentSort serive currentSort.sortKey != \'edps\'',  () => {
@@ -176,6 +196,16 @@ describe('TotalvaluesComponent', () => {
         expect(pdpsTotalEl.nativeElement.textContent).toContain(mockedValue);
       });
 
+      it('should call next on the currentValue behavior subject from the currentValue service with {sortKey: \'pdps\'}', () => {
+        mockExtended['pdps'] = mockedValue;
+        fixture.detectChanges();
+        let pdpsTotalEl = fixture.debugElement.query(By.css('.total-value'));
+        spyOn(component.currentSort.currentSort, 'next');
+        pdpsTotalEl.triggerEventHandler('click', {});
+
+        expect(component.currentSort.currentSort.next).toHaveBeenCalledWith({sortKey: 'pdps'});
+      });
+
       it('should not contain the sort arrow component if the currentSort serive currentSort.sortKey != \'pdps\'',  () => {
         mockExtended['pdps'] = mockedValue;
         component.currentSort.currentSort.next({sortKey: mockedValue, sortValue: 'asc'});
@@ -224,6 +254,16 @@ describe('TotalvaluesComponent', () => {
         let evTotalEl = fixture.debugElement.query(By.css('.total-value'));
 
         expect(evTotalEl.nativeElement.textContent).toContain(mockedValue);
+      });
+
+      it('should call next on the currentValue behavior subject from the currentValue service with {sortKey: \'ev\'}', () => {
+        mockExtended['ev'] = mockedValue;
+        fixture.detectChanges();
+        let evTotalEl = fixture.debugElement.query(By.css('.total-value'));
+        spyOn(component.currentSort.currentSort, 'next');
+        evTotalEl.triggerEventHandler('click', {});
+
+        expect(component.currentSort.currentSort.next).toHaveBeenCalledWith({sortKey: 'ev'});
       });
 
       it('should not contain the sort arrow component if the currentSort serive currentSort.sortKey != \'ev\'',  () => {
@@ -276,6 +316,16 @@ describe('TotalvaluesComponent', () => {
         expect(arTotalEl.nativeElement.textContent).toContain(mockedValue);
       });
 
+      it('should call next on the currentValue behavior subject from the currentValue service with {sortKey: \'ar\'}', () => {
+        mockExtended['ar'] = mockedValue;
+        fixture.detectChanges();
+        let arTotalEl = fixture.debugElement.query(By.css('.total-value'));
+        spyOn(component.currentSort.currentSort, 'next');
+        arTotalEl.triggerEventHandler('click', {});
+
+        expect(component.currentSort.currentSort.next).toHaveBeenCalledWith({sortKey: 'ar'});
+      });
+
       it('should not contain the sort arrow component if the currentSort serive currentSort.sortKey != \'ar\'',  () => {
         mockExtended['ar'] = mockedValue;
         component.currentSort.currentSort.next({sortKey: mockedValue, sortValue: 'asc'});
@@ -324,6 +374,16 @@ describe('TotalvaluesComponent', () => {
         let esTotalEl = fixture.debugElement.query(By.css('.total-value'));
 
         expect(esTotalEl.nativeElement.textContent).toContain(mockedValue);
+      });
+
+      it('should call next on the currentValue behavior subject from the currentValue service with {sortKey: \'es\'}', () => {
+        mockExtended['es'] = mockedValue;
+        fixture.detectChanges();
+        let esTotalEl = fixture.debugElement.query(By.css('.total-value'));
+        spyOn(component.currentSort.currentSort, 'next');
+        esTotalEl.triggerEventHandler('click', {});
+
+        expect(component.currentSort.currentSort.next).toHaveBeenCalledWith({sortKey: 'es'});
       });
 
       it('should not contain the sort arrow component if the currentSort serive currentSort.sortKey != \'es\'',  () => {
