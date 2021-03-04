@@ -73,7 +73,7 @@ class ItemFormStubComponent {
   @Output() deleteItem: EventEmitter<Item> = new EventEmitter<Item>();
 }
 
-fdescribe('ShoppinglistComponent', () => {
+describe('ShoppinglistComponent', () => {
   let component: ShoppinglistComponent;
   let poeService: PoeService;
   let activeRoute: ActivatedRoute;
