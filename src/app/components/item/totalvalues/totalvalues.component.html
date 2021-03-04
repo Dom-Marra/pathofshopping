@@ -4,59 +4,47 @@
         <span class="value" [class.auged]="extended.dps_aug">
             {{extended.dps}}
         </span>
-        <mat-icon *ngIf="currentSort.currentSort.value.sortKey == 'dps'" 
-                        class="{{currentSort.currentSort.value.sortValue}}">
-            {{currentSort.currentSort.value.sortValue == 'desc' ? 'arrow_downward' : 'arrow_upward'}}
-        </mat-icon>
+        <app-sortarrow *ngIf="currentSort.currentSort.value.sortKey == 'dps'" 
+                        [sortValue]="currentSort.currentSort.value.sortValue"></app-sortarrow>
     </span>
     <span (click)="currentSort.currentSort.next({sortKey: 'edps'})" 
             class="total-value sortable" *ngIf="extended.edps">Max eDPS:
         <span class="value" [class.auged]="extended.edps_aug">
             {{extended.edps}}
         </span>
-        <mat-icon *ngIf="currentSort.currentSort.value.sortKey == 'edps'" 
-                        class="{{currentSort.currentSort.value.sortValue}}">
-            {{currentSort.currentSort.value.sortValue == 'desc' ? 'arrow_downward' : 'arrow_upward'}}
-        </mat-icon>
+        <app-sortarrow *ngIf="currentSort.currentSort.value.sortKey == 'edps'"
+                        [sortValue]="currentSort.currentSort.value.sortValue"></app-sortarrow>
     </span>
     <span (click)="currentSort.currentSort.next({sortKey: 'pdps'})" 
             class="total-value sortable" *ngIf="extended.pdps">Max pDPS:
         <span class="value" [class.auged]="extended.pdps_aug">
             {{extended.pdps}}
         </span>
-        <mat-icon *ngIf="currentSort.currentSort.value.sortKey == 'pdps'" 
-                        class="{{currentSort.currentSort.value.sortValue}}">
-            {{currentSort.currentSort.value.sortValue == 'desc' ? 'arrow_downward' : 'arrow_upward'}}
-        </mat-icon>
+        <app-sortarrow *ngIf="currentSort.currentSort.value.sortKey == 'pdps'"
+                        [sortValue]="currentSort.currentSort.value.sortValue"></app-sortarrow>
     </span>
     <span (click)="currentSort.currentSort.next({sortKey: 'ev'})" 
             class="total-value sortable" *ngIf="extended.ev">Max Evasion:
         <span class="value" [class.auged]="extended.ev_aug">
             {{extended.ev}}
         </span>
-        <mat-icon *ngIf="currentSort.currentSort.value.sortKey == 'ev'" 
-                        class="{{currentSort.currentSort.value.sortValue}}">
-            {{currentSort.currentSort.value.sortValue == 'desc' ? 'arrow_downward' : 'arrow_upward'}}
-        </mat-icon>
+        <app-sortarrow *ngIf="currentSort.currentSort.value.sortKey == 'ev'" 
+                        [sortValue]="currentSort.currentSort.value.sortValue"></app-sortarrow>
     </span>
     <span (click)="currentSort.currentSort.next({sortKey: 'ar'})" 
             class="total-value sortable" *ngIf="extended.ar">Max Armor:
         <span class="value" [class.auged]="extended.ar_aug">
             {{extended.ar}}
         </span>
-        <mat-icon *ngIf="currentSort.currentSort.value.sortKey == 'ar'" 
-                        class="{{currentSort.currentSort.value.sortValue}}">
-            {{currentSort.currentSort.value.sortValue == 'desc' ? 'arrow_downward' : 'arrow_upward'}}
-        </mat-icon>
+        <app-sortarrow *ngIf="currentSort.currentSort.value.sortKey == 'ar'"
+                        [sortValue]="currentSort.currentSort.value.sortValue"></app-sortarrow>
     </span>
     <span (click)="currentSort.currentSort.next({sortKey: 'es'})" 
             class="total-value sortable" *ngIf="extended.es"> Max Energy Shield:
         <span class="value" [class.auged]="extended.es_aug">
             {{extended.es}}
         </span>
-        <mat-icon *ngIf="currentSort.currentSort.value.sortKey == 'es'" 
-                        class="{{currentSort.currentSort.value.sortValue}}">
-            {{currentSort.currentSort.value.sortValue == 'desc' ? 'arrow_downward' : 'arrow_upward'}}
-        </mat-icon>
+        <app-sortarrow *ngIf="currentSort.currentSort.value.sortKey == 'es'" 
+                        [sortValue]="currentSort.currentSort.value.sortValue"></app-sortarrow>
     </span>
 </div>
