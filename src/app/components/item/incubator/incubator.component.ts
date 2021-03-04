@@ -6,7 +6,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class IncubatorComponent implements OnInit {
 
-  @Input() item: any;                 //Item Values
+  @Input() incubatedItem: any;                 //Incubated item values
 
   constructor() { }
 
