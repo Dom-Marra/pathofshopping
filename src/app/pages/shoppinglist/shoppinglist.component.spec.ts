@@ -66,14 +66,14 @@ class SearchSelectStubComponent {
   @Output() selected: EventEmitter<any> = new EventEmitter<any>();  
 }
 
-@Component({selector: 'app-item', template: ''})
-class ItemStubComponent {
+@Component({selector: 'app-itemForm', template: ''})
+class ItemFormStubComponent {
   @Input() itemData: Item;
   @Input() league: string;
   @Output() deleteItem: EventEmitter<Item> = new EventEmitter<Item>();
 }
 
-describe('ShoppinglistComponent', () => {
+fdescribe('ShoppinglistComponent', () => {
   let component: ShoppinglistComponent;
   let poeService: PoeService;
   let activeRoute: ActivatedRoute;
@@ -87,7 +87,7 @@ describe('ShoppinglistComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ShoppinglistComponent, ItemStubComponent, SearchSelectStubComponent ],
+      declarations: [ ShoppinglistComponent, ItemFormStubComponent, SearchSelectStubComponent ],
       providers: [
         ShoppinglistComponent,
         {provide: PoeService, useClass: MockPoeService},
@@ -766,7 +766,7 @@ describe('ShoppinglistComponent', () => {
         component.shoppingList.controls.league.patchValue('Mock League');
         fixture.detectChanges();
 
-        items = fixture.debugElement.queryAll(By.css('app-item'));
+        items = fixture.debugElement.queryAll(By.css('app-itemForm'));
       });
 
       it('should call deleteItem when its deleteItem event fires', () => {
@@ -777,13 +777,13 @@ describe('ShoppinglistComponent', () => {
       });
 
       it('should use correct item as input', () => {
-        let itemComp = (items[0].componentInstance as ItemStubComponent);
+        let itemComp = (items[0].componentInstance as ItemFormStubComponent);
 
         expect(itemComp.itemData).toEqual(component.items[0]);
       });
 
       it('should have the same league as the shoppinglist', () => {
-        let itemComp = (items[0].componentInstance as ItemStubComponent);
+        let itemComp = (items[0].componentInstance as ItemFormStubComponent);
 
         expect(itemComp.league).toEqual(component.shoppingList.controls.league.value);
       });
