@@ -99,7 +99,7 @@ class StatFiltersStub {
   @Output() filterRemoved: EventEmitter<any> = new EventEmitter<any>();
 }
 
-fdescribe('ItemFormComponent', () => {
+describe('ItemFormComponent', () => {
   const mockLeague = 'Mock League';
 
   let component: ItemFormComponent;
