@@ -1,5 +1,5 @@
 <div class="item-parsed-list">
-    <div *ngFor="let prop of item.additionalProperties | parseProps" 
+    <div *ngFor="let prop of additionalProperties | parseProps" 
         [class.sortable]="prop.type != null && PROP_VALUES['prop_' + prop.type]" 
         (click)="PROP_VALUES['prop_' + prop.type] ? currentSort.currentSort.next({sortKey: PROP_VALUES['prop_' + prop.type]}) : ''">
         <span *ngFor="let value of prop.values" class="{{value.display != null ? 'display-' + value.display : ''}}">
