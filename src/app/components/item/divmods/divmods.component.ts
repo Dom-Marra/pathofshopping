@@ -7,7 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class DivmodsComponent implements OnInit {
 
-  @Input() item: any;               //Item Values
+  @Input() explicitMods: any;               //Item explicit mod values
 
   constructor() { }
 
