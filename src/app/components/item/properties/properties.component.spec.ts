@@ -85,14 +85,22 @@ describe('PropertiesComponent', () => {
         expect(sortableProps.length).toEqual(1);
       });
 
-      it('should call next with proper parameters on the currentValue behaviorSubject if the prop.type exists in the PROP_VALUES', () => {
+      it('calls next on click with proper parameters on the currentValue behaviorSubject if the prop.type exists in the PROP_VALUES', () => {
         spyOn(component.currentSort.currentSort, 'next');
-        let clickableProps = fixture.debugElement.queryAll(By.css('.sortable'));
-        clickableProps[0].triggerEventHandler('click', {});
+        let props = fixture.debugElement.queryAll(By.css('div'));
 
+        props[1].triggerEventHandler('click', {});
         //map_tier is the related prop value to the type in the clickable prop
         expect(component.currentSort.currentSort.next).toHaveBeenCalledWith({sortKey: 'map_tier'});
       });   
+
+      it('does not call next on click on the currentValue behaviorSubject if the prop.type does not exist in the property', () => {
+        spyOn(component.currentSort.currentSort, 'next');
+        let props = fixture.debugElement.queryAll(By.css('div'));
+
+        props[2].triggerEventHandler('click', {});
+        expect(component.currentSort.currentSort.next).not.toHaveBeenCalled();
+      })
 
       it('has the display value of each value as the class of the value span pefixed with \'display-\'', () => {
         let mockProp1Spans = fixture.debugElement.queryAll(By.css('.display-mock-prop-1'));
@@ -116,6 +124,15 @@ describe('PropertiesComponent', () => {
         let sortArrowComp = prop.query(By.css('app-sortarrow'));
 
         expect(sortArrowComp).toBeTruthy();
+      });
+
+      it('should not contain a sortarrow component if the currentSort sortKey does not = the propertys associated type', () => {
+        component.currentSort.currentSort.next({sortKey: 'randomkey', sortValue: 'asc'});
+        fixture.detectChanges();
+        let divs = fixture.debugElement.queryAll(By.css('div'));
+        let sortArrowComp = divs[2].query(By.css('app-sortarrow'));
+
+        expect(sortArrowComp).toBeFalsy();
       });
 
       it('should set the sortValue input to the currentSort sortValue', () => {
