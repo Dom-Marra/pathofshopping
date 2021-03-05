@@ -225,7 +225,7 @@ describe('ListinginfoComponent', () => {
         expect(currencyEl.nativeElement.textContent).toContain('x1');
       });
 
-      it('contains the sortarrow component if the currentSort sortKey == \'price\'', () => {
+      it('does not contain the sortarrow component if the currentSort sortKey != \'price\'', () => {
         spyOn(poeAPI, 'getPoeStatic').and.returnValue([
           {
             label: 'Currency',
@@ -243,12 +243,12 @@ describe('ListinginfoComponent', () => {
           currency: 'mock',
           amount: 1
         };
-        component.currentSort.currentSort.next({sortKey: 'price', sortValue: 'asc'});
+        component.currentSort.currentSort.next({sortKey: '', sortValue: 'asc'});
         fixture.detectChanges();
 
         let currencyEl = fixture.debugElement.queryAll(By.css('.listing-info'))[1];
         let sortArrow = currencyEl.query(By.css('app-sortarrow'));
-        expect(sortArrow).toBeTruthy();
+        expect(sortArrow).toBeFalsy();
       });
 
       it('should set the sortarrow sortValue to the currentValue sortValue', () => {
@@ -301,11 +301,11 @@ describe('ListinginfoComponent', () => {
         expect(indexedEl.nativeElement.textContent).toContain('Mock Return Value');
       });
 
-      it('should have the sortarrow component if the currentSort sortKey = \'indexed\'', () => {
-        component.currentSort.currentSort.next({sortKey: 'indexed', sortValue: 'asc'});
+      it('does not contain the sortarrow component if the currentSort sortKey != \'indexed\'', () => {
+        component.currentSort.currentSort.next({sortKey: '', sortValue: 'asc'});
         fixture.detectChanges();
         let indexedEl = fixture.debugElement.queryAll(By.css('.listing-info'))[1];
-        expect(indexedEl.query(By.css('app-sortarrow'))).toBeTruthy();
+        expect(indexedEl.query(By.css('app-sortarrow'))).toBeFalsy();
       });
 
       it('should set the sortarrow component sortValue to the currentSort sortValue', () => {
