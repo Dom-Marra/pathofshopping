@@ -25,7 +25,7 @@ export class ParsePropsPipePipeStub implements PipeTransform {
   transform(props: any): Array<parsedPropData> { return [] }
 }
 
-fdescribe('ItemRequirementsComponent', () => {
+describe('ItemRequirementsComponent', () => {
   let component: ItemRequirementsComponent;
   let fixture: ComponentFixture<ItemRequirementsComponent>;
   let mockItem ={ }
