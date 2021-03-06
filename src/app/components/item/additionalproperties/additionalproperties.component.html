@@ -5,10 +5,9 @@
         <span *ngFor="let value of prop.values" class="{{value.display != null ? 'display-' + value.display : ''}}">
             {{value.text}}
         </span>
-        <mat-icon *ngIf="currentSort.currentSort.value.sortKey == PROP_VALUES['prop_' + prop.type]" 
-                    class="{{currentSort.currentSort.value.sortValue}}">
-            {{currentSort.currentSort.value.sortValue == 'desc' ? 'arrow_downward' : 'arrow_upward'}}
-        </mat-icon>
+        <app-sortarrow *ngIf="currentSort.currentSort.value.sortKey == PROP_VALUES['prop_' + prop.type]" 
+                    [sortValue]="currentSort.currentSort.value.sortValue">
+        </app-sortarrow >
         <mat-progress-bar class="item-progress-bar" 
                             *ngIf="prop.progress != null" 
                             mode="determinate" 
