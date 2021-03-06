@@ -10,7 +10,7 @@ import { propertyValues } from '../../../enums/propertyValues.enum';
 export class AdditionalpropertiesComponent implements OnInit {  
   public readonly PROP_VALUES = propertyValues;        //Keys of the prop values
 
-  @Input() additionalProperties: any;                  //Item additional propertie values
+  @Input() additionalProperties: any;                  //Item additional property values
 
   constructor(public currentSort: CurrentsortService) { }
 
