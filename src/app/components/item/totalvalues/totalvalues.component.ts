@@ -8,7 +8,7 @@ import { CurrentsortService } from 'src/app/services/currentsort.service';
 })
 export class TotalvaluesComponent implements OnInit {
 
-  @Input() item: any;                   //Item Values
+  @Input() extended: any;                   //Extended Values
 
   constructor(public currentSort: CurrentsortService) { }
 

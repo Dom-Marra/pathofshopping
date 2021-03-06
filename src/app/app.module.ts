@@ -69,6 +69,7 @@ import { ParseModsPipePipe } from './pipes/parse-mods-pipe.pipe';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from 'src/environments/environment';
 import { DivmodsComponent } from './components/item/divmods/divmods.component';
+import { SortarrowComponent } from './components/item/sortarrow/sortarrow.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -108,7 +109,8 @@ import { DivmodsComponent } from './components/item/divmods/divmods.component';
     AdditionalpropertiesComponent,
     IncubatorComponent,
     ItemRequirementsComponent,
-    DivmodsComponent
+    DivmodsComponent,
+    SortarrowComponent
   ],
   imports: [
     BrowserModule,

@@ -32,10 +32,10 @@ export class ListinginfoComponent implements OnInit {
     let minutes = diff / (1000 * 60);
     let seconds = diff / 1000;
 
-    if (days >= 1) return Math.floor(days) + ' Days ago';
-    if (hours >= 1) return Math.floor(hours) + ' Hours ago';
-    if (minutes >= 1) return Math.floor(minutes) + ' Minutes ago';
-    if (seconds >= 1) return Math.floor(seconds) + ' Seconds ago';
+    if (days >= 1) return Math.ceil(days) + ' Days ago';
+    if (hours >= 1) return Math.ceil(hours) + ' Hours ago';
+    if (minutes >= 1) return Math.ceil(minutes) + ' Minutes ago';
+    if (seconds >= 1) return Math.ceil(seconds) + ' Seconds ago';
   }
 
   /**
@@ -45,6 +45,8 @@ export class ListinginfoComponent implements OnInit {
    *        string: currency id
    */
   public getCurrencyImage(currencyID: string): string {
+    if (!currencyID) return null;
+
     let currencies = this.poeAPI.getPoeStatic().find(category => { return category.id == 'Currency'});
 
     let currency = currencies.entries.find(currency => { return currency.id == currencyID});

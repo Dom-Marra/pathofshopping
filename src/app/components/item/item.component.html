@@ -26,29 +26,29 @@
                 [modProperties]="explicitModProperties"
                 class="item-detail">    
                 <p *ngIf="item.item.corrupted" style="color: #d20000; margin: 0; padding: 0.3em; text-align: center;">
-                    Corrupted
+                    <span>Corrupted</span>
                 </p>
                 <p *ngIf="item.item.duplicated" style="color: rgb(100, 100, 255); margin: 0; padding: 0.3em; text-align: center;">
-                    Mirrored
+                    <span>Mirrored</span>
                 </p> 
             </app-modlist>
             <app-divmods *ngIf="item.item.frameType == 6 && item.item.explicitMods"
                             class="item-detail"
-                            [item]="item.item"> 
+                            [explicitMods]="item.item.explicitMods"> 
             </app-divmods>
-            <div *ngIf="item.item.identified == false" class="item-mod-list item-detail">
-                <span class="mod corrupted">Unidentified</span>
+            <div *ngIf="item.item.identified == false" class="item-detail">
+                <span class="corrupted">Unidentified</span>
             </div>
             <div *ngIf="item.item.prophecyText" class="item-detail">
                 <span>{{item.item.prophecyText}}</span>
             </div>
             <app-additionalproperties class="item-detail" 
                                         *ngIf="item.item.additionalProperties" 
-                                        [item]='item.item'>
+                                        [additionalProperties]='item.item.additionalProperties'>
             </app-additionalproperties>
             <app-incubator class="item-detail"  
                             *ngIf="item.item.incubatedItem" 
-                            [item]='item.item'>
+                            [incubatedItem]='item.item.incubatedItem'>
             </app-incubator>
             <app-totalvalues class="item-detail" 
                             *ngIf="item.item.extended.dps || 
@@ -57,7 +57,7 @@
                                     item.item.extended.ev || 
                                     item.item.extended.ar || 
                                     item.item.extended.es"
-                            [item]='item.item'>
+                            [extended]='item.item.extended'>
             </app-totalvalues>
         </div>
     </div>

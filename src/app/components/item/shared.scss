@@ -6,29 +6,13 @@
         cursor: pointer;
         text-shadow: 0 0 3px rgba(0, 0, 0, 0.75), 0 0 6px, 0 0 9px, 0 0 12px;
 
-        .mod-details, .asc, .desc, .time-icon, .value, [class*='display'] {
+        .mod-details, .time-icon, .value, [class*='display'], app-sortarrow {
             text-shadow: 0 0 3px rgba(0, 0, 0, 0.75), 0 0 6px, 0 0 9px, 0 0 12px;
         }
     }
 
-    .mod-details, .asc, .desc, .time-icon, .value, [class*='display'] {
+    .mod-details, .time-icon, .value, [class*='display'] {
         transition: text-shadow 0.15s linear;
         text-shadow: none;
-    }
-
-    .asc, .desc {
-        font-size: 18px;
-        display: inline-flex;
-        height: auto;
-        justify-content: center;
-        vertical-align: bottom;
-    }
-
-    .asc {
-        color: #309630;
-    }
-
-    .desc {
-        color: #d20000;
     }
 }
