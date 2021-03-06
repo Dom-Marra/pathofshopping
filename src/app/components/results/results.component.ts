@@ -1,6 +1,5 @@
-import { Component, ElementRef, EventEmitter, Input, KeyValueDiffer, KeyValueDiffers, OnInit, Output, QueryList, ViewChildren } from '@angular/core';
+import { Component, ElementRef, Input, KeyValueDiffer, KeyValueDiffers, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
-import { Subscription } from 'rxjs';
 import { Resultdata } from '../../classes/resultdata/resultdata';
 import { PoeService } from 'src/app/services/poe.service';
 
@@ -18,7 +17,7 @@ export class ResultsComponent implements OnInit {
 
   public inProgress: boolean = false;                 //Whether the query is in progress or not
 
-  public differ: KeyValueDiffer<any, any>;            //Used to detect changes in the queryProps
+  private differ: KeyValueDiffer<any, any>;            //Used to detect changes in the queryProps
   constructor(private poeAPI: PoeService, private kvDiffers: KeyValueDiffers) { }
 
   ngOnInit(): void { 
@@ -60,8 +59,6 @@ export class ResultsComponent implements OnInit {
    * Gets item data from a range of item IDs
    */
   public getItems() {
-    
-    let query: Subscription;        //Query sub
 
     let results = this.resultData.queryProps.res
                   .slice(this.resultData.startIndex, this.resultData.endIndex);   //Get the IDs to retrive items for
@@ -75,14 +72,13 @@ export class ResultsComponent implements OnInit {
     this.inProgress = true;                               //Set in progress
 
     //Get items
-    query = this.poeAPI.fetch(results, "?query=" + this.resultData.queryProps.id + "&" + this.resultData.queryProps.psuedos)
+    this.poeAPI.fetch(results, "?query=" + this.resultData.queryProps.id + "&" + this.resultData.queryProps.psuedos)
     .subscribe((items: any) => {  
       this.resultData.queryData = this.resultData.queryData.concat(items.result);          //Add results   
       this.resultData.retrievedItems = this.resultData.retrievedItems.concat(results);     //Add the IDs as retrieved  
 
       //Out of progress unsub
       this.inProgress = false;
-      query.unsubscribe();
     });
   }
 
