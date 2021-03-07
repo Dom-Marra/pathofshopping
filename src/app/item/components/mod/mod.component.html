@@ -1,0 +1,23 @@
+<div class="mod-container {{mod.hash ? 'sortable' : ''}}" 
+    (click)="mod.hash ? currentSort.currentSort.next({sortKey: 'stat.' + mod.hash}) : ''">
+    <span [innerHTML]="mod.text"></span>
+    <item-sortarrow *ngIf="currentSort.currentSort.value.sortKey == 'stat.' + mod.hash"
+                    [sortValue]="currentSort.currentSort.value.sortValue">
+    </item-sortarrow>
+    <div class="mod-details mat-small type-{{mod.tiers[0]?.tier}}">
+        <div class="mod-detail tiers">
+            <div *ngFor="let tier of mod.tiers; let i = index">
+                <span *ngIf="i > 0"> + </span>
+                <span>{{tier.tier}}</span>
+                <span *ngIf="tier.ranges && tier.ranges.length > 0">
+                    [<span *ngFor="let range of tier.ranges; let i = index">
+                        <span>{{range.min}}{{(range.max != range.min ? ' - ' + range.max : '')}}</span>
+                        <span *ngIf="tier.ranges[i+1]">, </span>
+                    </span>]
+                </span>
+            </div>
+        </div>
+        <div *ngIf="mod.name" class="mod-detail">{{mod.name}}</div>
+    </div>
+</div>
+
