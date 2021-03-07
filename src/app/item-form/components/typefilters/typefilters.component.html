@@ -1,0 +1,35 @@
+<div class="type-filters mat-input-400" [formGroup]="queryForm">
+    <div class="flexed-inputs search-field">
+        <app-searchselect inputName='Search Items'
+                            [values]="itemsToSearch"
+                            [filterBy]="filterGroups.bind(this)"
+                            [displayBy]="displayItemBy"   
+                            [setValue]="{
+                                name:  this.queryForm.controls.name.value,
+                                type:  this.queryForm.controls.type.value,
+                                text:  this.queryForm.controls.term.value ? this.queryForm.controls.term.value : 
+                                      (this.queryForm.controls.name.value ? this.queryForm.controls.name.value + ' ' : '') + 
+                                      (this.queryForm.controls.type.value ? this.queryForm.controls.type.value : '')
+                              }"
+                            [clearOnFocus]='false'
+                            [groupOptions]="{groupedBy: 'category', groupedInto: 'items'}"
+                            (selected)="setNTT($event.name, $event.type, $event.text)"
+                            [clearable]="true"
+                            (cleared)="setNTT('', '', '')"></app-searchselect>
+
+    </div>
+    <app-searchselect class="rarity-field" 
+                    inputName='Item Rarity'
+                    [values]="itemRarities"
+                    [filterBy]="simpleDataService.filterSimpleData"
+                    [displayBy]="simpleDataService.displayByText"   
+                    [setValue]="simpleDataService.getSelectedValue(this.queryForm['controls'].filters['controls'].type_filters['controls'].filters['controls'].rarity['controls'].option.value, itemRarities)"
+                    (selected)="this.queryForm['controls'].filters['controls'].type_filters['controls'].filters['controls'].rarity['controls'].option.patchValue($event.id)"></app-searchselect>
+    <app-searchselect class="rarity-field" 
+                    inputName='Item Type'
+                    [values]="itemTypes"
+                    [filterBy]="simpleDataService.filterSimpleData"
+                    [displayBy]="simpleDataService.displayByText"   
+                    [setValue]="simpleDataService.getSelectedValue(this.queryForm['controls'].filters['controls'].type_filters['controls'].filters['controls'].category['controls'].option.value, itemTypes)"
+                    (selected)="this.queryForm['controls'].filters['controls'].type_filters['controls'].filters['controls'].category['controls'].option.patchValue($event.id)"></app-searchselect>
+</div>

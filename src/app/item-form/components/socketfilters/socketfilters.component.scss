@@ -1,0 +1,35 @@
+.inputs {
+    display: flex;
+
+    .socket-colors {
+        flex: 3;
+        .mat-form-field {
+            min-width: 25px;
+        }
+    }
+
+    app-minmaxinput {
+        flex: 2;
+    }
+}
+
+@media only screen and (max-width: 1250px) {
+    .field {
+        flex-basis: 100% !important;
+    }
+}
+
+@media only screen and (max-width: 420px) {
+    
+    .inputs {
+        flex-wrap: wrap;
+
+        .socket-colors {
+            flex-basis: 100%;
+        }
+
+        app-minmaxinput {
+            flex-basis: 100%;
+        }
+    }
+}

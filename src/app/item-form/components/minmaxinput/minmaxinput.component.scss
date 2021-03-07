@@ -1,0 +1,24 @@
+@import '../../../../theme.scss';
+
+:host {
+    flex: 1;
+}
+
+.min-max-inputs {
+    display: flex;
+    align-items: stretch;
+    flex: 1;
+    flex-wrap: wrap;
+
+    .mat-form-field {
+        flex: 1;
+        min-width: 50px;
+    }
+    
+    .min-max-fields {
+        display: flex;
+        flex-wrap: nowrap;
+        flex: 1;
+        max-width: 100%;
+    }
+}
