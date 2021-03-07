@@ -16,7 +16,7 @@ class PoeServiceStub {
   }
 }
 
-@Component({selector: 'app-item', template: ''})
+@Component({selector: 'item-item', template: ''})
 class ItemStubComponent {
   @Input() item: any;
 }

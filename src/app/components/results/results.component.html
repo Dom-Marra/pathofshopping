@@ -11,9 +11,9 @@
         </mat-paginator>
     </div>
     <div appEqualflex class="query-results-container">
-        <app-item *ngFor="let item of this.resultData.queryData | slice:this.resultData.startIndex:this.resultData.endIndex"
+        <item-item *ngFor="let item of this.resultData.queryData | slice:this.resultData.startIndex:this.resultData.endIndex"
             class="query-item" [item]='item'>
-        </app-item>
+        </item-item>
     </div>
     <mat-paginator #itemsPaginator [pageIndex]="this.resultData.pageIndex" [disabled]="inProgress"
         class="items-paginator" [length]="resultData.queryProps.res.length" hidePageSize="true" [pageSize]="10"
