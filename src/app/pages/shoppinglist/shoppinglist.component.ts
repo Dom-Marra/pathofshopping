@@ -1,6 +1,5 @@
 import { ChangeDetectorRef, Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Item } from '../../classes/itemdata/item';
 import { itemSaveData } from 'src/app/models/itemSaveData';
 import { shoppingListSaveData } from 'src/app/models/shoppingListSaveData';
 import { FirebaseService } from 'src/app/services/firebase.service';
@@ -11,6 +10,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { PoeService } from 'src/app/services/poe.service';
 import { SimpleDataService } from 'src/app/services/simpledata.service';
 import { simpleData } from 'src/app/models/simpleData';
+import { Item } from 'src/app/classes/item';
 
 @Component({
   selector: 'app-shoppinglist',
