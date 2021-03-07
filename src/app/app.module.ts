@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, ViewRef } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -48,28 +48,13 @@ import { TradefiltersComponent } from './components/filters/tradefilters/tradefi
 import { InputwrapperComponent } from './components/inputs/inputwrapper/inputwrapper.component';
 import { FilteractionbuttonsComponent } from './components/filters/filteractionbuttons/filteractionbuttons.component';
 import { SavedialogComponent } from './components/savedialog/savedialog.component';
-import { ItemComponent } from './components/item/item.component';
-import { ModComponent } from './components/item/mod/mod.component';
-import { ModlistComponent } from './components/item/modlist/modlist.component';
-import { ItemheaderComponent } from './components/item/itemheader/itemheader.component';
-import { ItemimageComponent } from './components/item/itemimage/itemimage.component';
-import { ListinginfoComponent } from './components/item/listinginfo/listinginfo.component';
-import { TotalvaluesComponent } from './components/item/totalvalues/totalvalues.component';
-import { PropertiesComponent } from './components/item/properties/properties.component';
-import { AdditionalpropertiesComponent } from './components/item/additionalproperties/additionalproperties.component';
-import { IncubatorComponent } from './components/item/incubator/incubator.component';
-import { ItemRequirementsComponent } from './components/item/itemrequirements/itemrequirements.component';
 
-//Pipes
-import { ParsePropsPipePipe } from './pipes/parse-props-pipe.pipe';
-import { ParseDivsPipePipe } from './pipes/parse-divs-pipe.pipe';
-import { ParseModsPipePipe } from './pipes/parse-mods-pipe.pipe';
+import { ItemModule } from './item/item.module'; 
 
 //Angular Fire
 import { AngularFireModule } from '@angular/fire';
 import { environment } from 'src/environments/environment';
-import { DivmodsComponent } from './components/item/divmods/divmods.component';
-import { SortarrowComponent } from './components/item/sortarrow/sortarrow.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -94,23 +79,7 @@ import { SortarrowComponent } from './components/item/sortarrow/sortarrow.compon
     TradefiltersComponent,
     InputwrapperComponent,
     FilteractionbuttonsComponent,
-    SavedialogComponent,
-    ParsePropsPipePipe,
-    ParseDivsPipePipe,
-    ParseModsPipePipe,
-    ItemComponent,
-    ModComponent,
-    ModlistComponent,
-    ItemheaderComponent,
-    ItemimageComponent,
-    ListinginfoComponent,
-    TotalvaluesComponent,
-    PropertiesComponent,
-    AdditionalpropertiesComponent,
-    IncubatorComponent,
-    ItemRequirementsComponent,
-    DivmodsComponent,
-    SortarrowComponent
+    SavedialogComponent
   ],
   imports: [
     BrowserModule,
@@ -133,6 +102,7 @@ import { SortarrowComponent } from './components/item/sortarrow/sortarrow.compon
     MatProgressSpinnerModule,
     MatDialogModule,
     MatSnackBarModule,
+    ItemModule,
     AngularFireModule.initializeApp(environment.firebase)
   ],
   exports: [ ],
