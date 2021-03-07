@@ -1,10 +1,9 @@
 import { FormArray, FormControl, FormGroup } from "@angular/forms";
 import { itemSaveData } from "src/app/models/itemSaveData";
-import { Defaultvaluecontrol } from "../defaultvaluecontrol";
-import { StatFilterForm } from "../formgroups/stat-filter-form";
-import { StatForm } from "../formgroups/stat-form";
-import { Resultdata } from "../resultdata/resultdata";
-
+import { Defaultvaluecontrol } from "./defaultvaluecontrol";
+import { Resultdata } from "./resultdata";
+import { StatFilterForm } from "./stat-filter-form";
+import { StatForm } from "./stat-form";
 export class Item {
 
     public resultData: Resultdata = new Resultdata();   //Data pertaining to the results

@@ -1,6 +1,6 @@
 import { FormArray, FormGroup } from '@angular/forms';
 import { itemSaveData } from 'src/app/models/itemSaveData';
-import { Resultdata } from '../resultdata/resultdata';
+import { Resultdata } from './resultdata';
 import { Item } from './item';
 
 describe('Item', () => {
