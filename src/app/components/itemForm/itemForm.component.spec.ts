@@ -58,7 +58,7 @@ class SearchSelectStubComponent {
   @Output() selected: EventEmitter<any> = new EventEmitter<any>();  
 }
 
-@Component({selector: 'app-results', template: ''})
+@Component({selector: 'pos-results', template: ''})
 class ResultsComponent {
   @Input() resultData: any;
 }
@@ -629,21 +629,21 @@ describe('ItemFormComponent', () => {
       it('should not exist if showResults is false', () => {
         component.showResults = false;
         fixture.detectChanges();
-        let resultsDebEl = fixture.debugElement.query(By.css('app-results'));
+        let resultsDebEl = fixture.debugElement.query(By.css('pos-results'));
         expect(resultsDebEl).toBeFalsy();
       });
 
       it('should exist if showResults is true', () => {
         component.showResults = true;
         fixture.detectChanges();
-        let resultsDebEl = fixture.debugElement.query(By.css('app-results'));
+        let resultsDebEl = fixture.debugElement.query(By.css('pos-results'));
         expect(resultsDebEl).toBeTruthy();
       });
 
       it('should set the correct values for the inputs', () => {
         component.showResults = true;
         fixture.detectChanges();
-        let resultsComp = fixture.debugElement.query(By.css('app-results')).componentInstance as ResultsComponent;
+        let resultsComp = fixture.debugElement.query(By.css('pos-results')).componentInstance as ResultsComponent;
 
         expect(resultsComp.resultData).toEqual(component.itemData.resultData);
       });

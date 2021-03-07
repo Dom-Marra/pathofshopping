@@ -51,7 +51,7 @@
                                     (selected)="this.itemData.itemForm['controls'].queryForm['controls'].query['controls'].status['controls'].option.patchValue($event.id)"></app-searchselect>
             </div>
         </div>
-        <app-results *ngIf="showResults" class="results" [resultData]="itemData.resultData"></app-results>
+        <pos-results *ngIf="showResults" class="results" [resultData]="itemData.resultData"></pos-results>
     </div>
 </form>
 
