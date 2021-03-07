@@ -10,7 +10,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Defaultvaluecontrol } from 'src/app/classes/defaultvaluecontrol';
 import { WeaponfiltersComponent } from './weaponfilters.component';
 
-@Component({selector: 'app-filteractionbuttons', template: ''})
+@Component({selector: 'itemForm-filteractionbuttons', template: ''})
 class FilterActionButtonsStub {
   @Output() remove: EventEmitter<void> = new EventEmitter();         
   @Output() disableChange: EventEmitter<void> = new EventEmitter();  
@@ -18,12 +18,12 @@ class FilterActionButtonsStub {
   @Input() formGroup: FormGroup;       
 }
 
-@Component({selector: 'app-minmaxinput', template: ''})
+@Component({selector: 'itemForm-minmaxinput', template: ''})
 class MinMaxInputStub {
   @Input() group: FormGroup;       
 }
 
-@Component({selector: 'app-inputwrapper', template: '<ng-content></ng-content>'})
+@Component({selector: 'itemForm-inputwrapper', template: '<ng-content></ng-content>'})
 class InputWrapperStub { }
 
 describe('WeaponfiltersComponent', () => {
@@ -96,12 +96,12 @@ describe('WeaponfiltersComponent', () => {
     describe('FilterActionButtons', () => {
 
       it('should have the formGroup input set as the weaponForm', () => {
-        let weaponFormComp = fixture.debugElement.query(By.css('app-filteractionbuttons')).componentInstance as FilterActionButtonsStub;
+        let weaponFormComp = fixture.debugElement.query(By.css('itemForm-filteractionbuttons')).componentInstance as FilterActionButtonsStub;
         expect(weaponFormComp.formGroup).toBe(component.weaponForm);
       });
 
       it('should close the expansion panel if the weaponForm is disabled on disableChange', async () => {
-        let weaponFormComp = fixture.debugElement.query(By.css('app-filteractionbuttons'));
+        let weaponFormComp = fixture.debugElement.query(By.css('itemForm-filteractionbuttons'));
         component.weaponForm.controls.disabled.patchValue(true);
         component.weaponForm.disable();
 
@@ -113,7 +113,7 @@ describe('WeaponfiltersComponent', () => {
       it('should update the disable control value to false if the weaponForm is enabled on disableChange', async () => {
         component.weaponForm.enable();
         component.weaponForm.controls.disabled.patchValue(true, {emitEvent: false, onlySelf: true});
-        let weaponFormComp = fixture.debugElement.query(By.css('app-filteractionbuttons'));
+        let weaponFormComp = fixture.debugElement.query(By.css('itemForm-filteractionbuttons'));
 
         weaponFormComp.triggerEventHandler('disableChange', {});
         expect(component.weaponForm.controls.disabled.value).toBeFalse();
@@ -126,14 +126,14 @@ describe('WeaponfiltersComponent', () => {
         component.weaponForm.enable();
         component.weaponForm.controls.disabled.patchValue(false);
         await expansionHarness.expand();
-        let inputwrapper = fixture.debugElement.queryAll(By.css('app-inputwrapper'));
+        let inputwrapper = fixture.debugElement.queryAll(By.css('itemForm-inputwrapper'));
 
-        let dmgInput = inputwrapper[0].query(By.css('app-minmaxinput')).componentInstance as MinMaxInputStub;
-        let apsInput = inputwrapper[1].query(By.css('app-minmaxinput')).componentInstance as MinMaxInputStub;
-        let critInput = inputwrapper[2].query(By.css('app-minmaxinput')).componentInstance as MinMaxInputStub;
-        let totalDPSInput = inputwrapper[3].query(By.css('app-minmaxinput')).componentInstance as MinMaxInputStub;
-        let physDPSInput = inputwrapper[4].query(By.css('app-minmaxinput')).componentInstance as MinMaxInputStub;
-        let eleDPSInput = inputwrapper[5].query(By.css('app-minmaxinput')).componentInstance as MinMaxInputStub;
+        let dmgInput = inputwrapper[0].query(By.css('itemForm-minmaxinput')).componentInstance as MinMaxInputStub;
+        let apsInput = inputwrapper[1].query(By.css('itemForm-minmaxinput')).componentInstance as MinMaxInputStub;
+        let critInput = inputwrapper[2].query(By.css('itemForm-minmaxinput')).componentInstance as MinMaxInputStub;
+        let totalDPSInput = inputwrapper[3].query(By.css('itemForm-minmaxinput')).componentInstance as MinMaxInputStub;
+        let physDPSInput = inputwrapper[4].query(By.css('itemForm-minmaxinput')).componentInstance as MinMaxInputStub;
+        let eleDPSInput = inputwrapper[5].query(By.css('itemForm-minmaxinput')).componentInstance as MinMaxInputStub;
 
         expect(dmgInput.group).toBe(component.weaponForm.get('filters.damage') as FormGroup);
         expect(apsInput.group).toBe(component.weaponForm.get('filters.aps') as FormGroup);

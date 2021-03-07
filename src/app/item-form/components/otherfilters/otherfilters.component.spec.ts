@@ -13,7 +13,7 @@ import { simpleData } from 'src/app/models/simpleData';
 import { SimpleDataService } from 'src/app/services/simpledata.service';
 import { OtherfiltersComponent } from './otherfilters.component';
 
-@Component({selector: 'app-filteractionbuttons', template: ''})
+@Component({selector: 'itemForm-filteractionbuttons', template: ''})
 class FilterActionButtonsStub {
   @Output() remove: EventEmitter<void> = new EventEmitter();         
   @Output() disableChange: EventEmitter<void> = new EventEmitter();  
@@ -21,7 +21,7 @@ class FilterActionButtonsStub {
   @Input() formGroup: FormGroup;       
 }
 
-@Component({selector: 'app-minmaxinput', template: ''})
+@Component({selector: 'itemForm-minmaxinput', template: ''})
 class MinMaxInputStub {
   @Input() group: FormGroup;       
 }
@@ -41,7 +41,7 @@ class SearchSelectStubComponent {
   @Output() selected: EventEmitter<any> = new EventEmitter<any>();  
 }
 
-@Component({selector: 'app-inputwrapper', template: '<ng-content></ng-content>'})
+@Component({selector: 'itemForm-inputwrapper', template: '<ng-content></ng-content>'})
 class InputWrapperStub { }
 
 class SimpleDataServiceStub {
@@ -143,12 +143,12 @@ describe('OtherfiltersComponent', () => {
     describe('FilterActionButtons', () => {
 
       it('should have the formGroup input set as the otherForm', () => {
-        let otherFormComp = fixture.debugElement.query(By.css('app-filteractionbuttons')).componentInstance as FilterActionButtonsStub;
+        let otherFormComp = fixture.debugElement.query(By.css('itemForm-filteractionbuttons')).componentInstance as FilterActionButtonsStub;
         expect(otherFormComp.formGroup).toBe(component.otherForm);
       });
 
       it('should close the expansion panel if the otherForm is disabled on disableChange', async () => {
-        let otherFormComp = fixture.debugElement.query(By.css('app-filteractionbuttons'));
+        let otherFormComp = fixture.debugElement.query(By.css('itemForm-filteractionbuttons'));
         component.otherForm.controls.otherForm_disabled.patchValue(true);
         component.otherForm.disable();
 
@@ -160,7 +160,7 @@ describe('OtherfiltersComponent', () => {
       it('should update the disable control value to false if the otherForm is enabled on disableChange', async () => {
         component.otherForm.enable();
         component.otherForm.controls.otherForm_disabled.patchValue(true, {emitEvent: false, onlySelf: true});
-        let otherFormComp = fixture.debugElement.query(By.css('app-filteractionbuttons'));
+        let otherFormComp = fixture.debugElement.query(By.css('itemForm-filteractionbuttons'));
 
         otherFormComp.triggerEventHandler('disableChange', {});
         expect(component.otherForm.controls.otherForm_disabled.value).toBeFalse();
@@ -173,13 +173,13 @@ describe('OtherfiltersComponent', () => {
         component.otherForm.enable();
         component.otherForm.controls.otherForm_disabled.patchValue(false);
         await expansionHarness.toggle();
-        let inputwrapper = fixture.debugElement.queryAll(By.css('app-inputwrapper'));
+        let inputwrapper = fixture.debugElement.queryAll(By.css('itemForm-inputwrapper'));
         
-        let quality = inputwrapper[0].query(By.css('app-minmaxinput')).componentInstance as MinMaxInputStub;
-        let itemlevel = inputwrapper[1].query(By.css('app-minmaxinput')).componentInstance as MinMaxInputStub;
-        let talismanTier = inputwrapper[2].query(By.css('app-minmaxinput')).componentInstance as MinMaxInputStub;
-        let storedExp = inputwrapper[3].query(By.css('app-minmaxinput')).componentInstance as MinMaxInputStub;
-        let stackSize = inputwrapper[4].query(By.css('app-minmaxinput')).componentInstance as MinMaxInputStub;
+        let quality = inputwrapper[0].query(By.css('itemForm-minmaxinput')).componentInstance as MinMaxInputStub;
+        let itemlevel = inputwrapper[1].query(By.css('itemForm-minmaxinput')).componentInstance as MinMaxInputStub;
+        let talismanTier = inputwrapper[2].query(By.css('itemForm-minmaxinput')).componentInstance as MinMaxInputStub;
+        let storedExp = inputwrapper[3].query(By.css('itemForm-minmaxinput')).componentInstance as MinMaxInputStub;
+        let stackSize = inputwrapper[4].query(By.css('itemForm-minmaxinput')).componentInstance as MinMaxInputStub;
 
         expect(quality.group).toEqual(component.otherForm.get('quality') as FormGroup);
         expect(itemlevel.group).toEqual(component.otherForm.get('ilvl') as FormGroup);
@@ -197,7 +197,7 @@ describe('OtherfiltersComponent', () => {
         component.otherForm.enable();
         component.otherForm.controls.otherForm_disabled.patchValue(false);
         await expansionHarness.toggle();
-        inputwrapper = fixture.debugElement.queryAll(By.css('app-inputwrapper'));
+        inputwrapper = fixture.debugElement.queryAll(By.css('itemForm-inputwrapper'));
         searchselect = inputwrapper[5].query(By.css('app-searchselect'));
       });
 
@@ -227,7 +227,7 @@ describe('OtherfiltersComponent', () => {
         component.otherForm.enable();
         component.otherForm.controls.otherForm_disabled.patchValue(false);
         await expansionHarness.toggle();
-        inputwrapper = fixture.debugElement.queryAll(By.css('app-inputwrapper'));
+        inputwrapper = fixture.debugElement.queryAll(By.css('itemForm-inputwrapper'));
         searchselect = inputwrapper[6].query(By.css('app-searchselect'));
       });
 
@@ -257,7 +257,7 @@ describe('OtherfiltersComponent', () => {
         component.otherForm.enable();
         component.otherForm.controls.otherForm_disabled.patchValue(false);
         await expansionHarness.toggle();
-        inputwrapper = fixture.debugElement.queryAll(By.css('app-inputwrapper'));
+        inputwrapper = fixture.debugElement.queryAll(By.css('itemForm-inputwrapper'));
         searchselect = inputwrapper[7].query(By.css('app-searchselect'));
       });
 
@@ -287,7 +287,7 @@ describe('OtherfiltersComponent', () => {
         component.otherForm.enable();
         component.otherForm.controls.otherForm_disabled.patchValue(false);
         await expansionHarness.toggle();
-        inputwrapper = fixture.debugElement.queryAll(By.css('app-inputwrapper'));
+        inputwrapper = fixture.debugElement.queryAll(By.css('itemForm-inputwrapper'));
         searchselect = inputwrapper[8].query(By.css('app-searchselect'));
       });
 
@@ -317,7 +317,7 @@ describe('OtherfiltersComponent', () => {
         component.otherForm.enable();
         component.otherForm.controls.otherForm_disabled.patchValue(false);
         await expansionHarness.toggle();
-        inputwrapper = fixture.debugElement.queryAll(By.css('app-inputwrapper'));
+        inputwrapper = fixture.debugElement.queryAll(By.css('itemForm-inputwrapper'));
         searchselect = inputwrapper[9].query(By.css('app-searchselect'));
       });
 
@@ -347,7 +347,7 @@ describe('OtherfiltersComponent', () => {
         component.otherForm.enable();
         component.otherForm.controls.otherForm_disabled.patchValue(false);
         await expansionHarness.toggle();
-        inputwrapper = fixture.debugElement.queryAll(By.css('app-inputwrapper'));
+        inputwrapper = fixture.debugElement.queryAll(By.css('itemForm-inputwrapper'));
         searchselect = inputwrapper[10].query(By.css('app-searchselect'));
       });
 
@@ -377,7 +377,7 @@ describe('OtherfiltersComponent', () => {
         component.otherForm.enable();
         component.otherForm.controls.otherForm_disabled.patchValue(false);
         await expansionHarness.toggle();
-        inputwrapper = fixture.debugElement.queryAll(By.css('app-inputwrapper'));
+        inputwrapper = fixture.debugElement.queryAll(By.css('itemForm-inputwrapper'));
         searchselect = inputwrapper[11].query(By.css('app-searchselect'));
       });
 

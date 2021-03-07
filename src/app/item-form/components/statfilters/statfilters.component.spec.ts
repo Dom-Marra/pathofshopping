@@ -14,7 +14,7 @@ import { simpleData } from 'src/app/models/simpleData';
 import { SimpleDataService } from 'src/app/services/simpledata.service';
 import { StatfiltersComponent } from './statfilters.component';
 
-@Component({selector: 'app-filteractionbuttons', template: ''})
+@Component({selector: 'itemForm-filteractionbuttons', template: ''})
 class FilterActionButtonsStub {
   @Output() remove: EventEmitter<void> = new EventEmitter();         
   @Output() disableChange: EventEmitter<void> = new EventEmitter();  
@@ -22,7 +22,7 @@ class FilterActionButtonsStub {
   @Input() formGroup: FormGroup;       
 }
 
-@Component({selector: 'app-minmaxinput', template: ''})
+@Component({selector: 'itemForm-minmaxinput', template: ''})
 class MinMaxInputStub {
   @Input() group: FormGroup;       
 }
@@ -42,7 +42,7 @@ class SearchSelectStubComponent {
   @Output() selected: EventEmitter<any> = new EventEmitter<any>();  
 }
 
-@Component({selector: 'app-statselect', template: ''})
+@Component({selector: 'itemForm-statselect', template: ''})
 class StatSelectStubComponent {      
   @Output() statRemoved: EventEmitter<FormGroup> = new EventEmitter<FormGroup>();  
   @Input() isWeight: boolean = false; 
@@ -114,12 +114,12 @@ describe('StatfiltersComponent', () => {
     describe('FilterActionButtons', () => {
 
       it('should have the formGroup input set as the statFilter', () => {
-        let statFilterComp = fixture.debugElement.query(By.css('app-filteractionbuttons')).componentInstance as FilterActionButtonsStub;
+        let statFilterComp = fixture.debugElement.query(By.css('itemForm-filteractionbuttons')).componentInstance as FilterActionButtonsStub;
         expect(statFilterComp.formGroup).toBe(component.statFilter);
       });
 
       it('should close the expansion panel if the statFilter is disabled on disableChange', async () => {
-        let statFilterComp = fixture.debugElement.query(By.css('app-filteractionbuttons'));
+        let statFilterComp = fixture.debugElement.query(By.css('itemForm-filteractionbuttons'));
         component.statFilter.controls.disabled.patchValue(true);
         component.statFilter.disable();
 
@@ -131,7 +131,7 @@ describe('StatfiltersComponent', () => {
       it('should update the disable control value to false if the statFilter is enabled on disableChange', async () => {
         component.statFilter.enable();
         component.statFilter.controls.disabled.patchValue(true, {emitEvent: false, onlySelf: true});
-        let statFilterComp = fixture.debugElement.query(By.css('app-filteractionbuttons'));
+        let statFilterComp = fixture.debugElement.query(By.css('itemForm-filteractionbuttons'));
 
         statFilterComp.triggerEventHandler('disableChange', {});
         expect(component.statFilter.controls.disabled.value).toBeFalse();
@@ -177,21 +177,21 @@ describe('StatfiltersComponent', () => {
       it('should exist if the value of the type control is \'count\'', () => {
         component.statFilter.controls.type.patchValue('count');
         fixture.detectChanges();
-        let inputwrapper = fixture.debugElement.query(By.css('app-minmaxinput'));
+        let inputwrapper = fixture.debugElement.query(By.css('itemForm-minmaxinput'));
         expect(inputwrapper).toBeTruthy();
       });
 
       it('should exist if the value of the type control is \'weight\'', () => {
         component.statFilter.controls.type.patchValue('weight');
         fixture.detectChanges();
-        let inputwrapper = fixture.debugElement.query(By.css('app-minmaxinput'));
+        let inputwrapper = fixture.debugElement.query(By.css('itemForm-minmaxinput'));
         expect(inputwrapper).toBeTruthy();
       });
 
       it('should set the group input correctly', () => {
         component.statFilter.controls.type.patchValue('weight');
         fixture.detectChanges();
-        let inputwrapper = fixture.debugElement.query(By.css('app-minmaxinput')).componentInstance as MinMaxInputStub;
+        let inputwrapper = fixture.debugElement.query(By.css('itemForm-minmaxinput')).componentInstance as MinMaxInputStub;
 
         expect(inputwrapper.group).toBe(component.statFilter.controls.value as FormGroup);
       });
@@ -199,7 +199,7 @@ describe('StatfiltersComponent', () => {
       it('should not exist if the value of the type control is not \'count\' or \'weight\'', () => {
         component.statFilter.controls.type.patchValue('Mock Value');
         fixture.detectChanges();
-        let inputwrapper = fixture.debugElement.query(By.css('app-minmaxinput'));
+        let inputwrapper = fixture.debugElement.query(By.css('itemForm-minmaxinput'));
         expect(inputwrapper).toBeFalsy();
       });
     });
@@ -214,7 +214,7 @@ describe('StatfiltersComponent', () => {
         (component.statFilter.controls.filters as FormArray).clear();
         component.addStatFilter();
         fixture.detectChanges();
-        statSelect = fixture.debugElement.query(By.css('app-statselect'));
+        statSelect = fixture.debugElement.query(By.css('itemForm-statselect'));
       });
 
       it('should set the statGroup input correctly', () => {

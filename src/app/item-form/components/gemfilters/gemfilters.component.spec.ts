@@ -13,7 +13,7 @@ import { simpleData } from 'src/app/models/simpleData';
 import { SimpleDataService } from 'src/app/services/simpledata.service';
 import { GemfiltersComponent } from './gemfilters.component';
 
-@Component({selector: 'app-filteractionbuttons', template: ''})
+@Component({selector: 'itemForm-filteractionbuttons', template: ''})
 class FilterActionButtonsStub {
   @Output() remove: EventEmitter<void> = new EventEmitter();         
   @Output() disableChange: EventEmitter<void> = new EventEmitter();  
@@ -21,7 +21,7 @@ class FilterActionButtonsStub {
   @Input() formGroup: FormGroup;       
 }
 
-@Component({selector: 'app-minmaxinput', template: ''})
+@Component({selector: 'itemForm-minmaxinput', template: ''})
 class MinMaxInputStub {
   @Input() group: FormGroup;       
 }
@@ -41,7 +41,7 @@ class SearchSelectStubComponent {
   @Output() selected: EventEmitter<any> = new EventEmitter<any>();  
 }
 
-@Component({selector: 'app-inputwrapper', template: '<ng-content></ng-content>'})
+@Component({selector: 'itemForm-inputwrapper', template: '<ng-content></ng-content>'})
 class InputWrapperStub { }
 
 class SimpleDataServiceStub {
@@ -113,12 +113,12 @@ describe('GemfiltersComponent', () => {
     describe('FilterActionButtons', () => {
 
       it('should have the formGroup input set as the gemForm', () => {
-        let gemFormComp = fixture.debugElement.query(By.css('app-filteractionbuttons')).componentInstance as FilterActionButtonsStub;
+        let gemFormComp = fixture.debugElement.query(By.css('itemForm-filteractionbuttons')).componentInstance as FilterActionButtonsStub;
         expect(gemFormComp.formGroup).toBe(component.gemForm);
       });
 
       it('should close the expansion panel if the gemForm is disabled on disableChange', async () => {
-        let gemFormComp = fixture.debugElement.query(By.css('app-filteractionbuttons'));
+        let gemFormComp = fixture.debugElement.query(By.css('itemForm-filteractionbuttons'));
         component.gemForm.controls.gemForm_disabled.patchValue(true);
         component.gemForm.disable();
 
@@ -130,7 +130,7 @@ describe('GemfiltersComponent', () => {
       it('should update the disable control value to false if the gemForm is enabled on disableChange', async () => {
         component.gemForm.enable();
         component.gemForm.controls.gemForm_disabled.patchValue(true, {emitEvent: false, onlySelf: true});
-        let gemFormComp = fixture.debugElement.query(By.css('app-filteractionbuttons'));
+        let gemFormComp = fixture.debugElement.query(By.css('itemForm-filteractionbuttons'));
 
         gemFormComp.triggerEventHandler('disableChange', {});
         expect(component.gemForm.controls.gemForm_disabled.value).toBeFalse();
@@ -143,10 +143,10 @@ describe('GemfiltersComponent', () => {
         component.gemForm.enable();
         component.gemForm.controls.gemForm_disabled.patchValue(false);
         await expansionHarness.toggle();
-        let inputwrapper = fixture.debugElement.queryAll(By.css('app-inputwrapper'));
+        let inputwrapper = fixture.debugElement.queryAll(By.css('itemForm-inputwrapper'));
 
-        let gemLevelInput = inputwrapper[0].query(By.css('app-minmaxinput')).componentInstance as MinMaxInputStub;
-        let gemelvlProgInput = inputwrapper[1].query(By.css('app-minmaxinput')).componentInstance as MinMaxInputStub;
+        let gemLevelInput = inputwrapper[0].query(By.css('itemForm-minmaxinput')).componentInstance as MinMaxInputStub;
+        let gemelvlProgInput = inputwrapper[1].query(By.css('itemForm-minmaxinput')).componentInstance as MinMaxInputStub;
 
         expect(gemLevelInput.group).toBe(component.gemForm.get('gem_level') as FormGroup);
         expect(gemelvlProgInput.group).toBe(component.gemForm.get('gem_level_progress') as FormGroup);
@@ -161,7 +161,7 @@ describe('GemfiltersComponent', () => {
         component.gemForm.enable();
         component.gemForm.controls.gemForm_disabled.patchValue(false);
         await expansionHarness.toggle();
-        inputwrapper = fixture.debugElement.queryAll(By.css('app-inputwrapper'));
+        inputwrapper = fixture.debugElement.queryAll(By.css('itemForm-inputwrapper'));
         searchselect = inputwrapper[2].query(By.css('app-searchselect'));
       });
 

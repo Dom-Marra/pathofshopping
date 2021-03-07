@@ -10,7 +10,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Defaultvaluecontrol } from 'src/app/classes/defaultvaluecontrol';
 import { ArmourfiltersComponent } from './armourfilters.component';
 
-@Component({selector: 'app-filteractionbuttons', template: ''})
+@Component({selector: 'itemForm-filteractionbuttons', template: ''})
 class FilterActionButtonsStub {
   @Output() remove: EventEmitter<void> = new EventEmitter();         
   @Output() disableChange: EventEmitter<void> = new EventEmitter();  
@@ -18,12 +18,12 @@ class FilterActionButtonsStub {
   @Input() formGroup: FormGroup;       
 }
 
-@Component({selector: 'app-minmaxinput', template: ''})
+@Component({selector: 'itemForm-minmaxinput', template: ''})
 class MinMaxInputStub {
   @Input() group: FormGroup;       
 }
 
-@Component({selector: 'app-inputwrapper', template: '<ng-content></ng-content>'})
+@Component({selector: 'itemForm-inputwrapper', template: '<ng-content></ng-content>'})
 class InputWrapperStub { }
 
 describe('ArmourfiltersComponent', () => {
@@ -90,12 +90,12 @@ describe('ArmourfiltersComponent', () => {
     describe('FilterActionButtons', () => {
 
       it('should have the formGroup input set as the armourForm', () => {
-        let armourFormComp = fixture.debugElement.query(By.css('app-filteractionbuttons')).componentInstance as FilterActionButtonsStub;
+        let armourFormComp = fixture.debugElement.query(By.css('itemForm-filteractionbuttons')).componentInstance as FilterActionButtonsStub;
         expect(armourFormComp.formGroup).toBe(component.armourForm);
       });
 
       it('should close the expansion panel if the armourForm is disabled on disableChange', async () => {
-        let armourFormComp = fixture.debugElement.query(By.css('app-filteractionbuttons'));
+        let armourFormComp = fixture.debugElement.query(By.css('itemForm-filteractionbuttons'));
         component.armourForm.controls.disabled.patchValue(true);
         component.armourForm.disable();
 
@@ -107,7 +107,7 @@ describe('ArmourfiltersComponent', () => {
       it('should update the disable control value to false if the armourForm is enabled on disableChange', async () => {
         component.armourForm.enable();
         component.armourForm.controls.disabled.patchValue(true, {emitEvent: false, onlySelf: true});
-        let armourFormComp = fixture.debugElement.query(By.css('app-filteractionbuttons'));
+        let armourFormComp = fixture.debugElement.query(By.css('itemForm-filteractionbuttons'));
 
         armourFormComp.triggerEventHandler('disableChange', {});
         expect(component.armourForm.controls.disabled.value).toBeFalse();
@@ -120,12 +120,12 @@ describe('ArmourfiltersComponent', () => {
         component.armourForm.enable();
         component.armourForm.controls.disabled.patchValue(false);
         await expansionHarness.toggle();
-        let inputwrapper = fixture.debugElement.queryAll(By.css('app-inputwrapper'));
+        let inputwrapper = fixture.debugElement.queryAll(By.css('itemForm-inputwrapper'));
 
-        let arInput = inputwrapper[0].query(By.css('app-minmaxinput')).componentInstance as MinMaxInputStub;
-        let esInput = inputwrapper[1].query(By.css('app-minmaxinput')).componentInstance as MinMaxInputStub;
-        let evInput = inputwrapper[2].query(By.css('app-minmaxinput')).componentInstance as MinMaxInputStub;
-        let blockInput = inputwrapper[3].query(By.css('app-minmaxinput')).componentInstance as MinMaxInputStub;
+        let arInput = inputwrapper[0].query(By.css('itemForm-minmaxinput')).componentInstance as MinMaxInputStub;
+        let esInput = inputwrapper[1].query(By.css('itemForm-minmaxinput')).componentInstance as MinMaxInputStub;
+        let evInput = inputwrapper[2].query(By.css('itemForm-minmaxinput')).componentInstance as MinMaxInputStub;
+        let blockInput = inputwrapper[3].query(By.css('itemForm-minmaxinput')).componentInstance as MinMaxInputStub;
 
         expect(arInput.group).toBe(component.armourForm.get('filters.ar') as FormGroup);
         expect(esInput.group).toBe(component.armourForm.get('filters.es') as FormGroup);

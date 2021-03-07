@@ -14,7 +14,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldHarness } from '@angular/material/form-field/testing';
 import { MatInputHarness } from '@angular/material/input/testing';
 
-@Component({selector: 'app-filteractionbuttons', template: ''})
+@Component({selector: 'itemForm-filteractionbuttons', template: ''})
 class FilterActionButtonsStub {
   @Output() remove: EventEmitter<void> = new EventEmitter();         
   @Output() disableChange: EventEmitter<void> = new EventEmitter();  
@@ -22,12 +22,12 @@ class FilterActionButtonsStub {
   @Input() formGroup: FormGroup;       
 }
 
-@Component({selector: 'app-minmaxinput', template: ''})
+@Component({selector: 'itemForm-minmaxinput', template: ''})
 class MinMaxInputStub {
   @Input() group: FormGroup;       
 }
 
-@Component({selector: 'app-inputwrapper', template: '<ng-content></ng-content>'})
+@Component({selector: 'itemForm-inputwrapper', template: '<ng-content></ng-content>'})
 class InputWrapperStub { }
 
 describe('SocketfiltersComponent', () => {
@@ -91,12 +91,12 @@ describe('SocketfiltersComponent', () => {
     describe('FilterActionButtons', () => {
 
       it('should have the formGroup input set as the socketForm', () => {
-        let socketFormComp = fixture.debugElement.query(By.css('app-filteractionbuttons')).componentInstance as FilterActionButtonsStub;
+        let socketFormComp = fixture.debugElement.query(By.css('itemForm-filteractionbuttons')).componentInstance as FilterActionButtonsStub;
         expect(socketFormComp.formGroup).toBe(component.socketForm);
       });
 
       it('should close the expansion panel if the socketForm is disabled on disableChange', async () => {
-        let socketFormComp = fixture.debugElement.query(By.css('app-filteractionbuttons'));
+        let socketFormComp = fixture.debugElement.query(By.css('itemForm-filteractionbuttons'));
         component.socketForm.controls.disabled.patchValue(true);
         component.socketForm.disable();
 
@@ -108,7 +108,7 @@ describe('SocketfiltersComponent', () => {
       it('should update the disable control value to false if the socketForm is enabled on disableChange', async () => {
         component.socketForm.enable();
         component.socketForm.controls.disabled.patchValue(true, {emitEvent: false, onlySelf: true});
-        let socketFormComp = fixture.debugElement.query(By.css('app-filteractionbuttons'));
+        let socketFormComp = fixture.debugElement.query(By.css('itemForm-filteractionbuttons'));
 
         socketFormComp.triggerEventHandler('disableChange', {});
         expect(component.socketForm.controls.disabled.value).toBeFalse();
@@ -121,10 +121,10 @@ describe('SocketfiltersComponent', () => {
         component.socketForm.enable();
         component.socketForm.controls.disabled.patchValue(false);
         await expansionHarness.toggle();
-        let inputwrapper = fixture.debugElement.queryAll(By.css('app-inputwrapper'));
+        let inputwrapper = fixture.debugElement.queryAll(By.css('itemForm-inputwrapper'));
 
-        let socketsMinMaxInput = inputwrapper[0].query(By.css('app-minmaxinput')).componentInstance as MinMaxInputStub;
-        let linksMinMaxInput = inputwrapper[1].query(By.css('app-minmaxinput')).componentInstance as MinMaxInputStub;
+        let socketsMinMaxInput = inputwrapper[0].query(By.css('itemForm-minmaxinput')).componentInstance as MinMaxInputStub;
+        let linksMinMaxInput = inputwrapper[1].query(By.css('itemForm-minmaxinput')).componentInstance as MinMaxInputStub;
 
         expect(socketsMinMaxInput.group).toEqual(component.socketForm.get('filters.sockets') as FormGroup);
         expect(linksMinMaxInput.group).toEqual(component.socketForm.get('filters.links') as FormGroup);

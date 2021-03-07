@@ -6,7 +6,6 @@ import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute, convertToParamMap } from '@angular/router';
 import { BehaviorSubject, of } from 'rxjs';
-import { Item } from 'src/app/classes/itemdata/item';
 import { SavedialogComponent } from 'src/app/components/savedialog/savedialog.component';
 import { itemSaveData } from 'src/app/models/itemSaveData';
 import { shoppingListSaveData } from 'src/app/models/shoppingListSaveData';
@@ -21,6 +20,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { simpleData } from 'src/app/models/simpleData';
 import { SimpleDataService } from 'src/app/services/simpledata.service';
+import { Item } from 'src/app/classes/item';
 
 class MockPoeService {
   public loaded: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
@@ -66,7 +66,7 @@ class SearchSelectStubComponent {
   @Output() selected: EventEmitter<any> = new EventEmitter<any>();  
 }
 
-@Component({selector: 'app-itemForm', template: ''})
+@Component({selector: 'pos-itemForm', template: ''})
 class ItemFormStubComponent {
   @Input() itemData: Item;
   @Input() league: string;
@@ -766,7 +766,7 @@ describe('ShoppinglistComponent', () => {
         component.shoppingList.controls.league.patchValue('Mock League');
         fixture.detectChanges();
 
-        items = fixture.debugElement.queryAll(By.css('app-itemForm'));
+        items = fixture.debugElement.queryAll(By.css('pos-itemForm'));
       });
 
       it('should call deleteItem when its deleteItem event fires', () => {

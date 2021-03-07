@@ -1,6 +1,6 @@
 import { Component, DebugElement, EventEmitter, Input, Output } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule, MatAutocompleteOrigin } from '@angular/material/autocomplete';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -103,7 +103,7 @@ describe('TypefiltersComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ TypefiltersComponent, SearchSelectStubComponent ],
-      imports:  [ NoopAnimationsModule, MatAutocompleteModule ],
+      imports:  [ NoopAnimationsModule, MatAutocompleteModule, ReactiveFormsModule, FormsModule ],
       providers: [
         {provide: SimpleDataService, useClass: SimpleDataServiceStub },
         {provide: PoeService, useClass: MockPoeService}

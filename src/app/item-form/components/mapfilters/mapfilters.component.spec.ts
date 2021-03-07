@@ -13,7 +13,7 @@ import { simpleData } from 'src/app/models/simpleData';
 import { SimpleDataService } from 'src/app/services/simpledata.service';
 import { MapfiltersComponent } from './mapfilters.component';
 
-@Component({selector: 'app-filteractionbuttons', template: ''})
+@Component({selector: 'itemForm-filteractionbuttons', template: ''})
 class FilterActionButtonsStub {
   @Output() remove: EventEmitter<void> = new EventEmitter();         
   @Output() disableChange: EventEmitter<void> = new EventEmitter();  
@@ -21,7 +21,7 @@ class FilterActionButtonsStub {
   @Input() formGroup: FormGroup;       
 }
 
-@Component({selector: 'app-minmaxinput', template: ''})
+@Component({selector: 'itemForm-minmaxinput', template: ''})
 class MinMaxInputStub {
   @Input() group: FormGroup;       
 }
@@ -41,7 +41,7 @@ class SearchSelectStubComponent {
   @Output() selected: EventEmitter<any> = new EventEmitter<any>();  
 }
 
-@Component({selector: 'app-inputwrapper', template: '<ng-content></ng-content>'})
+@Component({selector: 'itemForm-inputwrapper', template: '<ng-content></ng-content>'})
 class InputWrapperStub { }
 
 class SimpleDataServiceStub {
@@ -137,12 +137,12 @@ describe('MapfiltersComponent', () => {
     describe('FilterActionButtons', () => {
 
       it('should have the formGroup input set as the mapForm', () => {
-        let mapFormComp = fixture.debugElement.query(By.css('app-filteractionbuttons')).componentInstance as FilterActionButtonsStub;
+        let mapFormComp = fixture.debugElement.query(By.css('itemForm-filteractionbuttons')).componentInstance as FilterActionButtonsStub;
         expect(mapFormComp.formGroup).toBe(component.mapForm);
       });
 
       it('should close the expansion panel if the mapForm is disabled on disableChange', async () => {
-        let mapFormComp = fixture.debugElement.query(By.css('app-filteractionbuttons'));
+        let mapFormComp = fixture.debugElement.query(By.css('itemForm-filteractionbuttons'));
         component.mapForm.controls.disabled.patchValue(true);
         component.mapForm.disable();
 
@@ -154,7 +154,7 @@ describe('MapfiltersComponent', () => {
       it('should update the disable control value to false if the mapForm is enabled on disableChange', async () => {
         component.mapForm.enable();
         component.mapForm.controls.disabled.patchValue(true, {emitEvent: false, onlySelf: true});
-        let mapFormComp = fixture.debugElement.query(By.css('app-filteractionbuttons'));
+        let mapFormComp = fixture.debugElement.query(By.css('itemForm-filteractionbuttons'));
 
         mapFormComp.triggerEventHandler('disableChange', {});
         expect(component.mapForm.controls.disabled.value).toBeFalse();
@@ -167,12 +167,12 @@ describe('MapfiltersComponent', () => {
         component.mapForm.enable();
         component.mapForm.controls.disabled.patchValue(false);
         await expansionHarness.toggle();
-        let inputwrapper = fixture.debugElement.queryAll(By.css('app-inputwrapper'));
+        let inputwrapper = fixture.debugElement.queryAll(By.css('itemForm-inputwrapper'));
 
-        let tier = inputwrapper[5].query(By.css('app-minmaxinput')).componentInstance as MinMaxInputStub;
-        let packsize = inputwrapper[6].query(By.css('app-minmaxinput')).componentInstance as MinMaxInputStub;
-        let iiq = inputwrapper[7].query(By.css('app-minmaxinput')).componentInstance as MinMaxInputStub;
-        let iir = inputwrapper[8].query(By.css('app-minmaxinput')).componentInstance as MinMaxInputStub;
+        let tier = inputwrapper[5].query(By.css('itemForm-minmaxinput')).componentInstance as MinMaxInputStub;
+        let packsize = inputwrapper[6].query(By.css('itemForm-minmaxinput')).componentInstance as MinMaxInputStub;
+        let iiq = inputwrapper[7].query(By.css('itemForm-minmaxinput')).componentInstance as MinMaxInputStub;
+        let iir = inputwrapper[8].query(By.css('itemForm-minmaxinput')).componentInstance as MinMaxInputStub;
 
         expect(tier.group).toEqual(component.mapForm.get('filters.map_tier') as FormGroup);
         expect(packsize.group).toEqual(component.mapForm.get('filters.map_packsize') as FormGroup);
@@ -189,7 +189,7 @@ describe('MapfiltersComponent', () => {
         component.mapForm.enable();
         component.mapForm.controls.disabled.patchValue(false);
         await expansionHarness.toggle();
-        inputwrapper = fixture.debugElement.queryAll(By.css('app-inputwrapper'));
+        inputwrapper = fixture.debugElement.queryAll(By.css('itemForm-inputwrapper'));
         searchselect = inputwrapper[0].query(By.css('app-searchselect'));
       });
 
@@ -219,7 +219,7 @@ describe('MapfiltersComponent', () => {
         component.mapForm.enable();
         component.mapForm.controls.disabled.patchValue(false);
         await expansionHarness.toggle();
-        inputwrapper = fixture.debugElement.queryAll(By.css('app-inputwrapper'));
+        inputwrapper = fixture.debugElement.queryAll(By.css('itemForm-inputwrapper'));
         searchselect = inputwrapper[1].query(By.css('app-searchselect'));
       });
 
@@ -249,7 +249,7 @@ describe('MapfiltersComponent', () => {
         component.mapForm.enable();
         component.mapForm.controls.disabled.patchValue(false);
         await expansionHarness.toggle();
-        inputwrapper = fixture.debugElement.queryAll(By.css('app-inputwrapper'));
+        inputwrapper = fixture.debugElement.queryAll(By.css('itemForm-inputwrapper'));
         searchselect = inputwrapper[2].query(By.css('app-searchselect'));
       });
 
@@ -279,7 +279,7 @@ describe('MapfiltersComponent', () => {
         component.mapForm.enable();
         component.mapForm.controls.disabled.patchValue(false);
         await expansionHarness.toggle();
-        inputwrapper = fixture.debugElement.queryAll(By.css('app-inputwrapper'));
+        inputwrapper = fixture.debugElement.queryAll(By.css('itemForm-inputwrapper'));
         searchselect = inputwrapper[3].query(By.css('app-searchselect'));
       });
 
@@ -309,7 +309,7 @@ describe('MapfiltersComponent', () => {
         component.mapForm.enable();
         component.mapForm.controls.disabled.patchValue(false);
         await expansionHarness.toggle();
-        inputwrapper = fixture.debugElement.queryAll(By.css('app-inputwrapper'));
+        inputwrapper = fixture.debugElement.queryAll(By.css('itemForm-inputwrapper'));
         searchselect = inputwrapper[4].query(By.css('app-searchselect'));
       });
 

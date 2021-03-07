@@ -5,10 +5,10 @@ import { By } from '@angular/platform-browser';
 import { InputwrapperComponent } from './inputwrapper.component';
 
 @Component({
-  template: `<app-inputwrapper>
+  template: `<itemForm-inputwrapper>
                 <p label>Label</p>
                 <input type='text' placeholder='Stub Wrapper Test'/>
-             </app-inputwrapper>`
+             </itemForm-inputwrapper>`
 })
 class InputWrapperStubComponent {}
 

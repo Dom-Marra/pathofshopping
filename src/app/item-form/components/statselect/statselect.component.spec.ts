@@ -31,12 +31,12 @@ class SearchSelectStubComponent {
   @Output() selected: EventEmitter<any> = new EventEmitter<any>();  
 }
 
-@Component({selector: 'app-minmaxinput', template: ''})
+@Component({selector: 'itemForm-minmaxinput', template: ''})
 class MinMaxStubComponent {                          
   @Input() group: AbstractControl;    
 }
 
-@Component({selector: 'app-filteractionbuttons', template: ''})
+@Component({selector: 'itemForm-filteractionbuttons', template: ''})
 class FilteractionbuttonsStubComponent {       
   @Output() remove: EventEmitter<void> = new EventEmitter();  
   @Output() disableChange: EventEmitter<void> = new EventEmitter();  
@@ -299,7 +299,7 @@ describe('StatselectComponent', () => {
     let actionButtons: DebugElement;
 
     beforeEach(() => {
-      actionButtons = fixture.debugElement.query(By.css('app-filteractionbuttons'));
+      actionButtons = fixture.debugElement.query(By.css('itemForm-filteractionbuttons'));
     });
 
     it('should call the deleteStatsFilter method when the remove event is fired', () => {
@@ -441,7 +441,7 @@ describe('StatselectComponent', () => {
       component.ngOnChanges({isWeight: new SimpleChange(false, true, false)});
       fixture.detectChanges();
 
-      let minmaxinput = fixture.debugElement.query(By.css('app-minmaxinput'));
+      let minmaxinput = fixture.debugElement.query(By.css('itemForm-minmaxinput'));
 
       expect(minmaxinput).not.toBeTruthy();
     });
@@ -450,7 +450,7 @@ describe('StatselectComponent', () => {
       component.statGroup.controls.selectedStat.patchValue(poeMockService.getStats()[1].stats[1]);
       fixture.detectChanges();
 
-      let minmaxinput = fixture.debugElement.query(By.css('app-minmaxinput'));
+      let minmaxinput = fixture.debugElement.query(By.css('itemForm-minmaxinput'));
 
       expect(minmaxinput).not.toBeTruthy();
     });
@@ -459,7 +459,7 @@ describe('StatselectComponent', () => {
       component.statGroup.controls.selectedStat.patchValue(poeMockService.getStats()[0].stats[0]);
       fixture.detectChanges();
 
-      let minmaxinput = fixture.debugElement.query(By.css('app-minmaxinput'));
+      let minmaxinput = fixture.debugElement.query(By.css('itemForm-minmaxinput'));
 
       expect(minmaxinput).toBeTruthy();
     });
@@ -468,7 +468,7 @@ describe('StatselectComponent', () => {
       component.statGroup.controls.selectedStat.patchValue(poeMockService.getStats()[0].stats[0]);
       fixture.detectChanges();
 
-      let minmaxinput = fixture.debugElement.query(By.css('app-minmaxinput')).componentInstance as MinMaxStubComponent;
+      let minmaxinput = fixture.debugElement.query(By.css('itemForm-minmaxinput')).componentInstance as MinMaxStubComponent;
 
       expect(minmaxinput.group).toEqual(component.statGroup.controls.value);
     });

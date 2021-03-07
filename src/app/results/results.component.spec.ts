@@ -4,11 +4,11 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { By } from '@angular/platform-browser';
 import { of } from 'rxjs';
-import { Resultdata } from 'src/app/classes/resultdata/resultdata';
 import { PoeService } from 'src/app/services/poe.service';
 import { MatPaginatorHarness } from '@angular/material/paginator/testing';
 import { ResultsComponent } from './results.component';
 import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
+import { Resultdata } from '../classes/resultdata';
 
 class PoeServiceStub {
   public fetch(items: Array<string>, endingParams?: string) {

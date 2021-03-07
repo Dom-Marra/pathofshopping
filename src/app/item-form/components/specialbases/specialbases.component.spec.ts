@@ -12,7 +12,7 @@ import { Defaultvaluecontrol } from 'src/app/classes/defaultvaluecontrol';
 import { simpleData } from 'src/app/models/simpleData';
 import { SimpleDataService } from 'src/app/services/simpledata.service';
 import { SpecialbasesComponent } from './specialbases.component';
-@Component({selector: 'app-filteractionbuttons', template: ''})
+@Component({selector: 'itemForm-filteractionbuttons', template: ''})
 class FilterActionButtonsStub {
   @Output() remove: EventEmitter<void> = new EventEmitter();         
   @Output() disableChange: EventEmitter<void> = new EventEmitter();  
@@ -35,7 +35,7 @@ class SearchSelectStubComponent {
   @Output() selected: EventEmitter<any> = new EventEmitter<any>();  
 }
 
-@Component({selector: 'app-inputwrapper', template: '<ng-content></ng-content>'})
+@Component({selector: 'itemForm-inputwrapper', template: '<ng-content></ng-content>'})
 class InputWrapperStub { }
 
 class SimpleDataServiceStub {
@@ -121,12 +121,12 @@ describe('SpecialbasesComponent', () => {
     describe('FilterActionButtons', () => {
 
       it('should have the formGroup input set as the influenceForm', () => {
-        let influenceFormComp = fixture.debugElement.query(By.css('app-filteractionbuttons')).componentInstance as FilterActionButtonsStub;
+        let influenceFormComp = fixture.debugElement.query(By.css('itemForm-filteractionbuttons')).componentInstance as FilterActionButtonsStub;
         expect(influenceFormComp.formGroup).toBe(component.influenceForm);
       });
 
       it('should close the expansion panel if the influenceForm is disabled on disableChange', async () => {
-        let influenceFormComp = fixture.debugElement.query(By.css('app-filteractionbuttons'));
+        let influenceFormComp = fixture.debugElement.query(By.css('itemForm-filteractionbuttons'));
         component.influenceForm.controls.influenceForm_disabled.patchValue(true);
         component.influenceForm.disable();
 
@@ -138,7 +138,7 @@ describe('SpecialbasesComponent', () => {
       it('should update the disable control value to false if the influenceForm is enabled on disableChange', async () => {
         component.influenceForm.enable();
         component.influenceForm.controls.influenceForm_disabled.patchValue(true, {emitEvent: false, onlySelf: true});
-        let influenceFormComp = fixture.debugElement.query(By.css('app-filteractionbuttons'));
+        let influenceFormComp = fixture.debugElement.query(By.css('itemForm-filteractionbuttons'));
 
         influenceFormComp.triggerEventHandler('disableChange', {});
         expect(component.influenceForm.controls.influenceForm_disabled.value).toBeFalse();
@@ -153,7 +153,7 @@ describe('SpecialbasesComponent', () => {
         component.influenceForm.enable();
         component.influenceForm.controls.influenceForm_disabled.patchValue(false);
         await expansionHarness.toggle();
-        inputwrapper = fixture.debugElement.queryAll(By.css('app-inputwrapper'));
+        inputwrapper = fixture.debugElement.queryAll(By.css('itemForm-inputwrapper'));
         searchselect = inputwrapper[0].query(By.css('app-searchselect'));
       });
 
@@ -183,7 +183,7 @@ describe('SpecialbasesComponent', () => {
         component.influenceForm.enable();
         component.influenceForm.controls.influenceForm_disabled.patchValue(false);
         await expansionHarness.toggle();
-        inputwrapper = fixture.debugElement.queryAll(By.css('app-inputwrapper'));
+        inputwrapper = fixture.debugElement.queryAll(By.css('itemForm-inputwrapper'));
         searchselect = inputwrapper[1].query(By.css('app-searchselect'));
       });
 
@@ -213,7 +213,7 @@ describe('SpecialbasesComponent', () => {
         component.influenceForm.enable();
         component.influenceForm.controls.influenceForm_disabled.patchValue(false);
         await expansionHarness.toggle();
-        inputwrapper = fixture.debugElement.queryAll(By.css('app-inputwrapper'));
+        inputwrapper = fixture.debugElement.queryAll(By.css('itemForm-inputwrapper'));
         searchselect = inputwrapper[2].query(By.css('app-searchselect'));
       });
 
@@ -243,7 +243,7 @@ describe('SpecialbasesComponent', () => {
         component.influenceForm.enable();
         component.influenceForm.controls.influenceForm_disabled.patchValue(false);
         await expansionHarness.toggle();
-        inputwrapper = fixture.debugElement.queryAll(By.css('app-inputwrapper'));
+        inputwrapper = fixture.debugElement.queryAll(By.css('itemForm-inputwrapper'));
         searchselect = inputwrapper[3].query(By.css('app-searchselect'));
       });
 
@@ -274,7 +274,7 @@ describe('SpecialbasesComponent', () => {
         component.influenceForm.enable();
         component.influenceForm.controls.influenceForm_disabled.patchValue(false);
         await expansionHarness.toggle();
-        inputwrapper = fixture.debugElement.queryAll(By.css('app-inputwrapper'));
+        inputwrapper = fixture.debugElement.queryAll(By.css('itemForm-inputwrapper'));
         searchselect = inputwrapper[4].query(By.css('app-searchselect'));
       });
 
@@ -304,7 +304,7 @@ describe('SpecialbasesComponent', () => {
         component.influenceForm.enable();
         component.influenceForm.controls.influenceForm_disabled.patchValue(false);
         await expansionHarness.toggle();
-        inputwrapper = fixture.debugElement.queryAll(By.css('app-inputwrapper'));
+        inputwrapper = fixture.debugElement.queryAll(By.css('itemForm-inputwrapper'));
         searchselect = inputwrapper[5].query(By.css('app-searchselect'));
       });
 
@@ -334,7 +334,7 @@ describe('SpecialbasesComponent', () => {
         component.influenceForm.enable();
         component.influenceForm.controls.influenceForm_disabled.patchValue(false);
         await expansionHarness.toggle();
-        inputwrapper = fixture.debugElement.queryAll(By.css('app-inputwrapper'));
+        inputwrapper = fixture.debugElement.queryAll(By.css('itemForm-inputwrapper'));
         searchselect = inputwrapper[6].query(By.css('app-searchselect'));
       });
 
@@ -364,7 +364,7 @@ describe('SpecialbasesComponent', () => {
         component.influenceForm.enable();
         component.influenceForm.controls.influenceForm_disabled.patchValue(false);
         await expansionHarness.toggle();
-        inputwrapper = fixture.debugElement.queryAll(By.css('app-inputwrapper'));
+        inputwrapper = fixture.debugElement.queryAll(By.css('itemForm-inputwrapper'));
         searchselect = inputwrapper[7].query(By.css('app-searchselect'));
       });
 

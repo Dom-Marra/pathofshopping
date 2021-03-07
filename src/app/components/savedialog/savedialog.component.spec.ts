@@ -3,7 +3,7 @@ import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
 import { DebugElement } from '@angular/core';
 import { ComponentFixture, fakeAsync, flushMicrotasks, TestBed } from '@angular/core/testing';
 import { MatButtonHarness } from '@angular/material/button/testing';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatFormFieldHarness } from '@angular/material/form-field/testing';
 import { MatIconModule } from '@angular/material/icon';
@@ -17,6 +17,7 @@ import {MatProgressSpinnerHarness} from '@angular/material/progress-spinner/test
 
 import { SavedialogComponent } from './savedialog.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { CdkCopyToClipboard } from '@angular/cdk/clipboard';
 
 class MatDialogRefStub {
   public close() { }
@@ -31,12 +32,12 @@ describe('SavedialogComponent', () => {
   
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SavedialogComponent ],
+      declarations: [ SavedialogComponent, CdkCopyToClipboard ],
       providers: [
         {provide: MAT_DIALOG_DATA, useValue: matDialogDataPromise},
         {provide: MatDialogRef, useClass: MatDialogRefStub}
       ],
-      imports: [ MatFormFieldModule, NoopAnimationsModule, MatIconModule, MatInputModule, MatProgressBarModule, MatProgressSpinnerModule ]
+      imports: [ MatFormFieldModule, NoopAnimationsModule, MatIconModule, MatInputModule, MatProgressBarModule, MatProgressSpinnerModule, MatDialogModule ]
     })
     .compileComponents();
   });

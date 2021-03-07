@@ -18,7 +18,7 @@ import { SimpleDataService } from 'src/app/services/simpledata.service';
 import { TradefiltersComponent } from './tradefilters.component';
 
 
-@Component({selector: 'app-filteractionbuttons', template: ''})
+@Component({selector: 'itemForm-filteractionbuttons', template: ''})
 class FilterActionButtonsStub {
   @Output() remove: EventEmitter<void> = new EventEmitter();         
   @Output() disableChange: EventEmitter<void> = new EventEmitter();  
@@ -26,7 +26,7 @@ class FilterActionButtonsStub {
   @Input() formGroup: FormGroup;       
 }
 
-@Component({selector: 'app-minmaxinput', template: ''})
+@Component({selector: 'itemForm-minmaxinput', template: ''})
 class MinMaxInputStub {
   @Input() group: FormGroup;       
 }
@@ -46,7 +46,7 @@ class SearchSelectStubComponent {
   @Output() selected: EventEmitter<any> = new EventEmitter<any>();  
 }
 
-@Component({selector: 'app-inputwrapper', template: '<ng-content></ng-content>'})
+@Component({selector: 'itemForm-inputwrapper', template: '<ng-content></ng-content>'})
 class InputWrapperStub { }
 
 class SimpleDataServiceStub {
@@ -124,12 +124,12 @@ describe('TradefiltersComponent', () => {
     describe('FilterActionButtons', () => {
 
       it('should have the formGroup input set as the tradeForm', () => {
-        let tradeFormComp = fixture.debugElement.query(By.css('app-filteractionbuttons')).componentInstance as FilterActionButtonsStub;
+        let tradeFormComp = fixture.debugElement.query(By.css('itemForm-filteractionbuttons')).componentInstance as FilterActionButtonsStub;
         expect(tradeFormComp.formGroup).toBe(component.tradeForm);
       });
 
       it('should close the expansion panel if the tradeForm is disabled on disableChange', async () => {
-        let tradeFormComp = fixture.debugElement.query(By.css('app-filteractionbuttons'));
+        let tradeFormComp = fixture.debugElement.query(By.css('itemForm-filteractionbuttons'));
         component.tradeForm.controls.disabled.patchValue(true);
         component.tradeForm.disable();
 
@@ -141,7 +141,7 @@ describe('TradefiltersComponent', () => {
       it('should update the disable control value to false if the tradeForm is enabled on disableChange', async () => {
         component.tradeForm.enable();
         component.tradeForm.controls.disabled.patchValue(true, {emitEvent: false, onlySelf: true});
-        let tradeFormComp = fixture.debugElement.query(By.css('app-filteractionbuttons'));
+        let tradeFormComp = fixture.debugElement.query(By.css('itemForm-filteractionbuttons'));
 
         tradeFormComp.triggerEventHandler('disableChange', {});
         expect(component.tradeForm.controls.disabled.value).toBeFalse();
@@ -154,9 +154,9 @@ describe('TradefiltersComponent', () => {
         component.tradeForm.enable();
         component.tradeForm.controls.disabled.patchValue(false);
         await expansionHarness.expand();
-        let inputwrapper = fixture.debugElement.queryAll(By.css('app-inputwrapper'));
+        let inputwrapper = fixture.debugElement.queryAll(By.css('itemForm-inputwrapper'));
 
-        let price = inputwrapper[4].query(By.css('app-minmaxinput')).componentInstance as MinMaxInputStub;
+        let price = inputwrapper[4].query(By.css('itemForm-minmaxinput')).componentInstance as MinMaxInputStub;
 
         expect(price.group).toEqual(component.tradeForm.get('filters.price') as FormGroup);
       });
@@ -190,7 +190,7 @@ describe('TradefiltersComponent', () => {
         component.tradeForm.enable();
         component.tradeForm.controls.disabled.patchValue(false);
         await expansionHarness.expand();
-        inputwrapper = fixture.debugElement.queryAll(By.css('app-inputwrapper'));
+        inputwrapper = fixture.debugElement.queryAll(By.css('itemForm-inputwrapper'));
         searchselect = inputwrapper[1].query(By.css('app-searchselect'));
       });
 
@@ -220,7 +220,7 @@ describe('TradefiltersComponent', () => {
         component.tradeForm.enable();
         component.tradeForm.controls.disabled.patchValue(false);
         await expansionHarness.expand();
-        inputwrapper = fixture.debugElement.queryAll(By.css('app-inputwrapper'));
+        inputwrapper = fixture.debugElement.queryAll(By.css('itemForm-inputwrapper'));
         searchselect = inputwrapper[2].query(By.css('app-searchselect'));
       });
 
@@ -250,7 +250,7 @@ describe('TradefiltersComponent', () => {
         component.tradeForm.enable();
         component.tradeForm.controls.disabled.patchValue(false);
         await expansionHarness.expand();
-        inputwrapper = fixture.debugElement.queryAll(By.css('app-inputwrapper'));
+        inputwrapper = fixture.debugElement.queryAll(By.css('itemForm-inputwrapper'));
         searchselect = inputwrapper[3].query(By.css('app-searchselect'));
       });
 

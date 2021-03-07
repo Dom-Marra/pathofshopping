@@ -10,7 +10,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Defaultvaluecontrol } from 'src/app/classes/defaultvaluecontrol';
 import { RequirementsComponent } from './requirements.component';
 
-@Component({selector: 'app-filteractionbuttons', template: ''})
+@Component({selector: 'itemForm-filteractionbuttons', template: ''})
 class FilterActionButtonsStub {
   @Output() remove: EventEmitter<void> = new EventEmitter();         
   @Output() disableChange: EventEmitter<void> = new EventEmitter();  
@@ -18,12 +18,12 @@ class FilterActionButtonsStub {
   @Input() formGroup: FormGroup;       
 }
 
-@Component({selector: 'app-minmaxinput', template: ''})
+@Component({selector: 'itemForm-minmaxinput', template: ''})
 class MinMaxInputStub {
   @Input() group: FormGroup;       
 }
 
-@Component({selector: 'app-inputwrapper', template: '<ng-content></ng-content>'})
+@Component({selector: 'itemForm-inputwrapper', template: '<ng-content></ng-content>'})
 class InputWrapperStub { }
 
 describe('RequirementsComponent', () => {
@@ -88,12 +88,12 @@ describe('RequirementsComponent', () => {
     describe('FilterActionButtons', () => {
 
       it('should have the formGroup input set as the requirementsForm', () => {
-        let requirementsFormComp = fixture.debugElement.query(By.css('app-filteractionbuttons')).componentInstance as FilterActionButtonsStub;
+        let requirementsFormComp = fixture.debugElement.query(By.css('itemForm-filteractionbuttons')).componentInstance as FilterActionButtonsStub;
         expect(requirementsFormComp.formGroup).toBe(component.requirementsForm);
       });
 
       it('should close the expansion panel if the requirementsForm is disabled on disableChange', async () => {
-        let requirementsFormComp = fixture.debugElement.query(By.css('app-filteractionbuttons'));
+        let requirementsFormComp = fixture.debugElement.query(By.css('itemForm-filteractionbuttons'));
         component.requirementsForm.controls.disabled.patchValue(true);
         component.requirementsForm.disable();
 
@@ -105,7 +105,7 @@ describe('RequirementsComponent', () => {
       it('should update the disable control value to false if the requirementsForm is enabled on disableChange', async () => {
         component.requirementsForm.enable();
         component.requirementsForm.controls.disabled.patchValue(true, {emitEvent: false, onlySelf: true});
-        let requirementsFormComp = fixture.debugElement.query(By.css('app-filteractionbuttons'));
+        let requirementsFormComp = fixture.debugElement.query(By.css('itemForm-filteractionbuttons'));
 
         requirementsFormComp.triggerEventHandler('disableChange', {});
         expect(component.requirementsForm.controls.disabled.value).toBeFalse();
@@ -118,14 +118,12 @@ describe('RequirementsComponent', () => {
         component.requirementsForm.enable();
         component.requirementsForm.controls.disabled.patchValue(false);
         await expansionHarness.toggle();
-        let inputwrapper = fixture.debugElement.queryAll(By.css('app-inputwrapper'));
+        let inputwrapper = fixture.debugElement.queryAll(By.css('itemForm-inputwrapper'));
 
-        console.log(component.requirementsForm);
-
-        let levelInput = inputwrapper[0].query(By.css('app-minmaxinput')).componentInstance as MinMaxInputStub;
-        let strInput = inputwrapper[1].query(By.css('app-minmaxinput')).componentInstance as MinMaxInputStub;
-        let intInput = inputwrapper[2].query(By.css('app-minmaxinput')).componentInstance as MinMaxInputStub;
-        let dexInput = inputwrapper[3].query(By.css('app-minmaxinput')).componentInstance as MinMaxInputStub;
+        let levelInput = inputwrapper[0].query(By.css('itemForm-minmaxinput')).componentInstance as MinMaxInputStub;
+        let strInput = inputwrapper[1].query(By.css('itemForm-minmaxinput')).componentInstance as MinMaxInputStub;
+        let intInput = inputwrapper[2].query(By.css('itemForm-minmaxinput')).componentInstance as MinMaxInputStub;
+        let dexInput = inputwrapper[3].query(By.css('itemForm-minmaxinput')).componentInstance as MinMaxInputStub;
 
         expect(levelInput.group).toEqual(component.requirementsForm.get('filters.lvl') as FormGroup);
         expect(strInput.group).toEqual(component.requirementsForm.get('filters.str') as FormGroup);
