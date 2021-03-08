@@ -361,6 +361,52 @@ describe('ItemComponent', () => {
       });
     });
 
+    describe('Hybrid Details', () => {
+
+      afterEach(() => {
+        item.item['hybrid'] = null;
+        item.item['typeLine'] = null;
+      });
+
+      it('should not exist if the hybrid property is null on the item', () => {
+        expect(fixture.debugElement.query(By.css('.hybrid'))).toBeFalsy();
+      });
+
+      it('contains a header with the items typLine as the content', () => {
+        item.item['hybrid'] = {}
+        item.item['typeLine'] = "Mock TypeLine"
+        fixture.detectChanges();
+
+        let header = fixture.debugElement.query(By.css('.hybrid-item-name'));
+        expect(header.nativeElement.textContent).toContain("Mock TypeLine");
+      });
+
+      it('contains the item properties component with proper bindings when the hybrid property has properties property', () => {
+        item.item['hybrid'] = {
+          properties: {}
+        };
+        fixture.detectChanges();
+
+        let hybridDetails = fixture.debugElement.query(By.css('.hybrid'));
+        let properties = hybridDetails.query(By.css('item-properties'));
+        expect(properties).toBeTruthy();
+        expect((properties.componentInstance as PropertiesStub).item).toEqual(item.item['hybrid']);
+      });
+
+      it('contains the item modlist component with proper bindings when the hybrid property has explicitMods property', () => {
+        item.item['hybrid'] = {
+          explicitMods: {}
+        };
+        fixture.detectChanges();
+
+        let hybridDetails = fixture.debugElement.query(By.css('.hybrid'));
+        let modlist = hybridDetails.query(By.css('item-modlist'));
+        expect(modlist).toBeTruthy();
+        expect((modlist.componentInstance as ModListStub).item).toEqual(item.item['hybrid']);
+        expect((modlist.componentInstance as ModListStub).modProperties).toEqual(component.explicitModProperties);
+      });
+    });
+
     describe('Div Mods Component', () => {
 
       afterEach(() => {
