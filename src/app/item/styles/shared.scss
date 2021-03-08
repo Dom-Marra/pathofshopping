@@ -1,3 +1,71 @@
+$poe-elemental-colors: (
+    physical: white,
+    fire: rgb(223, 37, 4),
+    cold: rgb(132, 226, 230),
+    lightning: rgb(255, 238, 0),
+    chaos: rgb(182, 38, 182)
+);
+
+$poe-frame-colors: (
+    normal: rgb(90, 90, 90),
+    magic: rgb(71, 68, 95),
+    rare: rgb(120,89,33),
+    unique: rgb(107, 56, 34),
+    gem: rgb(11, 94, 89),
+    currency: rgb(92, 86, 65),
+    div-card: rgb(159,147,135),
+    prophecy: rgb(91, 36, 126),
+    relic: rgb(25,51,75)
+);
+
+$poe-property-colors: (
+    unmodified: rgb(151, 151, 151),
+    modified: rgb(100, 100, 255),
+    corrupted: #d20000,
+    enchanted: #b4b4ff,
+    fractured: #a29162,
+    suffix: #ec7676,
+    prefix: #7aaff1
+);
+
+@mixin frame-0 {
+    color: lighten(map-get($poe-frame-colors, normal), 40%);
+    background-color: map-get($poe-frame-colors, normal);
+}
+@mixin frame-1 {
+    color: lighten(map-get($poe-frame-colors, magic), 40%);
+    background-color: map-get($poe-frame-colors, magic);
+}
+@mixin frame-2 {
+    color: lighten(map-get($poe-frame-colors, rare), 40%);
+    background-color: map-get($poe-frame-colors, rare);
+}
+@mixin frame-3 {
+    color: lighten(map-get($poe-frame-colors, unique), 40%);
+    background-color: map-get($poe-frame-colors, unique);
+}
+@mixin frame-4 {
+    color: lighten(map-get($poe-frame-colors, gem), 40%);
+    background-color: map-get($poe-frame-colors, gem);
+}
+@mixin frame-5 {
+    color: lighten(map-get($poe-frame-colors, currency), 40%);
+    background-color: map-get($poe-frame-colors, currency);
+}
+@mixin frame-6 {
+    color: lighten(map-get($poe-frame-colors, div-card), 40%);
+    background-color: map-get($poe-frame-colors, div-card);
+}
+@mixin frame-8 {
+    color: lighten(map-get($poe-frame-colors, prophecy), 40%);
+    background-color: map-get($poe-frame-colors, prophecy);
+}
+@mixin frame-9 {
+    color: lighten(map-get($poe-frame-colors, relic), 40%);
+    background-color: map-get($poe-frame-colors, relic);
+}
+
+
 .sortable {
     transition: text-shadow 0.15s linear;
     text-shadow: none;

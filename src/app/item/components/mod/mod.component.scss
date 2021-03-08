@@ -1,22 +1,25 @@
-:host {
-    color: rgb(100, 100, 255);
+@import '../../styles/shared.scss';
 
-    .fractured {
-        color: #a29162;
+:host {
+    color: map-get($poe-property-colors, modified);
+
+    &.fractured {
+        color: map-get($poe-property-colors, fractured);
     }
 
     &.crafted, &.enchant {
-       color: #b4b4ff;
+        color: map-get($poe-property-colors, enchanted);
     }
 
     &.pseudo {
-        color: #7f7f7f;
+        color: map-get($poe-property-colors, unmodified);
     }
 
     &.veiled {
-        color: #7f7f7f;
+        color: map-get($poe-property-colors, unmodified);
 
-        .veiled-text {
+        .mod-text {
+            font-size: 0;
             display: inline-block;
             height: 14px;
             margin: auto;
@@ -115,11 +118,11 @@
         }
 
         &[class*='type-P'] {
-            color: #ec7676;
+            color: map-get($poe-property-colors, prefix);
         }
 
         &[class*='type-S'] {
-            color: #7aaff1;
+            color: map-get($poe-property-colors, suffix);
         }
     }
 }

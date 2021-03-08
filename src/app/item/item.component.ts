@@ -23,7 +23,8 @@ export class ItemComponent implements OnInit {
   public readonly explicitModProperties: Array<modProperties> = [
     {
         modPropString: 'fracturedMods',
-        extendedPropName: 'fractured'
+        extendedPropName: 'fractured',
+        specialClass: 'fractured'
     },
     {
         modPropString: 'explicitMods',
