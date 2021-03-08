@@ -5,7 +5,7 @@ import { shoppingListSaveData } from 'src/app/core/models/shoppingListSaveData';
 import { FirebaseService } from 'src/app/core/services/firebase.service';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import { SavedialogComponent } from 'src/app/components/savedialog/savedialog.component';
+import { SavedialogComponent } from 'src/app/shoppinglist/components/savedialog/savedialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { PoeService } from 'src/app/core/services/poe.service';
 import { SimpleDataService } from 'src/app/core/services/simpledata.service';
