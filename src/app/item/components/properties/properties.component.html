@@ -1,0 +1,13 @@
+<div class="item-parsed-list">
+    <div *ngFor="let prop of item.properties | parseProps" 
+        [class.sortable]="prop.type != null && PROP_VALUES['prop_' + prop.type]" 
+        (click)="PROP_VALUES['prop_' + prop.type] ? currentSort.currentSort.next({sortKey: PROP_VALUES['prop_' + prop.type]}) : ''">
+        <span *ngFor="let value of prop.values" class="{{value.display != null ? 'display-' + value.display : ''}}">{{value.text}}</span>
+        <item-sortarrow *ngIf="currentSort.currentSort.value.sortKey == PROP_VALUES['prop_' + prop.type]" 
+            [sortValue]="currentSort.currentSort.value.sortValue">
+        </item-sortarrow>
+    </div>
+    <div *ngFor="let mod of item.utilityMods" class="display-1 last">
+        <span>{{mod}}</span>
+    </div>
+</div>

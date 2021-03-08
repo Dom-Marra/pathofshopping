@@ -1,0 +1,28 @@
+<mat-expansion-panel class="filter-expansion-panel" #expansionPanel [disabled]="this.armourForm.disabled">
+    <mat-expansion-panel-header>
+        <itemForm-filteractionbuttons [formGroup]="this.armourForm" (disableChange)="this.armourForm.disabled ? expansionPanel.close() : ''; this.armourForm.controls.disabled.setValue(this.armourForm.disabled)"></itemForm-filteractionbuttons>
+        Armour Filters
+    </mat-expansion-panel-header>
+    <ng-template matExpansionPanelContent>
+        <div class="item-contents">
+            <div appEqualflex class="field-wrapper">
+                <itemForm-inputwrapper class="field">
+                    <span label>Armour</span> 
+                    <itemForm-minmaxinput [group]="this.armourForm['controls'].filters['controls'].ar"></itemForm-minmaxinput>
+                </itemForm-inputwrapper>
+                <itemForm-inputwrapper class="field">
+                    <span label>Energy Shield</span>
+                    <itemForm-minmaxinput [group]="this.armourForm['controls'].filters['controls'].es"></itemForm-minmaxinput>
+                </itemForm-inputwrapper>
+                <itemForm-inputwrapper class="field">
+                    <span label>Evasion</span>
+                    <itemForm-minmaxinput [group]="this.armourForm['controls'].filters['controls'].ev"></itemForm-minmaxinput>
+                </itemForm-inputwrapper>
+                <itemForm-inputwrapper class="field">
+                    <span label>Block Chance</span>
+                    <itemForm-minmaxinput [group]="this.armourForm['controls'].filters['controls'].block"></itemForm-minmaxinput>
+                </itemForm-inputwrapper>
+            </div>
+        </div>
+    </ng-template>
+</mat-expansion-panel>

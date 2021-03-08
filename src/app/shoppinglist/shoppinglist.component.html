@@ -1,0 +1,52 @@
+<div id="shoppinglist-maincontainer">
+    <h1 id="top-title">Path of Shopping</h1>
+    
+    <div *ngIf="!listLoading && !poeLoading && !errMsg" id="shoppinglist-contents-container">
+        <div id="shoppinglist-contents-top-bar">
+            <div class="top-bar-flex-wrap">
+                <app-searchselect class="league-select mat-input-500" 
+                                    autoCompleteClass='autocomplete-panel-400' 
+                                    inputName='League'
+                                    [values]="leagues"
+                                    [filterBy]="simpleDataService.filterSimpleData"
+                                    [displayBy]="simpleDataService.displayByText"
+                                    [setValue]="simpleDataService.getSelectedValue(this.shoppingList.controls.league.value, leagues)"
+                                    (selected)="this.shoppingList.controls.league.patchValue($event.id)"></app-searchselect>
+            </div>
+            <div id="shoppinglist-name-bar" class="mat-input-500">
+                <mat-form-field *ngIf="editShoppingListName" floatLabel="never" class="shopping-list-name-input">
+                    <input #shoppingListNameInput matInput [formControl]="this.shoppingList.controls.name"
+                           type="text" autocomplete="off" placeholder="Shopping List Name"
+                           (blur)="editShoppingListName = false" (keydown.enter)="shoppingListNameInput.blur()">
+                </mat-form-field>
+                <div id="shoppinglist-name-output-wrapper" *ngIf="!editShoppingListName">
+                    <h3 id="shoppinglist-name-output">{{ this.shoppingList.value.name?.length > 0 ? this.shoppingList.value.name : 'Your Shopping List' }}</h3>
+                    <button (click)="editShoppingListName = true" mat-icon-button class="transparent-mat-button fix-height-mat-icon"><mat-icon>edit</mat-icon></button>
+                </div>
+            </div>
+            <div class="top-bar-flex-wrap">
+                <button type="button" mat-flat-button (click)="addItem()" id="add-item" class="action-button mat-button-700"><mat-icon>add_box</mat-icon> &nbsp; Add Item</button>
+                <button type="button" mat-flat-button (click)="save()" class="action-button mat-button-800"><mat-icon>save</mat-icon> &nbsp; Save</button>
+            </div>
+        </div>
+        <div id="shopping-list-contents">
+            <mat-tab-group class="item-tabs" animationDuration="0ms" dynamicHeight>
+                <mat-tab *ngFor="let item of items" [label]="item.itemForm.value.itemName ? item.itemForm.value.itemName : 'New Item'">
+                    <ng-template matTabContent>
+                        <pos-itemForm [itemData]="item" [league]="this.shoppingList.value.league" (deleteItem)="deleteItem($event)"></pos-itemForm>
+                    </ng-template>
+                </mat-tab>
+            </mat-tab-group>
+        </div>
+    </div>
+
+    <div *ngIf="(listLoading || poeLoading) && !errMsg" id="loading-panel">
+        <h3>Loading... Please Wait</h3>
+        <mat-progress-spinner class="mat-spinner" mode="indeterminate"></mat-progress-spinner>
+    </div>
+
+    <div *ngIf="errMsg" id="error-panel">
+        <mat-icon>error</mat-icon>
+        <h3>{{errMsg}}</h3>
+    </div>
+</div>

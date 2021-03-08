@@ -1,0 +1,78 @@
+<mat-expansion-panel class="filter-expansion-panel" #expansionPanel [disabled]="this.mapForm.disabled">
+    <mat-expansion-panel-header>
+        <itemForm-filteractionbuttons [formGroup]="this.mapForm" (disableChange)="this.mapForm.disabled ? expansionPanel.close() : ''; this.mapForm.controls.disabled.patchValue(this.mapForm.disabled, {emitEvent: false, onlySelf: true})"></itemForm-filteractionbuttons>
+            Map Filters
+    </mat-expansion-panel-header>
+    <ng-template matExpansionPanelContent>
+        <div class="item-contents">
+            <div appEqualflex class="field-wrapper">
+                <itemForm-inputwrapper class="field" matAutocompleteOrigin #regionSelect="matAutocompleteOrigin">
+                    <span label>Region</span> 
+                    <app-searchselect [values]="mapRegions"
+                                        [autoCompleteHost]='regionSelect' 
+                                        [filterBy]="simpleDataService.filterSimpleData"
+                                        [displayBy]="simpleDataService.displayByText"   
+                                        [disabled]="this.mapForm.disabled"
+                                        [setValue]="simpleDataService.getSelectedValue(mapForm['controls'].filters['controls'].map_region['controls'].option.value, mapRegions)"
+                                        (selected)="mapForm['controls'].filters['controls'].map_region['controls'].option.patchValue($event.id)"></app-searchselect> 
+                </itemForm-inputwrapper>
+                <itemForm-inputwrapper class="field" matAutocompleteOrigin #seriesSelect="matAutocompleteOrigin">
+                    <span label>Series</span> 
+                    <app-searchselect [values]="mapSeries"
+                                        [autoCompleteHost]='seriesSelect' 
+                                        [filterBy]="simpleDataService.filterSimpleData"
+                                        [displayBy]="simpleDataService.displayByText"   
+                                        [disabled]="this.mapForm.disabled"
+                                        [setValue]="simpleDataService.getSelectedValue(mapForm['controls'].filters['controls'].map_series['controls'].option.value, mapSeries)"
+                                        (selected)="mapForm['controls'].filters['controls'].map_series['controls'].option.patchValue($event.id)"></app-searchselect> 
+                </itemForm-inputwrapper>
+                <itemForm-inputwrapper class="field" matAutocompleteOrigin #shapedSelect="matAutocompleteOrigin">
+                    <span label>Shaped</span> 
+                    <app-searchselect [values]="simpleDataService.simpleTrueFalse"
+                                        [autoCompleteHost]='shapedSelect' 
+                                        [filterBy]="simpleDataService.filterSimpleData"
+                                        [displayBy]="simpleDataService.displayByText"   
+                                        [disabled]="this.mapForm.disabled"
+                                        [setValue]="simpleDataService.getSelectedValue(mapForm['controls'].filters['controls'].map_shaped['controls'].option.value, simpleDataService.simpleTrueFalse)"
+                                        (selected)="mapForm['controls'].filters['controls'].map_shaped['controls'].option.patchValue($event.id)"></app-searchselect> 
+                </itemForm-inputwrapper>
+                <itemForm-inputwrapper class="field" matAutocompleteOrigin #elderSelect="matAutocompleteOrigin">
+                    <span label>Elder</span> 
+                    <app-searchselect [values]="simpleDataService.simpleTrueFalse"
+                                        [autoCompleteHost]='elderSelect' 
+                                        [filterBy]="simpleDataService.filterSimpleData"
+                                        [displayBy]="simpleDataService.displayByText"   
+                                        [disabled]="this.mapForm.disabled"
+                                        [setValue]="simpleDataService.getSelectedValue(mapForm['controls'].filters['controls'].map_elder['controls'].option.value, simpleDataService.simpleTrueFalse)"
+                                        (selected)="mapForm['controls'].filters['controls'].map_elder['controls'].option.patchValue($event.id)"></app-searchselect> 
+                </itemForm-inputwrapper>
+                <itemForm-inputwrapper class="field" matAutocompleteOrigin #blightedSelect="matAutocompleteOrigin">
+                    <span label>Blighted</span> 
+                    <app-searchselect [values]="simpleDataService.simpleTrueFalse"
+                                        [autoCompleteHost]='blightedSelect'
+                                        [filterBy]="simpleDataService.filterSimpleData"
+                                        [displayBy]="simpleDataService.displayByText"   
+                                        [disabled]="this.mapForm.disabled"
+                                        [setValue]="simpleDataService.getSelectedValue(mapForm['controls'].filters['controls'].map_blighted['controls'].option.value, simpleDataService.simpleTrueFalse)"
+                                        (selected)="mapForm['controls'].filters['controls'].map_blighted['controls'].option.patchValue($event.id)"></app-searchselect> 
+                </itemForm-inputwrapper>
+                <itemForm-inputwrapper class="field">
+                    <span label>Tier</span> 
+                    <itemForm-minmaxinput [group]="this.mapForm['controls'].filters['controls'].map_tier"></itemForm-minmaxinput>
+                </itemForm-inputwrapper>
+                <itemForm-inputwrapper class="field">
+                    <span label>Packsize</span> 
+                    <itemForm-minmaxinput [group]="this.mapForm['controls'].filters['controls'].map_packsize"></itemForm-minmaxinput>
+                </itemForm-inputwrapper>
+                <itemForm-inputwrapper class="field">
+                    <span label>IIQ</span> 
+                    <itemForm-minmaxinput [group]="this.mapForm['controls'].filters['controls'].map_iiq"></itemForm-minmaxinput>
+                </itemForm-inputwrapper>
+                <itemForm-inputwrapper class="field">
+                    <span label>IIR</span> 
+                    <itemForm-minmaxinput [group]="this.mapForm['controls'].filters['controls'].map_iir"></itemForm-minmaxinput>
+                </itemForm-inputwrapper>
+            </div>
+        </div>
+    </ng-template>
+</mat-expansion-panel>
