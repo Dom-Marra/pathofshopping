@@ -1,6 +1,6 @@
 <div class="mod-container {{mod.hash ? 'sortable' : ''}}" 
     (click)="mod.hash ? currentSort.currentSort.next({sortKey: 'stat.' + mod.hash}) : ''">
-    <span [innerHTML]="mod.text"></span>
+    <span class="mod-text {{mod.text}}" [innerHTML]="mod.text"></span>
     <item-sortarrow *ngIf="currentSort.currentSort.value.sortKey == 'stat.' + mod.hash"
                     [sortValue]="currentSort.currentSort.value.sortValue">
     </item-sortarrow>
