@@ -150,348 +150,382 @@ describe('SearchSelectComponent', () => {
     })
   });
 
-  describe('Label', () => {
-    let formField: MatFormFieldHarness;
+  describe('Component HTML', () => {
 
-    beforeEach(async () => {
-      formField = await loader.getHarness(MatFormFieldHarness);
-    });
-
-    it('should not have a floating label when no inputName is provided and the selected value is null', async () => {
-      expect(await formField.isLabelFloating()).toBeFalse();
-    });
-
-    it('should have a label equal to the inputName', async () => {
-      const mockLabel = 'Mock Input';
-      component.inputName = mockLabel;
+    describe('Label', () => {
+      let formField: MatFormFieldHarness;
   
-      expect(await formField.getLabel()).toEqual(mockLabel);
-    });
+      beforeEach(async () => {
+        formField = await loader.getHarness(MatFormFieldHarness);
+      });
   
-    it('should have a floating label when there is a selected value and the inputName is provided', async () => {
-      const mockLabel = 'Mock Input';
-      const mockSelectedValue = 'Mock Value';
-
-      component.selectValue(mockSelectedValue);
-      component.inputName = mockLabel;
-
-      expect(await formField.isLabelFloating()).toBeTrue();
-    });
-
-    it('should not have a floating label when there is a selected value and the inputName is not provided', async () => {
-      const mockSelectedValue = 'Mock Value';
-
-      component.selectValue(mockSelectedValue);
-
-      expect(await formField.isLabelFloating()).toBeFalse();
-    });
-
-    it('should have the placeholder equal to the getPlaceholder value', async () => {
-      spyOn(component, 'getPlaceholder').and.returnValue('Mock Placeholder');
-
-      expect(await formField.getLabel()).toEqual('Mock Placeholder');
-    });
-  });
-
-  describe('Input Blur', () => {
-    const mockSelectedValue = 'Mock Value';
-
-    beforeEach(() => {
-      component.selectValue(mockSelectedValue);
-    });
-
-    it('should patch search the value to the selectedValue not selectingOption', async () => {
-      await matInput.setValue('Test Input');
-      await matInput.blur();
-
-      expect(component.search.value).toEqual(mockSelectedValue);
-    });
-
-    it('should keep search the current input value when selectingOption is true', async () => {
-      component.selectingOption = true;
-
-      await matInput.setValue('Test Input');
-      await matInput.blur();
-
-      expect(component.search.value).toEqual('Test Input');
-    });
-
-    it('should call clear() when clearable is true and the search value is empty', async () => {
-      spyOn(component, 'clear');
-
-      component.clearable = true;
-
-      await matInput.setValue('');
-      await matInput.blur();
-
-      expect(component.clear).toHaveBeenCalled();
-    });
-
-    it('should patch search to the displayBy value when one is provided', async () => {
-      component.displayBy = (value: any) => {return value.text};
-      component.selectValue({text: 'Mock Value w/ displayBy'});
-
-      await matInput.setValue('Test Input');
-      await matInput.blur();
-
-      expect(component.search.value).toEqual('Mock Value w/ displayBy');
-    });
-  });
-
-  describe('Dropdown icon', () => {
-    let matIcon: MatIconHarness;
-
-    beforeEach(async () => {
-      matIcon = await loader.getHarness(MatIconHarness);
-    });
-
-    it('should have \'arrow_drop_down\' as the text', async () => {
-      expect(await matIcon.getName()).toEqual('arrow_drop_down');
-    });
-
-    it('should have the rotate class when the autocomplete is open', async () => {
-      let matIconHost = await matIcon.host();
-
-      await matAutocomplete.enterText('Test');
-
-      expect(await matIconHost.hasClass('rotate')).toBeTrue();
-    });
-
-    it('should not have have the rotate class when the autocomplete is closed', async () => {
-      let matIconHost = await matIcon.host();
-
-      expect(await matIconHost.hasClass('rotate')).toBeFalse();
-    });
-  })
-
-  describe('Clear button', () => { 
+      it('should not have a floating label when no inputName is provided and the selected value is null', async () => {
+        expect(await formField.isLabelFloating()).toBeFalse();
+      });
+  
+      it('should have a label equal to the inputName', async () => {
+        const mockLabel = 'Mock Input';
+        component.inputName = mockLabel;
     
-    it('should exist when clearable is true and the search has a value', async () =>{
-      component.clearable = true;
+        expect(await formField.getLabel()).toEqual(mockLabel);
+      });
+    
+      it('should have a floating label when there is a selected value and the inputName is provided', async () => {
+        const mockLabel = 'Mock Input';
+        const mockSelectedValue = 'Mock Value';
+  
+        component.selectValue(mockSelectedValue);
+        component.inputName = mockLabel;
+  
+        expect(await formField.isLabelFloating()).toBeTrue();
+      });
+  
+      it('should not have a floating label when there is a selected value and the inputName is not provided', async () => {
+        const mockSelectedValue = 'Mock Value';
+  
+        component.selectValue(mockSelectedValue);
+  
+        expect(await formField.isLabelFloating()).toBeFalse();
+      });
+  
+      it('should have the placeholder equal to the getPlaceholder value', async () => {
+        spyOn(component, 'getPlaceholder').and.returnValue('Mock Placeholder');
+  
+        expect(await formField.getLabel()).toEqual('Mock Placeholder');
+      });
+    });
+
+    describe('Input Blur', () => {
+      const mockSelectedValue = 'Mock Value';
+  
+      beforeEach(() => {
+        component.selectValue(mockSelectedValue);
+      });
+  
+      it('should patch search the value to the selectedValue not selectingOption', async () => {
+        await matInput.setValue('Test Input');
+        await matInput.blur();
+  
+        expect(component.search.value).toEqual(mockSelectedValue);
+      });
+  
+      it('should keep search the current input value when selectingOption is true', async () => {
+        component.selectingOption = true;
+  
+        await matInput.setValue('Test Input');
+        await matInput.blur();
+  
+        expect(component.search.value).toEqual('Test Input');
+      });
+  
+      it('should call clear() when clearable is true and the search value is empty', async () => {
+        spyOn(component, 'clear');
+  
+        component.clearable = true;
+  
+        await matInput.setValue('');
+        await matInput.blur();
+  
+        expect(component.clear).toHaveBeenCalled();
+      });
+  
+      it('should patch search to the displayBy value when one is provided', async () => {
+        component.displayBy = (value: any) => {return value.text};
+        component.selectValue({text: 'Mock Value w/ displayBy'});
+  
+        await matInput.setValue('Test Input');
+        await matInput.blur();
+  
+        expect(component.search.value).toEqual('Mock Value w/ displayBy');
+      });
+    });
+  
+    describe('Input Focus', () => {
+  
+      it('clears the search control if the selectingOption value is false and the clearOnFocus value is true', async () => {
+        component.clearOnFocus = true;
+        component.selectingOption = false;
+        component.search.patchValue('Mock Value');
+  
+        await matInput.focus();
+        expect(component.search.value).toEqual('');
+      });
+  
+      it('does nothing if the the selectingOption value is true', async () => {
+        component.clearOnFocus = true;
+        component.selectingOption = true;
+        component.search.patchValue('Mock Value');
+  
+        await matInput.focus();
+        expect(component.search.value).toEqual('Mock Value');
+      });
+  
+      it('patches the search control to the displayBy value if the the clearOnFocus value is false', async () => {
+        spyOn(component, 'displayBy').and.returnValue('Mock displayBy');
+        component.clearOnFocus = false;
+        component.selectingOption = false;
+        component.search.patchValue('Mock Value');
+  
+        await matInput.focus();
+        expect(component.search.value).toEqual('Mock displayBy');
+      });
+    });
+  
+    describe('Dropdown icon', () => {
+      let matIcon: MatIconHarness;
+  
+      beforeEach(async () => {
+        matIcon = await loader.getHarness(MatIconHarness);
+      });
+  
+      it('should have \'arrow_drop_down\' as the text', async () => {
+        expect(await matIcon.getName()).toEqual('arrow_drop_down');
+      });
+  
+      it('should have the rotate class when the autocomplete is open', async () => {
+        let matIconHost = await matIcon.host();
+  
+        await matAutocomplete.enterText('Test');
+  
+        expect(await matIconHost.hasClass('rotate')).toBeTrue();
+      });
+  
+      it('should not have have the rotate class when the autocomplete is closed', async () => {
+        let matIconHost = await matIcon.host();
+  
+        expect(await matIconHost.hasClass('rotate')).toBeFalse();
+      });
+    })
+  
+    describe('Clear button', () => { 
       
-      await matInput.setValue('test');
-
-      let matButton = await loader.getHarness(MatButtonHarness);
-
-      expect(matButton).toBeTruthy();
-      expect(await matButton.getText()).toEqual('clear');
-    });
-
-    it('should call clear() when clicked', async () => {
-      spyOn(component, 'clear');
-      component.clearable = true;
-
-      await matInput.setValue('test');
-
-      let matButton = await loader.getHarness(MatButtonHarness);
-      await matButton.click();
-
-      expect(component.clear).toHaveBeenCalled();
-    });
-
-    it('should not exist when there is no search value', async () => {
-      component.clearable = true;
-
-      await expectAsync(loader.getHarness(MatButtonHarness)).toBeRejected();
-    });
-
-    it('should not exist when clearable is false', async () => {
-      component.clearable = false;
-
-      await expectAsync(loader.getHarness(MatButtonHarness)).toBeRejected();
-    });
-  });
-
-  describe('Autocomplete', () => {
-
-    const mockValues = ['Mock 1', 'Mock 2', 'Mock 3'];
-    const mockGroupedValues = [
-      {
-        groupName: 'Mock Group 1',
-        values: [{id: 'MG1V1', text: 'Mock Group 1 Value 1'}, {id: 'MGV2', text: 'Mock Group 1 Value 2'}]
-      },
-      {
-        groupName: 'Mock Group 2',
-        values: [{id: 'MG2V2', text: 'Mock Group 2 Value 2'}, {id: 'MGV2', text: 'Mock Group 2 Value 2'}]
-      }
-    ];
+      it('should exist when clearable is true and the search has a value', async () =>{
+        component.clearable = true;
+        
+        await matInput.setValue('test');
   
-    const mockFilter = (text: string, values: Array<any>) => { 
-      if (!text) return values;
+        let matButton = await loader.getHarness(MatButtonHarness);
   
-      return values.filter(val => val.indexOf(text) != -1)
-    };
+        expect(matButton).toBeTruthy();
+        expect(await matButton.getText()).toEqual('clear');
+      });
+  
+      it('should call clear() when clicked', async () => {
+        spyOn(component, 'clear');
+        component.clearable = true;
+  
+        await matInput.setValue('test');
+  
+        let matButton = await loader.getHarness(MatButtonHarness);
+        await matButton.click();
+  
+        expect(component.clear).toHaveBeenCalled();
+      });
+  
+      it('should not exist when there is no search value', async () => {
+        component.clearable = true;
+  
+        await expectAsync(loader.getHarness(MatButtonHarness)).toBeRejected();
+      });
+  
+      it('should not exist when clearable is false', async () => {
+        component.clearable = false;
+  
+        await expectAsync(loader.getHarness(MatButtonHarness)).toBeRejected();
+      });
+    });
+  
+    describe('Autocomplete', () => {
+  
+      const mockValues = ['Mock 1', 'Mock 2', 'Mock 3'];
+      const mockGroupedValues = [
+        {
+          groupName: 'Mock Group 1',
+          values: [{id: 'MG1V1', text: 'Mock Group 1 Value 1'}, {id: 'MGV2', text: 'Mock Group 1 Value 2'}]
+        },
+        {
+          groupName: 'Mock Group 2',
+          values: [{id: 'MG2V2', text: 'Mock Group 2 Value 2'}, {id: 'MGV2', text: 'Mock Group 2 Value 2'}]
+        }
+      ];
     
-    const mockGroupFilter = (text: string, values: typeof mockGroupedValues) => {
-      if (!text) return values;
+      const mockFilter = (text: string, values: Array<any>) => { 
+        if (!text) return values;
+    
+        return values.filter(val => val.indexOf(text) != -1)
+      };
+      
+      const mockGroupFilter = (text: string, values: typeof mockGroupedValues) => {
+        if (!text) return values;
+    
+        return values.map(val => ({
+          groupName: val.groupName,
+          values: val.values.filter(val => val.text.indexOf(text) != -1)
+        }));
+      };
+    
+      const displayBy = (value: any) => { return value?.text};
+      const groupOptions = {
+        groupedBy: 'groupName',
+        groupedInto: 'values'
+      };
   
-      return values.map(val => ({
-        groupName: val.groupName,
-        values: val.values.filter(val => val.text.indexOf(text) != -1)
-      }));
-    };
-  
-    const displayBy = (value: any) => { return value?.text};
-    const groupOptions = {
-      groupedBy: 'groupName',
-      groupedInto: 'values'
-    };
-
-    it('should call selectValue on optionSelected event with the selected value and true', async () => {
-      component.values = mockValues;
-      component.filterBy = mockFilter;
-      spyOn(component, 'selectValue');
-
-      await matAutocomplete.enterText('M');
-      await matAutocomplete.selectOption({text: 'Mock 1'});
-
-      expect(component.selectValue).toHaveBeenCalledWith('Mock 1', true);
-    });
-
-    describe('groupOptions provided', () => {
-
-      beforeEach(() => {
-        component.values = mockGroupedValues;
-        component.filterBy = mockGroupFilter;
-        component.displayBy = displayBy;
-        component.groupOptions = groupOptions;
-      })
-
-      it('should have group options', async () => {
-        await matAutocomplete.enterText(' ');
-  
-        expect((await matAutocomplete.getOptionGroups()).length).toBeGreaterThan(0);
-      });
-
-      it('should have option text equal to the value when no displayBy function is provided', async () => {
-        component.values = [{group: 'G1', values: ['G1 Mock 1', 'G1 Mock 2']}, {group: 'G2', values: ['G2 Mock 1']}];
-        component.filterBy = (text: string, values: any) => { return values };
-        component.displayBy = null;
-
-        await matAutocomplete.enterText(' ');
-        let option = await matAutocomplete.getOptions({text: /G1 Mock 1/});
-        expect(option.length).toEqual(1);
-      });
-
-      it('should have option text equal to the displayBy value', async () => {
-        await matAutocomplete.enterText(' ');
-  
-        let option = await matAutocomplete.getOptions({text: /Mock Group 1 Value 1/});
-        expect(option.length).toEqual(1);
-      });
-
-      it('should have group option label equal to group property', async () => {
-        await matAutocomplete.enterText(' ');
-  
-        let option = await matAutocomplete.getOptionGroups({labelText: /Mock Group 1/});
-        expect(option.length).toEqual(1);
-      });
-
-      it('should set selectingOption true on option mousedown', async () => {
-        await matAutocomplete.enterText(' ');
-        let matOption = fixture.debugElement.query(By.css('.mat-option'));
-  
-        matOption.triggerEventHandler('mousedown', {});
-  
-        expect(component.selectingOption).toBeTrue();
-      });
-  
-      it('should set selectionOption false on option mouseup', async () => {
-        component.selectingOption = true;
-
-        await matAutocomplete.enterText(' ');
-        let matOption = fixture.debugElement.query(By.css('.mat-option'));
-        matOption.triggerEventHandler('mouseup', {});
-  
-        expect(component.selectingOption).toBeFalse();
-      });
-  
-      it('should set selectionOption false on option blur', async () => {
-        component.selectingOption = true;
-
-        await matAutocomplete.enterText(' ');
-        let matOption = fixture.debugElement.query(By.css('.mat-option'));
-        matOption.triggerEventHandler('blur', {});
-  
-        expect(component.selectingOption).toBeFalse();
-      });
-
-      it('should have class \'mat-selected\' when the option is selected', async () => {
-        await matAutocomplete.enterText(' ');
-        let option = (await matAutocomplete.getOptions({text: /Mock Group 1 Value 1/}))[0];
-
-        await option.click();
-
-        expect(await (await option.host()).hasClass('mat-selected')).toBeTrue();
-      });
-    });
-
-    describe('no groupOptions', () => {
-
-      beforeEach(() => {
+      it('should call selectValue on optionSelected event with the selected value and true', async () => {
         component.values = mockValues;
         component.filterBy = mockFilter;
+        spyOn(component, 'selectValue');
+  
+        await matAutocomplete.enterText('M');
+        await matAutocomplete.selectOption({text: 'Mock 1'});
+  
+        expect(component.selectValue).toHaveBeenCalledWith('Mock 1', true);
       });
   
-      it('should have options', async () => {
-        await matAutocomplete.enterText(' ');
+      describe('groupOptions provided', () => {
   
-        expect((await matAutocomplete.getOptions()).length).toBeGreaterThan(0);
+        beforeEach(() => {
+          component.values = mockGroupedValues;
+          component.filterBy = mockGroupFilter;
+          component.displayBy = displayBy;
+          component.groupOptions = groupOptions;
+        })
+  
+        it('should have group options', async () => {
+          await matAutocomplete.enterText(' ');
+    
+          expect((await matAutocomplete.getOptionGroups()).length).toBeGreaterThan(0);
+        });
+  
+        it('should have option text equal to the value when no displayBy function is provided', async () => {
+          component.values = [{group: 'G1', values: ['G1 Mock 1', 'G1 Mock 2']}, {group: 'G2', values: ['G2 Mock 1']}];
+          component.filterBy = (text: string, values: any) => { return values };
+          component.displayBy = null;
+  
+          await matAutocomplete.enterText(' ');
+          let option = await matAutocomplete.getOptions({text: /G1 Mock 1/});
+          expect(option.length).toEqual(1);
+        });
+  
+        it('should have option text equal to the displayBy value', async () => {
+          await matAutocomplete.enterText(' ');
+    
+          let option = await matAutocomplete.getOptions({text: /Mock Group 1 Value 1/});
+          expect(option.length).toEqual(1);
+        });
+  
+        it('should have group option label equal to group property', async () => {
+          await matAutocomplete.enterText(' ');
+    
+          let option = await matAutocomplete.getOptionGroups({labelText: /Mock Group 1/});
+          expect(option.length).toEqual(1);
+        });
+  
+        it('should set selectingOption true on option mousedown', async () => {
+          await matAutocomplete.enterText(' ');
+          let matOption = fixture.debugElement.query(By.css('.mat-option'));
+    
+          matOption.triggerEventHandler('mousedown', {});
+    
+          expect(component.selectingOption).toBeTrue();
+        });
+    
+        it('should set selectionOption false on option mouseup', async () => {
+          component.selectingOption = true;
+  
+          await matAutocomplete.enterText(' ');
+          let matOption = fixture.debugElement.query(By.css('.mat-option'));
+          matOption.triggerEventHandler('mouseup', {});
+    
+          expect(component.selectingOption).toBeFalse();
+        });
+    
+        it('should set selectionOption false on option blur', async () => {
+          component.selectingOption = true;
+  
+          await matAutocomplete.enterText(' ');
+          let matOption = fixture.debugElement.query(By.css('.mat-option'));
+          matOption.triggerEventHandler('blur', {});
+    
+          expect(component.selectingOption).toBeFalse();
+        });
+  
+        it('should have class \'mat-selected\' when the option is selected', async () => {
+          await matAutocomplete.enterText(' ');
+          let option = (await matAutocomplete.getOptions({text: /Mock Group 1 Value 1/}))[0];
+  
+          await option.click();
+  
+          expect(await (await option.host()).hasClass('mat-selected')).toBeTrue();
+        });
       });
   
-      it('should have option text equal to the value when no displayBy function is provided', async () => {
-        await matAutocomplete.enterText(' ');
+      describe('no groupOptions', () => {
   
-        let option = await matAutocomplete.getOptions({text: /Mock 1/});
-        expect(option.length).toEqual(1);
-      });
-
-      it('should have option text equal to the displayBy value', async () => {
-        component.values = [{id: 'M1', text: 'Mock 1'}, {id: 'M2', text: 'Mock 2'}];
-        component.filterBy = (text: string, values: any) => { return values };
-        component.displayBy = (value: any) => {return value?.text};
-
-        await matAutocomplete.enterText(' ');
-        let option = await matAutocomplete.getOptions({text: /Mock 1/});
-        expect(option.length).toEqual(1);
-      });
+        beforeEach(() => {
+          component.values = mockValues;
+          component.filterBy = mockFilter;
+        });
+    
+        it('should have options', async () => {
+          await matAutocomplete.enterText(' ');
+    
+          expect((await matAutocomplete.getOptions()).length).toBeGreaterThan(0);
+        });
+    
+        it('should have option text equal to the value when no displayBy function is provided', async () => {
+          await matAutocomplete.enterText(' ');
+    
+          let option = await matAutocomplete.getOptions({text: /Mock 1/});
+          expect(option.length).toEqual(1);
+        });
   
-      it('should set selectingOption true on option mousedown', async () => {
-        await matAutocomplete.enterText(' ');
-        let matOption = fixture.debugElement.query(By.css('.mat-option'));
+        it('should have option text equal to the displayBy value', async () => {
+          component.values = [{id: 'M1', text: 'Mock 1'}, {id: 'M2', text: 'Mock 2'}];
+          component.filterBy = (text: string, values: any) => { return values };
+          component.displayBy = (value: any) => {return value?.text};
   
-        matOption.triggerEventHandler('mousedown', {});
+          await matAutocomplete.enterText(' ');
+          let option = await matAutocomplete.getOptions({text: /Mock 1/});
+          expect(option.length).toEqual(1);
+        });
+    
+        it('should set selectingOption true on option mousedown', async () => {
+          await matAutocomplete.enterText(' ');
+          let matOption = fixture.debugElement.query(By.css('.mat-option'));
+    
+          matOption.triggerEventHandler('mousedown', {});
+    
+          expect(component.selectingOption).toBeTrue();
+        });
+    
+        it('should set selectionOption false on option mouseup', async () => {
+          component.selectingOption = true;
   
-        expect(component.selectingOption).toBeTrue();
-      });
+          await matAutocomplete.enterText(' ');
+          let matOption = fixture.debugElement.query(By.css('.mat-option'));
+          matOption.triggerEventHandler('mouseup', {});
+    
+          expect(component.selectingOption).toBeFalse();
+        });
+    
+        it('should set selectionOption false on option blur', async () => {
+          component.selectingOption = true;
   
-      it('should set selectionOption false on option mouseup', async () => {
-        component.selectingOption = true;
-
-        await matAutocomplete.enterText(' ');
-        let matOption = fixture.debugElement.query(By.css('.mat-option'));
-        matOption.triggerEventHandler('mouseup', {});
+          await matAutocomplete.enterText(' ');
+          let matOption = fixture.debugElement.query(By.css('.mat-option'));
+          matOption.triggerEventHandler('blur', {});
+    
+          expect(component.selectingOption).toBeFalse();
+        });
   
-        expect(component.selectingOption).toBeFalse();
-      });
+        it('should have class \'mat-selected\' when the option is selected', async () => {
+          await matAutocomplete.enterText(' ');
+          let option = (await matAutocomplete.getOptions({text: /Mock 1/}))[0];
   
-      it('should set selectionOption false on option blur', async () => {
-        component.selectingOption = true;
-
-        await matAutocomplete.enterText(' ');
-        let matOption = fixture.debugElement.query(By.css('.mat-option'));
-        matOption.triggerEventHandler('blur', {});
+          await option.click();
   
-        expect(component.selectingOption).toBeFalse();
-      });
-
-      it('should have class \'mat-selected\' when the option is selected', async () => {
-        await matAutocomplete.enterText(' ');
-        let option = (await matAutocomplete.getOptions({text: /Mock 1/}))[0];
-
-        await option.click();
-
-        expect(await (await option.host()).hasClass('mat-selected')).toBeTrue();
+          expect(await (await option.host()).hasClass('mat-selected')).toBeTrue();
+        });
       });
     });
   });
