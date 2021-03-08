@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 import { ItemFormComponent } from './itemForm.component';
 import { MinmaxinputComponent } from './components/minmaxinput/minmaxinput.component';
@@ -50,7 +49,6 @@ import { SharedModule } from '../shared/shared.module';
     InputwrapperComponent
   ],
   imports: [
-    CommonModule,
     ResultsModule,
     MatExpansionModule,
     MatButtonToggleModule,
