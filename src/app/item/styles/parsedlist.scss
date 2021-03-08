@@ -1,3 +1,5 @@
+@import './shared.scss';
+
 .item-parsed-list {
     padding-top: 0.6em;
     width: 95%;
@@ -7,38 +9,38 @@
     flex-wrap: wrap;
     text-align: center;
 
-    color: rgb(151, 151, 151);
+    color: map-get($poe-property-colors, unmodified);
 
     &:last-child {
         padding-bottom: 0.5em;
     }
 
     .display-0 {
-        color: white;
+        color: map-get($poe-elemental-colors, physical);
     }
 
     .display-1 {
-        color: rgb(100, 100, 255);
+        color: map-get($poe-property-colors, modified);
     }
 
     .display-4 {
-        color: rgb(223, 37, 4);
+        color: map-get($poe-elemental-colors, fire);
     }
 
     .display-5 {
-        color: rgb(132, 226, 230);
+        color: map-get($poe-elemental-colors, cold);
     }
 
     .display-6 {
-        color: rgb(255, 238, 0);
+        color: map-get($poe-elemental-colors, lightning);;
     }
 
     .display-7 {
-        color: rgb(182, 38, 182);
+        color: map-get($poe-elemental-colors, chaos);
     }
 
-    .unmet {
-        color: #d20000;
+    .display-unmet {
+        color: map-get($poe-property-colors, corrupted);
     }
 
     &:after {
