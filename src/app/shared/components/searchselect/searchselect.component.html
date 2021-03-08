@@ -6,11 +6,16 @@
                 [matAutocompleteConnectedTo]="autoCompleteHost"
                 [placeholder]="getPlaceholder()"
                 [formControl]="search"
+                (focus)="!selectingOption ? (clearOnFocus ? search.patchValue('') : search.patchValue(displayBy(selectedValue))) : ''"
                 (blur)="selectingOption ? selectInput.focus() : 
                         (clearable && !search.value ? clear() : search.patchValue(displayBy ? displayBy(selectedValue) : selectedValue, {emitEvent: false}))">
         
         <span matSuffix>
-            <button mat-icon-button type="button" *ngIf="this.search.value && clearable" (click)="clear()" aria-label="Clear">
+            <button mat-icon-button 
+                    type="button" 
+                    *ngIf="this.search.value && clearable" 
+                    (mousedown)="clear()" 
+                    aria-label="Clear">
                 <mat-icon class="icon-light">clear</mat-icon>
             </button>
             <mat-icon class="icon-dark" [class.rotate]="selectInputAutoComplete.isOpen">arrow_drop_down</mat-icon>
@@ -19,7 +24,6 @@
         <mat-autocomplete #selectInputAutoComplete="matAutocomplete" 
                         [class]="autoCompleteClass" 
                         (closed)="selectInput.blur()"
-                        (opened)="clearOnFocus ? search.patchValue('') : search.patchValue(displayBy(selectedValue))"
                         (optionSelected)="selectValue($event.option.value, true)">
             <ng-container *ngIf="groupOptions">
                 <mat-optgroup *ngFor="let group of filteredSearch | async" [label]="group[groupOptions.groupedBy]">
