@@ -183,10 +183,18 @@ describe('HeaderComponent', () => {
       
       afterEach(() => {
         mockItem.name = null;
+        mockItem['hybrid'] = null;
         fixture.detectChanges();
       });
 
       it('should not exist if the item name is null', () => {
+        expect(fixture.debugElement.query(By.css('.item-name'))).toBeFalsy();
+      });
+
+      it('does not exits when the item has the hybrid property', () => {
+        mockItem['hybrid'] = {};
+        fixture.detectChanges();
+
         expect(fixture.debugElement.query(By.css('.item-name'))).toBeFalsy();
       });
 
@@ -203,10 +211,18 @@ describe('HeaderComponent', () => {
       
       afterEach(() => {
         mockItem.typeLine = null;
+        mockItem['hybrid'] = null;
         fixture.detectChanges();
       });
 
       it('should not exist if the item typeLine is null', () => {
+        expect(fixture.debugElement.query(By.css('.item-type'))).toBeFalsy();
+      });
+
+      it('does not exits when the item has the hybrid property', () => {
+        mockItem['hybrid'] = {};
+        fixture.detectChanges();
+
         expect(fixture.debugElement.query(By.css('.item-type'))).toBeFalsy();
       });
 
@@ -216,6 +232,27 @@ describe('HeaderComponent', () => {
         let nameHeader = fixture.debugElement.query(By.css('.item-type'));
 
         expect(nameHeader.nativeElement.textContent).toEqual("Mock Type");
+      });
+    });
+
+    describe('Item Hybrid Name', () => {
+      afterEach(() => {
+        mockItem['hybrid'] = null;
+        fixture.detectChanges();
+      });
+
+      it('does not exist if the item hybrid is null', () => {
+        expect(fixture.debugElement.query(By.css('.item-hybrid-name'))).toBeFalsy();
+      });
+
+      it('should have its text content equal to the item hybrid baseTypeName', () => {
+        mockItem['hybrid'] = {
+          baseTypeName: "Mock Base Type Name"
+        };
+        fixture.detectChanges();
+        let nameHeader = fixture.debugElement.query(By.css('.item-hybrid-name'));
+
+        expect(nameHeader.nativeElement.textContent).toEqual("Mock Base Type Name");
       });
     });
   });
