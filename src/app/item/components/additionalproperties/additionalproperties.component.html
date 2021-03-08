@@ -1,11 +1,11 @@
 <div class="item-parsed-list">
     <div *ngFor="let prop of additionalProperties | parseProps" 
-        [class.sortable]="prop.type != null && PROP_VALUES['prop_' + prop.type]" 
-        (click)="PROP_VALUES['prop_' + prop.type] ? currentSort.currentSort.next({sortKey: PROP_VALUES['prop_' + prop.type]}) : ''">
+        [class.sortable]="prop.type != null && PROP_VALUES[prop.type]" 
+        (click)="PROP_VALUES[prop.type] ? currentSort.currentSort.next({sortKey: PROP_VALUES[prop.type]}) : ''">
         <span *ngFor="let value of prop.values" class="{{value.display != null ? 'display-' + value.display : ''}}">
             {{value.text}}
         </span>
-        <item-sortarrow *ngIf="currentSort.currentSort.value.sortKey == PROP_VALUES['prop_' + prop.type]" 
+        <item-sortarrow *ngIf="currentSort.currentSort.value.sortKey == PROP_VALUES[prop.type]" 
                     [sortValue]="currentSort.currentSort.value.sortValue">
         </item-sortarrow >
         <mat-progress-bar class="item-progress-bar" 

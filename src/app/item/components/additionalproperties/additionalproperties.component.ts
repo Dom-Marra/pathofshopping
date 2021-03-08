@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CurrentsortService } from 'src/app/core/services/currentsort.service';
-import { propertyValues } from '../../enums/propertyValues.enum';
+import { propertyValues } from '../../constants/properties';
 
 @Component({
   selector: 'item-additionalproperties',
