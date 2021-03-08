@@ -1,0 +1,83 @@
+<div class="item-wrapper">
+    <item-image class="item-image" [item]='item.item'></item-image>
+    <div class="item-box rarity-{{item.item.frameType}}">
+        <item-header [item]='item.item'></item-header>
+        <div class="item-details-container">
+            <item-properties *ngIf="item.item.properties && item.item.properties.length > 0"
+                             class="item-detail"
+                             [item]="item.item">
+            </item-properties>
+            <item-requirements *ngIf="item.item.requirements || item.item.ilvl || item.item.talismanTier"
+                                class="item-detail"
+                                [item]="item.item">
+            </item-requirements>
+            <item-modlist *ngIf="item.item.enchantMods && item.item.enchantMods.length > 0"
+                        [item]="item.item"
+                        [modProperties]="enchantModProperties"
+                        class="item-detail">     
+            </item-modlist>
+            <item-modlist *ngIf="item.item.implicitMods && item.item.implicitMods.length > 0"
+                        [item]="item.item"
+                        [modProperties]="implicitModProperties"
+                        class="item-detail">     
+            </item-modlist>
+            <item-modlist *ngIf="(item.item.explicitMods || item.item.fracturedMods || item.item.craftedMods || item.item.corrupted || item.item.duplicated) && item.item.frameType != 6"
+                [item]="item.item"
+                [modProperties]="explicitModProperties"
+                class="item-detail">    
+                <p *ngIf="item.item.corrupted" style="color: #d20000; margin: 0; padding: 0.3em; text-align: center;">
+                    <span>Corrupted</span>
+                </p>
+                <p *ngIf="item.item.duplicated" style="color: rgb(100, 100, 255); margin: 0; padding: 0.3em; text-align: center;">
+                    <span>Mirrored</span>
+                </p> 
+            </item-modlist>
+
+            <div *ngIf="item.item.hybrid" class="item-detail hybrid">
+                <h4 class="item-detail hybrid-item-name">
+                    {{item.item.typeLine}}
+                </h4>
+                <div class="item-details-container">
+                    <item-properties *ngIf="item.item.hybrid.properties" 
+                                    [item]="item.item.hybrid"
+                                    class="item-detail">
+                    </item-properties>
+                    <item-modlist *ngIf="item.item.hybrid.explicitMods"
+                                [item]="item.item.hybrid"
+                                [modProperties]="explicitModProperties"
+                                class="item-detail">     
+                    </item-modlist>
+                </div>
+            </div>
+
+            <item-divmods *ngIf="item.item.frameType == 6 && item.item.explicitMods"
+                            class="item-detail"
+                            [explicitMods]="item.item.explicitMods"> 
+            </item-divmods>
+            <div *ngIf="item.item.identified == false" class="item-detail">
+                <span class="corrupted">Unidentified</span>
+            </div>
+            <div *ngIf="item.item.prophecyText" class="item-detail">
+                <span>{{item.item.prophecyText}}</span>
+            </div>
+            <item-additionalproperties class="item-detail" 
+                                        *ngIf="item.item.additionalProperties" 
+                                        [additionalProperties]='item.item.additionalProperties'>
+            </item-additionalproperties>
+            <item-incubator class="item-detail"  
+                            *ngIf="item.item.incubatedItem" 
+                            [incubatedItem]='item.item.incubatedItem'>
+            </item-incubator>
+            <item-totalvalues class="item-detail" 
+                            *ngIf="item.item.extended.dps || 
+                                    item.item.extended.edps || 
+                                    item.item.extended.pdps || 
+                                    item.item.extended.ev || 
+                                    item.item.extended.ar || 
+                                    item.item.extended.es"
+                            [extended]='item.item.extended'>
+            </item-totalvalues>
+        </div>
+    </div>
+</div>
+<item-listinginfo [listing]="item.listing"></item-listinginfo>

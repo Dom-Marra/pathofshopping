@@ -1,0 +1,28 @@
+<mat-expansion-panel class="filter-expansion-panel" #expansionPanel [disabled]="this.requirementsForm.disabled">
+    <mat-expansion-panel-header>
+        <itemForm-filteractionbuttons [formGroup]="this.requirementsForm" (disableChange)="this.requirementsForm.disabled ? expansionPanel.close() : ''; this.requirementsForm.controls.disabled.patchValue(this.requirementsForm.disabled, {emitEvent: false, onlySelf: true})"></itemForm-filteractionbuttons>
+            Requirements
+    </mat-expansion-panel-header>
+    <ng-template matExpansionPanelContent>
+        <div class="item-contents">
+            <div appEqualflex class="field-wrapper">
+                <itemForm-inputwrapper class="field">
+                    <span label>Level</span> 
+                    <itemForm-minmaxinput [group]="this.requirementsForm['controls'].filters['controls'].lvl"></itemForm-minmaxinput>
+                </itemForm-inputwrapper>
+                <itemForm-inputwrapper class="field">
+                    <span label>Strength</span> 
+                    <itemForm-minmaxinput [group]="this.requirementsForm['controls'].filters['controls'].str"></itemForm-minmaxinput>
+                </itemForm-inputwrapper>
+                <itemForm-inputwrapper class="field">
+                    <span label>Intelligence</span> 
+                    <itemForm-minmaxinput [group]="this.requirementsForm['controls'].filters['controls'].int"></itemForm-minmaxinput>
+                </itemForm-inputwrapper>
+                <itemForm-inputwrapper class="field">
+                    <span label>Dexterity</span> 
+                    <itemForm-minmaxinput [group]="this.requirementsForm['controls'].filters['controls'].dex"></itemForm-minmaxinput>
+                </itemForm-inputwrapper>
+            </div>
+        </div>
+    </ng-template>
+</mat-expansion-panel>

@@ -1,0 +1,21 @@
+@import '../../styles/shared.scss';
+
+.item-total-values {
+    color: map-get($poe-property-colors, unmodified);
+    display: flex;
+    flex-wrap: wrap;
+
+    .total-value {
+        flex: 1;
+        min-width: 30%;
+        text-align: center;
+
+        .value {
+            color: white;
+
+            &.auged {
+                color: map-get($poe-property-colors, modified)
+            }
+        }
+    }
+}

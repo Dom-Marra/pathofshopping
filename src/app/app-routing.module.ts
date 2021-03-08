@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { ShoppinglistComponent } from './pages/shoppinglist/shoppinglist.component';
+import { ShoppinglistComponent } from './shoppinglist/shoppinglist.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'shoppinglist', pathMatch: 'full'},

@@ -1,0 +1,62 @@
+@import './shared.scss';
+
+.item-parsed-list {
+    padding-top: 0.6em;
+    width: 95%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    text-align: center;
+
+    color: map-get($poe-property-colors, unmodified);
+
+    &:last-child {
+        padding-bottom: 0.5em;
+    }
+
+    .display-0 {
+        color: map-get($poe-elemental-colors, physical);
+    }
+
+    .display-1 {
+        color: map-get($poe-property-colors, modified);
+    }
+
+    .display-4 {
+        color: map-get($poe-elemental-colors, fire);
+    }
+
+    .display-5 {
+        color: map-get($poe-elemental-colors, cold);
+    }
+
+    .display-6 {
+        color: map-get($poe-elemental-colors, lightning);;
+    }
+
+    .display-7 {
+        color: map-get($poe-elemental-colors, chaos);
+    }
+
+    .display-unmet {
+        color: map-get($poe-property-colors, corrupted);
+    }
+
+    &:after {
+        order: 2;
+    }
+
+    .item-parsed-nested-list {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        text-align: center;
+        justify-content: center;
+
+        & > * {
+            padding-left: 0.15em;
+            padding-right: 0.15em;
+        }
+    }
+}

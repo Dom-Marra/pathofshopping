@@ -1,0 +1,63 @@
+@import '../../styles/shared.scss';
+
+.item-header {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-weight: 300;
+    min-height: 45px;
+
+    &.rarity-0 {
+        @include frame-0;
+    }
+    &.rarity-1 {
+        @include frame-1;
+    }
+    &.rarity-2 {
+        @include frame-2;
+    }
+    &.rarity-3 {
+        @include frame-3;
+    }
+    &.rarity-4 {
+        @include frame-4;
+    }
+    &.rarity-5 {
+        @include frame-5;
+    }
+    &.rarity-6 {
+        @include frame-6;
+    }
+    &.rarity-8 {
+        @include frame-8;
+    }
+    &.rarity-9 {
+        @include frame-9;
+    }
+
+    .item-name, .item-type, .item-hybrid-name {
+        margin: 0;
+        padding-top: 0.1em;
+    }
+
+    .influence-icon-container {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        display: flex;
+        align-items: center;
+
+        .influence-icon-left {
+            margin-right: auto;
+            padding-left: 0.15em;
+        }
+
+        .influence-icon-right {
+            margin-left: auto;
+            padding-right: 0.15em;
+        }
+    }
+} 
