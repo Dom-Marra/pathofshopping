@@ -28,6 +28,7 @@
         <img src="https://web.poecdn.com/image/item/popup/synthetic-symbol.png?1605141671963" class="influence-icon-right">
     </div>
     
-    <h3 *ngIf="item.name" class="item-name">{{ item.name }}</h3>
-    <h4 *ngIf="item.typeLine" class="item-type">{{ item.typeLine }}</h4>
+    <h3 *ngIf="item.name && !item.hybrid" class="item-name">{{ item.name }}</h3>
+    <h4 *ngIf="item.typeLine && !item.hybrid" class="item-type">{{ item.typeLine }}</h4>
+    <h4 *ngIf="item.hybrid" class="item-hybrid-name">{{ item.hybrid.baseTypeName }}</h4>
 </div>
