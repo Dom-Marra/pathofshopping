@@ -32,6 +32,24 @@
                     <span>Mirrored</span>
                 </p> 
             </item-modlist>
+
+            <div *ngIf="item.item.hybrid" class="item-detail hybrid">
+                <h4 class="item-detail hybrid-item-name">
+                    {{item.item.typeLine}}
+                </h4>
+                <div class="item-details-container">
+                    <item-properties *ngIf="item.item.hybrid.properties" 
+                                    [item]="item.item.hybrid"
+                                    class="item-detail">
+                    </item-properties>
+                    <item-modlist *ngIf="item.item.hybrid.explicitMods"
+                                [item]="item.item.hybrid"
+                                [modProperties]="explicitModProperties"
+                                class="item-detail">     
+                    </item-modlist>
+                </div>
+            </div>
+
             <item-divmods *ngIf="item.item.frameType == 6 && item.item.explicitMods"
                             class="item-detail"
                             [explicitMods]="item.item.explicitMods"> 
