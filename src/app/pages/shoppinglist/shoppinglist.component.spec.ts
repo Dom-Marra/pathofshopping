@@ -7,10 +7,10 @@ import { By } from '@angular/platform-browser';
 import { ActivatedRoute, convertToParamMap } from '@angular/router';
 import { BehaviorSubject, of } from 'rxjs';
 import { SavedialogComponent } from 'src/app/components/savedialog/savedialog.component';
-import { itemSaveData } from 'src/app/models/itemSaveData';
-import { shoppingListSaveData } from 'src/app/models/shoppingListSaveData';
-import { FirebaseService } from 'src/app/services/firebase.service';
-import { PoeService } from 'src/app/services/poe.service';
+import { itemSaveData } from 'src/app/core/models/itemSaveData';
+import { shoppingListSaveData } from 'src/app/core/models/shoppingListSaveData';
+import { FirebaseService } from 'src/app/core/services/firebase.service';
+import { PoeService } from 'src/app/core/services/poe.service';
 import { HarnessLoader } from '@angular/cdk/testing';
 import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
 import { MatTabGroupHarness } from '@angular/material/tabs/testing';
@@ -18,9 +18,9 @@ import { MatTabGroupHarness } from '@angular/material/tabs/testing';
 import { ShoppinglistComponent } from './shoppinglist.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { simpleData } from 'src/app/models/simpleData';
-import { SimpleDataService } from 'src/app/services/simpledata.service';
-import { Item } from 'src/app/classes/item';
+import { simpleData } from 'src/app/core/models/simpleData';
+import { SimpleDataService } from 'src/app/core/services/simpledata.service';
+import { Item } from 'src/app/core/classes/item';
 
 class MockPoeService {
   public loaded: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);

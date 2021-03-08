@@ -2,8 +2,8 @@ import { Component, Input } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { BehaviorSubject } from 'rxjs';
-import { currentSortProperties } from 'src/app/models/currentSortProperties';
-import { CurrentsortService } from 'src/app/services/currentsort.service';
+import { currentSortProperties } from 'src/app/core/models/currentSortProperties';
+import { CurrentsortService } from 'src/app/core/services/currentsort.service';
 import { parsedModData } from '../../models/parsedModData';
 
 import { ModComponent } from './mod.component';

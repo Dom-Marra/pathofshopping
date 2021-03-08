@@ -1,8 +1,8 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
-import { StatForm } from 'src/app/classes/stat-form';
-import { poeCategorizedStats } from 'src/app/models/poeCategorizedStats';
-import { PoeService } from 'src/app/services/poe.service';
+import { StatForm } from 'src/app/core/classes/stat-form';
+import { poeCategorizedStats } from 'src/app/core/models/poeCategorizedStats';
+import { PoeService } from 'src/app/core/services/poe.service';
 
 @Component({
   selector: 'itemForm-statselect',

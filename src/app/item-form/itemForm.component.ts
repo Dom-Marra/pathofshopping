@@ -1,14 +1,14 @@
 import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnInit, Output, QueryList, ViewChildren } from '@angular/core';
 import { FormGroup, FormControl, FormArray } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { PoeService } from 'src/app/services/poe.service';
-import { simpleData } from 'src/app/models/simpleData';
-import { SimpleDataService } from 'src/app/services/simpledata.service';
+import { PoeService } from 'src/app/core/services/poe.service';
+import { simpleData } from 'src/app/core/models/simpleData';
+import { SimpleDataService } from 'src/app/core/services/simpledata.service';
 import { Subscription } from 'rxjs';
-import { CurrentsortService } from 'src/app/services/currentsort.service';
-import { currentSortProperties } from 'src/app/models/currentSortProperties';
-import { Item } from '../classes/item';
-import { StatFilterForm } from '../classes/stat-filter-form';
+import { CurrentsortService } from 'src/app/core/services/currentsort.service';
+import { currentSortProperties } from 'src/app/core/models/currentSortProperties';
+import { Item } from '../core/classes/item';
+import { StatFilterForm } from '../core/classes/stat-filter-form';
 
 @Component({
   selector: 'pos-itemForm',

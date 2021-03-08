@@ -1,16 +1,16 @@
 import { ChangeDetectorRef, Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { itemSaveData } from 'src/app/models/itemSaveData';
-import { shoppingListSaveData } from 'src/app/models/shoppingListSaveData';
-import { FirebaseService } from 'src/app/services/firebase.service';
+import { itemSaveData } from 'src/app/core/models/itemSaveData';
+import { shoppingListSaveData } from 'src/app/core/models/shoppingListSaveData';
+import { FirebaseService } from 'src/app/core/services/firebase.service';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { SavedialogComponent } from 'src/app/components/savedialog/savedialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { PoeService } from 'src/app/services/poe.service';
-import { SimpleDataService } from 'src/app/services/simpledata.service';
-import { simpleData } from 'src/app/models/simpleData';
-import { Item } from 'src/app/classes/item';
+import { PoeService } from 'src/app/core/services/poe.service';
+import { SimpleDataService } from 'src/app/core/services/simpledata.service';
+import { simpleData } from 'src/app/core/models/simpleData';
+import { Item } from 'src/app/core/classes/item';
 
 @Component({
   selector: 'app-shoppinglist',

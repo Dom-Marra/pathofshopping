@@ -10,8 +10,8 @@ import { MatExpansionPanelHarness } from '@angular/material/expansion/testing';
 import { MatIconModule } from '@angular/material/icon';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { simpleData } from 'src/app/models/simpleData';
-import { SimpleDataService } from 'src/app/services/simpledata.service';
+import { simpleData } from 'src/app/core/models/simpleData';
+import { SimpleDataService } from 'src/app/core/services/simpledata.service';
 import { StatfiltersComponent } from './statfilters.component';
 
 @Component({selector: 'itemForm-filteractionbuttons', template: ''})

@@ -8,10 +8,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatIconHarness } from '@angular/material/icon/testing';
 import { By } from '@angular/platform-browser';
 import { BehaviorSubject } from 'rxjs';
-import { currentSortProperties } from 'src/app/models/currentSortProperties';
-import { poeCategorizedStatic } from 'src/app/models/poeCategorizedStatic';
-import { CurrentsortService } from 'src/app/services/currentsort.service';
-import { PoeService } from 'src/app/services/poe.service';
+import { currentSortProperties } from 'src/app/core/models/currentSortProperties';
+import { poeCategorizedStatic } from 'src/app/core/models/poeCategorizedStatic';
+import { CurrentsortService } from 'src/app/core/services/currentsort.service';
+import { PoeService } from 'src/app/core/services/poe.service';
 
 import { ListinginfoComponent } from './listinginfo.component';
 

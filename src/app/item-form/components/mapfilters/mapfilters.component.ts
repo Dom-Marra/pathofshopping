@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { simpleData } from 'src/app/models/simpleData';
-import { SimpleDataService } from 'src/app/services/simpledata.service';
+import { simpleData } from 'src/app/core/models/simpleData';
+import { SimpleDataService } from 'src/app/core/services/simpledata.service';
 
 @Component({
   selector: 'itemForm-mapfilters',

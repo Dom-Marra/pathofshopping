@@ -1,7 +1,7 @@
 import { Component, ElementRef, Input, KeyValueDiffer, KeyValueDiffers, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
-import { Resultdata } from '../classes/resultdata';
-import { PoeService } from 'src/app/services/poe.service';
+import { Resultdata } from '../core/classes/resultdata';
+import { PoeService } from 'src/app/core/services/poe.service';
 
 @Component({
   selector: 'pos-results',

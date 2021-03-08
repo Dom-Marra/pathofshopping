@@ -9,9 +9,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatInputHarness } from '@angular/material/input/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { StatForm } from 'src/app/classes/stat-form';
-import { poeCategorizedStats } from 'src/app/models/poeCategorizedStats';
-import { PoeService } from 'src/app/services/poe.service';
+import { StatForm } from 'src/app/core/classes/stat-form';
+import { poeCategorizedStats } from 'src/app/core/models/poeCategorizedStats';
+import { PoeService } from 'src/app/core/services/poe.service';
 import { DigitsonlyDirective } from '../../directives/digitsonly.directive';
 import { FilteractionbuttonsComponent } from '../filteractionbuttons/filteractionbuttons.component';
 

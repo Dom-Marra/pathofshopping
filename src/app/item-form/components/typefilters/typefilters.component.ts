@@ -1,9 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { poeCategorizedItems } from 'src/app/models/poeCategorizedItems';
-import { simpleData } from 'src/app/models/simpleData';
-import { PoeService } from 'src/app/services/poe.service';
-import { SimpleDataService } from 'src/app/services/simpledata.service';
+import { poeCategorizedItems } from 'src/app/core/models/poeCategorizedItems';
+import { simpleData } from 'src/app/core/models/simpleData';
+import { PoeService } from 'src/app/core/services/poe.service';
+import { SimpleDataService } from 'src/app/core/services/simpledata.service';
 
 @Component({
   selector: 'itemForm-typefilters',

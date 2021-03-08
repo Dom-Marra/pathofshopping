@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { CurrentsortService } from 'src/app/services/currentsort.service';
-import { PoeService } from 'src/app/services/poe.service';
+import { CurrentsortService } from 'src/app/core/services/currentsort.service';
+import { PoeService } from 'src/app/core/services/poe.service';
 
 @Component({
   selector: 'item-listinginfo',

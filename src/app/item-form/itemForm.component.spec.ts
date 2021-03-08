@@ -14,12 +14,12 @@ import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { BehaviorSubject, of, throwError } from 'rxjs';
-import { currentSortProperties } from 'src/app/models/currentSortProperties';
-import { simpleData } from 'src/app/models/simpleData';
-import { CurrentsortService } from 'src/app/services/currentsort.service';
-import { PoeService } from 'src/app/services/poe.service';
-import { SimpleDataService } from 'src/app/services/simpledata.service';
-import { Item } from '../classes/item';
+import { currentSortProperties } from 'src/app/core/models/currentSortProperties';
+import { simpleData } from 'src/app/core/models/simpleData';
+import { CurrentsortService } from 'src/app/core/services/currentsort.service';
+import { PoeService } from 'src/app/core/services/poe.service';
+import { SimpleDataService } from 'src/app/core/services/simpledata.service';
+import { Item } from '../core/classes/item';
 
 import { ItemFormComponent } from './itemForm.component';
 

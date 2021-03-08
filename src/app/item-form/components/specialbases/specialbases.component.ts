@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { SimpleDataService } from 'src/app/services/simpledata.service';
+import { SimpleDataService } from 'src/app/core/services/simpledata.service';
 
 @Component({
   selector: 'itemForm-specialbases',

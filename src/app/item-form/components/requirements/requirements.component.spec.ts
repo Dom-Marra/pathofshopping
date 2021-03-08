@@ -7,7 +7,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatExpansionPanelHarness } from '@angular/material/expansion/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { Defaultvaluecontrol } from 'src/app/classes/defaultvaluecontrol';
+import { Defaultvaluecontrol } from 'src/app/core/classes/defaultvaluecontrol';
 import { RequirementsComponent } from './requirements.component';
 
 @Component({selector: 'itemForm-filteractionbuttons', template: ''})

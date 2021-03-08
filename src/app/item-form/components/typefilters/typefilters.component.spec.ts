@@ -4,11 +4,11 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angul
 import { MatAutocompleteModule, MatAutocompleteOrigin } from '@angular/material/autocomplete';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { Defaultvaluecontrol } from 'src/app/classes/defaultvaluecontrol';
-import { poeCategorizedItems } from 'src/app/models/poeCategorizedItems';
-import { simpleData } from 'src/app/models/simpleData';
-import { PoeService } from 'src/app/services/poe.service';
-import { SimpleDataService } from 'src/app/services/simpledata.service';
+import { Defaultvaluecontrol } from 'src/app/core/classes/defaultvaluecontrol';
+import { poeCategorizedItems } from 'src/app/core/models/poeCategorizedItems';
+import { simpleData } from 'src/app/core/models/simpleData';
+import { PoeService } from 'src/app/core/services/poe.service';
+import { SimpleDataService } from 'src/app/core/services/simpledata.service';
 import { TypefiltersComponent } from './typefilters.component';
 
 @Component({selector: 'app-searchselect', template: ''})

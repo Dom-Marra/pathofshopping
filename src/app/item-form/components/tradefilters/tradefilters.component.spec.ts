@@ -12,9 +12,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatInputHarness } from '@angular/material/input/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { Defaultvaluecontrol } from 'src/app/classes/defaultvaluecontrol';
-import { simpleData } from 'src/app/models/simpleData';
-import { SimpleDataService } from 'src/app/services/simpledata.service';
+import { Defaultvaluecontrol } from 'src/app/core/classes/defaultvaluecontrol';
+import { simpleData } from 'src/app/core/models/simpleData';
+import { SimpleDataService } from 'src/app/core/services/simpledata.service';
 import { TradefiltersComponent } from './tradefilters.component';
 
 

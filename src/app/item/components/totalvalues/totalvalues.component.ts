@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { CurrentsortService } from 'src/app/services/currentsort.service';
+import { CurrentsortService } from 'src/app/core/services/currentsort.service';
 
 @Component({
   selector: 'item-totalvalues',
