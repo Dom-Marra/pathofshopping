@@ -24,48 +24,92 @@
         .item-detail:after  {
             @include frame-0;
         }
+
+        .hybrid-item-name {
+            color: lighten(map-get($poe-frame-colors, normal), 40%);
+        }
     }
     &.rarity-1 {
         .item-detail:after  { 
             @include frame-1;
+        }
+
+        .hybrid-item-name {
+            color: lighten(map-get($poe-frame-colors, magic), 40%);
         }
     }
     &.rarity-2 {
         .item-detail:after  { 
             @include frame-2;
         }
+
+        .hybrid-item-name {
+            color: lighten(map-get($poe-frame-colors, rare), 40%);
+        }
     }
     &.rarity-3 {
         .item-detail:after  { 
             @include frame-3;
+        }
+
+        .hybrid-item-name {
+            color: lighten(map-get($poe-frame-colors, unique), 40%);
         }
     }
     &.rarity-4 {
         .item-detail:after  { 
             @include frame-4;
         }
+
+        .hybrid-item-name {
+            color: lighten(map-get($poe-frame-colors, gem), 40%);
+        }
     }
     &.rarity-5 {
         .item-detail:after  {
             @include frame-5;
+        }
+
+        .hybrid-item-name {
+            color: lighten(map-get($poe-frame-colors, currency), 40%);
         }
     }
     &.rarity-6 {
         .item-detail:after  {
             @include frame-6;
         }
+
+        .hybrid-item-name {
+            color: lighten(map-get($poe-frame-colors, div-card), 40%);
+        }
     }
     &.rarity-8 {
         .item-detail:after  {
             @include frame-8;
+        }
+
+        .hybrid-item-name {
+            color: lighten(map-get($poe-frame-colors, prophecy), 40%);
         }
     }
     &.rarity-9 {
         .item-detail:after  {
             @include frame-9;
         }
+
+        .hybrid-item-name {
+            color: lighten(map-get($poe-frame-colors, relic), 40%);
+        }
     }
-    
+
+    .hybrid {
+        .hybrid-item-name {
+            margin: 0;
+            text-align: center;
+            font-weight: 300;
+        }
+    }
+
     .item-details-container {
         display: flex;
         flex-direction: column;
