@@ -13,12 +13,12 @@ import { poeCategorizedStatic } from '../models/poeCategorizedStatic';
 export class PoeService {
 
   //Cloud Functions for each poe api service
-  private readonly POE_ITEMS: string = 'http://localhost:4200/api/getPOEItems';
-  private readonly POE_STATS: string = 'http://localhost:4200/api/getPOEStats';
-  private readonly POE_LEAGUES: string = 'http://localhost:4200/api/getPOELeagues';
-  private readonly POE_STATIC: string = 'http://localhost:4200/api/getPOEStatic';
-  private readonly POE_FETCH: string = 'http://localhost:4200/api/poeFetch';
-  private readonly POE_SEARCH: string = 'http://localhost:4200/api/poeSearch';
+  private readonly POE_ITEMS: string = 'https://us-central1-pathofshopping.cloudfunctions.net/getPOEItems';
+  private readonly POE_STATS: string = 'https://us-central1-pathofshopping.cloudfunctions.net/getPOEStats';
+  private readonly POE_LEAGUES: string = 'https://us-central1-pathofshopping.cloudfunctions.net/getPOELeagues';
+  private readonly POE_STATIC: string = 'https://us-central1-pathofshopping.cloudfunctions.net/getPOEStatic';
+  private readonly POE_FETCH: string = 'https://us-central1-pathofshopping.cloudfunctions.net/poeFetch';
+  private readonly POE_SEARCH: string = 'https://us-central1-pathofshopping.cloudfunctions.net/poeSearch';
 
   //POE API Data
   private leagueData: Array<simpleData>;
