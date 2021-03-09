@@ -282,7 +282,7 @@ describe('ResultsComponent', () => {
     describe('Item Component', () => {
 
       afterEach(() => {
-        mockResultData.queryData = null;
+        mockResultData.queryData = [];
         fixture.detectChanges();
       });
 
