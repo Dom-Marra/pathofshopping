@@ -8,7 +8,7 @@ import { PoeService } from 'src/app/core/services/poe.service';
 import { MatPaginatorHarness } from '@angular/material/paginator/testing';
 import { ResultsComponent } from './results.component';
 import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
-import { Resultdata } from '../core/classes/resultdata';
+import { queryProps, Resultdata } from '../core/classes/resultdata';
 
 class PoeServiceStub {
   public fetch(items: Array<string>, endingParams?: string) {
@@ -16,9 +16,10 @@ class PoeServiceStub {
   }
 }
 
-@Component({selector: 'item-item', template: ''})
+@Component({selector: 'pos-item', template: ''})
 class ItemStubComponent {
   @Input() item: any;
+  @Input() queryProps: queryProps;
 }
 
 describe('ResultsComponent', () => {
@@ -275,6 +276,33 @@ describe('ResultsComponent', () => {
         expect(component.changeIndices).toHaveBeenCalled();
         await paginator[1].goToNextPage();
         expect(component.changeIndices).toHaveBeenCalled();
+      });
+    });
+
+    describe('Item Component', () => {
+
+      afterEach(() => {
+        mockResultData.queryData = null;
+        fixture.detectChanges();
+      });
+
+      it('has a total number of item components equal to the range of the resultData startIndex to endIndex', () => {
+        mockResultData.queryData = ["1", "2", "3", "4", "5", "6", "7", "8", "9",
+                                    "10", "11", "12", "13", "14", "15", "16", "17", "18"];
+         fixture.detectChanges();
+        let itemComps = fixture.debugElement.queryAll(By.css('pos-item'));
+        expect(itemComps.length).toEqual(10);
+      });
+      
+      it('has inputs set properly', () => {
+        mockResultData.queryData = ["1", "2", "3", "4", "5", "6", "7", "8", "9",
+                                    "10", "11", "12", "13", "14", "15", "16", "17", "18"];
+         fixture.detectChanges();
+        let itemComps = fixture.debugElement.queryAll(By.css('pos-item'));
+        itemComps.forEach((itemComp, i) => {
+          expect((itemComp.componentInstance as ItemStubComponent).item).toEqual(mockResultData.queryData[i + mockResultData.startIndex]);
+          expect((itemComp.componentInstance as ItemStubComponent).queryProps).toEqual(mockResultData.queryProps);
+        })
       });
     });
   });
