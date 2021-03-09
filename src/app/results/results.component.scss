@@ -7,11 +7,6 @@
 
     .query-item {
         flex: 1 1 550px;
-        display: flex;
-        flex-direction: column;
-        flex-wrap: wrap;
-        padding: 1em;
-
         
         &:nth-child(4n + 1) {
             background-color: rgba(0, 0, 0, 0.1);
