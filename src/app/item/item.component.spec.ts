@@ -1,7 +1,16 @@
+import { HarnessLoader } from '@angular/cdk/testing';
+import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
 import { Component, Input, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatButtonModule } from '@angular/material/button';
+import { MatButtonHarness } from '@angular/material/button/testing';
+import { MatIconModule } from '@angular/material/icon';
+import { MatIconHarness } from '@angular/material/icon/testing';
 import { By } from '@angular/platform-browser';
+import { Observable, of } from 'rxjs';
 import { modProperties } from 'src/app/item/models/modProperties';
+import { queryProps } from '../core/classes/resultdata';
+import { PoeService } from '../core/services/poe.service';
 
 import { ItemComponent } from './item.component';
 
@@ -38,6 +47,12 @@ class TotalValuesStub { @Input() extended: any; }
 @Component({selector: 'item-listinginfo'})
 class ListingInfoStub { @Input() listing: any; }
 
+class PoeServiceStub {
+  public fetch(items: Array<string>, endingParams?: string) {
+    return of({});
+  }
+}
+
 describe('ItemComponent', () => {
   let item = { 
     item: {
@@ -45,13 +60,25 @@ describe('ItemComponent', () => {
     },
     listing: { }
   };
+  let mockQueryProps: queryProps = {
+    id: 'mockID',
+    res: [],
+    psuedos: 'mockPseudos',
+    inexact: false,
+    total: 1
+  };
   let component: ItemComponent;
   let fixture: ComponentFixture<ItemComponent>;
+  let poeService: PoeService;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ ItemComponent, ImageStub, HeaderStub, PropertiesStub, RequirementsStub,
                       ModListStub, DivModsStub, AdditionalPropertiesStub, IncubatorStub, TotalValuesStub, ListingInfoStub ],
+      providers: [
+        {provide: PoeService, useClass: PoeServiceStub}
+      ],
+      imports: [MatButtonModule, MatIconModule],
       schemas: [NO_ERRORS_SCHEMA]
     })
     .compileComponents();
@@ -61,11 +88,121 @@ describe('ItemComponent', () => {
     fixture = TestBed.createComponent(ItemComponent);
     component = fixture.componentInstance;
     component.item = item;
+    component.queryProps = mockQueryProps;
 
     fixture.detectChanges();
+    poeService = TestBed.inject(PoeService);
+  });
+
+  describe('Class Functions', () => {
+
+    describe('Refresh', () => {
+      afterEach(() => {
+        component.queryProps = mockQueryProps;
+        item['id'] = null;
+        component.item = item;
+        item.listing['copied'] = null;
+      });
+
+      it('does not call the poe service if the queryProps are null', () => {
+        spyOn(poeService, 'fetch');
+        component.queryProps = null;
+        component.refresh();
+
+        expect(poeService.fetch).not.toHaveBeenCalled();
+      });
+
+      it('calls te poe service fetch method with proper params', () => {
+        spyOn(poeService, 'fetch').and.returnValue(of({
+          result: [{}]
+        }));
+
+        item['id'] = 'mockID';
+        component.refresh();
+        expect(poeService.fetch).toHaveBeenCalledWith(['mockID'], "?query=mockID&mockPseudos");
+      });
+
+      it('sets the item as the item from the fetch', () => {
+        spyOn(poeService, 'fetch').and.returnValue(of({
+          result: [{
+            mockProp: 'mockValue'
+          }]
+        }));
+
+        item['id'] = 'mockID';
+        component.refresh();
+        expect(component.item).toEqual({mockProp: 'mockValue'});
+      });
+
+      it('keeps the item listing copied property if its true', () => {
+        spyOn(poeService, 'fetch').and.returnValue(of({
+          result: [{
+            mockProp: 'mockValue',
+            listing: {}
+          }]
+        }));
+
+        item['id'] = 'mockID';
+        item.listing['copied'] = true;
+        component.refresh();
+        expect(component.item).toEqual({mockProp: 'mockValue', listing: {copied: true}});
+      });
+    });
   });
 
   describe('Component HTML', () => {
+    let loader: HarnessLoader;
+
+    beforeEach(() => {
+      loader = TestbedHarnessEnvironment.loader(fixture);
+    });
+
+    describe('Item Container', () => {
+
+      afterEach(() => {
+        item['gone'] = null;
+      });
+
+      it('has class \'gone\' when the item gone property is true', () => {
+        item['gone'] = true;
+        fixture.detectChanges();
+        let itemCont = fixture.debugElement.query(By.css('.item-container'));
+        expect(itemCont.classes).toEqual(jasmine.objectContaining({'gone': true}));
+      });
+    });
+
+    describe('Refresh Button', () => {
+      let matButton: MatButtonHarness;
+
+      beforeEach(async () => {
+        matButton = await loader.getHarness(MatButtonHarness);
+      });
+
+      it('calls refresh on click', async () => {
+        spyOn(component, 'refresh');
+        await matButton.click();
+        
+        expect(component.refresh).toHaveBeenCalled();
+      });
+    });
+
+    describe('refresh icon', () => {
+      let icon: MatIconHarness
+
+      beforeEach(async () => {
+        icon = await loader.getHarness(MatIconHarness);
+      });
+
+      afterEach(() => {
+        component.refreshing = false;
+      });
+
+      it('has refreshing class when the refreshing value is true', async () => {
+        component.refreshing = true;
+        let iconHost = await icon.host();
+        expect(await iconHost.hasClass('refreshing')).toBeTrue();
+      });
+    });
 
     describe('Item Image Component', () => {
 
@@ -316,6 +453,7 @@ describe('ItemComponent', () => {
         item.item['craftedMods'] = ['MockValue'];
         item.item['corrupted'] = ['MockValue'];
         item.item['duplicated'] = ['MockValue'];
+        item.item['frameType'] = 6;
         fixture.detectChanges()
         let modlistComp = fixture.debugElement.query(By.css('item-modlist'));
 
@@ -410,7 +548,7 @@ describe('ItemComponent', () => {
     describe('Div Mods Component', () => {
 
       afterEach(() => {
-        item.item['frameType'] = null;
+        item.item['frameType'] = -1;
         item.item['explicitMods'] = null;
         fixture.detectChanges();
       });
@@ -423,7 +561,7 @@ describe('ItemComponent', () => {
         expect(divModsComp).toBeFalsy();
       });
 
-      it('should not exist ifthe item.item.explicitMods is empty/null', () => {
+      it('should not exist if the item.item.explicitMods is empty/null', () => {
         item.item['frameType'] = 6;
         fixture.detectChanges();
         let divModsComp = fixture.debugElement.query(By.css('item-divmods'));

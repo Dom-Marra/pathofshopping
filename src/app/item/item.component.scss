@@ -1,137 +1,204 @@
 @import '../../theme.scss';
 @import './styles/shared.scss';
 
-.item-wrapper {
+:host {
     display: flex;
-    flex-wrap: wrap;
-    flex: 1;
-    align-items: center;
     justify-content: center;
 }
 
-.item-image {
-    flex: 0 1 150px;
+.item-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    margin: 1em;
+    max-width: 900px;
+
+    &.gone {
+        opacity: 0.7;
+        position: relative;
+    
+        &::after {
+            content: "No Longer Available";
+            color: #d30000;
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            padding: 1em;
+            font-weight: bold;
+            border-radius: 3px;
+            background-color: black;
+            width: 100%;
+            box-sizing: border-box;
+            text-align: center;
+            transform: translate(-50%, -100%);
+        }
+    }
+
+    .item-refresh-container {
+        width: 100%;
+
+        .refreshing {
+            animation: rotation 0.75s infinite linear;
+        }
+    }    
+
+    .item-image {
+        flex: 0 1 150px;
+    }    
+
+    .item-wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        flex: 1;
+        align-items: center;
+        justify-content: center;
+
+        .item-box {
+            flex: 1 1 275px;
+            background-color: rgba(0, 0, 0, 0.65);
+            color: mat-color($pathofshopping-accent, 50);
+            border-radius: 4px;
+            overflow: hidden;
+        
+            &.rarity-0 {
+                .item-detail:after  {
+                    @include frame-0;
+                }
+        
+                .hybrid-item-name {
+                    color: lighten(map-get($poe-frame-colors, normal), 40%);
+                }
+            }
+            &.rarity-1 {
+                .item-detail:after  { 
+                    @include frame-1;
+                }
+        
+                .hybrid-item-name {
+                    color: lighten(map-get($poe-frame-colors, magic), 40%);
+                }
+            }
+            &.rarity-2 {
+                .item-detail:after  { 
+                    @include frame-2;
+                }
+        
+                .hybrid-item-name {
+                    color: lighten(map-get($poe-frame-colors, rare), 40%);
+                }
+            }
+            &.rarity-3 {
+                .item-detail:after  { 
+                    @include frame-3;
+                }
+        
+                .hybrid-item-name {
+                    color: lighten(map-get($poe-frame-colors, unique), 40%);
+                }
+            }
+            &.rarity-4 {
+                .item-detail:after  { 
+                    @include frame-4;
+                }
+        
+                .hybrid-item-name {
+                    color: lighten(map-get($poe-frame-colors, gem), 40%);
+                }
+            }
+            &.rarity-5 {
+                .item-detail:after  {
+                    @include frame-5;
+                }
+        
+                .hybrid-item-name {
+                    color: lighten(map-get($poe-frame-colors, currency), 40%);
+                }
+            }
+            &.rarity-6 {
+                .item-detail:after  {
+                    @include frame-6;
+                }
+        
+                .hybrid-item-name {
+                    color: lighten(map-get($poe-frame-colors, div-card), 40%);
+                }
+            }
+            &.rarity-8 {
+                .item-detail:after  {
+                    @include frame-8;
+                }
+        
+                .hybrid-item-name {
+                    color: lighten(map-get($poe-frame-colors, prophecy), 40%);
+                }
+            }
+            &.rarity-9 {
+                .item-detail:after  {
+                    @include frame-9;
+                }
+        
+                .hybrid-item-name {
+                    color: lighten(map-get($poe-frame-colors, relic), 40%);
+                }
+            }
+        
+            .hybrid {
+                .hybrid-item-name {
+                    margin: 0;
+                    text-align: center;
+                    font-weight: 300;
+                }
+            }
+        
+            .item-details-container {
+                display: flex;
+                flex-direction: column;
+                padding-bottom: 0.3em;
+        
+                .item-detail {
+                    flex: 1 1 auto;
+                    padding-left: 0;
+                    padding-top: 0.5em;
+                }
+
+                .property {
+                    text-align: center;
+                    margin: 0; 
+                    padding: 0.3em; 
+                    text-align: center;
+
+                    &.modified {
+                        color: map-get($poe-property-colors, modified);
+                    }
+
+                    &.corrupted {
+                       color: map-get($poe-property-colors, corrupted);
+                    }
+                }
+        
+                .item-detail:after {
+                    content: "";
+                    display: block;
+                    width: 95%;
+                    height: 1px;
+                    margin: auto;
+                    margin-top: 0.5em;
+                }
+        
+                .item-detail:last-child:after {
+                    display: none;
+                }
+            }
+        }
+    }
 }
 
-.item-box {
-    flex: 1 1 275px;
-    background-color: rgba(0, 0, 0, 0.65);
-    color: mat-color($pathofshopping-accent, 50);
-    border-radius: 4px;
-    overflow: hidden;
-
-    &.rarity-0 {
-        .item-detail:after  {
-            @include frame-0;
-        }
-
-        .hybrid-item-name {
-            color: lighten(map-get($poe-frame-colors, normal), 40%);
-        }
+@keyframes rotation {
+    from{
+        transform: rotate(0deg);
     }
-    &.rarity-1 {
-        .item-detail:after  { 
-            @include frame-1;
-        }
-
-        .hybrid-item-name {
-            color: lighten(map-get($poe-frame-colors, magic), 40%);
-        }
-    }
-    &.rarity-2 {
-        .item-detail:after  { 
-            @include frame-2;
-        }
-
-        .hybrid-item-name {
-            color: lighten(map-get($poe-frame-colors, rare), 40%);
-        }
-    }
-    &.rarity-3 {
-        .item-detail:after  { 
-            @include frame-3;
-        }
-
-        .hybrid-item-name {
-            color: lighten(map-get($poe-frame-colors, unique), 40%);
-        }
-    }
-    &.rarity-4 {
-        .item-detail:after  { 
-            @include frame-4;
-        }
-
-        .hybrid-item-name {
-            color: lighten(map-get($poe-frame-colors, gem), 40%);
-        }
-    }
-    &.rarity-5 {
-        .item-detail:after  {
-            @include frame-5;
-        }
-
-        .hybrid-item-name {
-            color: lighten(map-get($poe-frame-colors, currency), 40%);
-        }
-    }
-    &.rarity-6 {
-        .item-detail:after  {
-            @include frame-6;
-        }
-
-        .hybrid-item-name {
-            color: lighten(map-get($poe-frame-colors, div-card), 40%);
-        }
-    }
-    &.rarity-8 {
-        .item-detail:after  {
-            @include frame-8;
-        }
-
-        .hybrid-item-name {
-            color: lighten(map-get($poe-frame-colors, prophecy), 40%);
-        }
-    }
-    &.rarity-9 {
-        .item-detail:after  {
-            @include frame-9;
-        }
-
-        .hybrid-item-name {
-            color: lighten(map-get($poe-frame-colors, relic), 40%);
-        }
-    }
-
-    .hybrid {
-        .hybrid-item-name {
-            margin: 0;
-            text-align: center;
-            font-weight: 300;
-        }
-    }
-
-    .item-details-container {
-        display: flex;
-        flex-direction: column;
-        padding-bottom: 0.3em;
-
-        .item-detail {
-            flex: 1 1 auto;
-            padding-left: 0;
-            padding-top: 0.5em;
-        }
-
-        .item-detail:after {
-            content: "";
-            display: block;
-            width: 95%;
-            height: 1px;
-            margin: auto;
-            margin-top: 0.5em;
-        }
-
-        .item-detail:last-child:after {
-            display: none;
-        }
+    to{
+        transform: rotate(360deg);
     }
 }
