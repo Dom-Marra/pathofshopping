@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { poeCategorizedItems } from 'src/app/core/models/poeCategorizedItems';
+import { item, poeCategorizedItems } from 'src/app/core/models/poeAPIItems';
 import { simpleData } from 'src/app/core/models/simpleData';
 import { PoeService } from 'src/app/core/services/poe.service';
 import { SimpleDataService } from 'src/app/core/services/simpledata.service';
@@ -88,8 +88,8 @@ export class TypefiltersComponent implements OnInit {
   ]
 
   public customItemSearch: poeCategorizedItems = {      //Custom search item
-    category: 'Custom Search',
-    items: [ { name: '', type: '', text: '' } ]
+    label: 'Custom Search',
+    entries: [ { name: '', type: '', text: '' } ]
   };
 
   constructor(private poeAPI: PoeService, public simpleDataService: SimpleDataService) {                    
@@ -105,7 +105,7 @@ export class TypefiltersComponent implements OnInit {
    * @param item
    *        item to extract the text value from 
    */
-  public displayItemBy(item: poeCategorizedItems["items"][0]): string {
+  public displayItemBy(item: item): string {
     return item.text;
   }
 
@@ -142,18 +142,18 @@ export class TypefiltersComponent implements OnInit {
 
     let shift: boolean;                                   //Whether the custom search should be shifted
 
-    this.customItemSearch.items[0].text = searchText;     //Update custom search text
+    this.customItemSearch.entries[0].text = searchText;     //Update custom search text
 
     if (!searchText) return values;                       //search is empty return all values
 
     const text = searchText.toLowerCase().trim().split(/\s+/);    //Format search text
 
     let res = values.map(searchItem => ({
-      category: searchItem.category, 
-      items: searchItem.items.filter(item => {
+      label: searchItem.label, 
+      entries: searchItem.entries.filter(item => {
 
         //Exact match found or the the trimmed text is empty so the custom search will be shifted
-        if ((searchText.toLowerCase().trim() == item.text.toLocaleLowerCase() && item != this.customItemSearch.items[0]) || 
+        if ((searchText.toLowerCase().trim() == item.text.toLocaleLowerCase() && item != this.customItemSearch.entries[0]) || 
             searchText.trim() === '' || !searchText) {
           this.matchedText = item ? item.text : '';
           shift = true;
@@ -163,7 +163,7 @@ export class TypefiltersComponent implements OnInit {
           return item.text.toLowerCase().indexOf(text) != -1;
         }).length == text.length;
       })
-    })).filter(searchItem => searchItem.items.length > 0);
+    })).filter(searchItem => searchItem.entries.length > 0);
 
     this.shiftCustomSearch(shift, res);       //Perform shift
 
