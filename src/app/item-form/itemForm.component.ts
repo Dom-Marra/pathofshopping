@@ -9,6 +9,7 @@ import { CurrentsortService } from 'src/app/core/services/currentsort.service';
 import { currentSortProperties } from 'src/app/core/models/currentSortProperties';
 import { Item } from '../core/classes/item';
 import { StatFilterForm } from '../core/classes/stat-filter-form';
+import { skip, take } from 'rxjs/operators';
 
 @Component({
   selector: 'pos-itemForm',
@@ -28,7 +29,6 @@ export class ItemFormComponent implements OnInit {
     {id: 'any', text: 'All'},
     {id: 'online', text: 'Online'}
   ];
-  private _fetchSub: Subscription = new Subscription();     //Init fetch sub
 
   constructor(private cd: ChangeDetectorRef, 
               private snackBar: MatSnackBar, 
@@ -48,7 +48,9 @@ export class ItemFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.currentSort.currentSort.subscribe((val: currentSortProperties) => {
+    this.currentSort.currentSort.pipe(
+      skip(1)
+    ).subscribe((val: currentSortProperties) => {
       if (!val) return;
       this.setSortBy(val.sortKey, val.sortValue);
       this.queryIDs();
@@ -66,7 +68,9 @@ export class ItemFormComponent implements OnInit {
 
     this.itemData.resultData.reset();                           //Reset previous results
 
-    this._fetchSub = this.poe.search(data, this.league).subscribe(
+    this.poe.search(data, this.league).pipe(
+      take(1)
+    ).subscribe(
       (fetch: any) => {                                        //Fetch items based on data
         if (fetch.result != null && fetch.result.length > 0) {
 
@@ -81,7 +85,6 @@ export class ItemFormComponent implements OnInit {
 
           //Show results and close sub
           this.showResults = true;
-          this._fetchSub.unsubscribe();
         } else {
           this.displayErrorSnackBar('No results found. Please widen parameters');
         }
