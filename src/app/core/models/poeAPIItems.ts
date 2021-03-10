@@ -7,7 +7,7 @@ export interface item {
   text: string,
   name?: string,
   disc?: string,
-  flags?: Array<itemFlag>
+  flags?: itemFlag
 }
 
 export interface poeCategorizedItems {
