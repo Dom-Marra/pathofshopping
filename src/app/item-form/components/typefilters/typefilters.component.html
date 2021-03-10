@@ -12,7 +12,7 @@
                                       (this.queryForm.controls.type.value ? this.queryForm.controls.type.value : '')
                               }"
                             [clearOnFocus]='false'
-                            [groupOptions]="{groupedBy: 'category', groupedInto: 'items'}"
+                            [groupOptions]="{groupedBy: 'label', groupedInto: 'entries'}"
                             (selected)="setNTT($event.name, $event.type, $event.text)"
                             [clearable]="true"
                             (cleared)="setNTT('', '', '')"></app-searchselect>
