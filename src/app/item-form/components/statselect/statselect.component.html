@@ -7,7 +7,7 @@
 
         <app-searchselect class="stat-selector mat-input-500" [placeholder]="'Add Stat'" 
                         [values]="statsToSearch"
-                        [groupOptions]="{groupedBy: 'category', groupedInto: 'stats'}"
+                        [groupOptions]="{groupedBy: 'label', groupedInto: 'entries'}"
                         [filterBy]="filterStats"
                         [displayBy]="statDisplayBy"
                         [disabled]="this.statGroup.disabled"
