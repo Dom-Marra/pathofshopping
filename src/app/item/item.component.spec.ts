@@ -393,6 +393,7 @@ describe('ItemComponent', () => {
         item.item['corrupted'] = null;
         item.item['duplicated'] = null;
         item.item['frameType'] = 6;
+        item.item['hybrid'] = null;
         fixture.detectChanges();
       });
 
@@ -478,7 +479,7 @@ describe('ItemComponent', () => {
         expect(modlistComp.modProperties).toEqual(component.explicitModProperties);
       });
 
-      it('should have a p element with text content \'Corrupted\' if the item.item.corrupted is true', () => {
+      it('should have a p element with text content \'Corrupted\' if the item.item.corrupted is true and the item is not a vaal gem', () => {
         item.item['corrupted'] = true;
         item.item['frameType'] = 0;
         fixture.detectChanges();
@@ -486,6 +487,19 @@ describe('ItemComponent', () => {
         let corruptedP = modlistComp.query(By.css('p'));
 
         expect(corruptedP.nativeElement.textContent).toEqual('Corrupted');
+      });
+
+      it('does not have a p element with text content \'Corrupted\' if the item.item.corrupted is true and the item is a vaal gem', () => {
+        item.item['corrupted'] = true;
+        item.item['frameType'] = 0;
+        item.item['hybrid'] = {
+          isVaalGem: true
+        }
+        fixture.detectChanges();
+        let modlistComp = fixture.debugElement.query(By.css('item-modlist'));
+        let corruptedP = modlistComp.query(By.css('.corrupted'));
+
+        expect(corruptedP).toBeFalsy();
       });
 
       it('should have a p element with text content \'Mirrored\' if the item.item.duplicated is true', () => {
@@ -504,6 +518,7 @@ describe('ItemComponent', () => {
       afterEach(() => {
         item.item['hybrid'] = null;
         item.item['typeLine'] = null;
+        item.item['corrupted'] = null;
       });
 
       it('should not exist if the hybrid property is null on the item', () => {
@@ -542,6 +557,20 @@ describe('ItemComponent', () => {
         expect(modlist).toBeTruthy();
         expect((modlist.componentInstance as ModListStub).item).toEqual(item.item['hybrid']);
         expect((modlist.componentInstance as ModListStub).modProperties).toEqual(component.explicitModProperties);
+      });
+
+      it('has a p element with text content \'Corrupted\' if the item.item.corrupted is true and the item is a vaal gem', () => {
+        item.item['corrupted'] = true;
+        item.item['hybrid'] = {
+          explicitMods: {},
+          isVaalGem: true
+        }
+        fixture.detectChanges();
+        let hybridDetails = fixture.debugElement.query(By.css('.hybrid'));
+        let modlist = hybridDetails.query(By.css('item-modlist'));
+        let corruptedP = modlist.query(By.css('.corrupted'));
+
+        expect(corruptedP.nativeElement.textContent).toEqual('Corrupted');
       });
     });
 
