@@ -161,6 +161,21 @@
                     padding-left: 0;
                     padding-top: 0.5em;
                 }
+
+                .property {
+                    text-align: center;
+                    margin: 0; 
+                    padding: 0.3em; 
+                    text-align: center;
+
+                    &.modified {
+                        color: map-get($poe-property-colors, modified);
+                    }
+
+                    &.corrupted {
+                       color: map-get($poe-property-colors, corrupted);
+                    }
+                }
         
                 .item-detail:after {
                     content: "";
