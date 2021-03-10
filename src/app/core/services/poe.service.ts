@@ -2,10 +2,11 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
 import { BehaviorSubject, throwError } from 'rxjs';
-import { poeCategorizedItems } from '../models/poeCategorizedItems';
-import { poeCategorizedStats } from '../models/poeCategorizedStats';
+import { poeCategorizedItems } from '../models/poeAPIItems';
+import { poeCategorizedStats } from '../models/poeAPIStats';
 import { simpleData } from '../models/simpleData';
-import { poeCategorizedStatic } from '../models/poeCategorizedStatic';
+import { poeCategorizedStatic } from '../models/poeAPIStatic';
+import { poeAPIResult } from '../models/poeAPIResult';
 
 @Injectable({
   providedIn: 'root'
@@ -41,37 +42,13 @@ export class PoeService {
    */
   private setItems() {
     let poeItemsSetter = this.http.get(this.POE_ITEMS).pipe(
-      map((data: any) => {
-        let items: Array<poeCategorizedItems> = [];
-
-        data['result'].forEach(entry => {                         //Traverse each category
-          entry['entries'].forEach(item => {                      //Traverse each entry per category
-  
-            let category = items.find(item => item.category == entry['label']);    //Get category
-  
-            if (category != null) {               //push item to category if it exists
-              category.items.push({
-                name: item['name'],
-                type: item['type'],
-                text: item['text']});
-            } else {                                //if not push new category with the item
-              items.push({
-                category: entry['label'],
-                items: [{
-                  name: item['name'],
-                  type: item['type'],
-                  text: item['text']}]
-              });
-            }
-          });
-        });
-
-        return items;
+      map((result: poeAPIResult) => {
+        return result.result;
       }),
       catchError((err) => {
         return throwError('Unable to connect to the service.');
       })
-    ).subscribe((items) => {
+    ).subscribe((items: Array<poeCategorizedItems>) => {
       this.poeItems = items;
         if (this.leagueData && this.poeStats && this.poeStatic) this.loaded.next(true);
         poeItemsSetter.unsubscribe();
@@ -94,47 +71,14 @@ export class PoeService {
    */
   private setStats() {
     let poeStatsSetter = this.http.get(this.POE_STATS).pipe(
-      map(data => {
-        let stats: Array<poeCategorizedStats> = [];               //Array of the stats
-
-        data['result'].forEach(result => {                        //Cycle through stat categories
-          result['entries'].forEach(entry => {                    //Cycle through stats
-            
-            let statCat = stats.find(item => item.category == result['label']);    //Check if stat exists
-            let stat = {                    //Create stat object
-              id: entry['id'],
-              text: entry['text']
-            };
-  
-            if (statCat != null) {          //If stat cetegory already exist push the new sat
-              statCat.stats.push(stat);
-            } else {                        //If not add the category to the stored stats, and push the new stat to it
-              stats.push({
-                category: result['label'],
-                stats: [stat]
-              });
-            }
-  
-            if (entry['option'] != null) {                  //If there are options add them to the stat
-              stat['option'] = new Array<any>();
-              
-              entry['option'].options.forEach(option => {
-                stat['option'].push({
-                  id: option['id'],
-                  text: option['text']
-                })
-              });
-            }
-          });
-        });
-
-        return stats;
+      map((result: poeAPIResult) => {
+        return result.result;
       }),
       catchError((err) => {
         return throwError('Unable to connect to the service.');
       })
     ).subscribe(
-      (stats) => {
+      (stats: Array<poeCategorizedStats>) => {
         this.poeStats = stats;
         if (this.leagueData && this.poeItems && this.poeStatic) this.loaded.next(true);
         poeStatsSetter.unsubscribe();
@@ -157,20 +101,14 @@ export class PoeService {
    */
   private setLeagues() {
     let poeLeaguesSetter = this.http.get(this.POE_LEAGUES).pipe(
-      map((data: any) => {
-        let leagues: Array<simpleData> = [];
-
-        data.result.forEach(league => {
-          leagues.push({id: league.id, text: league.text});
-        });
-
-        return leagues;
+      map((result: poeAPIResult) => {
+        return result.result;
       }),
       catchError((err) => {
         return throwError('Unable to connect to the service.');
       })
     ).subscribe(
-      (leagues) => {
+      (leagues: Array<simpleData>) => {
         this.leagueData = leagues;
         if (this.poeItems && this.poeStats && this.poeStatic) this.loaded.next(true);
         poeLeaguesSetter.unsubscribe();
@@ -194,7 +132,7 @@ export class PoeService {
   private setStatic() {
     let poeStaticSetter = this.http.get(this.POE_STATIC)
     .pipe(
-      map((data: any) => {
+      map((data: poeAPIResult) => {
         return data.result;
       }),
       catchError((err) => {
