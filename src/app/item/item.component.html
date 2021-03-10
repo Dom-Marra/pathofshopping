@@ -31,10 +31,10 @@
                     [item]="item.item"
                     [modProperties]="explicitModProperties"
                     class="item-detail">    
-                    <p *ngIf="item.item.corrupted" style="color: #d20000; margin: 0; padding: 0.3em; text-align: center;">
+                    <p *ngIf="item.item.corrupted" class="property corrupted">
                         <span>Corrupted</span>
                     </p>
-                    <p *ngIf="item.item.duplicated" style="color: rgb(100, 100, 255); margin: 0; padding: 0.3em; text-align: center;">
+                    <p *ngIf="item.item.duplicated" class="property modified">
                         <span>Mirrored</span>
                     </p> 
                 </item-modlist>
@@ -60,10 +60,10 @@
                                 class="item-detail"
                                 [explicitMods]="item.item.explicitMods"> 
                 </item-divmods>
-                <div *ngIf="item.item.identified == false" class="item-detail">
-                    <span class="corrupted">Unidentified</span>
+                <div *ngIf="item.item.identified == false" class="item-detail property corrupted">
+                    <span>Unidentified</span>
                 </div>
-                <div *ngIf="item.item.prophecyText" class="item-detail">
+                <div *ngIf="item.item.prophecyText" class="item-detail property">
                     <span>{{item.item.prophecyText}}</span>
                 </div>
                 <item-additionalproperties class="item-detail" 
