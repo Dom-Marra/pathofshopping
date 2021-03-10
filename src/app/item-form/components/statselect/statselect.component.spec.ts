@@ -10,7 +10,7 @@ import { MatInputHarness } from '@angular/material/input/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { StatForm } from 'src/app/core/classes/stat-form';
-import { poeCategorizedStats } from 'src/app/core/models/poeCategorizedStats';
+import { poeCategorizedStats, poeStat, poeStatOption } from 'src/app/core/models/poeAPIStats';
 import { PoeService } from 'src/app/core/services/poe.service';
 import { DigitsonlyDirective } from '../../directives/digitsonly.directive';
 import { FilteractionbuttonsComponent } from '../filteractionbuttons/filteractionbuttons.component';
@@ -54,8 +54,8 @@ export class DigitsonlyStubDirective { }
 class MockPoeService {
   public stats: Array<poeCategorizedStats> = [
     {
-      category: 'Mock Category 1',
-      stats: [
+      label: 'Mock Category 1',
+      entries: [
         {
           id: 'mock.mock_1_stat_1',
           text: 'Mock Stat Cat 1 Stat 1'
@@ -67,8 +67,8 @@ class MockPoeService {
       ]
     },
     {
-      category: 'Mock Category 2',
-      stats: [
+      label: 'Mock Category 2',
+      entries: [
         {
           id: 'mock.mock_2_stat_1',
           text: 'Mock Stat Cat 2 Stat 1'
@@ -161,8 +161,8 @@ describe('StatselectComponent', () => {
       let returnedValue = component.filterStats('Stat 2', component.statsToSearch);
       let expectedResults: Array<poeCategorizedStats> = [
         {
-          category: 'Mock Category 1',
-          stats: [
+          label: 'Mock Category 1',
+          entries: [
             {
               id: 'mock.mock_1_stat_2',
               text: 'Mock Stat Cat 1 Stat 2'
@@ -170,8 +170,8 @@ describe('StatselectComponent', () => {
           ]
         },
         {
-          category: 'Mock Category 2',
-          stats: [
+          label: 'Mock Category 2',
+          entries: [
             {
               id: 'mock.mock_2_stat_1',
               text: 'Mock Stat Cat 2 Stat 1'
@@ -199,7 +199,7 @@ describe('StatselectComponent', () => {
   });
 
   it('should be able to properly filter stat options', () => {
-    component.statGroup.controls.selectedStat.patchValue(poeMockService.getStats()[1].stats[1]);
+    component.statGroup.controls.selectedStat.patchValue(poeMockService.getStats()[1].entries[1]);
     let returnedValue = component.filterStatOptions('Option_2', component.statGroup.controls.selectedStat.value.option);
     let expectedResults = [
       {
@@ -214,12 +214,12 @@ describe('StatselectComponent', () => {
   });
 
   describe('setStat Method', () => {
-    let statWithNoOptions: poeCategorizedStats['stats'][0];
-    let statWithOptions: poeCategorizedStats['stats'][0];
+    let statWithNoOptions: poeStat;
+    let statWithOptions: poeStat;
 
     beforeEach(() => {
-      statWithNoOptions = poeMockService.getStats()[0].stats[0];
-      statWithOptions = poeMockService.getStats()[1].stats[1];
+      statWithNoOptions = poeMockService.getStats()[0].entries[0];
+      statWithOptions = poeMockService.getStats()[1].entries[1];
     });
 
     it('should path the correct sat id', () => {
@@ -265,10 +265,10 @@ describe('StatselectComponent', () => {
   });
 
   describe('setStatOption method', () => {
-    let statOption: poeCategorizedStats['stats'][0]['option'][0];
+    let statOption: poeStatOption;
 
     beforeEach(() => {
-      statOption = poeMockService.getStats()[1].stats[1].option[0];
+      statOption = poeMockService.getStats()[1].entries[1].option[0];
     });
 
     it('should patch the correct value for the selected stat option control', () => {
@@ -346,7 +346,7 @@ describe('StatselectComponent', () => {
       expect(statSearcherComp.autoCompleteClass).toEqual('autocomplete-panel-300');
       expect(statSearcherComp.placeholder).toEqual('Add Stat');
       expect(statSearcherComp.values).toEqual(component.statsToSearch);
-      expect(statSearcherComp.groupOptions).toEqual({groupedBy: 'category', groupedInto: 'stats'});
+      expect(statSearcherComp.groupOptions).toEqual({groupedBy: 'label', groupedInto: 'entries'});
       expect(statSearcherComp.filterBy).toEqual(component.filterStats);
       expect(statSearcherComp.displayBy).toEqual(component.statDisplayBy);
       expect(statSearcherComp.disabled).toEqual(component.statGroup.disabled);
@@ -366,7 +366,7 @@ describe('StatselectComponent', () => {
     });
 
     it('should be created when a stat is selected', () => {
-      component.statGroup.controls.selectedStat.patchValue(poeMockService.getStats()[0].stats[0]);
+      component.statGroup.controls.selectedStat.patchValue(poeMockService.getStats()[0].entries[0]);
       fixture.detectChanges();
       
       let statInputs = fixture.debugElement.query(By.css('.stat-inputs'));
@@ -377,7 +377,7 @@ describe('StatselectComponent', () => {
   describe('weight input', () => {
 
     beforeEach(() => {
-      component.statGroup.controls.selectedStat.patchValue(poeMockService.getStats()[0].stats[0]);
+      component.statGroup.controls.selectedStat.patchValue(poeMockService.getStats()[0].entries[0]);
     });
 
     it('should not be created when the isWeighted value is false', () => {
@@ -436,7 +436,7 @@ describe('StatselectComponent', () => {
   describe('minmaxinput component', () => {
 
     it('should not exist when the isWeight is true', () => {
-      component.statGroup.controls.selectedStat.patchValue(poeMockService.getStats()[0].stats[0]);
+      component.statGroup.controls.selectedStat.patchValue(poeMockService.getStats()[0].entries[0]);
       component.isWeight = true;
       component.ngOnChanges({isWeight: new SimpleChange(false, true, false)});
       fixture.detectChanges();
@@ -447,7 +447,7 @@ describe('StatselectComponent', () => {
     });
 
     it('should not exist when the selectedStat has options', () => {
-      component.statGroup.controls.selectedStat.patchValue(poeMockService.getStats()[1].stats[1]);
+      component.statGroup.controls.selectedStat.patchValue(poeMockService.getStats()[1].entries[1]);
       fixture.detectChanges();
 
       let minmaxinput = fixture.debugElement.query(By.css('itemForm-minmaxinput'));
@@ -456,7 +456,7 @@ describe('StatselectComponent', () => {
     });
 
     it('should exist when the selectedStat has no options', () => {
-      component.statGroup.controls.selectedStat.patchValue(poeMockService.getStats()[0].stats[0]);
+      component.statGroup.controls.selectedStat.patchValue(poeMockService.getStats()[0].entries[0]);
       fixture.detectChanges();
 
       let minmaxinput = fixture.debugElement.query(By.css('itemForm-minmaxinput'));
@@ -465,7 +465,7 @@ describe('StatselectComponent', () => {
     });
 
     it('should use the statGroup value control as the group input', () => {
-      component.statGroup.controls.selectedStat.patchValue(poeMockService.getStats()[0].stats[0]);
+      component.statGroup.controls.selectedStat.patchValue(poeMockService.getStats()[0].entries[0]);
       fixture.detectChanges();
 
       let minmaxinput = fixture.debugElement.query(By.css('itemForm-minmaxinput')).componentInstance as MinMaxStubComponent;
@@ -477,7 +477,7 @@ describe('StatselectComponent', () => {
   describe('stat option searchSelect', () => {
 
     it('should not exist when the selectedStat has no options', () => {
-      component.statGroup.controls.selectedStat.patchValue(poeMockService.getStats()[0].stats[0]);
+      component.statGroup.controls.selectedStat.patchValue(poeMockService.getStats()[0].entries[0]);
       fixture.detectChanges();
 
       let optionSearcher = fixture.debugElement.queryAll(By.css('app-searchselect'))[1];
@@ -488,7 +488,7 @@ describe('StatselectComponent', () => {
     it('should call setStatOption when the option selector selected event emits', () => {
       spyOn(component,'setStatOption');
       
-      component.statGroup.controls.selectedStat.patchValue(poeMockService.getStats()[1].stats[1]);
+      component.statGroup.controls.selectedStat.patchValue(poeMockService.getStats()[1].entries[1]);
       fixture.detectChanges();
 
       let optionSearcher = fixture.debugElement.queryAll(By.css('app-searchselect'))[1];
@@ -498,7 +498,7 @@ describe('StatselectComponent', () => {
     });
 
     it('should set the right inputs on the component', () => {
-      component.statGroup.controls.selectedStat.patchValue(poeMockService.getStats()[1].stats[1]);
+      component.statGroup.controls.selectedStat.patchValue(poeMockService.getStats()[1].entries[1]);
       fixture.detectChanges();
 
       let optionSearcher = fixture.debugElement.queryAll(By.css('app-searchselect'))[1].componentInstance as SearchSelectStubComponent;
