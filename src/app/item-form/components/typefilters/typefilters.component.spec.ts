@@ -1,11 +1,11 @@
 import { Component, DebugElement, EventEmitter, Input, Output } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatAutocompleteModule, MatAutocompleteOrigin } from '@angular/material/autocomplete';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Defaultvaluecontrol } from 'src/app/core/classes/defaultvaluecontrol';
-import { poeCategorizedItems } from 'src/app/core/models/poeCategorizedItems';
+import { poeCategorizedItems } from 'src/app/core/models/poeAPIItems';
 import { simpleData } from 'src/app/core/models/simpleData';
 import { PoeService } from 'src/app/core/services/poe.service';
 import { SimpleDataService } from 'src/app/core/services/simpledata.service';
@@ -40,8 +40,8 @@ class SimpleDataServiceStub {
 class MockPoeService {
   public items: Array<poeCategorizedItems> = [
     {
-      category: 'Mock Category 1',
-      items: [
+      label: 'Mock Category 1',
+      entries: [
         {
           name: 'Mock Item 1',
           type: 'mock type 1',
@@ -55,8 +55,8 @@ class MockPoeService {
       ]
     },
     {
-      category: 'Mock Category 2',
-      items: [
+      label: 'Mock Category 2',
+      entries: [
         {
           name: 'Mock Item 1',
           type: 'mock type 2',
@@ -146,7 +146,7 @@ describe('TypefiltersComponent', () => {
         expect(searchSelectComp.inputName).toEqual('Search Items');
         expect(searchSelectComp.clearable).toEqual(true);
         expect(searchSelectComp.clearOnFocus).toEqual(false);
-        expect(searchSelectComp.groupOptions).toEqual({groupedBy: 'category', groupedInto: 'items'});
+        expect(searchSelectComp.groupOptions).toEqual({groupedBy: 'label', groupedInto: 'entries'});
       });
 
       it('should call setNTT with correct paramaters on selected event', () => {
@@ -263,10 +263,10 @@ describe('TypefiltersComponent', () => {
         });
 
         it('should properly filter items', () => {
-          const expectedResults = [
+          const expectedResults: Array<poeCategorizedItems> = [
             {
-              category: 'Mock Category 1',
-              items: [
+              label: 'Mock Category 1',
+              entries: [
                 {
                   name: 'Mock Item 1',
                   type: 'mock type 1',
@@ -281,7 +281,7 @@ describe('TypefiltersComponent', () => {
 
         it('should set the customItemSearch item text to the searchText', () => {
           component.filterGroups('Mock Text', poeService.getItems());
-          expect(component.customItemSearch.items[0].text).toEqual('Mock Text');
+          expect(component.customItemSearch.entries[0].text).toEqual('Mock Text');
         });
 
         it('should include the customItemSearch when an exact match is not found', () => {
