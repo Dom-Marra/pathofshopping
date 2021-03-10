@@ -2,9 +2,9 @@ import { HarnessLoader } from '@angular/cdk/testing';
 import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatAutocompleteModule, MatAutocompleteTrigger } from '@angular/material/autocomplete';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
+import { MatInput, MatInputModule } from '@angular/material/input';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatInputHarness } from '@angular/material/input/testing';
 import { MatFormFieldHarness } from '@angular/material/form-field/testing';
@@ -16,6 +16,14 @@ import { SearchSelectComponent } from './searchselect.component';
 import { By } from '@angular/platform-browser';
 import { MatIconModule } from '@angular/material/icon';
 import { SimpleChange, SimpleChanges } from '@angular/core';
+
+class MatInputStub {
+  public focus() {}
+}
+
+class MatAutocompleteTriggerStub {
+  public closePanel() {}
+}
 
 describe('SearchSelectComponent', () => {
   let component: SearchSelectComponent;
@@ -147,7 +155,56 @@ describe('SearchSelectComponent', () => {
         component.clear();
         expect(component.cleared.emit).toHaveBeenCalled();
       });
-    })
+    });
+
+    describe('onInputBlur', () => {
+      let input = new MatInputStub() as MatInput;
+      let trigger = new MatAutocompleteTriggerStub() as MatAutocompleteTrigger;
+
+      afterEach(() => {
+        component.selectingOption = false;
+        component.clearable = false;
+      })
+
+      it('focuses the input when selectingOption is true', () => {
+        spyOn(input, 'focus');
+        component.selectingOption = true;
+        component.onInputBlur(input, trigger);
+
+        expect(input.focus).toHaveBeenCalled();
+      });
+  
+      it('calls closePanel on the trigger and clear() when clearable is true and the search value is empty',  () => {
+        spyOn(trigger, 'closePanel');
+        spyOn(component, 'clear');
+        component.search.patchValue('', {emitEvent: false, onlySelf: true});
+        component.clearable = true;
+        component.onInputBlur(input, trigger);
+  
+        expect(trigger.closePanel).toHaveBeenCalled();
+        expect(component.clear).toHaveBeenCalled();
+      });
+  
+      it('patches search to the displayBy value when one is provided and calls closePanel on the trigger',  () => {
+        spyOn(trigger, 'closePanel');
+        component.displayBy = (value: any) => {return value.text};
+        component.selectedValue = {text: 'Mock Value w/ displayBy'};
+        component.onInputBlur(input, trigger);
+        
+        expect(trigger.closePanel).toHaveBeenCalled();
+        expect(component.search.value).toEqual('Mock Value w/ displayBy');
+      });
+
+      it('patches search to the selectedValue and calls closePanel on the trigger',  () => {
+        spyOn(trigger, 'closePanel');
+        component.displayBy = null;
+        component.selectedValue = 'Mock Value';
+        component.onInputBlur(input, trigger);
+
+        expect(trigger.closePanel).toHaveBeenCalled();
+        expect(component.search.value).toEqual('Mock Value');
+      });
+    });
   });
 
   describe('Component HTML', () => {
@@ -196,48 +253,12 @@ describe('SearchSelectComponent', () => {
     });
 
     describe('Input Blur', () => {
-      const mockSelectedValue = 'Mock Value';
-  
-      beforeEach(() => {
-        component.selectValue(mockSelectedValue);
-      });
-  
-      it('should patch search the value to the selectedValue not selectingOption', async () => {
-        await matInput.setValue('Test Input');
+      it('should call onInputBlur', async () => {
+        spyOn(component, 'onInputBlur');
         await matInput.blur();
-  
-        expect(component.search.value).toEqual(mockSelectedValue);
-      });
-  
-      it('should keep search the current input value when selectingOption is true', async () => {
-        component.selectingOption = true;
-  
-        await matInput.setValue('Test Input');
-        await matInput.blur();
-  
-        expect(component.search.value).toEqual('Test Input');
-      });
-  
-      it('should call clear() when clearable is true and the search value is empty', async () => {
-        spyOn(component, 'clear');
-  
-        component.clearable = true;
-  
-        await matInput.setValue('');
-        await matInput.blur();
-  
-        expect(component.clear).toHaveBeenCalled();
-      });
-  
-      it('should patch search to the displayBy value when one is provided', async () => {
-        component.displayBy = (value: any) => {return value.text};
-        component.selectValue({text: 'Mock Value w/ displayBy'});
-  
-        await matInput.setValue('Test Input');
-        await matInput.blur();
-  
-        expect(component.search.value).toEqual('Mock Value w/ displayBy');
-      });
+
+        expect(component.onInputBlur).toHaveBeenCalled();
+      })
     });
   
     describe('Input Focus', () => {
