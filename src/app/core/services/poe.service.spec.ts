@@ -56,7 +56,7 @@ describe('PoeService', () => {
     });
 
     it('should properly set the poe items data', () => {
-      expect(service.getItems()).toEqual([{label: 'Accessories', entries: [{name: "Ahkeli's Meadow", text: "Ahkeli's Meadow Ruby Ring", type: "Ruby Ring"}]}]);
+      expect(service.getItems()).toEqual([{label: 'Accessories', entries: [{name: "Ahkeli's Meadow", text: "Ahkeli's Meadow Ruby Ring", type: "Ruby Ring", flags: { unique: true }}]}]);
     });
 
     it('should use GET method while retrieving POE Stats', () => {
@@ -64,7 +64,7 @@ describe('PoeService', () => {
     });
 
     it('should properly set the poe stats data', () => {
-      expect(service.getStats()).toEqual([{label: "Pseudo", entries: [{id:"pseudo.pseudo_total_cold_resistance",text:"+#% total to Cold Resistance"}]}]);
+      expect(service.getStats()).toEqual([{label: "Pseudo", entries: [{id:"pseudo.pseudo_total_cold_resistance",text:"+#% total to Cold Resistance", type: 'pseudo'}]}]);
     });
 
     it('should use GET method to retrieve POE static data', () => {
