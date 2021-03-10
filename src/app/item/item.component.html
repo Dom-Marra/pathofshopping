@@ -31,7 +31,7 @@
                     [item]="item.item"
                     [modProperties]="explicitModProperties"
                     class="item-detail">    
-                    <p *ngIf="item.item.corrupted" class="property corrupted">
+                    <p *ngIf="item.item.corrupted && !item.item.hybrid?.isVaalGem" class="property corrupted">
                         <span>Corrupted</span>
                     </p>
                     <p *ngIf="item.item.duplicated" class="property modified">
@@ -51,7 +51,10 @@
                         <item-modlist *ngIf="item.item.hybrid.explicitMods"
                                     [item]="item.item.hybrid"
                                     [modProperties]="explicitModProperties"
-                                    class="item-detail">     
+                                    class="item-detail">    
+                                    <p *ngIf="item.item.corrupted && item.item.hybrid.isVaalGem" class="property corrupted">
+                                        <span>Corrupted</span>
+                                    </p> 
                         </item-modlist>
                     </div>
                 </div>
