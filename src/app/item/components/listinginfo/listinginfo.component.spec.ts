@@ -33,7 +33,7 @@ class SortArrowStub {
   @Input() sortValue: 'asc' | 'desc';
 }
 
-fdescribe('ListinginfoComponent', () => {
+describe('ListinginfoComponent', () => {
   let component: ListinginfoComponent;
   let fixture: ComponentFixture<ListinginfoComponent>;
   let poeAPI: PoeService;
