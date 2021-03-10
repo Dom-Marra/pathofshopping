@@ -69,7 +69,8 @@ export class ItemComponent implements OnInit {
 
     this.poeService.fetch([this.item.id], queryParams).subscribe(                       //Get the item
       (res: any) => {                                   //Re-assign the item properties and update refresh status
-        Object.assign(this.item, res.result[0]);
+        if (this.item.listing?.copied) res.result[0].listing.copied = true;
+        this.item = Object.assign({}, res.result[0]);
         this.refreshing = false;
       },
       () => {                                           //Error while fetching, reset refresh status                                    

@@ -4,6 +4,7 @@ import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
 import { Component, Input } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatButtonModule } from '@angular/material/button';
+import { MatButtonHarness } from '@angular/material/button/testing';
 import { MatIconModule } from '@angular/material/icon';
 import { MatIconHarness } from '@angular/material/icon/testing';
 import { By } from '@angular/platform-browser';
@@ -32,11 +33,11 @@ class SortArrowStub {
   @Input() sortValue: 'asc' | 'desc';
 }
 
-describe('ListinginfoComponent', () => {
+fdescribe('ListinginfoComponent', () => {
   let component: ListinginfoComponent;
   let fixture: ComponentFixture<ListinginfoComponent>;
   let poeAPI: PoeService;
-  const mockListing = {
+  let mockListing = {
     account: {
       lastCharacterName: "Mock Name"
     },
@@ -318,11 +319,47 @@ describe('ListinginfoComponent', () => {
     });
 
     describe('whisper button', () => {
+      let matButton: MatButtonHarness;
+
+      afterEach(() => {
+        mockListing['copied'] = null;
+        fixture.detectChanges();
+      });
+
+      beforeEach(async () => {
+        matButton = await loader.getHarness(MatButtonHarness);
+      });
 
       it('should contain the listing whisper as the copy message', () => {
         let copyButton = fixture.debugElement.query(By.css('button'));
         let copyMessage = copyButton.injector.get(CdkCopyToClipboard);
         expect(copyMessage.text).toEqual("Mock Whisper");
+      });
+
+      it('sets the listing copied property true on click', async () => {
+        await matButton.click();
+        expect(mockListing['copied']).toBeTrue();
+      });
+
+      it('has \'copied\' class when the copied property is true', async () => {
+        mockListing['copied'] = true;
+        expect(await (await matButton.host()).hasClass('copied')).toBeTrue();
+      })
+    });
+
+    describe('Whisper Button Icon', () => {
+      afterEach(() => {
+        mockListing['copied'] = null;
+        fixture.detectChanges();
+      });
+
+      it('has icon \'message\' when the copied property is false/null', async () => {
+        await expectAsync(loader.getHarness(MatIconHarness.with({name: 'message'}))).toBeResolved();
+      });
+
+      it('has icon \'check_circle\' when the copied property is true', async () => {
+        mockListing['copied'] = true;
+        await expectAsync(loader.getHarness(MatIconHarness.with({name: 'check_circle'}))).toBeResolved();
       });
     });
   });

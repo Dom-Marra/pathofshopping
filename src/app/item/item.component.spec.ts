@@ -101,6 +101,7 @@ describe('ItemComponent', () => {
         component.queryProps = mockQueryProps;
         item['id'] = null;
         component.item = item;
+        item.listing['copied'] = null;
       });
 
       it('does not call the poe service if the queryProps are null', () => {
@@ -121,7 +122,7 @@ describe('ItemComponent', () => {
         expect(poeService.fetch).toHaveBeenCalledWith(['mockID'], "?query=mockID&mockPseudos");
       });
 
-      it('assigns propertys to the item on successful fetch', () => {
+      it('sets the item as the item from the fetch', () => {
         spyOn(poeService, 'fetch').and.returnValue(of({
           result: [{
             mockProp: 'mockValue'
@@ -130,7 +131,21 @@ describe('ItemComponent', () => {
 
         item['id'] = 'mockID';
         component.refresh();
-        expect(component.item).toEqual(jasmine.objectContaining({mockProp: 'mockValue'}));
+        expect(component.item).toEqual({mockProp: 'mockValue'});
+      });
+
+      it('keeps the item listing copied property if its true', () => {
+        spyOn(poeService, 'fetch').and.returnValue(of({
+          result: [{
+            mockProp: 'mockValue',
+            listing: {}
+          }]
+        }));
+
+        item['id'] = 'mockID';
+        item.listing['copied'] = true;
+        component.refresh();
+        expect(component.item).toEqual({mockProp: 'mockValue', listing: {copied: true}});
       });
     });
   });

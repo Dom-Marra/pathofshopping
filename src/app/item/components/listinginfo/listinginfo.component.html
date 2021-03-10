@@ -21,7 +21,11 @@
                         [sortValue]="currentSort.currentSort.value.sortValue">
         </item-sortarrow>
     </div>
-    <button mat-button [cdkCopyToClipboard]="listing.whisper" class="listing-info mat-small">
-        <mat-icon>message</mat-icon>
+    <button mat-icon-button
+            class="whisper-button listing-info mat-small" 
+            [class.copied]="listing.copied" 
+            [cdkCopyToClipboard]="listing.whisper" 
+            (cdkCopyToClipboardCopied)="listing['copied'] = true">
+        <mat-icon>{{listing.copied ? 'check_circle' : 'message'}}</mat-icon>
     </button>
 </div>
