@@ -1,7 +1,7 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter, SimpleChanges } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { StatForm } from 'src/app/core/classes/stat-form';
-import { poeCategorizedStats } from 'src/app/core/models/poeCategorizedStats';
+import { poeCategorizedStats, poeStat, poeStatOption } from 'src/app/core/models/poeAPIStats';
 import { PoeService } from 'src/app/core/services/poe.service';
 
 @Component({
@@ -15,7 +15,7 @@ export class StatselectComponent implements OnInit {
   @Input() isWeight: boolean = false;                                               //Whether this stat is under a wieghted sum filter group
   @Input() statGroup: StatForm;                                                     //Stat data that belongs to this selector
   
-  public filteredStatOptions: poeCategorizedStats['stats'][0]['option'];       //Filtered Stat Options
+  public filteredStatOptions: poeStatOption;                                        //Filtered Stat Options
   public statsToSearch: Array<poeCategorizedStats>;
 
   constructor(private poeAPI: PoeService) { 
@@ -25,7 +25,7 @@ export class StatselectComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  ngOnChanges(changes) {
+  ngOnChanges(changes: SimpleChanges) {
     if (changes.isWeight) {                         //Toggle weighted on isWeighted change
       this.makeWeighted(this.isWeight);
     }
@@ -45,7 +45,7 @@ export class StatselectComponent implements OnInit {
    * @returns
    *        string: text value of the stat
    */
-  public statDisplayBy(stat: poeCategorizedStats['stats'][0]) {
+  public statDisplayBy(stat: poeStat) {
     return stat?.text;
   }
 
@@ -57,7 +57,7 @@ export class StatselectComponent implements OnInit {
    * @returns
    *        string: text value of the option
    */
-  public optionDisplayBy(option: poeCategorizedStats['stats'][0]['option'][0]) {
+  public optionDisplayBy(option: poeStatOption) {
     return option?.text;
   }
 
@@ -77,8 +77,8 @@ export class StatselectComponent implements OnInit {
     if (!searchText) return values;
 
     let filteredStats = values.map(statCategory => ({
-      category: statCategory.category, 
-      stats: statCategory.stats.filter(stat => {
+      label: statCategory.label, 
+      entries: statCategory.entries.filter(stat => {
         const text = searchText.toLowerCase().trim().split(/\s+/);
 
         return text.filter(text => {
@@ -87,7 +87,7 @@ export class StatselectComponent implements OnInit {
       })
     }));
 
-    return filteredStats.filter(statSearch => statSearch.stats.length > 0);
+    return filteredStats.filter(statSearch => statSearch.entries.length > 0);
   }
 
   /**
@@ -96,11 +96,11 @@ export class StatselectComponent implements OnInit {
    * @param searchText 
    *        string: text to filter by
    * @param values
-   *         poeCategorizedStats['stats'][0]['option']: The options to filter by
+   *         Array<poeStatOption>: The options to filter by
    * 
-   * @returns  poeCategorizedStats['stats'][0]['option']: The filtered results
+   * @returns  Array<poeStatOption>: The filtered results
    */
-  public filterStatOptions(searchText: string, values: poeCategorizedStats['stats'][0]['option']) {
+  public filterStatOptions(searchText: string, values: Array<poeStatOption>) {
     let statOptions = values.filter(stat => {
       return stat.text.toLowerCase().indexOf(searchText.toLowerCase()) != -1;
     });
@@ -127,8 +127,11 @@ export class StatselectComponent implements OnInit {
    * 
    * Will reset option control in value form group if the stat is min max based,
    * or reset the min max controls in said form group if said stat is option based
+   * 
+   * @param stat
+   *        stat to set
    */
-  public setStat(stat: poeCategorizedStats['stats'][0]) {
+  public setStat(stat: poeStat) {
       this.statGroup.controls.id.patchValue(stat.id);
       this.statGroup.controls.selectedStat.patchValue(stat);
 
@@ -148,7 +151,7 @@ export class StatselectComponent implements OnInit {
    * @param option 
    *          option to set
    */
-  public setStatOption(option: poeCategorizedStats['stats'][0]['option'][0]) {
+  public setStatOption(option: poeStatOption) {
     this.statGroup.controls.selectedStatOption.patchValue(option);
     this.statGroup['controls'].value['controls'].option.patchValue(option.id);
   }
