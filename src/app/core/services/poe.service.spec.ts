@@ -153,4 +153,13 @@ describe('PoeService', () => {
       httpTestingController.verify();
     });
   });
+
+  describe('getStats', () => {
+
+    it('returns the stat that matches the provided ID', () => {
+      let statToSearchFor = service.getStats()[0].entries[0];
+
+      expect(service.getStatByID(statToSearchFor.id)).toEqual(statToSearchFor);
+    });
+  });
 });
