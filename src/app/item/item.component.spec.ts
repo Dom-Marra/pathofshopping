@@ -7,9 +7,9 @@ import { MatButtonHarness } from '@angular/material/button/testing';
 import { MatIconModule } from '@angular/material/icon';
 import { MatIconHarness } from '@angular/material/icon/testing';
 import { By } from '@angular/platform-browser';
-import { Observable, of } from 'rxjs';
+import { of } from 'rxjs';
 import { modProperties } from 'src/app/item/models/modProperties';
-import { queryProps } from '../core/classes/resultdata';
+import { FetchedProperties } from '../core/models/fetchedproperties.model';
 import { PoeService } from '../core/services/poe.service';
 
 import { ItemComponent } from './item.component';
@@ -60,10 +60,10 @@ describe('ItemComponent', () => {
     },
     listing: { }
   };
-  let mockQueryProps: queryProps = {
+  let mockQueryProps: FetchedProperties = {
     id: 'mockID',
-    res: [],
-    psuedos: 'mockPseudos',
+    result: [],
+    pseudos: 'mockPseudos',
     inexact: false,
     total: 1
   };
