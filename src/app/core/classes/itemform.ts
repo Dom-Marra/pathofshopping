@@ -100,7 +100,7 @@ export class ItemForm {
     })
 
     public itemForm = new FormGroup({                   //The main item data
-        itemName: new Defaultvaluecontrol('New Item', 'New Item'),
+        itemName: new FormControl('New Item'),
         queryForm: new FormGroup({
             query: new FormGroup({
                 name: new FormControl(''),
@@ -427,7 +427,8 @@ export class ItemForm {
      */
     public clear() {
         this.results = null;
-        (this.itemForm.get('queryForm.query.stats') as FormArray).clear();
         this.itemForm.reset('');
+        this.itemForm.controls.itemName.patchValue('New Item');
+        (this.itemForm.get('queryForm.query.stats') as FormArray).clear();
     }
 }
