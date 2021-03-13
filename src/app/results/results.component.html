@@ -1,22 +1,22 @@
-<div *ngIf="!inProgress && resultData.queryProps" class="results-container">
+<div *ngIf="!inProgress" class="results-container">
     <div class="item-paginator-container">
         <div class="toolbar-text">
-            <span class="mat-small">Total Items found: {{resultData.queryProps.total}}</span>
-            <span class="mat-small inexact" *ngIf="resultData.queryProps.inexact">&nbsp; (Inexact Search)</span>
+            <span class="mat-small">Total Items found: {{this._results.fetchedResults.total}}</span>
+            <span class="mat-small inexact" *ngIf="this._results.fetchedResults.inexact">&nbsp; (Inexact Search)</span>
         </div>
         <h3 class="results-header">Results</h3>
-        <mat-paginator #itemsPaginator [pageIndex]="this.resultData.pageIndex" [disabled]="inProgress"
-            class="items-paginator" [length]="resultData.queryProps.res.length" hidePageSize="true" [pageSize]="10"
+        <mat-paginator #itemsPaginator [pageIndex]="this._results.pageData.pageIndex" [disabled]="inProgress"
+            class="items-paginator" [length]="this._results.fetchedResults.result.length" hidePageSize="true" [pageSize]="10"
             (page)="changeIndices($event)">
         </mat-paginator>
     </div>
     <div appEqualflex class="query-results-container">
-        <pos-item *ngFor="let item of this.resultData.queryData | slice:this.resultData.startIndex:this.resultData.endIndex"
-            class="query-item" [item]='item' [queryProps]="this.resultData.queryProps">
+        <pos-item *ngFor="let item of this._results.retrievedItems | slice:this._results.pageData.startIndex:this._results.pageData.endIndex"
+            class="query-item" [item]='item' [queryProps]="this._results.fetchedResults">
         </pos-item>
     </div>
-    <mat-paginator #itemsPaginator [pageIndex]="this.resultData.pageIndex" [disabled]="inProgress"
-        class="items-paginator" [length]="resultData.queryProps.res.length" hidePageSize="true" [pageSize]="10"
+    <mat-paginator #itemsPaginator [pageIndex]="this._results.pageData.pageIndex" [disabled]="inProgress"
+        class="items-paginator" [length]="this._results.fetchedResults.result.length" hidePageSize="true" [pageSize]="10"
         (page)="changeIndices($event)"></mat-paginator>
 </div>
 <mat-progress-bar *ngIf="inProgress" class="item-fetch-progress-bar" mode="indeterminate"></mat-progress-bar>

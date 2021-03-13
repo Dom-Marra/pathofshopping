@@ -3,7 +3,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
 import { BehaviorSubject, throwError } from 'rxjs';
 import { poeCategorizedItems } from '../models/poeAPIItems';
-import { poeCategorizedStats } from '../models/poeAPIStats';
+import { poeCategorizedStats, poeStat } from '../models/poeAPIStats';
 import { simpleData } from '../models/simpleData';
 import { poeCategorizedStatic } from '../models/poeAPIStatic';
 import { poeAPIResult } from '../models/poeAPIResult';
@@ -94,6 +94,26 @@ export class PoeService {
    */
   public getStats(): Array<poeCategorizedStats> {
     return this.poeStats;
+  }
+
+  /**
+   * Returns a stat that matches the provided ID
+   * 
+   * @param id
+   *        sting: ID of the stat 
+   * @returns 
+   *        poeStat
+   */
+  public getStatByID(id: string): poeStat {
+    let statToReturn: poeStat;
+
+    this.poeStats.forEach((statCategory: poeCategorizedStats) => {
+      statCategory.entries.forEach((stat: poeStat) => {
+        if (stat.id == id) statToReturn = stat;
+      });
+    });
+    
+    return statToReturn;
   }
 
   /**

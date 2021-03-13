@@ -10,7 +10,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { PoeService } from 'src/app/core/services/poe.service';
 import { SimpleDataService } from 'src/app/core/services/simpledata.service';
 import { simpleData } from 'src/app/core/models/simpleData';
-import { Item } from 'src/app/core/classes/item';
+import { ItemForm } from 'src/app/core/classes/itemform';
 
 @Component({
   selector: 'app-shoppinglist',
@@ -25,7 +25,7 @@ export class ShoppinglistComponent implements OnInit {
   public poeLoading: boolean;                                       //If the poe api data is loading
   public leagues: Array<simpleData> = [];                           //Used for iterating over leaguess
   public editShoppingListName: boolean = false;                     //Whether the shopping list input is disabled or not
-  public items: Array<Item> = [];                                   //Stores item data
+  public items: Array<ItemForm> = [];                               //Stores ItemForms
 
   public errMsg: string;                                            //Error Message to display
 
@@ -50,6 +50,10 @@ export class ShoppinglistComponent implements OnInit {
         if (loaded) {
           this.leagues = this.poeAPI.getLeagues();
           poeAPILoad.unsubscribe();
+
+          if (this.shoppingList.controls.league.value == null) {
+            this.shoppingList.controls.league.patchValue(this.leagues[0].id);
+          }
         }
       },
       (error) => {
@@ -69,12 +73,6 @@ export class ShoppinglistComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  ngDoCheck() {
-    if (this.shoppingList.controls.league.value == null && this.leagues.length > 0) {
-      this.shoppingList.controls.league.patchValue(this.leagues[0].id);
-    }
-  }
-
   ngAfterViewInit() {
     this.shoppingListNameInput.changes.subscribe(() => {        //focus name input element after processed by ngIf
       
@@ -92,7 +90,7 @@ export class ShoppinglistComponent implements OnInit {
    *        Saved data to initiate the new item with
    */
   public addItem(itemSaveData?: itemSaveData) {
-    let item: Item = new Item(itemSaveData);
+    let item: ItemForm = new ItemForm(itemSaveData);
     this.items.push(item);
   }
 
@@ -102,7 +100,7 @@ export class ShoppinglistComponent implements OnInit {
    * @param itemData 
    *        Item to delete
    */
-  public deleteItem(itemData: Item) {
+  public deleteItem(itemData: ItemForm) {
     this.items.splice(this.items.indexOf(itemData), 1);
   }
 
