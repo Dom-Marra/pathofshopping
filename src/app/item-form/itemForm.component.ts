@@ -1,15 +1,16 @@
 import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnInit, Output, QueryList, ViewChildren } from '@angular/core';
-import { FormGroup, FormControl, FormArray } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { PoeService } from 'src/app/core/services/poe.service';
 import { simpleData } from 'src/app/core/models/simpleData';
 import { SimpleDataService } from 'src/app/core/services/simpledata.service';
-import { Subscription } from 'rxjs';
 import { CurrentsortService } from 'src/app/core/services/currentsort.service';
 import { currentSortProperties } from 'src/app/core/models/currentSortProperties';
-import { Item } from '../core/classes/item';
+import { ItemForm } from '../core/classes/itemform';
 import { StatFilterForm } from '../core/classes/stat-filter-form';
 import { skip, take } from 'rxjs/operators';
+import { FetchedProperties } from '../core/models/fetchedproperties.model';
+import { Results } from '../core/classes/results';
+import { PoeAPISearchProperties } from '../core/models/poeapisearchproperties.model';
 
 @Component({
   selector: 'pos-itemForm',
@@ -18,10 +19,10 @@ import { skip, take } from 'rxjs/operators';
 })
 export class ItemFormComponent implements OnInit {
 
-  @Output() deleteItem: EventEmitter<Item> = new EventEmitter<Item>();
-  @Input() itemData: Item;
-  @Input() league: string;
-  @ViewChildren("itemNameInput") itemNameInput: QueryList<ElementRef>;                            //Item name input element
+  @Output() deleteItem: EventEmitter<ItemForm> = new EventEmitter<ItemForm>();  //Event emitter for removal
+  @Input() itemForm: ItemForm;                                                  //Item Form 
+  @Input() league: string;                                                      //League selected
+  @ViewChildren("itemNameInput") itemNameInput: QueryList<ElementRef>;          //Item name input element
 
   public editName: boolean = false;                         //Whether name is in edit mode or not
   public showResults: boolean = false;                      //Used to show results tab
@@ -52,7 +53,8 @@ export class ItemFormComponent implements OnInit {
       skip(1)
     ).subscribe((val: currentSortProperties) => {
       if (!val) return;
-      this.setSortBy(val.sortKey, val.sortValue);
+      let sortValue = this.itemForm.setSortBy(val.sortKey, val.sortValue);
+      if (sortValue) val.sortValue = sortValue;
       this.queryIDs();
     });
   }
@@ -61,27 +63,16 @@ export class ItemFormComponent implements OnInit {
    * Fetches item IDs from the POE API using the query form data
    */
   public queryIDs() {
-    let data = this.removeEmpty({                               //create query data
-      query: (this.itemData.itemForm.get('queryForm.query') as FormGroup).value,
-      sort: (this.itemData.itemForm.get('queryForm.sort') as FormGroup).value
-    }); 
-
-    this.itemData.resultData.reset();                           //Reset previous results
+    let data = this.itemForm.getDataForQuery();
 
     this.poe.search(data, this.league).pipe(
       take(1)
     ).subscribe(
-      (fetch: any) => {                                        //Fetch items based on data
-        if (fetch.result != null && fetch.result.length > 0) {
+      (fetch: FetchedProperties) => {                             //Fetch items based on data
 
-          //Set item query data
-          this.itemData.resultData.queryProps = {
-            psuedos: this.getPsuedoQuery(data),
-            res: fetch.result,
-            total: fetch.total,
-            inexact: fetch.inexact,
-            id: fetch.id
-          }
+        if (fetch.result != null && fetch.result.length > 0) {    //If there are results set the result data
+          this.itemForm.results = new Results(fetch);
+          this.itemForm.results.fetchedResults.pseudos = this.getPseudoParams(data); 
 
           //Show results and close sub
           this.showResults = true;
@@ -109,98 +100,46 @@ export class ItemFormComponent implements OnInit {
   }
 
   /**
-   * Returns the psuedo query param data
+   * Returns the pseudo query param data
    * 
    * @param data
-   *        object: raw data of the query form 
+   *        PoeAPISearchProperties
    */
-  private getPsuedoQuery(data: any): string {
-    let psuedos: string = "";                                             //Pseudo mod params
+  private getPseudoParams(data: PoeAPISearchProperties): string {
+    let pseudos: string = "";                                             //Pseudo mod params
 
-    data.query.stats?.forEach(statGroup => {                              //Add pseudo mods to psueod mod params
+    data.query.stats?.forEach(statGroup => {                              //Add pseudo mods
       statGroup.filters?.forEach((filter, i) => {
-        if ((filter.id as string).includes('pseudo')) 
-          psuedos = psuedos.concat("pseudos[]=" + filter.id + (statGroup.filters[i + 1] ? '&' : ''));
+        if (this.poe.getStatByID(filter.id)?.type == 'pseudo') 
+          pseudos = pseudos.concat("pseudos[]=" + filter.id + (statGroup.filters[i + 1] ? '&' : ''));
       });
     });
 
-    return psuedos;
-  }
-
-  /**
-   * Removes empty objects and empty object fields
-   * 
-   * @param obj 
-   *        Object: object to remove empty fields from
-   */
-  private removeEmpty(obj: any): any {
-
-    Object.keys(obj).forEach(key => {                                                       //cycle through fields
-      if (obj[key] && typeof obj[key] === 'object') this.removeEmpty(obj[key]);             //If it has nested objects cycle through
-      else if (obj[key] == null || obj[key] == "all" || obj[key] == "")  {                  //delete field if empty, or has a value of all
-        if (Array.isArray(obj)) obj.splice(parseInt(key), 1);
-        else delete obj[key];
-      }
-
-      if (!obj[key] || typeof obj[key] !== "object") return;                                //return if the current value is not a object
-  
-      if (Object.keys(obj[key]).length === 0) delete obj[key];                              //delete empty objects
-    });
-
-    return obj;
-  }
-
-  /**
-   * Sets the sort
-   * 
-   * @param key
-   *        sort key, for example the hash of a stat
-   * @param value 
-   *        sort value, either 'asc' for ascending, or 'desc' for descending
-   */
-  private setSortBy(key: string, value?: 'asc' | 'desc') {
-    let currentSort = Object.keys((this.itemData.itemForm.get('queryForm.sort') as FormGroup).getRawValue())[0];   //The current key in use
-
-    if (!value && currentSort != key) {             //Set the value for the sort to desc if its a new sort
-      value = 'desc';
-      this.currentSort.currentSort.value.sortValue = 'desc';
-    } else if (currentSort == key && !value) {      //Switch the value for the sort if the sort is the same but no value is provided
-      this.itemData.itemForm.get('queryForm.sort')['controls'][currentSort].value == 'asc' ? value = 'desc' : value = 'asc';
-      this.currentSort.currentSort.value.sortValue = (value as ('asc' | 'desc'));
-    }
-
-    if (currentSort == key) {
-      this.itemData.itemForm.get('queryForm.sort')['controls'][currentSort].patchValue(value);   //Alternate value if key is the same
-    } else {
-      (this.itemData.itemForm.get('queryForm.sort') as FormGroup).removeControl(currentSort);                                      //Remove old control
-      (this.itemData.itemForm.get('queryForm.sort') as FormGroup).addControl(key, new FormControl(value));                         //Add new control
-    }
+    return pseudos;
   }
 
   /**
    * Adds a stat filter to the item data
    */
   public addStatGroup() {
-    let newStatFilter = new StatFilterForm();
-    (this.itemData.itemForm.get('queryForm.query.stats') as FormArray).push(newStatFilter);
+    this.itemForm.addStatFilterForm();
   }
 
   /**
    * Removes a stat filter from the item
    * 
-   * @param statFilter
+   * @param form
    *        stat filter to remove 
    */
-  public removeStatFilter(statFilter: FormGroup) {
-    let statsArryayIndex = (this.itemData.itemForm.get('queryForm.query.stats') as FormArray).controls.indexOf(statFilter);
-    (this.itemData.itemForm.get('queryForm.query.stats') as FormArray).removeAt(statsArryayIndex);
+  public removeStatFilter(form: StatFilterForm) {
+    this.itemForm.removeStatFilterForm(form);
   }
 
   /**
    * Clears the item
    */
   public clear() {
-    this.itemData.clear();
+    this.itemForm.clear();
     this.showResults = false;
   }
 
@@ -208,6 +147,6 @@ export class ItemFormComponent implements OnInit {
    * Deletes the item
    */
   public remove() {
-    this.deleteItem.emit(this.itemData);
+    this.deleteItem.emit(this.itemForm);
   }
 }
