@@ -19,7 +19,9 @@ import { simpleData } from 'src/app/core/models/simpleData';
 import { CurrentsortService } from 'src/app/core/services/currentsort.service';
 import { PoeService } from 'src/app/core/services/poe.service';
 import { SimpleDataService } from 'src/app/core/services/simpledata.service';
-import { Item } from '../core/classes/item';
+import { ItemForm } from '../core/classes/itemform';
+import { Results } from '../core/classes/results';
+import { StatFilterForm } from '../core/classes/stat-filter-form';
 
 import { ItemFormComponent } from './itemForm.component';
 
@@ -31,6 +33,8 @@ class PoeServiceStub {
   public search(data: any, league: string) {
     return of({});
   }
+
+  public getStatByID() { }
 }
 
 class CurrentsortServiceStub {
@@ -60,7 +64,7 @@ class SearchSelectStubComponent {
 
 @Component({selector: 'pos-results', template: ''})
 class ResultsComponent {
-  @Input() resultData: any;
+  @Input() results: any;
 }
 
 @Component({selector: 'itemForm-typefilters'})
@@ -138,7 +142,7 @@ describe('ItemFormComponent', () => {
     currentsortService = TestBed.inject(CurrentsortService);
 
     component.league = mockLeague;
-    component.itemData = new Item();
+    component.itemForm = new ItemForm();
 
     fixture.detectChanges();
   });
@@ -174,6 +178,20 @@ describe('ItemFormComponent', () => {
     });
 
     describe('Currentsort service currentSort value change', () => {
+
+      it('should call set setSortBy on the item', () => {
+        spyOn(component.itemForm, 'setSortBy');
+        currentsortService.currentSort.next({sortKey: 'key'});
+
+        expect(component.itemForm.setSortBy).toHaveBeenCalledWith('key', undefined);
+      });
+
+      it('should set the sortValue of the current sort to the returned value of the setSortBy if its not null', () => {
+        spyOn(component.itemForm, 'setSortBy').and.returnValue('asc');
+        currentsortService.currentSort.next({sortKey: 'key', sortValue: 'desc'});
+
+        expect(currentsortService.currentSort.value.sortValue).toEqual('asc');
+      });
       
       it('should call queryIDs', () => {
         spyOn(component, 'queryIDs');
@@ -183,13 +201,7 @@ describe('ItemFormComponent', () => {
       })
     });
 
-    describe('queryIDs', () =>{
-      it('should reset previous resultData', () => {
-        spyOn(component.itemData.resultData, 'reset');
-        component.queryIDs();
-
-        expect(component.itemData.resultData.reset).toHaveBeenCalled();
-      });
+    describe('queryIDs', () => {
 
       it('should use the PoeService search method', () => {
         spyOn(poeService, 'search').and.returnValue(of({}));
@@ -198,17 +210,12 @@ describe('ItemFormComponent', () => {
         expect(poeService.search).toHaveBeenCalled();
       });
 
-      it('should set the queryProps of the itemData resultData if the results of the search is valid', () => {
-        (component.itemData.itemForm.get('queryForm.query.stats') as FormArray).push(new FormGroup({
+      it('instantiates a new results object if the results of the search is valid', () => {
+        component.itemForm.results = null;
+        (component.itemForm.itemForm.get('queryForm.query.stats') as FormArray).push(new FormGroup({
           filters: new FormArray([ 
             new FormGroup({
               id: new FormControl('pseudo.stat')
-            }),
-            new FormGroup({
-              id: new FormControl('explicit.stat')
-            }),
-            new FormGroup({
-              id: new FormControl('pseudo.stat2')
             })
           ])
         }));
@@ -222,12 +229,13 @@ describe('ItemFormComponent', () => {
           id: 'Mock'
         };
 
+        spyOn(poeService, 'getStatByID').and.returnValue({type: 'pseudo', id: '', text: ''});
         spyOn(poeService, 'search').and.returnValue(of(fetch));
         component.queryIDs();
 
-        expect(component.itemData.resultData.queryProps).toEqual({
-          psuedos: 'pseudos[]=pseudo.stat&pseudos[]=pseudo.stat2',
-          res: fetch.result,
+        expect(component.itemForm.results.fetchedResults).toEqual({
+          pseudos: 'pseudos[]=pseudo.stat',
+          result: fetch.result,
           total: fetch.total,
           inexact: fetch.inexact,
           id: fetch.id
@@ -282,33 +290,27 @@ describe('ItemFormComponent', () => {
     })
 
     describe('addStatGroup method', () => {
-      it('should add a new statfilterform to the item data query form stats', () => {
-        spyOn(component.itemData.itemForm.get('queryForm.query.stats') as FormArray, 'push').and.callThrough();
+      it('calls addStatFilterForm on the itemForm', () => {
+        spyOn(component.itemForm, 'addStatFilterForm');
         component.addStatGroup();
-        expect((component.itemData.itemForm.get('queryForm.query.stats') as FormArray).push).toHaveBeenCalled();
-        expect((component.itemData.itemForm.get('queryForm.query.stats') as FormArray).length).toEqual(1);
+        expect(component.itemForm.addStatFilterForm).toHaveBeenCalled();
       });
     });
 
     describe('removeStatFilter', () => {
-      it('should remove the specified statfilter', () => {
-        component.addStatGroup();
-        component.addStatGroup();
-
-        let statFilterToRemove = (component.itemData.itemForm.get('queryForm.query.stats') as FormArray).controls[0];
-        component.removeStatFilter(statFilterToRemove as FormGroup);
-
-        expect((component.itemData.itemForm.get('queryForm.query.stats') as FormArray).length).toBe(1);
-        expect((component.itemData.itemForm.get('queryForm.query.stats') as FormArray).controls.indexOf(statFilterToRemove)).toBe(-1);
+      it('calls removeStatFilterForm on the itemForm', () => {
+        spyOn(component.itemForm, 'removeStatFilterForm');
+        component.removeStatFilter(new StatFilterForm());
+        expect(component.itemForm.removeStatFilterForm).toHaveBeenCalled();
       });
     });
 
     describe('clear', () => {
 
-      it('should call clear on the itemData', () => {
-        spyOn(component.itemData, 'clear');
+      it('should call clear on the itemForm', () => {
+        spyOn(component.itemForm, 'clear');
         component.clear();
-        expect(component.itemData.clear).toHaveBeenCalled();
+        expect(component.itemForm.clear).toHaveBeenCalled();
       });
 
       it('should set the showResults to false', () => {
@@ -321,7 +323,7 @@ describe('ItemFormComponent', () => {
       it('should emit remove event with the item data', () => {
         spyOn(component.deleteItem, 'emit');
         component.remove();
-        expect(component.deleteItem.emit).toHaveBeenCalledWith(component.itemData);
+        expect(component.deleteItem.emit).toHaveBeenCalledWith(component.itemForm);
       });
     });
   });
@@ -360,7 +362,7 @@ describe('ItemFormComponent', () => {
 
       it('should have the name header text to be the text of the itemname control if it has a value', () => {
         const name = 'Mock Name';
-        component.itemData.itemForm.controls.itemName.patchValue(name);
+        component.itemForm.itemForm.controls.itemName.patchValue(name);
         fixture.detectChanges();
         let header = fixture.debugElement.query(By.css('.item-name')).query(By.css('h4'));
         let text = header.nativeElement.textContent;
@@ -368,9 +370,9 @@ describe('ItemFormComponent', () => {
         expect(text).toEqual(name);
       });
 
-      it('should have the name header text to be \'New Item\' if the itemname controls is empty', () => {
+      it('should have the name header text to be \'Item Name\' if the itemname controls is empty', () => {
         const name = 'Item Name';
-        component.itemData.itemForm.controls.itemName.patchValue('');
+        component.itemForm.itemForm.controls.itemName.patchValue('');
         fixture.detectChanges();
         let header = fixture.debugElement.query(By.css('.item-name')).query(By.css('h4'));
         let text = header.nativeElement.textContent;
@@ -414,7 +416,7 @@ describe('ItemFormComponent', () => {
         await input.setValue(name);
         await input.blur();
 
-        expect(component.itemData.itemForm.value.itemName).toEqual(name);
+        expect(component.itemForm.itemForm.value.itemName).toEqual(name);
       });
 
       it('should blur the name input on enter', async () => {
@@ -447,7 +449,7 @@ describe('ItemFormComponent', () => {
       let filterGroup: FormGroup;
 
       beforeEach(() => {
-        queryForm = component.itemData.itemForm.controls.queryForm as FormGroup;
+        queryForm = component.itemForm.itemForm.controls.queryForm as FormGroup;
         filterGroup = queryForm.get('query.filters') as FormGroup;
       });
 
@@ -478,17 +480,17 @@ describe('ItemFormComponent', () => {
 
       it('should use the influenceForm group from the misc_filters as the influenceForm input on the specialbases component', () => {
         let specialbasesComp = fixture.debugElement.query(By.css('itemForm-specialbases')).componentInstance as SpecialBasesStub;
-        expect(specialbasesComp.influenceForm).toEqual(component.itemData.influenceForm);
+        expect(specialbasesComp.influenceForm).toEqual(component.itemForm.influenceForm);
       });
 
       it('should use the gemForm group from the misc_filters as the gemForm input on the gemfilters', () =>{
         let gemFiltersComp = fixture.debugElement.query(By.css('itemForm-gemfilters')).componentInstance as GemFiltersStub;
-        expect(gemFiltersComp.gemForm).toEqual(component.itemData.gemForm);
+        expect(gemFiltersComp.gemForm).toEqual(component.itemForm.gemForm);
       });
 
       it('should use the otherFrom group from the misc_filters as the otherForm input on the otherFilters', () =>{
         let otherFiltersComp = fixture.debugElement.query(By.css('itemForm-otherfilters')).componentInstance as OtherFiltersStub;
-        expect(otherFiltersComp.otherForm).toEqual(component.itemData.otherForm);
+        expect(otherFiltersComp.otherForm).toEqual(component.itemForm.otherForm);
       });
 
       it('should use the trade_filters form group as the tradeForm input on tradefilters', () => {
@@ -571,29 +573,29 @@ describe('ItemFormComponent', () => {
     });
 
     describe('result show/hide button', () => {
-      const mockQueryprops = {psuedos: 'Mock Value', res: ['Mock Res'], total: 1, inexact: true, id: 'MockId'};
+      const mockFetchedData = {pseudos: 'Mock Value', result: ['Mock Res'], total: 1, inexact: true, id: 'MockId'};
 
-      it('should not exist if showResult is false and the itemData resultData queryProps is null', async () =>{
+      it('should not exist if showResult is false and the itemForm results is null', async () =>{
         component.showResults = false;
-        component.itemData.resultData.queryProps = null;
+        component.itemForm.results = null;
         await expectAsync(loader.getHarness(MatButtonHarness.with({text: 'expand_less' + ('Show Results' || 'Hide Results')}))).toBeRejectedWithError();
       });
 
       it('should be present with text \'Hide Results\' if showResult istrue', async () => {
         component.showResults = true;
-        component.itemData.resultData.queryProps = null;
+        component.itemForm.results = null;
         expect(await loader.getHarness(MatButtonHarness.with({text: 'expand_less' + 'Hide Results'}))).toBeTruthy();
       });
 
-      it('should be present with text \'Show Results\' if showResult is false but the queryProps is present', async () => {
+      it('should be present with text \'Show Results\' if showResult is false but the results is present', async () => {
         component.showResults = false;
-        component.itemData.resultData.queryProps = mockQueryprops;
+        component.itemForm.results = new Results(mockFetchedData);
         expect(await loader.getHarness(MatButtonHarness.with({text: 'expand_less' + 'Show Results'}))).toBeTruthy();
       });
 
-      it('should have the rotate class on the on the mat icon when showResult is false and the queryProps is present', async () => {
+      it('should have the rotate class on the on the mat icon when showResult is false and the results is present', async () => {
         component.showResults = false;
-        component.itemData.resultData.queryProps = mockQueryprops;
+        component.itemForm.results = new Results(mockFetchedData);
         let iconHost = await (await loader.getHarness(MatIconHarness.with({name: 'expand_less'}))).host();
         expect(await iconHost.hasClass('rotate')).toBeTrue();
       });
@@ -614,13 +616,13 @@ describe('ItemFormComponent', () => {
         expect(searchSelectComp.values).toEqual(component.statusOptions);
         expect(searchSelectComp.filterBy).toEqual(simpleDataService.filterSimpleData);
         expect(searchSelectComp.displayBy).toEqual(simpleDataService.displayByText);
-        expect(searchSelectComp.setValue).toEqual(simpleDataService.getSelectedValue(component.itemData.itemForm['controls'].queryForm['controls'].query['controls'].status['controls'].option.value, component.statusOptions));
+        expect(searchSelectComp.setValue).toEqual(simpleDataService.getSelectedValue(component.itemForm.itemForm['controls'].queryForm['controls'].query['controls'].status['controls'].option.value, component.statusOptions));
       });
 
       it('should patch the status control to the value of the seleced event', () => {
         fixture.debugElement.query(By.css('app-searchselect')).triggerEventHandler('selected', {id: 'Mock Value'});
         fixture.detectChanges();
-        expect(component.itemData.itemForm.get('queryForm.query.status.option').value).toEqual('Mock Value');
+        expect(component.itemForm.itemForm.get('queryForm.query.status.option').value).toEqual('Mock Value');
       });
     });
 
@@ -645,7 +647,7 @@ describe('ItemFormComponent', () => {
         fixture.detectChanges();
         let resultsComp = fixture.debugElement.query(By.css('pos-results')).componentInstance as ResultsComponent;
 
-        expect(resultsComp.resultData).toEqual(component.itemData.resultData);
+        expect(resultsComp.results).toEqual(component.itemForm.results);
       });
     });
   });
