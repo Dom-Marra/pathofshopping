@@ -1,12 +1,15 @@
 import { FormArray, FormControl, FormGroup } from "@angular/forms";
 import { itemSaveData } from "src/app/core/models/itemSaveData";
+import { currentSortProperties } from "../models/currentSortProperties";
+import { PoeAPISearchProperties } from "../models/poeapisearchproperties.model";
 import { Defaultvaluecontrol } from "./defaultvaluecontrol";
-import { Resultdata } from "./resultdata";
+import { Results } from "./results";
 import { StatFilterForm } from "./stat-filter-form";
 import { StatForm } from "./stat-form";
-export class Item {
 
-    public resultData: Resultdata = new Resultdata();   //Data pertaining to the results
+export class ItemForm {
+
+    public results: Results;                           //Data pertaining to the results
 
     public gemForm = new FormGroup({                                    //Data for gems
         gemForm_disabled: new FormControl({ value: false, disabled: true }),
@@ -297,12 +300,14 @@ export class Item {
                 status: new FormGroup({
                     option: new Defaultvaluecontrol('online', 'online'),
                 })
-            }),
-            sort: new FormGroup({
-                price: new FormControl("asc")
             })
         })
     });
+
+    private sort: currentSortProperties = {             //Sort configuration
+        sortKey: 'price',
+        sortValue: 'asc'
+    }
 
     constructor(public savedItemData?: itemSaveData) {
         if (this.savedItemData) {
@@ -314,6 +319,8 @@ export class Item {
      * Loads the saved item data
      */
     public loadSaveData() {
+
+        if (!this.savedItemData) return;      //Return if no save data
 
         //Have to add a new stat filter for each one saved
         this.savedItemData.queryForm.query.stats?.forEach(statGroup => {
@@ -331,10 +338,95 @@ export class Item {
     }
 
     /**
+     * Appends a new StatFilterForm to the stats FormArray
+     */
+    public addStatFilterForm() {
+        let newStatFilterForm = new StatFilterForm();
+        (this.itemForm.get('queryForm.query.stats') as FormArray).push(newStatFilterForm);
+    }
+
+    /**
+     * Removes the specified StatFilterForm from the stats FormArray
+     * @param form 
+     */
+    public removeStatFilterForm(form: StatFilterForm) {
+        let statsArryayIndex = (this.itemForm.get('queryForm.query.stats') as FormArray).controls.indexOf(form);
+        (this.itemForm.get('queryForm.query.stats') as FormArray).removeAt(statsArryayIndex);
+    }
+
+    /**
+     * Returns clean data for queries to the Poe API search function
+     * 
+     * @returns 
+     *          PoeAPISearchProperties
+     */
+    public getDataForQuery(): PoeAPISearchProperties {
+        return this.cleanEmptyFields({           
+            query: (this.itemForm.get('queryForm.query') as FormGroup).value,
+            sort: {
+                [this.sort.sortKey]: this.sort.sortValue
+            }
+        }); 
+    }
+
+      /**
+   * Removes empty objects and empty object fields
+   * 
+   * @param obj 
+   *        Object: object to remove empty fields from
+   */
+  private cleanEmptyFields(obj: any): any {
+
+    Object.keys(obj).forEach(key => {                                                       //cycle through fields
+      if (obj[key] && typeof obj[key] === 'object') this.cleanEmptyFields(obj[key]);        //If it has nested objects cycle through
+      else if (obj[key] == null || obj[key] == "all" || obj[key] == "")  {                  //delete field if empty, or has a value of all
+        if (Array.isArray(obj)) obj.splice(parseInt(key), 1);
+        else delete obj[key];
+      }
+
+      if (!obj[key] || typeof obj[key] !== "object") return;                                //return if the current value is not a object
+  
+      if (Object.keys(obj[key]).length === 0) delete obj[key];                              //delete empty objects
+    });
+
+    return obj;
+  }
+
+   /**
+   * Sets the control and value for the sort formgroup
+   * 
+   * @param key
+   *        sort key, for example the hash of a stat
+   * @param value 
+   *        sort value, either 'asc' for ascending, or 'desc' for descending
+   */
+    public setSortBy(key: string, value?: 'asc' | 'desc'): 'asc' | 'desc' {
+        let currentSort = this.sort.sortKey;
+        let newSortValue: 'asc' | 'desc';
+    
+        if (!value && currentSort != key) {                         //Set the value for the sort to desc if its a new sort
+          value = 'desc';
+          newSortValue = 'desc';
+        } else if (currentSort == key && !value) {      //Switch the value for the sort if the sort is the same but no value is provided
+          this.sort.sortValue == 'asc' ? value = 'desc' : value = 'asc';
+          newSortValue = value;
+        }
+    
+        if (currentSort == key) {
+          this.sort.sortValue = value;     //Alternate value if key is the same
+        } else {
+          this.sort.sortKey = key;         //Remove old control
+          this.sort.sortValue = value;     //Add new control
+        }
+
+        return newSortValue;
+    }
+
+    /**
      * Resets the data for this item
      */
     public clear() {
-        this.resultData = new Resultdata();
+        this.results = null;
         this.itemForm.reset('');
         this.itemForm.controls.itemName.patchValue('New Item');
         (this.itemForm.get('queryForm.query.stats') as FormArray).clear();

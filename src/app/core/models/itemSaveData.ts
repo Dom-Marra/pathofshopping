@@ -289,9 +289,6 @@ export interface itemSaveData {
             status: {
                 option: string
             }
-        },
-        sort: {
-            [key: string]: string
         }
     }
 }

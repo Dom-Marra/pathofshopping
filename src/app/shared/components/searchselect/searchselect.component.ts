@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { _MatAutocompleteBase } from '@angular/material/autocomplete';
+import { MatAutocompleteTrigger, _MatAutocompleteBase } from '@angular/material/autocomplete';
+import { MatInput } from '@angular/material/input';
 import { Observable } from 'rxjs';
 import { filter, map, startWith } from 'rxjs/operators';
 
@@ -96,5 +97,26 @@ export class SearchSelectComponent implements OnInit {
   public clear(): void {
     this.search.patchValue('');
     this.cleared.emit();
+  }
+
+  /**
+   * Handles blur events on the autocomplete input
+   * 
+   * @param matInput 
+   *        MatInput: the input that is blurred
+   * @param autoCompleteTrigger 
+   *        MatAutoCompleteTrigger: the trigger directive on the input
+   */
+  public onInputBlur(matInput: MatInput, autoCompleteTrigger: MatAutocompleteTrigger) {
+    if (this.selectingOption) {        //Don't lose focus when selecting an option
+      matInput.focus();
+    } else if (this.clearable && !this.search.value) {    //Clear when the value is '' and the clearable is true
+      this.clear();
+      autoCompleteTrigger.closePanel();
+    } else {                                              //Patch to the selected value
+      let patchValue = this.displayBy ? this.displayBy(this.selectedValue) : this.selectedValue; 
+      this.search.patchValue(patchValue, {emitEvent: false});
+      autoCompleteTrigger.closePanel();
+    }
   }
 }

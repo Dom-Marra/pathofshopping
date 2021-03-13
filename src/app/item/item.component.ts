@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { modProperties } from 'src/app/item/models/modProperties';
-import { queryProps } from '../core/classes/resultdata';
+import { FetchedProperties } from '../core/models/fetchedproperties.model';
 import { PoeService } from '../core/services/poe.service';
 
 @Component({
@@ -9,8 +9,8 @@ import { PoeService } from '../core/services/poe.service';
   styleUrls: ['./item.component.scss']
 })
 export class ItemComponent implements OnInit {
-  @Input() item: any;                  //Full item object
-  @Input() queryProps: queryProps;     //Properties relating to the item query
+  @Input() item: any;                         //Full item object
+  @Input() queryProps: FetchedProperties;     //Properties relating to the item query
 
   public readonly enchantModProperties: Array<modProperties> = [{
     modPropString: 'enchantMods',
@@ -65,7 +65,7 @@ export class ItemComponent implements OnInit {
 
     this.refreshing = true;           //Init fetch status
 
-    let queryParams = "?query=" + this.queryProps.id + "&" + this.queryProps.psuedos;   //Set params for the fetch
+    let queryParams = "?query=" + this.queryProps.id + "&" + this.queryProps.pseudos;   //Set params for the fetch
 
     this.poeService.fetch([this.item.id], queryParams).subscribe(                       //Get the item
       (res: any) => {                                   //Re-assign the item properties and update refresh status

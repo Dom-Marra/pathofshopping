@@ -1,14 +1,16 @@
 <div class="flexed-inputs">
     <mat-form-field [floatLabel]="inputName ? '' : 'never'">
         <mat-label *ngIf="inputName">{{inputName}}</mat-label>
-        <input #selectInput matInput type="text"  autocomplete="off" 
+        <input #selectInput 
+                #trigger="matAutocompleteTrigger" 
+                matInput type="text"  
+                autocomplete="off" 
                 [matAutocomplete]="selectInputAutoComplete" 
                 [matAutocompleteConnectedTo]="autoCompleteHost"
                 [placeholder]="getPlaceholder()"
                 [formControl]="search"
                 (focus)="!selectingOption ? (clearOnFocus ? search.patchValue('') : search.patchValue(displayBy(selectedValue))) : ''"
-                (blur)="selectingOption ? selectInput.focus() : 
-                        (clearable && !search.value ? clear() : search.patchValue(displayBy ? displayBy(selectedValue) : selectedValue, {emitEvent: false}))">
+                (blur)="onInputBlur(selectInput, trigger)">
         
         <span matSuffix>
             <button mat-icon-button 
