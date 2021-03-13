@@ -1,7 +1,8 @@
-import { Component, ElementRef, Input, KeyValueDiffer, KeyValueDiffers, OnInit, QueryList, ViewChildren } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
-import { Resultdata } from '../core/classes/resultdata';
+import { Component, ElementRef, Input, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { Results } from '../core/classes/results';
 import { PoeService } from 'src/app/core/services/poe.service';
+import { poeAPIResult } from '../core/models/poeAPIResult';
 
 @Component({
   selector: 'pos-results',
@@ -13,18 +14,20 @@ export class ResultsComponent implements OnInit {
   @ViewChildren('itemsPaginator') itemsPaginators: QueryList<MatPaginator>;                         //Paginator
   @ViewChildren('itemsPaginator', { read: ElementRef }) itemsPaginatorsRef: QueryList<ElementRef>;  //results container
 
-  @Input() resultData: Resultdata;                     //Data pertaining to results
+  @Input() set results(results: Results) {         //Setter function for the results
+    this._results = results;
+    this.getItems();
+  }              
 
-  public inProgress: boolean = false;                 //Whether the query is in progress or not
+  public _results: Results;                        //Data pertaining to results
+  public inProgress: boolean = false;              //Whether the query is in progress or not
 
-  private differ: KeyValueDiffer<any, any>;            //Used to detect changes in the queryProps
-  constructor(private poeAPI: PoeService, private kvDiffers: KeyValueDiffers) { }
+  constructor(private poeAPI: PoeService) { }
 
   ngOnInit(): void { 
-    this.differ = this.kvDiffers.find(this.resultData).create();    //Create the differ
 
     //Retrieve data if first search
-    if (this.resultData.retrievedItems.length == 0 && this.resultData.queryProps.res.length > 0) {
+    if (this._results.retrievedItems.length == 0 && this._results.fetchedResults.result.length > 0) {
       this.getItems();
     }
   }
@@ -37,34 +40,16 @@ export class ResultsComponent implements OnInit {
     });
   }
 
-  ngDoCheck() {
-    if (this.differ && this.resultData?.queryProps) {
-      let resultChange = this.differ.diff(this.resultData.queryProps);    //Get changes
-      
-      if (resultChange) {
-        resultChange.forEachChangedItem(item => {           //Cycle changed items
-          
-          if (item.key == 'res') {                          //If results changed perform a new search
-            this.resultData.queryData = [];
-            this.resultData.retrievedItems = [];
-            if (this.itemsPaginators) this.itemsPaginators.forEach(paginator => paginator.firstPage());
-            this.getItems();
-          }
-        });
-      }
-    }
-  }
-
   /**
    * Gets item data from a range of item IDs
    */
   public getItems() {
 
-    let results = this.resultData.queryProps.res
-                  .slice(this.resultData.startIndex, this.resultData.endIndex);   //Get the IDs to retrive items for
+    let results = this._results.fetchedResults.result
+                  .slice(this._results.pageData.startIndex, this._results.pageData.endIndex);   //Get the IDs to retrive items for
 
     for (let item of results) {                            //Already have the information so return
-      if (this.resultData.retrievedItems.indexOf(item) > -1) return;
+      if (this._results.retrievedItems.find(retrievedItem => retrievedItem?.id == item)) return;
     }
 
     if (results.length < 1) return;
@@ -72,10 +57,9 @@ export class ResultsComponent implements OnInit {
     this.inProgress = true;                               //Set in progress
 
     //Get items
-    this.poeAPI.fetch(results, "?query=" + this.resultData.queryProps.id + "&" + this.resultData.queryProps.psuedos)
-    .subscribe((items: any) => {  
-      this.resultData.queryData = this.resultData.queryData.concat(items.result);          //Add results   
-      this.resultData.retrievedItems = this.resultData.retrievedItems.concat(results);     //Add the IDs as retrieved  
+    this.poeAPI.fetch(results, "?query=" + this._results.fetchedResults.id + "&" + this._results.fetchedResults.pseudos)
+    .subscribe((items: poeAPIResult) => {  
+      this._results.addRetrievedItems(items.result);
 
       //Out of progress unsub
       this.inProgress = false;
@@ -86,13 +70,10 @@ export class ResultsComponent implements OnInit {
    * Changes the start and end index depending on the page data
    * 
    * @param pageData 
-   *        data passed by the paginator on page change
+   *        PageEvent
    */
-  public changeIndices(pageData) {
-    this.resultData.startIndex = (pageData.pageIndex * 10);
-    this.resultData.endIndex = ((pageData.pageIndex * 10) + 10);
-    this.resultData.pageIndex = pageData.pageIndex;
-
+  public changeIndices(pageData: PageEvent) {
+    this._results.setPageData(pageData.pageIndex);
     this.getItems();
   }
 }
