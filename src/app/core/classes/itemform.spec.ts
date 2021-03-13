@@ -69,8 +69,7 @@ describe('Item', () => {
             }
           ],
           status: {} as any
-        },
-        sort: {} as any
+        }
       }
     };
 
