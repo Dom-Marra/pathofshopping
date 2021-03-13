@@ -21,6 +21,10 @@ describe('Item', () => {
 
   describe('clear', () => {
 
+    it('patches the itemName to \'New Item\'', () => {
+      expect(item.itemForm.controls.itemName.value).toEqual('New Item');
+    });
+
     it('should set results to null', () => {
       item.clear();
       expect(item.results).toEqual(null);
