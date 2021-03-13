@@ -4,37 +4,37 @@
             <mat-icon>delete</mat-icon>
         </button>
         <div *ngIf="!editName" class="item-name">
-            <h4>{{itemData.itemForm.value.itemName.length > 0 ? itemData.itemForm.value.itemName : 'Item Name'}}</h4>
+            <h4>{{itemForm.itemForm.value.itemName.length > 0 ? itemForm.itemForm.value.itemName : 'Item Name'}}</h4>
             <button type="button" (click)="editName = true" mat-icon-button class="transparent-mat-button fix-height-mat-icon"><mat-icon>edit</mat-icon></button>
         </div>
         <mat-form-field class="item-name-input" *ngIf="editName" [floatLabel]="'never'">
             <input #itemNameInput matInput 
                 (keydown.enter)="$event.target.blur()"
-                (blur)="editName = false" type="text" autocomplete="off" placeholder="Item Name"  [formControl]="itemData.itemForm.controls.itemName">
+                (blur)="editName = false" type="text" autocomplete="off" placeholder="Item Name"  [formControl]="itemForm.itemForm.controls.itemName">
         </mat-form-field>
     </div>
         
 
     <div class="item-contents">
         <div class="filters">
-            <itemForm-typefilters class="filter type" [queryForm]="this.itemData.itemForm['controls'].queryForm['controls'].query"></itemForm-typefilters>
-            <itemForm-weaponfilters class="filter" [weaponForm]="this.itemData.itemForm['controls'].queryForm['controls'].query['controls'].filters['controls'].weapon_filters"></itemForm-weaponfilters>
-            <itemForm-armourfilters class="filter" [armourForm]="this.itemData.itemForm['controls'].queryForm['controls'].query['controls'].filters['controls'].armour_filters"></itemForm-armourfilters>
-            <itemForm-socketfilters class="filter" [socketForm]="this.itemData.itemForm['controls'].queryForm['controls'].query['controls'].filters['controls'].socket_filters"></itemForm-socketfilters>
-            <itemForm-requirements class="filter" [requirementsForm]="this.itemData.itemForm['controls'].queryForm['controls'].query['controls'].filters['controls'].req_filters"></itemForm-requirements>
-            <itemForm-mapfilters class="filter" [mapForm]="this.itemData.itemForm['controls'].queryForm['controls'].query['controls'].filters['controls'].map_filters"></itemForm-mapfilters>
-            <itemForm-specialbases class="filter" [influenceForm]="this.itemData.influenceForm"></itemForm-specialbases>
-            <itemForm-gemfilters class="filter" [gemForm]="this.itemData.gemForm"></itemForm-gemfilters>
-            <itemForm-otherfilters class="filter" [otherForm]="this.itemData.otherForm"></itemForm-otherfilters>
-            <itemForm-tradefilters class="filter" [tradeForm]="this.itemData.itemForm['controls'].queryForm['controls'].query['controls'].filters['controls'].trade_filters"></itemForm-tradefilters>
-            <itemForm-statfilters class="filter" *ngFor="let statFilter of this.itemData.itemForm['controls'].queryForm['controls'].query['controls'].stats['controls']" [statFilter]="statFilter" (filterRemoved)="removeStatFilter($event)"></itemForm-statfilters>
+            <itemForm-typefilters class="filter type" [queryForm]="this.itemForm.itemForm['controls'].queryForm['controls'].query"></itemForm-typefilters>
+            <itemForm-weaponfilters class="filter" [weaponForm]="this.itemForm.itemForm['controls'].queryForm['controls'].query['controls'].filters['controls'].weapon_filters"></itemForm-weaponfilters>
+            <itemForm-armourfilters class="filter" [armourForm]="this.itemForm.itemForm['controls'].queryForm['controls'].query['controls'].filters['controls'].armour_filters"></itemForm-armourfilters>
+            <itemForm-socketfilters class="filter" [socketForm]="this.itemForm.itemForm['controls'].queryForm['controls'].query['controls'].filters['controls'].socket_filters"></itemForm-socketfilters>
+            <itemForm-requirements class="filter" [requirementsForm]="this.itemForm.itemForm['controls'].queryForm['controls'].query['controls'].filters['controls'].req_filters"></itemForm-requirements>
+            <itemForm-mapfilters class="filter" [mapForm]="this.itemForm.itemForm['controls'].queryForm['controls'].query['controls'].filters['controls'].map_filters"></itemForm-mapfilters>
+            <itemForm-specialbases class="filter" [influenceForm]="this.itemForm.influenceForm"></itemForm-specialbases>
+            <itemForm-gemfilters class="filter" [gemForm]="this.itemForm.gemForm"></itemForm-gemfilters>
+            <itemForm-otherfilters class="filter" [otherForm]="this.itemForm.otherForm"></itemForm-otherfilters>
+            <itemForm-tradefilters class="filter" [tradeForm]="this.itemForm.itemForm['controls'].queryForm['controls'].query['controls'].filters['controls'].trade_filters"></itemForm-tradefilters>
+            <itemForm-statfilters class="filter" *ngFor="let statFilter of this.itemForm.itemForm['controls'].queryForm['controls'].query['controls'].stats['controls']" [statFilter]="statFilter" (filterRemoved)="removeStatFilter($event)"></itemForm-statfilters>
             <button mat-button type="button" (click)="addStatGroup()" class="transparent-mat-button"><mat-icon>library_add</mat-icon> Stat Group</button>
             <div class="query-actions">
                 <div class="query-buttons">
                     <button class="query-button search mat-button-300" mat-flat-button (click)="this.currentSort.currentSort.next({sortKey: 'price', sortValue: 'asc'})">
                         <mat-icon>search</mat-icon>Search
                     </button>
-                    <button class="query-button mat-button-600" mat-flat-button type="button" (click)="this.showResults = !this.showResults" *ngIf="this.itemData.resultData.queryProps || this.showResults">
+                    <button class="query-button mat-button-600" mat-flat-button type="button" (click)="this.showResults = !this.showResults" *ngIf="this.itemForm.results || this.showResults">
                         <mat-icon class="{{ showResults ? '' : 'rotate'}}">expand_less</mat-icon>{{ showResults ? 'Hide Results' : 'Show Results'}}
                     </button>
                     <button class="query-button mat-button-600" mat-flat-button type="button" (click)="clear()">
@@ -47,11 +47,11 @@
                                     [values]="statusOptions"
                                     [filterBy]="simpleDataService.filterSimpleData"
                                     [displayBy]="simpleDataService.displayByText"   
-                                    [setValue]="simpleDataService.getSelectedValue(this.itemData.itemForm['controls'].queryForm['controls'].query['controls'].status['controls'].option.value, statusOptions)"
-                                    (selected)="this.itemData.itemForm['controls'].queryForm['controls'].query['controls'].status['controls'].option.patchValue($event.id)"></app-searchselect>
+                                    [setValue]="simpleDataService.getSelectedValue(this.itemForm.itemForm['controls'].queryForm['controls'].query['controls'].status['controls'].option.value, statusOptions)"
+                                    (selected)="this.itemForm.itemForm['controls'].queryForm['controls'].query['controls'].status['controls'].option.patchValue($event.id)"></app-searchselect>
             </div>
         </div>
-        <pos-results *ngIf="showResults" class="results" [resultData]="itemData.resultData"></pos-results>
+        <pos-results *ngIf="showResults" class="results" [results]="itemForm.results"></pos-results>
     </div>
 </form>
 
