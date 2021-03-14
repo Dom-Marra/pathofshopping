@@ -12,11 +12,11 @@ export class GemfiltersComponent implements OnInit {
 
   public gemQualityTypes: Array<simpleData> = [
     {id: '', text: 'All'},
-    {id: '"0"', text: 'Default'},
+    {id: '0', text: 'Default'},
     {id: 'alternate', text: 'Only Alternatives'},
-    {id: '"1"', text: 'Anomalous'},
-    {id: '"2"', text: 'Divergent'},
-    {id: '"3"', text: 'Phantasmal'},
+    {id: '1', text: 'Anomalous'},
+    {id: '2', text: 'Divergent'},
+    {id: '3', text: 'Phantasmal'},
   ]
 
   @Input() gemForm: FormGroup;   //Gem form from misc filters
