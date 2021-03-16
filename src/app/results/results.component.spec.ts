@@ -74,17 +74,6 @@ describe('ResultsComponent', () => {
       })
     });
 
-    describe('ngOnInit', () => {
-
-      it('calls getItems if the resultData retrievedItems length is 0 and it has results in the fetchedResults', () => {
-        spyOn(component, 'getItems');
-        results.retrievedItems = [];
-        fixture.detectChanges();
-        component.ngOnInit();
-        expect(component.getItems).toHaveBeenCalled();
-      });
-    });
-
     describe('ngAfterViewInit', () => {
       
       it('scrolls into view of the first paginator', () => {
