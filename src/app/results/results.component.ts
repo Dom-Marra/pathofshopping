@@ -25,11 +25,6 @@ export class ResultsComponent implements OnInit {
   constructor(private poeAPI: PoeService) { }
 
   ngOnInit(): void { 
-
-    //Retrieve data if first search
-    if (this._results.retrievedItems.length == 0 && this._results.fetchedResults.result.length > 0) {
-      this.getItems();
-    }
   }
 
   ngAfterViewInit() {
