@@ -55,7 +55,6 @@ export class ItemFormComponent implements OnInit, OnDestroy, AfterViewInit {
     this.currentSortSub = this.currentSort.currentSort.pipe(
       skip(1)
     ).subscribe((val: currentSortProperties) => {
-      console.log('here');
       if (!val) return;
       let sortValue = this.itemForm.setSortBy(val.sortKey, val.sortValue);
       if (sortValue) val.sortValue = sortValue;
