@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnInit, Output, QueryList, ViewChildren } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, QueryList, ViewChildren } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { PoeService } from 'src/app/core/services/poe.service';
 import { simpleData } from 'src/app/core/models/simpleData';
@@ -11,13 +11,14 @@ import { skip, take } from 'rxjs/operators';
 import { FetchedProperties } from '../core/models/fetchedproperties.model';
 import { Results } from '../core/classes/results';
 import { PoeAPISearchProperties } from '../core/models/poeapisearchproperties.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'pos-itemForm',
   templateUrl: './itemForm.component.html',
   styleUrls: ['./itemForm.component.scss']
 })
-export class ItemFormComponent implements OnInit {
+export class ItemFormComponent implements OnInit, OnDestroy, AfterViewInit {
 
   @Output() deleteItem: EventEmitter<ItemForm> = new EventEmitter<ItemForm>();  //Event emitter for removal
   @Input() itemForm: ItemForm;                                                  //Item Form 
@@ -30,6 +31,8 @@ export class ItemFormComponent implements OnInit {
     {id: 'any', text: 'All'},
     {id: 'online', text: 'Online'}
   ];
+
+  private currentSortSub: Subscription;                     //Sub for the current sort service
 
   constructor(private cd: ChangeDetectorRef, 
               private snackBar: MatSnackBar, 
@@ -49,7 +52,7 @@ export class ItemFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.currentSort.currentSort.pipe(
+    this.currentSortSub = this.currentSort.currentSort.pipe(
       skip(1)
     ).subscribe((val: currentSortProperties) => {
       if (!val) return;
@@ -57,6 +60,10 @@ export class ItemFormComponent implements OnInit {
       if (sortValue) val.sortValue = sortValue;
       this.queryIDs();
     });
+  }
+
+  ngOnDestroy(): void {
+    this.currentSortSub.unsubscribe();
   }
 
   /**
