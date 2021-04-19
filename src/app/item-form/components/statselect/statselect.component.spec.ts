@@ -76,16 +76,18 @@ class MockPoeService {
         {
           id: 'mock.mock_2_stat_2',
           text: 'Mock Stat Cat 2 Stat 2',
-          option: [
-            {
-              id: 'mock.mock_2_stat_2_option_1',
-              text: 'Mock 2 Stat 2 Option_1'
-            },
-            {
-              id: 'mock.mock_2_stat_2_option_2',
-              text: 'Mock 2 Stat 2 Option_2'
-            }
-          ]
+          option: {
+            options: [
+              {
+                id: 'mock.mock_2_stat_2_option_1',
+                text: 'Mock 2 Stat 2 Option_1'
+              },
+              {
+                id: 'mock.mock_2_stat_2_option_2',
+                text: 'Mock 2 Stat 2 Option_2'
+              }
+            ]
+          }
         },
       ]
     }
@@ -179,16 +181,18 @@ describe('StatselectComponent', () => {
             {
               id: 'mock.mock_2_stat_2',
               text: 'Mock Stat Cat 2 Stat 2',
-              option: [
-                {
-                  id: 'mock.mock_2_stat_2_option_1',
-                  text: 'Mock 2 Stat 2 Option_1'
-                },
-                {
-                  id: 'mock.mock_2_stat_2_option_2',
-                  text: 'Mock 2 Stat 2 Option_2'
-                }
-              ]
+              option: {
+                options: [
+                  {
+                    id: 'mock.mock_2_stat_2_option_1',
+                    text: 'Mock 2 Stat 2 Option_1'
+                  },
+                  {
+                    id: 'mock.mock_2_stat_2_option_2',
+                    text: 'Mock 2 Stat 2 Option_2'
+                  }
+                ]
+              }
             },
           ]
         }
@@ -200,7 +204,7 @@ describe('StatselectComponent', () => {
 
   it('should be able to properly filter stat options', () => {
     component.statGroup.controls.selectedStat.patchValue(poeMockService.getStats()[1].entries[1]);
-    let returnedValue = component.filterStatOptions('Option_2', component.statGroup.controls.selectedStat.value.option);
+    let returnedValue = component.filterStatOptions('Option_2', component.statGroup.controls.selectedStat.value.option.options);
     let expectedResults = [
       {
         id: 'mock.mock_2_stat_2_option_2',
@@ -237,8 +241,8 @@ describe('StatselectComponent', () => {
     });
 
     it('should reset the option values when the stat has no options', () => {
-      component.statGroup.controls.selectedStatOption.patchValue(statWithOptions.option[1]);
-      component.statGroup.get('value.option').patchValue(statWithOptions.option[1].id);
+      component.statGroup.controls.selectedStatOption.patchValue(statWithOptions.option.options[1]);
+      component.statGroup.get('value.option').patchValue(statWithOptions.option.options[1].id);
 
       spyOn(component.statGroup.controls.selectedStatOption, 'reset');
       spyOn(component.statGroup.get('value.option'), 'patchValue');
@@ -268,7 +272,7 @@ describe('StatselectComponent', () => {
     let statOption: poeStatOption;
 
     beforeEach(() => {
-      statOption = poeMockService.getStats()[1].entries[1].option[0];
+      statOption = poeMockService.getStats()[1].entries[1].option.options[0];
     });
 
     it('should patch the correct value for the selected stat option control', () => {
@@ -506,7 +510,7 @@ describe('StatselectComponent', () => {
 
       expect(optionSearcher.autoCompleteClass).toEqual('autocomplete-panel-300');
       expect(optionSearcher.placeholder).toEqual('Add Option');
-      expect(optionSearcher.values).toEqual(component.statGroup.controls.selectedStat.value.option);
+      expect(optionSearcher.values).toEqual(component.statGroup.controls.selectedStat.value.option.options);
       expect(optionSearcher.filterBy).toEqual(component.filterStatOptions);
       expect(optionSearcher.displayBy).toEqual(component.optionDisplayBy);
       expect(optionSearcher.disabled).toEqual(component.statGroup.disabled);

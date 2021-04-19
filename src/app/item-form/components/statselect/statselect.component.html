@@ -30,7 +30,7 @@
         <app-searchselect *ngIf="this.statGroup.controls.selectedStat.value.option != null" 
                         class="stat-option-select flexed-inputs mat-input-600" 
                         [placeholder]="'Add Option'" 
-                        [values]="this.statGroup.controls.selectedStat.value.option"
+                        [values]="this.statGroup.controls.selectedStat.value.option.options"
                         [filterBy]="filterStatOptions"
                         [displayBy]="optionDisplayBy"
                         [disabled]="this.statGroup.disabled"

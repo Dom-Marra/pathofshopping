@@ -3,10 +3,14 @@ export interface poeStatOption {
   text: string
 }
 
+export interface poeStatOptions {
+  options: Array<poeStatOption>
+}
+
 export interface poeStat {
   id: string,
   text: string,
-  option?: Array<poeStatOption>
+  option?: poeStatOptions
   type?: string
 }
 
