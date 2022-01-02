@@ -1,9 +1,3 @@
-@import './theme.scss';
-
-@include angular-material-theme($pathofshopping-theme);
-
-@include angular-material-typography($pathofshopping-typography);
-
 html, body { 
   height: 100%; 
 }
