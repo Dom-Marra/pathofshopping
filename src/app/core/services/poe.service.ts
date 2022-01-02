@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
 import { BehaviorSubject, throwError } from 'rxjs';
 import { poeCategorizedItems } from '../models/poeAPIItems';
@@ -13,13 +13,20 @@ import { poeAPIResult } from '../models/poeAPIResult';
 })
 export class PoeService {
 
-  //Cloud Functions for each poe api service
-  private readonly POE_ITEMS: string = 'https://us-central1-pathofshopping.cloudfunctions.net/getPOEItems';
-  private readonly POE_STATS: string = 'https://us-central1-pathofshopping.cloudfunctions.net/getPOEStats';
-  private readonly POE_LEAGUES: string = 'https://us-central1-pathofshopping.cloudfunctions.net/getPOELeagues';
-  private readonly POE_STATIC: string = 'https://us-central1-pathofshopping.cloudfunctions.net/getPOEStatic';
-  private readonly POE_FETCH: string = 'https://us-central1-pathofshopping.cloudfunctions.net/poeFetch';
-  private readonly POE_SEARCH: string = 'https://us-central1-pathofshopping.cloudfunctions.net/poeSearch';
+  //POE Base API
+  private readonly POE_API: string = 'https://www.dominicmarra.com/pos/api.php?query=';
+
+  //POE API end points
+  private readonly POE_ITEMS: string = this.POE_API + 'data/items';
+  private readonly POE_STATS: string = this.POE_API + 'data/stats';
+  private readonly POE_LEAGUES: string = this.POE_API + 'data/leagues';
+  private readonly POE_STATIC: string = this.POE_API + 'data/static';
+  private readonly POE_FETCH: string = this.POE_API + 'fetch/';
+  private readonly POE_SEARCH: string = this.POE_API + 'search/';
+
+  private readonly POE_API_HEADERS: HttpHeaders = new HttpHeaders({
+
+  })
 
   //POE API Data
   private leagueData: Array<simpleData>;
@@ -186,11 +193,7 @@ export class PoeService {
    *          string: any ending params, such as psuedo parameters or query id
    */
   public fetch(items: Array<string>, endingParams?: string) {
-    let body = {
-      items: items.toString() + endingParams
-    };
-
-    return this.http.post(this.POE_FETCH, body);
+    return this.http.get(this.POE_FETCH + items.toString() + endingParams);
   }
 
   /**
@@ -202,11 +205,7 @@ export class PoeService {
    *          string: the league to search the items in
    */
   public search(data: any, league: string) {
-    let body = {
-      data: data,
-      league: league
-    }
-    return this.http.post(this.POE_SEARCH, body).pipe(catchError(error => {
+    return this.http.post(this.POE_SEARCH + league, data).pipe(catchError(error => {
       return throwError(this.handleError(error));
     }));
   }
