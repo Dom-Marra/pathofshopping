@@ -1,3 +1,4 @@
+@use '~@angular/material' as mat;
 @import '../../theme.scss';
 
 .query-results-container {
@@ -28,7 +29,7 @@
 
 .item-paginator-container {
     background-color: transparent;
-    border-top: 1px solid mat-color($pathofshopping-primary, 600);
+    border-top: 1px solid mat.get-color-from-palette($pathofshopping-primary, 600);
     display: flex;
     align-items: center;
     flex-wrap: wrap;
@@ -41,7 +42,7 @@
         align-items: center;
         flex: 1 1 0px;
         flex-basis: 0px;
-        color: mat-color($pathofshopping-accent, 50);
+        color: mat.get-color-from-palette($pathofshopping-accent, 50);
 
         * {
             margin: 0;

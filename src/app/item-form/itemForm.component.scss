@@ -1,3 +1,4 @@
+@use '~@angular/material' as mat;
 @import '../../theme.scss';
 
 .item-container {
@@ -5,17 +6,17 @@
     margin: auto;
     margin-top: 1.5em;
     border-radius: 4px;
-    background-color: mat-color($pathofshopping-primary, 400);
+    background-color: mat.get-color-from-palette($pathofshopping-primary, 400);
     overflow: hidden;
 
     .item-header-container {
         box-sizing: border-box;
         display: flex;
         align-items: center;
-        border-bottom: 1px solid mat-color($pathofshopping-primary, 500);
+        border-bottom: 1px solid mat.get-color-from-palette($pathofshopping-primary, 500);
         height: 45px;
         overflow: hidden;
-        font-size: mat-font-size($pathofshopping-typography, subheading-1);
+        font-size: mat.font-size($pathofshopping-typography, subheading-1);
 
         .item-name {
             height: 100%;
@@ -24,7 +25,7 @@
             justify-content: center;
             width: calc(100% - 80px);
             margin-right: 40px;
-            color: mat-color($pathofshopping-accent, 50);
+            color: mat.get-color-from-palette($pathofshopping-accent, 50);
     
             h4 {
                 white-space: nowrap;

@@ -1,10 +1,11 @@
+@use '~@angular/material' as mat;
 @import '../../theme.scss';
 
 .topbar-select {
-    background-color: mat-color($pathofshopping-primary, 400) !important;
+    background-color: mat.get-color-from-palette($pathofshopping-primary, 400) !important;
 
     .mat-option-text {
-        color: mat-color($pathofshopping-accent, 50);
+        color: mat.get-color-from-palette($pathofshopping-accent, 50);
     }
 }
 
@@ -24,7 +25,7 @@
 }
 
 #error-panel  {
-    background-color: mat-color($pathofshopping-warn, 700);
+    background-color: mat.get-color-from-palette($pathofshopping-warn, 700);
     width: 500px;
     max-width: 70%;
     
@@ -38,7 +39,7 @@
 
 
 #shoppinglist-maincontainer {
-    color: mat-color($pathofshopping-accent, 50);
+    color: mat.get-color-from-palette($pathofshopping-accent, 50);
     min-height: 100%;
     height: auto;
     width: 100%;
@@ -59,13 +60,13 @@
         margin: auto;
         min-height: 500px;
         height: auto;
-        background-color: mat-color($pathofshopping-primary, 600);
+        background-color: mat.get-color-from-palette($pathofshopping-primary, 600);
 
         #shoppinglist-contents-top-bar {
             border-radius: 5px 5px 0 0;
             min-height: 60px;
             width: 100%;
-            background-color: mat-color($pathofshopping-primary, 500);
+            background-color: mat.get-color-from-palette($pathofshopping-primary, 500);
             display: flex;
             flex-wrap: wrap;
             align-items: center;
@@ -77,7 +78,7 @@
                 justify-content: center;
                 overflow: hidden;
                 flex: 1 1 0px;
-                font-size: mat-font-size($pathofshopping-typography, subheading-2);
+                font-size: mat.font-size($pathofshopping-typography, subheading-2);
         
                 #shoppinglist-name-output-wrapper {
                     display: flex;

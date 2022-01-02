@@ -1,3 +1,4 @@
+@use '~@angular/material' as mat;
 @import '../../theme.scss';
 @import './styles/shared.scss';
 
@@ -57,7 +58,7 @@
         .item-box {
             flex: 1 1 275px;
             background-color: rgba(0, 0, 0, 0.65);
-            color: mat-color($pathofshopping-accent, 50);
+            color: mat.get-color-from-palette($pathofshopping-accent, 50);
             border-radius: 4px;
             overflow: hidden;
         

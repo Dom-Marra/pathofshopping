@@ -1,10 +1,11 @@
+@use '~@angular/material' as mat;
 @import '../../../../theme.scss';
 
 .input-wrapper {
     display: flex;
     flex-wrap: wrap;
     border-radius: 4px;
-    background-color: mat-color($pathofshopping-primary, 600);
+    background-color: mat.get-color-from-palette($pathofshopping-primary, 600);
     overflow: hidden;
     
     .input-label {
@@ -15,8 +16,8 @@
         margin: 0;
         flex: 1;
         min-width: 150px;
-        background-color: mat-color($pathofshopping-primary, 500);
-        color: mat-color($pathofshopping-accent, 50);
+        background-color: mat.get-color-from-palette($pathofshopping-primary, 500);
+        color: mat.get-color-from-palette($pathofshopping-accent, 50);
     }
 
     .inputs {

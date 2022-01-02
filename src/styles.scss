@@ -1,3 +1,4 @@
+@use '~@angular/material' as mat;
 html, body { 
   height: 100%; 
 }
@@ -6,8 +7,8 @@ body {
   background-repeat: no-repeat;
   background-position: center 100%;
   background-size: cover;
-  background-image: linear-gradient(to bottom,rgba(0,0,0,0), mat-color($pathofshopping-primary, 800) 300px), url('assets/topBgImage.png');
-  background-color: mat-color($pathofshopping-primary, 800);
+  background-image: linear-gradient(to bottom,rgba(0,0,0,0), mat.get-color-from-palette($pathofshopping-primary, 800) 300px), url('assets/topBgImage.png');
+  background-color: mat.get-color-from-palette($pathofshopping-primary, 800);
   margin: 0;  
 }
 
@@ -15,7 +16,7 @@ mat-icon {
   transition: transform 0.15s ease-in-out;
 
   &.icon-light {
-    color: mat-color($pathofshopping-accent, 50);
+    color: mat.get-color-from-palette($pathofshopping-accent, 50);
   }
 
   &.icon-dark {
@@ -33,13 +34,13 @@ mat-icon {
   box-shadow: none !important;
 
   .mat-expansion-panel-header {
-    color: mat-color($pathofshopping-accent, 50);
+    color: mat.get-color-from-palette($pathofshopping-accent, 50);
     font-weight: 300;
     height: auto;
     min-height: 45px;
     padding: 0 0 !important;
     background-color: transparent;
-    border-bottom: 1px solid mat-color($pathofshopping-primary, 500);
+    border-bottom: 1px solid mat.get-color-from-palette($pathofshopping-primary, 500);
     border-radius: 0px;
 
     &:hover {
@@ -117,7 +118,7 @@ mat-icon {
   padding-right: 0.75em;
 
   mat-label, .mat-input-element, .mat-select-value-text, .mat-hint {
-    color: mat-color($pathofshopping-accent, 50);
+    color: mat.get-color-from-palette($pathofshopping-accent, 50);
   }
 
   .mat-form-field-label, .mat-input-element, .mat-select-value-text, .mat-form-field-suffix {
@@ -156,23 +157,23 @@ mat-icon {
 }
 
 .item-tabs {
-  border-top: 1px solid mat-color($pathofshopping-primary, 700);
+  border-top: 1px solid mat.get-color-from-palette($pathofshopping-primary, 700);
 
   .mat-tab-header {
-    background-color: mat-color($pathofshopping-primary, 500);
+    background-color: mat.get-color-from-palette($pathofshopping-primary, 500);
   }
 
   .mat-tab-label {
-      color: mat-color($pathofshopping-accent, 50);
+      color: mat.get-color-from-palette($pathofshopping-accent, 50);
       opacity: 1;
   }
 
   .mat-tab-header-pagination-chevron {
-      border-color: mat-color($pathofshopping-accent, 50);
+      border-color: mat.get-color-from-palette($pathofshopping-accent, 50);
   }
 
   .mat-ink-bar {
-    background-color: mat-color($pathofshopping-primary, 300);
+    background-color: mat.get-color-from-palette($pathofshopping-primary, 300);
   }
 }
 
@@ -197,11 +198,11 @@ mat-icon {
 
 .item-fetch-progress-bar {
   .mat-progress-bar-fill::after {
-      background: mat-color($pathofshopping-primary, 600);
+      background: mat.get-color-from-palette($pathofshopping-primary, 600);
   }
   
   .mat-progress-bar-buffer {
-      background-color: mat-color($pathofshopping-primary, 300);
+      background-color: mat.get-color-from-palette($pathofshopping-primary, 300);
   }
 
   .mat-progress-bar-background {
@@ -211,7 +212,7 @@ mat-icon {
 
 .mat-spinner {   
   circle {
-    stroke: mat-color($pathofshopping-primary, 300);
+    stroke: mat.get-color-from-palette($pathofshopping-primary, 300);
   }
 }
 
@@ -224,8 +225,8 @@ mat-icon {
 
   .mat-dialog-container {
     flex: 0 1 500px;
-    background-color: mat-color($pathofshopping-primary, 600);
-    color: mat-color($pathofshopping-accent, 50);
+    background-color: mat.get-color-from-palette($pathofshopping-primary, 600);
+    color: mat.get-color-from-palette($pathofshopping-accent, 50);
     padding: 10px !important;
     height: auto;
 
@@ -237,13 +238,13 @@ mat-icon {
 
   &.error {
     .mat-dialog-container {
-      background-color: mat-color($pathofshopping-warn, 900);
+      background-color: mat.get-color-from-palette($pathofshopping-warn, 900);
     }
   }
 
   .save-dialog-title {
     display: flex;
-    font-size: mat-font-size($pathofshopping-typography, subheading-1);
+    font-size: mat.font-size($pathofshopping-typography, subheading-1);
 
     .title-text {
       margin: 0;
@@ -269,14 +270,14 @@ mat-icon {
     }
 
     .save-note {
-      color: mat-color($pathofshopping-warn, 300);
+      color: mat.get-color-from-palette($pathofshopping-warn, 300);
       text-align: center;
     }
   }
 }
 
 .error-snack-bar {
-  background-color: mat-color($pathofshopping-warn, 900);
+  background-color: mat.get-color-from-palette($pathofshopping-warn, 900);
 }
 
 @media only screen and (max-width: 610px) {
