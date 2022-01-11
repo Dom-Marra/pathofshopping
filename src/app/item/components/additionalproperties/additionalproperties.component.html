@@ -1,17 +1,21 @@
-<div class="item-parsed-list">
-    <div *ngFor="let prop of additionalProperties | parseProps" 
+<ul class="item-parsed-list">
+    <li 
+        *ngFor="let prop of additionalProperties | parseProps" 
         [class.sortable]="prop.type != null && PROP_VALUES[prop.type]" 
-        (click)="PROP_VALUES[prop.type] ? currentSort.currentSort.next({sortKey: PROP_VALUES[prop.type]}) : ''">
-        <span *ngFor="let value of prop.values" class="{{value.display != null ? 'display-' + value.display : ''}}">
+        (click)="PROP_VALUES[prop.type] ? sortService.newSort(PROP_VALUES[prop.type]) : ''"
+    >
+        <span 
+            *ngFor="let value of prop.values" 
+            class="{{value.display != null ? 'display-' + value.display : ''}}"
+        >
             {{value.text}}
         </span>
-        <item-sortarrow *ngIf="currentSort.currentSort.value.sortKey == PROP_VALUES[prop.type]" 
-                    [sortValue]="currentSort.currentSort.value.sortValue">
-        </item-sortarrow >
-        <mat-progress-bar class="item-progress-bar" 
-                            *ngIf="prop.progress != null" 
-                            mode="determinate" 
-                            value="{{prop.progress * 100}}">
-        </mat-progress-bar>
-    </div>
-</div>
+
+        <pos-item-sortarrow 
+            *ngIf="(currentSort | async).sortKey === PROP_VALUES[prop.type]" 
+            [sortValue]="(currentSort | async).sortValue">
+        </pos-item-sortarrow>
+
+        <pos-item-progress-bar *ngIf="prop.progress != null" [progress]="prop.progress * 100"></pos-item-progress-bar>
+    </li>
+</ul>

@@ -1,0 +1,55 @@
+.save-dialog-title {
+    display: grid;
+    grid-template-areas: 
+    '. title close';
+    grid-template-columns: repeat(3, 1fr);
+    padding: 0.5em 1em;
+    
+
+    h2 {
+        margin: 0;
+        grid-area: title;
+    }
+    
+    .mat-icon-button {
+        grid-area: close;
+        margin-left: auto;
+        height: 2.86em;
+        width: 2.86em;
+        font-size: 0.5em;
+        line-height: 2.86em;
+
+        .mat-icon {
+            font-size: 1.75em;
+            width: 1em;
+            height: 1em;
+            line-height: 1em;
+        }
+    }
+}
+
+
+.save-dialog-content {
+    width: 30em;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+.mat-form-field {
+    overflow: hidden;
+}
+
+.mat-progress-spinner {
+    margin: auto;
+}
+
+.error {
+    text-align: center;
+    margin: 0;
+}
+
+.mat-progress-spinner,
+.error {
+    padding-bottom: 2em;
+}
+

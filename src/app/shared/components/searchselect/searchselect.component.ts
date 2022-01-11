@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { filter, map, startWith } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-searchselect',
+  selector: 'pos-searchselect',
   templateUrl: './searchselect.component.html',
   styleUrls: ['./searchselect.component.scss']
 })

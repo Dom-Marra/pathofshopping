@@ -1,9 +1,12 @@
 @import '../../styles/shared.scss';
 
 .item-total-values {
+    list-style: none;
     color: map-get($poe-property-colors, unmodified);
     display: flex;
     flex-wrap: wrap;
+    margin: 0;
+    padding: 0;
 
     .total-value {
         flex: 1;

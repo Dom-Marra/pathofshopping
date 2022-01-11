@@ -3,31 +3,33 @@ import { DocumentReference } from '@angular/fire/firestore';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-savedialog',
+  selector: 'pos-savedialog',
   templateUrl: './savedialog.component.html',
   styleUrls: ['./savedialog.component.scss']
 })
 export class SavedialogComponent implements OnInit {
 
-  public readonly STATUS: typeof status = status;
+  /** Dialog Title */
+  public header: string = "Saving";
 
-  public header: string = "Saving List";    //Dialog title
-  public errMessage: string;                //Error message
-  public url: string;                       //URL string
-  public copied: boolean;                   //Whether the URL has been copied from the copy button
+  /** Error Message */
+  public errMessage: string;
+
+  /** Save URL */
+  public url: string;
+
+  /** Whether the input was copied */
+  public copied: boolean;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: Promise<DocumentReference<unknown>>, public dialogRef: MatDialogRef<SavedialogComponent>) {
     
     //Return the URL on successful upload
     this.data.then(docRef => {                                    
-      this.url = 'www.pathofshopping.com/shoppinglist?list=' + docRef.id;
-      this.header = 'List Saved';
+      this.url = 'www.pathofshopping.com/list/' + docRef.id;
+      this.header = 'Saved!';
     }).catch(() => { 
-
-      //Give error on failed upload
-      this.dialogRef.addPanelClass('error');
-      this.header = 'Error!'
-      this.errMessage = 'An error occurred while saving the data, please try again.'
+      this.header = 'Error :('
+      this.errMessage = 'An error occurred while saving the data.';
     })
   }
 

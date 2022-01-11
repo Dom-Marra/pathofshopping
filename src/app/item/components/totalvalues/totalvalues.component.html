@@ -1,50 +1,50 @@
-<div class="item-total-values mat-small">
-    <span (click)="currentSort.currentSort.next({sortKey: 'dps'})" 
+<ul class="item-total-values">
+    <li (click)="sortService.newSort('dps')" 
             class="total-value sortable" *ngIf="extended.dps">Max DPS:
         <span class="value" [class.auged]="extended.dps_aug">
             {{extended.dps}}
         </span>
-        <item-sortarrow *ngIf="currentSort.currentSort.value.sortKey == 'dps'" 
-                        [sortValue]="currentSort.currentSort.value.sortValue"></item-sortarrow>
-    </span>
-    <span (click)="currentSort.currentSort.next({sortKey: 'edps'})" 
+        <pos-item-sortarrow *ngIf="(currentSort | async).sortKey === 'dps'" 
+                        [sortValue]="(currentSort | async).sortValue"></pos-item-sortarrow>
+    </li>
+    <li (click)="sortService.newSort('edps')" 
             class="total-value sortable" *ngIf="extended.edps">Max eDPS:
         <span class="value" [class.auged]="extended.edps_aug">
             {{extended.edps}}
         </span>
-        <item-sortarrow *ngIf="currentSort.currentSort.value.sortKey == 'edps'"
-                        [sortValue]="currentSort.currentSort.value.sortValue"></item-sortarrow>
-    </span>
-    <span (click)="currentSort.currentSort.next({sortKey: 'pdps'})" 
+        <pos-item-sortarrow *ngIf="(currentSort | async).sortKey === 'edps'"
+                        [sortValue]="(currentSort | async).sortValue"></pos-item-sortarrow>
+    </li>
+    <li (click)="sortService.newSort('pdps')" 
             class="total-value sortable" *ngIf="extended.pdps">Max pDPS:
         <span class="value" [class.auged]="extended.pdps_aug">
             {{extended.pdps}}
         </span>
-        <item-sortarrow *ngIf="currentSort.currentSort.value.sortKey == 'pdps'"
-                        [sortValue]="currentSort.currentSort.value.sortValue"></item-sortarrow>
-    </span>
-    <span (click)="currentSort.currentSort.next({sortKey: 'ev'})" 
+        <pos-item-sortarrow *ngIf="(currentSort | async).sortKey === 'pdps'"
+                        [sortValue]="(currentSort | async).sortValue"></pos-item-sortarrow>
+    </li>
+    <li (click)="sortService.newSort('ev')" 
             class="total-value sortable" *ngIf="extended.ev">Max Evasion:
         <span class="value" [class.auged]="extended.ev_aug">
             {{extended.ev}}
         </span>
-        <item-sortarrow *ngIf="currentSort.currentSort.value.sortKey == 'ev'" 
-                        [sortValue]="currentSort.currentSort.value.sortValue"></item-sortarrow>
-    </span>
-    <span (click)="currentSort.currentSort.next({sortKey: 'ar'})" 
+        <pos-item-sortarrow *ngIf="(currentSort | async).sortKey === 'ev'" 
+                        [sortValue]="(currentSort | async).sortValue"></pos-item-sortarrow>
+    </li>
+    <li (click)="sortService.newSort('ar')" 
             class="total-value sortable" *ngIf="extended.ar">Max Armor:
         <span class="value" [class.auged]="extended.ar_aug">
             {{extended.ar}}
         </span>
-        <item-sortarrow *ngIf="currentSort.currentSort.value.sortKey == 'ar'"
-                        [sortValue]="currentSort.currentSort.value.sortValue"></item-sortarrow>
-    </span>
-    <span (click)="currentSort.currentSort.next({sortKey: 'es'})" 
+        <pos-item-sortarrow *ngIf="(currentSort | async).sortKey === 'ar'"
+                        [sortValue]="(currentSort | async).sortValue"></pos-item-sortarrow>
+    </li>
+    <li (click)="sortService.newSort('es')" 
             class="total-value sortable" *ngIf="extended.es"> Max Energy Shield:
         <span class="value" [class.auged]="extended.es_aug">
             {{extended.es}}
         </span>
-        <item-sortarrow *ngIf="currentSort.currentSort.value.sortKey == 'es'" 
-                        [sortValue]="currentSort.currentSort.value.sortValue"></item-sortarrow>
-    </span>
-</div>
+        <pos-item-sortarrow *ngIf="(currentSort | async).sortKey === 'es'" 
+                        [sortValue]="(currentSort | async).sortValue"></pos-item-sortarrow>
+    </li>
+</ul>

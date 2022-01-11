@@ -1,7 +1,7 @@
 import { Component , OnInit } from '@angular/core';
 
 @Component({
-  selector: 'itemForm-inputwrapper',
+  selector: 'pos-inputwrapper',
   templateUrl: './inputwrapper.component.html',
   styleUrls: ['./inputwrapper.component.scss']
 })

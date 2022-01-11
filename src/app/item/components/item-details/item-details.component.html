@@ -1,0 +1,112 @@
+<article class="item-details rarity-{{base?.frameType ? base.frameType  : item.frameType}}">
+    <pos-item-header [item]='base ? base : item' class="rarity-{{base?.frameType  ? base.frameType  : item.frameType}}"></pos-item-header>
+
+    <pos-item-properties *ngIf="item.properties && item.properties.length > 0"
+                        class="item-detail"
+                        [item]="item">
+    </pos-item-properties>
+
+    <pos-item-requirements *ngIf="item.requirements || item.ilvl || item.talismanTier"
+                        class="item-detail"
+                        [item]="item">
+    </pos-item-requirements>
+
+    <pos-item-modlist *ngIf="item.enchantMods && item.enchantMods.length > 0"
+        [item]="item"
+        [modProperties]="enchantModProperties"
+        class="item-detail">     
+    </pos-item-modlist>
+
+    <pos-item-modlist *ngIf="item.scourgeMods && item.scourgeMods.length > 0"
+        [item]="item"
+        [modProperties]="scourgeModsProperties"
+        class="item-detail">     
+    </pos-item-modlist>
+
+
+    <pos-item-modlist *ngIf="item.implicitMods && item.implicitMods.length > 0"
+            [item]="item"
+            [modProperties]="implicitModProperties"
+            class="item-detail">     
+    </pos-item-modlist>
+
+    <p *ngIf="item.secDescrText" class="item-detail desc-text">
+        {{item.secDescrText}}
+    </p>
+
+    <pos-item-modlist 
+        *ngIf="(item.explicitMods || 
+                item.fracturedMods || 
+                item.craftedMods || 
+                ((item.corrupted && !item.hybrid) || item.isVaalGem) || 
+                item.duplicated) && item.frameType != 6"
+        [item]="item"
+        [modProperties]="explicitModProperties"
+        class="item-detail">    
+        <li 
+            *ngIf="(item.corrupted && !item.hybrid?.isVaalGem) || item.isVaalGem" 
+            class="property corrupted"
+        >
+            Corrupted
+        </li>
+        <li *ngIf="item.duplicated" class="property modified">Mirrored</li> 
+    </pos-item-modlist>
+
+    <pos-item-divmods *ngIf="item.frameType === 6 && item.explicitMods"
+                    class="item-detail"
+                    [explicitMods]="item.explicitMods"> 
+    </pos-item-divmods>
+
+    <p *ngIf="item.identified === false" class="item-detail corrupted">
+        Unidentified
+    </p>
+
+    <p *ngIf="item.prophecyText" class="item-detail">
+        {{item.prophecyText}}
+    </p>
+
+    <pos-item-additionalproperties 
+        *ngIf="item.additionalProperties" 
+        class="item-detail" 
+        [additionalProperties]='item.additionalProperties'>
+    </pos-item-additionalproperties>
+
+    <div 
+        class="item-detail progress-bar"  
+        *ngIf="item.incubatedItem"
+    >
+        <p class="enchant">{{item.incubatedItem.name}}</p>
+        <pos-item-progress-bar 
+            class="incubator-progress bar" 
+            [progress]="item.incubatedItem.progress / item.incubatedItem.total"
+        ></pos-item-progress-bar>
+        <p>{{item.incubatedItem.progress}}/{{item.incubatedItem.total}} Level: {{item.incubatedItem.level}}+</p>
+    </div>
+
+    <div 
+        class="item-detail progress-bar"  
+        *ngIf="item.scourged"
+    >
+        <p class="scourge">Scourge Tier {{item.scourged.tier}}</p>
+        <pos-item-progress-bar 
+            class="scourge-progress bar" 
+            [progress]="item.scourged.progress / item.scourged.total"
+            *ngIf="item.scourged.total"
+        ></pos-item-progress-bar>
+        <p *ngIf="item.scourged.total">{{item.scourged.progress}}/{{item.scourged.total}} Level: {{item.scourged.level}}+</p>
+    </div>
+
+   
+
+    <pos-item-totalvalues 
+        *ngIf="item.extended?.dps || 
+                item.extended?.edps || 
+                item.extended?.pdps || 
+                item.extended?.ev || 
+                item.extended?.ar || 
+                item.extended?.es"
+        class="item-detail" 
+        [extended]='item.extended'>
+    </pos-item-totalvalues>
+</article>
+

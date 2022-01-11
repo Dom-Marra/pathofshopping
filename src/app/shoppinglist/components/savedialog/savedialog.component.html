@@ -1,23 +1,26 @@
-<div class="save-dialog-title" mat-dialog-title>
-    <h3 class="title-text">{{header}}</h3>
-    <button mat-icon-button class="transparent-mat-button fix-height-mat-icon" (click)="this.close()" tabindex="-1"><mat-icon>close</mat-icon></button>
+<div class="save-dialog-title primary-dark" mat-dialog-title>
+    <h2>{{header}}</h2>
+    <button 
+        mat-icon-button 
+        (click)="this.close()" 
+        tabindex="-1"
+        class="custom-size-icon-button"
+    >
+        <mat-icon>close</mat-icon>
+    </button>
 </div>
-<mat-dialog-content>
-    <div class="message-container">
-        <div *ngIf="url" class="url-container mat-input-600">
-            <div class="mat-h3">
-                <mat-form-field class="url">
-                    <mat-label>Your List URL</mat-label>
-                    <input matInput [value]="url" type="text" autocomplete="off">
-                    <button mat-icon-button matSuffix [cdkCopyToClipboard]="url" (cdkCopyToClipboardCopied)="this.copied = true"><mat-icon>content_copy</mat-icon></button>
-                    <mat-hint *ngIf="copied">Copied!</mat-hint>
-                </mat-form-field>
-            </div>
-            <p class="save-note">Note: Current changes will not be saved on refresh!</p>
-        </div>
-        <div *ngIf="errMessage" class="err-message-container">
-            <p>{{errMessage}}</p>
-        </div>
-        <mat-progress-spinner *ngIf="!errMessage && !url" class="mat-spinner" mode="indeterminate" strokeWidth="5" diameter="50"></mat-progress-spinner>
-    </div>
+<mat-dialog-content class="save-dialog-content">
+    <mat-form-field class="url" *ngIf="url" appearance="fill" color="accent">
+        <mat-label>Your List URL</mat-label>
+        <input matInput [value]="url" type="text" autocomplete="off">
+        <button mat-icon-button matSuffix [cdkCopyToClipboard]="url" (cdkCopyToClipboardCopied)="this.copied = true"><mat-icon>content_copy</mat-icon></button>
+        <mat-hint *ngIf="copied">Copied!</mat-hint>
+    </mat-form-field>
+    <p class="error" *ngIf="errMessage">{{errMessage}}</p>
+    <mat-progress-spinner 
+        *ngIf="!errMessage && !url" 
+        color="accent"
+        mode="indeterminate" 
+        strokeWidth="5" diameter="50"
+    ></mat-progress-spinner>
 </mat-dialog-content>

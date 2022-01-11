@@ -1,31 +1,42 @@
-<div class="item-parsed-list">
-    <div *ngIf="item.talismanTier" 
+<ul class="item-parsed-list">
+    <li *ngIf="item.talismanTier" 
         class="sortable" 
-        (click)="currentSort.currentSort.next({sortKey: 'talisman_tier'})">
+        (click)="sortService.newSort('talisman_tier')">
         Talisman Tier: <span class="display-0">{{item.talismanTier}}</span>
-        <item-sortarrow *ngIf="currentSort.currentSort.value.sortKey == 'talisman_tier'" 
-                    [sortValue]="currentSort.currentSort.value.sortValue">
-        </item-sortarrow>
-    </div>
-    <div *ngIf="item.ilvl" 
+        <pos-item-sortarrow *ngIf="(currentSort | async).sortKey === 'talisman_tier'" 
+                    [sortValue]="(currentSort | async).sortValue">
+        </pos-item-sortarrow>
+    </li>
+    <li 
+        *ngIf="item.ilvl" 
         class="sortable" 
-        (click)="currentSort.currentSort.next({sortKey: 'ilvl'})">
+        (click)="sortService.newSort('ilvl')"
+    >
         Item Level: <span class="display-0">{{item.ilvl}}</span>
-        <item-sortarrow *ngIf="currentSort.currentSort.value.sortKey == 'ilvl'" 
-                        [sortValue]="currentSort.currentSort.value.sortValue">
-        </item-sortarrow>
-    </div>
-    <div *ngIf="item.requirements" class="item-parsed-nested-list">
-        <span>Requires</span> 
-        <div *ngFor="let prop of item.requirements | parseProps" 
-            [class.sortable]="prop.type != null && PROP_VALUES[prop.type]" 
-            (click)="PROP_VALUES[prop.type] ? currentSort.currentSort.next({sortKey: PROP_VALUES[prop.type]}) : ''">
-            <span *ngFor="let value of prop.values" class="{{value.display != null ? 'display-' + value.display : ''}}">
+        <pos-item-sortarrow *ngIf="(currentSort | async).sortKey === 'ilvl'" 
+                        [sortValue]="(currentSort | async).sortValue">
+        </pos-item-sortarrow>
+    </li>
+    <li *ngIf="item.requirements">
+        Requires
+        <ul class="item-parsed-nested-list">
+            <li 
+                *ngFor="let prop of item.requirements | parseProps; let i = index" 
+                [class.sortable]="prop.type != null && PROP_VALUES[prop.type]" 
+                (click)="PROP_VALUES[prop.type] ? sortService.newSort(PROP_VALUES[prop.type]) : ''"
+            >
+                {{ i > 0 ? ', ' : ' ' }}
+                <span 
+                    *ngFor="let value of prop.values" 
+                    class="{{value.display != null ? 'display-' + value.display : ''}}"
+                >
                 {{value.text}}
-            </span>
-            <item-sortarrow *ngIf="currentSort.currentSort.value.sortKey == PROP_VALUES[prop.type]" 
-                            [sortValue]="currentSort.currentSort.value.sortValue">
-            </item-sortarrow>
-        </div>
-    </div>
-</div>
+                </span>
+                <pos-item-sortarrow 
+                    *ngIf="(currentSort | async).sortKey === PROP_VALUES[prop.type]" 
+                    [sortValue]="(currentSort | async).sortValue">
+                </pos-item-sortarrow>
+            </li>
+        </ul>
+    </li>
+</ul>
