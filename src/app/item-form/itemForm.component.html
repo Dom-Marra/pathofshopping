@@ -1,57 +1,89 @@
-<form class="item-container">
-    <div class="item-header-container mat-input-400">
-        <button type="button" mat-icon-button class="transparent-mat-button warn-700 hoverable" (click)="remove()">
+<form class="item-form" *ngIf="itemForm">
+
+    <!-- Header -->
+    <div class="form-header primary-light">
+        <button 
+            type="button" 
+            mat-icon-button 
+            class="color-transparent-to-accent" 
+            (click)="remove()"
+            aria-label="Delete item"
+        >
             <mat-icon>delete</mat-icon>
         </button>
-        <div *ngIf="!editName" class="item-name">
-            <h4>{{itemForm.itemForm.value.itemName.length > 0 ? itemForm.itemForm.value.itemName : 'Item Name'}}</h4>
-            <button type="button" (click)="editName = true" mat-icon-button class="transparent-mat-button fix-height-mat-icon"><mat-icon>edit</mat-icon></button>
-        </div>
-        <mat-form-field class="item-name-input" *ngIf="editName" [floatLabel]="'never'">
-            <input #itemNameInput matInput 
-                (keydown.enter)="$event.target.blur()"
-                (blur)="editName = false" type="text" autocomplete="off" placeholder="Item Name"  [formControl]="itemForm.itemForm.controls.itemName">
-        </mat-form-field>
+        <h2>
+            <pos-editable-field label="Item name" [control]="itemName" class="primary-light"></pos-editable-field>
+        </h2>
+        <button 
+            mat-icon-button 
+            type="button"
+            class="color-transparent-to-accent" 
+            (click)="search()"
+            aria-label="Search for item"
+        >
+            <mat-icon>search</mat-icon>
+        </button>
     </div>
-        
 
-    <div class="item-contents">
+    <div class="filter-wrapper">
         <div class="filters">
-            <itemForm-typefilters class="filter type" [queryForm]="this.itemForm.itemForm['controls'].queryForm['controls'].query"></itemForm-typefilters>
-            <itemForm-weaponfilters class="filter" [weaponForm]="this.itemForm.itemForm['controls'].queryForm['controls'].query['controls'].filters['controls'].weapon_filters"></itemForm-weaponfilters>
-            <itemForm-armourfilters class="filter" [armourForm]="this.itemForm.itemForm['controls'].queryForm['controls'].query['controls'].filters['controls'].armour_filters"></itemForm-armourfilters>
-            <itemForm-socketfilters class="filter" [socketForm]="this.itemForm.itemForm['controls'].queryForm['controls'].query['controls'].filters['controls'].socket_filters"></itemForm-socketfilters>
-            <itemForm-requirements class="filter" [requirementsForm]="this.itemForm.itemForm['controls'].queryForm['controls'].query['controls'].filters['controls'].req_filters"></itemForm-requirements>
-            <itemForm-mapfilters class="filter" [mapForm]="this.itemForm.itemForm['controls'].queryForm['controls'].query['controls'].filters['controls'].map_filters"></itemForm-mapfilters>
-            <itemForm-specialbases class="filter" [influenceForm]="this.itemForm.influenceForm"></itemForm-specialbases>
-            <itemForm-gemfilters class="filter" [gemForm]="this.itemForm.gemForm"></itemForm-gemfilters>
-            <itemForm-otherfilters class="filter" [otherForm]="this.itemForm.otherForm"></itemForm-otherfilters>
-            <itemForm-tradefilters class="filter" [tradeForm]="this.itemForm.itemForm['controls'].queryForm['controls'].query['controls'].filters['controls'].trade_filters"></itemForm-tradefilters>
-            <itemForm-statfilters class="filter" *ngFor="let statFilter of this.itemForm.itemForm['controls'].queryForm['controls'].query['controls'].stats['controls']" [statFilter]="statFilter" (filterRemoved)="removeStatFilter($event)"></itemForm-statfilters>
-            <button mat-button type="button" (click)="addStatGroup()" class="transparent-mat-button"><mat-icon>library_add</mat-icon> Stat Group</button>
-            <div class="query-actions">
-                <div class="query-buttons">
-                    <button class="query-button search mat-button-300" mat-flat-button (click)="this.currentSort.currentSort.next({sortKey: 'price', sortValue: 'asc'})">
-                        <mat-icon>search</mat-icon>Search
-                    </button>
-                    <button class="query-button mat-button-600" mat-flat-button type="button" (click)="this.showResults = !this.showResults" *ngIf="this.itemForm.results || this.showResults">
-                        <mat-icon class="{{ showResults ? '' : 'rotate'}}">expand_less</mat-icon>{{ showResults ? 'Hide Results' : 'Show Results'}}
-                    </button>
-                    <button class="query-button mat-button-600" mat-flat-button type="button" (click)="clear()">
-                        <mat-icon>clear</mat-icon>Clear
-                    </button>
-                </div>
-                <app-searchselect class="status-field mat-input-400" 
-                                    autoCompleteClass='autocomplete-panel-300' 
-                                    inputName='Status'
-                                    [values]="statusOptions"
-                                    [filterBy]="simpleDataService.filterSimpleData"
-                                    [displayBy]="simpleDataService.displayByText"   
-                                    [setValue]="simpleDataService.getSelectedValue(this.itemForm.itemForm['controls'].queryForm['controls'].query['controls'].status['controls'].option.value, statusOptions)"
-                                    (selected)="this.itemForm.itemForm['controls'].queryForm['controls'].query['controls'].status['controls'].option.patchValue($event.id)"></app-searchselect>
+            <button 
+                class="color-transparent-to-accent clear" 
+                aria-label="Reset form" 
+                mat-icon-button 
+                type="button" 
+                (click)="clear()"
+            >
+                <mat-icon>restart_alt</mat-icon>
+            </button>
+    
+            <pos-item-search class="item-select" [queryForm]="itemForm.itemForm.controls.query"></pos-item-search>
+    
+            <!--  Type Filters & Status Filter -->
+            <div class="top-filters">
+                <pos-filter-group 
+                    [group]="itemForm.filterGroups[0]"
+                    class="filter"
+                    [noExpansion]="true"
+                    [wrapInputs]="false"
+                >
+                    <pos-searchselect 
+                        class="status-select"
+                        inputName='Status'
+                        [values]="statusOptions"
+                        [filterBy]="simpleDataService.filterSimpleData"
+                        [displayBy]="simpleDataService.displayByText"   
+                        [setValue]="simpleDataService.getSelectedValue(this.itemForm.itemForm['controls'].query['controls'].status['controls'].option.value, statusOptions)"
+                        (selected)="this.itemForm.itemForm['controls'].query['controls'].status['controls'].option.patchValue($event.id)">
+                    </pos-searchselect>
+                </pos-filter-group>
             </div>
+            
+            <!-- Filter Groups -->
+            <pos-filter-group 
+                *ngFor="let group of itemForm.filterGroups | slice:1" 
+                [group]="group"
+                class="filter"
+            >
+            </pos-filter-group>
+            
+            <!-- Stat Filters -->
+            <pos-statfilters 
+                class="filter" 
+                *ngFor="let statFilter of this.itemForm.itemForm['controls'].query['controls'].stats['controls']" 
+                [statFilter]="statFilter" 
+                (filterRemoved)="removeStatFilter($event)"
+                >
+            </pos-statfilters>
+            
+            <button 
+                mat-button 
+                type="button" 
+                (click)="addStatGroup()" 
+                class="color-transparent-to-accent">
+                <mat-icon>library_add</mat-icon> Add Stat Group
+            </button>
         </div>
-        <pos-results *ngIf="showResults" class="results" [results]="itemForm.results"></pos-results>
     </div>
 </form>
 

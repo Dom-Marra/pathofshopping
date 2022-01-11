@@ -1,12 +1,17 @@
 :host {
     color: transparent;
     text-shadow: none;
+    display: inline-flex;
+    align-items: center;
+    vertical-align: middle;
+    font-size: inherit;
 }
 
 .asc, .desc {
-    font-size: 18px;
+    font-size: inherit;
     display: inline-flex;
-    height: auto;
+    height: 1em;
+    width: 1em;
     justify-content: center;
     vertical-align: bottom;
 }

@@ -1,107 +1,171 @@
-import { ChangeDetectorRef, Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
-import { itemSaveData } from 'src/app/core/models/itemSaveData';
-import { shoppingListSaveData } from 'src/app/core/models/shoppingListSaveData';
-import { FirebaseService } from 'src/app/core/services/firebase.service';
-import { ActivatedRoute } from '@angular/router';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { SavedialogComponent } from 'src/app/shoppinglist/components/savedialog/savedialog.component';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { PoeService } from 'src/app/core/services/poe.service';
 import { SimpleDataService } from 'src/app/core/services/simpledata.service';
-import { simpleData } from 'src/app/core/models/simpleData';
-import { ItemForm } from 'src/app/core/classes/itemform';
+import { SimpleData } from 'src/app/core/models/simple-data.model';
+import { last, skipWhile, take, takeWhile } from 'rxjs/operators';
+import { ShoppingListService } from '../core/services/shopping-list.service';
+import { ItemForm } from '../item-form/classes/item-form';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
-  selector: 'app-shoppinglist',
+  selector: 'pos-shoppinglist',
   templateUrl: './shoppinglist.component.html',
   styleUrls: ['./shoppinglist.component.scss']
 })
 export class ShoppinglistComponent implements OnInit {
 
-  @ViewChildren("shoppingListNameInput") shoppingListNameInput: QueryList<ElementRef>;            //Item name input element
+  /** Determines mode for side nav */
+  public readonly sideNavMQ = window.matchMedia('(min-width: 54em)');
+
+  /** Used to detect changes for the macthMedia */
+  public readonly detectChanges = () => this.changeDetectorRef.detectChanges();
   
-  public listLoading: boolean;                                      //If the shopping list is loading data from firebase
-  public poeLoading: boolean;                                       //If the poe api data is loading
-  public leagues: Array<simpleData> = [];                           //Used for iterating over leaguess
-  public editShoppingListName: boolean = false;                     //Whether the shopping list input is disabled or not
-  public items: Array<ItemForm> = [];                               //Stores ItemForms
+  /** Whether the list is loading or not */
+  private listLoading: boolean = true;
+  
+  /** Whether the POE Service is loading or not */
+  private poeLoading: boolean = true;
 
-  public errMsg: string;                                            //Error Message to display
+  /** Whether services are loading */
+  public servicesLoading: BehaviorSubject<boolean> = new BehaviorSubject(true);
 
-  public shoppingList = new FormGroup({                             //Shopping list base inputs
-    league: new FormControl(),
-    name: new FormControl('Your Shopping List')
-  });
+  /** Whether a save is loading */
+  public saveLoading: BehaviorSubject<boolean> = new BehaviorSubject(null);
 
-  constructor(private cd: ChangeDetectorRef, 
-              private poeAPI: PoeService, 
-              private fireService: FirebaseService,
-              private activeRoute: ActivatedRoute,
+  /** League Data */
+  public leagues: Array<SimpleData> = [];
+
+  /** Current Items */
+  public items: Observable<Array<ItemForm>>;
+
+  /** Error Message */
+  public errMsg: string;
+
+  /** League form control */
+  public league = new FormControl();
+
+  /** Shopping list name form control */
+  public listName = new FormControl();
+
+  constructor(private poeAPI: PoeService, 
+              private activatedRoute: ActivatedRoute,
+              private router: Router,
               private dialog: MatDialog,
-              private snackBar: MatSnackBar,
-              public simpleDataService: SimpleDataService) { 
-
-    
-    let poeAPILoad = this.poeAPI.loaded.subscribe(
-      (loaded) => {
-        this.poeLoading = !loaded;
-
-        if (loaded) {
-          this.leagues = this.poeAPI.getLeagues();
-          poeAPILoad.unsubscribe();
-
-          if (this.shoppingList.controls.league.value == null) {
-            this.shoppingList.controls.league.patchValue(this.leagues[0].id);
-          }
-        }
-      },
-      (error) => {
-        this.errMsg = error;
-      }
-    );
-
-    let queryParam = this.activeRoute.snapshot.queryParamMap.get('list');
-
-    if (queryParam) {
-      this.load(queryParam);
-    } else {
-      this.addItem();
-    }
-  }
+              private listService: ShoppingListService,
+              private snackbar: MatSnackBar,
+              public simpleDataService: SimpleDataService,
+              private changeDetectorRef: ChangeDetectorRef
+  ) { }
 
   ngOnInit(): void {
-  }
+    this.poeAPI.loaded.pipe(takeWhile(() => this.poeLoading && !this.errMsg))
+    .subscribe(
+      (loaded) => {
+        if (loaded) {
+          this.poeLoading = false;
+          this.leagues = this.poeAPI.getLeagues();
 
-  ngAfterViewInit() {
-    this.shoppingListNameInput.changes.subscribe(() => {        //focus name input element after processed by ngIf
-      
-      if (this.editShoppingListName) {
-        this.shoppingListNameInput.first.nativeElement.focus();
-        this.cd.detectChanges();
-      }
+          if (!this.listLoading) this.servicesLoading.next(false);
+        }
+      },
+      (err) => { this.errMsg = err }
+    );
+
+    this.listService.getStatus().pipe(takeWhile(val => val === null && !this.errMsg, true))
+    .subscribe(
+      val => {
+        if (val?.loaded) {
+          this.listLoading = false; 
+
+          if (!this.poeLoading) this.servicesLoading.next(false);
+        }
+        else if (val?.loaded === false) this.errMsg = val.msg;
+      },
+      error => this.errMsg = error
+    )
+
+    this.servicesLoading.pipe(takeWhile(val => val === true && !this.errMsg, true))
+    .subscribe(val => {
+      console.log(val);
+      if (val === true) return;
+      console.log('here')
+
+      if (!this.league.value) this.league.patchValue(this.leagues[0].id);
+      if (!this.listName.value) this.listName.patchValue('Your List');
+
+      this.items = this.listService.getItems();
+    
+      /** Load list */
+      this.activatedRoute.paramMap.pipe(take(1)).subscribe(map => {
+        const ID  = map.get('listID');
+
+        if (ID === 'new') this.saveLoading.next(false);
+        else {
+          this.saveLoading.next(true);
+
+          this.listService.load(ID).pipe(take(1)).subscribe(
+            val => {
+              if (!val.loaded) {
+                this.router.navigate(['..', 'new'], {relativeTo: this.activatedRoute, replaceUrl: true});
+                this.snackbar.open(val.msg, 'close', {duration: 5000, panelClass: 'dark-default'});
+              }
+
+              this.saveLoading.next(false);
+            },
+            error => {
+              this.saveLoading.next(false);
+              this.router.navigate(['..', 'new'], {relativeTo: this.activatedRoute, replaceUrl: true});
+              this.snackbar.open(error, 'close', {duration: 5000, panelClass: 'dark-default'});
+            }
+          );
+        }
+      });
+
+      this.saveLoading.pipe(takeWhile(val => val === null || val === true, true)).subscribe(val => {
+        if (val === null || val === true) return;
+        
+        /** Re-route based on item length */
+        this.items.subscribe(items => {
+          if (items.length === 0 && this.activatedRoute.children.length !== 0)
+            this.router.navigate(['/'], {relativeTo: this.activatedRoute, replaceUrl: true}) 
+          else if (items.length > 0 && this.activatedRoute.children.length === 0)
+            this.router.navigate(['form', '1'], {relativeTo: this.activatedRoute, replaceUrl: true})
+        });
+      });
+
+      this.league.valueChanges.subscribe(val => {
+        this.listService.setLeague(val);
+      });
+
+      this.listName.valueChanges.subscribe(val => {
+        this.listService.setName(val);
+      });
+
+      this.sideNavMQ.addEventListener('change', this.detectChanges);
     });
   }
 
+
   /**
-   * Adds a new Item to the shopping list
-   * 
-   * @param itemSaveData 
-   *        Saved data to initiate the new item with
+   * Adds an item to the shopping list service
    */
-  public addItem(itemSaveData?: itemSaveData) {
-    let item: ItemForm = new ItemForm(itemSaveData);
-    this.items.push(item);
+  public addItem() {
+    this.listService.addItem();
   }
 
   /**
-   * Deletes an item
+   * Deletes item from the shopping list service
    * 
-   * @param itemData 
-   *        Item to delete
+   * @param item 
+   *        ItemForm: The item to delete
    */
-  public deleteItem(itemData: ItemForm) {
-    this.items.splice(this.items.indexOf(itemData), 1);
+  public deleteItem(item: ItemForm) {
+    this.listService.deleteItem(item);
   }
 
   /**
@@ -111,70 +175,7 @@ export class ShoppinglistComponent implements OnInit {
     this.dialog.open(SavedialogComponent, {
       panelClass: 'save-dialog',
       disableClose: true,
-      data: this.fireService.addShoppingList(this.configureShoppingListData())
+      data: this.listService.save()
     });
-  }
-
-  /**
-   * Configures the shopping list properties into savable data
-   */
-  public configureShoppingListData(): shoppingListSaveData {
-    let save: shoppingListSaveData = {        //Main save object
-      name: this.shoppingList.value.name,
-      league: this.shoppingList.value.league,
-      savedItems: []
-    }
-
-    this.items.forEach(item => {              //Add items 
-      save.savedItems.push(item.itemForm.getRawValue());
-    });
-
-    return save;
-  }
-
-  /**
-   * Loads a shopping list configuration
-   * 
-   * @param list 
-   *        id of the shopping list document
-   */
-  public load(list: string) {
-    this.listLoading = true;          //Set loading to true
-
-    this.fireService.getShoppingList(list).then(doc => {      //Try to get the document
-      
-      if (doc.exists) {
-        (doc.data() as shoppingListSaveData).savedItems.forEach((save: itemSaveData) => {   //Add items
-          this.addItem(save);
-        });
-
-        //Set league and name
-        this.shoppingList.controls.name.patchValue((doc.data() as shoppingListSaveData).name);
-        this.shoppingList.controls.league.patchValue((doc.data() as shoppingListSaveData).league);
-
-      } else {  //Doc doesn't exist
-        this.displayErrorSnackBar('Error: No such list exists!');
-        this.addItem();
-      }
-
-      this.listLoading = false;
-    }).catch(() => {      //Err while trying to read the doc     
-      this.displayErrorSnackBar('Error: Could not load the list');
-      this.addItem();
-      this.listLoading = false;
-    })
-  }
-
-  /**
-   * Displays an err through a snackbar
-   * 
-   * @param err 
-   *        string: error message
-   */
-  public displayErrorSnackBar(err: string) {
-    this.snackBar.open(err, 'close', {
-      panelClass: 'error-snack-bar',
-      duration: 3000
-    })
   }
 }

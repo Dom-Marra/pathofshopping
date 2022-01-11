@@ -1,11 +1,11 @@
 import { Component, Input, OnInit, Output, EventEmitter, SimpleChanges } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
-import { StatForm } from 'src/app/core/classes/stat-form';
-import { poeCategorizedStats, poeStat, poeStatOption } from 'src/app/core/models/poeAPIStats';
+import { PoeCategorizedStats, PoeStat, PoeStatOption } from 'src/app/core/models/poe-api-stat.model';
 import { PoeService } from 'src/app/core/services/poe.service';
+import { StatForm } from '../../classes/stat-form';
 
 @Component({
-  selector: 'itemForm-statselect',
+  selector: 'pos-statselect',
   templateUrl: './statselect.component.html',
   styleUrls: ['./statselect.component.scss']
 })
@@ -15,8 +15,8 @@ export class StatselectComponent implements OnInit {
   @Input() isWeight: boolean = false;                                               //Whether this stat is under a wieghted sum filter group
   @Input() statGroup: StatForm;                                                     //Stat data that belongs to this selector
   
-  public filteredStatOptions: poeStatOption;                                        //Filtered Stat Options
-  public statsToSearch: Array<poeCategorizedStats>;
+  public filteredStatOptions: PoeStatOption;                                        //Filtered Stat Options
+  public statsToSearch: Array<PoeCategorizedStats>;
 
   constructor(private poeAPI: PoeService) { 
     this.statsToSearch = this.poeAPI.getStats();                               //Init stats to search
@@ -45,7 +45,7 @@ export class StatselectComponent implements OnInit {
    * @returns
    *        string: text value of the stat
    */
-  public statDisplayBy(stat: poeStat) {
+  public statDisplayBy(stat: PoeStat) {
     return stat?.text;
   }
 
@@ -57,7 +57,7 @@ export class StatselectComponent implements OnInit {
    * @returns
    *        string: text value of the option
    */
-  public optionDisplayBy(option: poeStatOption) {
+  public optionDisplayBy(option: PoeStatOption) {
     return option?.text;
   }
 
@@ -73,7 +73,7 @@ export class StatselectComponent implements OnInit {
    * @returns 
    *       Array<poeCategorizedStats>: The filtered results
    */
-  public filterStats(searchText: string, values: Array<poeCategorizedStats>): Array<poeCategorizedStats> {
+  public filterStats(searchText: string, values: Array<PoeCategorizedStats>): Array<PoeCategorizedStats> {
     if (!searchText) return values;
 
     let filteredStats = values.map(statCategory => ({
@@ -100,7 +100,7 @@ export class StatselectComponent implements OnInit {
    * 
    * @returns  Array<poeStatOption>: The filtered results
    */
-  public filterStatOptions(searchText: string, values: Array<poeStatOption>) {
+  public filterStatOptions(searchText: string, values: Array<PoeStatOption>) {
     let statOptions = values.filter(stat => {
       return stat.text.toLowerCase().indexOf(searchText.toLowerCase()) != -1;
     });
@@ -131,7 +131,7 @@ export class StatselectComponent implements OnInit {
    * @param stat
    *        stat to set
    */
-  public setStat(stat: poeStat) {
+  public setStat(stat: PoeStat) {
       this.statGroup.controls.id.patchValue(stat.id);
       this.statGroup.controls.selectedStat.patchValue(stat);
 
@@ -151,7 +151,7 @@ export class StatselectComponent implements OnInit {
    * @param option 
    *          option to set
    */
-  public setStatOption(option: poeStatOption) {
+  public setStatOption(option: PoeStatOption) {
     this.statGroup.controls.selectedStatOption.patchValue(option);
     this.statGroup['controls'].value['controls'].option.patchValue(option.id);
   }

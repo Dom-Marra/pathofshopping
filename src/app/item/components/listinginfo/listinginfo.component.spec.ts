@@ -10,7 +10,7 @@ import { MatIconHarness } from '@angular/material/icon/testing';
 import { By } from '@angular/platform-browser';
 import { BehaviorSubject } from 'rxjs';
 import { currentSortProperties } from 'src/app/core/models/currentSortProperties';
-import { poeCategorizedStatic } from 'src/app/core/models/poeAPIStatic';
+import { poeCategorizedStatic } from 'src/app/core/models/poe-api-static.model';
 import { CurrentsortService } from 'src/app/core/services/currentsort.service';
 import { PoeService } from 'src/app/core/services/poe.service';
 

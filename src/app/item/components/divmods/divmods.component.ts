@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'item-divmods',
+  selector: 'pos-item-divmods',
   templateUrl: './divmods.component.html',
   styleUrls: ['./divmods.component.scss']
 })

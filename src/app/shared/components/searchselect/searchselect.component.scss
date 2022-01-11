@@ -1,9 +1,4 @@
-:host {
+.suffix {
     display: flex;
-    flex: 1;
-}
-
-.flexed-inputs {
-    flex: 1;
-    overflow: hidden;
+    align-items: center;
 }

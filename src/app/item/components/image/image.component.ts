@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'item-image',
+  selector: 'pos-item-image',
   templateUrl: './image.component.html',
   styleUrls: ['./image.component.scss']
 })

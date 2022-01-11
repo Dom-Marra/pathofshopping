@@ -1,10 +1,15 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { ShoppinglistComponent } from './shoppinglist/shoppinglist.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'shoppinglist', pathMatch: 'full'},
-  { path: 'shoppinglist', component: ShoppinglistComponent}
+  { 
+    path: 'list/:listID', 
+    loadChildren: () => import('./shoppinglist/shoppinglist.module').then(m => m.ShoppinglistModule)
+  },
+  { path: '', redirectTo: 'list/new', pathMatch: 'full'},
+  { path: 'list', redirectTo: 'list/new', pathMatch: 'full' },
+  { path: '**', pathMatch: 'full', component: NotFoundComponent }
 ];
 
 @NgModule({

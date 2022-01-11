@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'item-sortarrow',
+  selector: 'pos-item-sortarrow',
   templateUrl: './sortarrow.component.html',
   styleUrls: ['./sortarrow.component.scss']
 })

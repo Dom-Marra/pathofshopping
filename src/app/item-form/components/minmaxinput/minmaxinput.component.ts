@@ -2,13 +2,14 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 @Component({
-  selector: 'itemForm-minmaxinput',
+  selector: 'pos-minmaxinput',
   templateUrl: './minmaxinput.component.html',
   styleUrls: ['./minmaxinput.component.scss']
 })
 export class MinmaxinputComponent implements OnInit {
 
-  @Input() group: FormGroup;                                        //form group to use
+  /** Form Group to use */
+  @Input() group: FormGroup;
 
   constructor() { }
 

@@ -1,128 +1,80 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, QueryList, ViewChildren } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { PoeService } from 'src/app/core/services/poe.service';
-import { simpleData } from 'src/app/core/models/simpleData';
+import { Component, OnInit } from '@angular/core';
+import { SimpleData } from 'src/app/core/models/simple-data.model';
 import { SimpleDataService } from 'src/app/core/services/simpledata.service';
-import { CurrentsortService } from 'src/app/core/services/currentsort.service';
-import { currentSortProperties } from 'src/app/core/models/currentSortProperties';
-import { ItemForm } from '../core/classes/itemform';
-import { StatFilterForm } from '../core/classes/stat-filter-form';
-import { skip, take } from 'rxjs/operators';
-import { FetchedProperties } from '../core/models/fetchedproperties.model';
-import { Results } from '../core/classes/results';
-import { PoeAPISearchProperties } from '../core/models/poeapisearchproperties.model';
-import { Subscription } from 'rxjs';
+import { SortService } from 'src/app/core/services/currentsort.service';
+import { ShoppingListService } from '../core/services/shopping-list.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { FormControl } from '@angular/forms';
+import { ItemForm } from './classes/item-form';
+import { StatFilterForm } from './classes/stat-filter-form';
+import { take, takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'pos-itemForm',
   templateUrl: './itemForm.component.html',
   styleUrls: ['./itemForm.component.scss']
 })
-export class ItemFormComponent implements OnInit, OnDestroy, AfterViewInit {
+export class ItemFormComponent implements OnInit {
 
-  @Output() deleteItem: EventEmitter<ItemForm> = new EventEmitter<ItemForm>();  //Event emitter for removal
-  @Input() itemForm: ItemForm;                                                  //Item Form 
-  @Input() league: string;                                                      //League selected
-  @ViewChildren("itemNameInput") itemNameInput: QueryList<ElementRef>;          //Item name input element
+  /** Item Form Object */
+  public itemForm: ItemForm;
 
-  public editName: boolean = false;                         //Whether name is in edit mode or not
-  public showResults: boolean = false;                      //Used to show results tab
-  public statusOptions: Array<simpleData> = [               //Status options
+  /** Form control for item name */
+  public itemName: FormControl;
+
+  /** Status Options */
+  public statusOptions: Array<SimpleData> = [
     {id: 'any', text: 'All'},
     {id: 'online', text: 'Online'}
   ];
 
-  private currentSortSub: Subscription;                     //Sub for the current sort service
+  /** Unsubber */
+  private readonly unsubscribe: Subject<void> = new Subject();
+  
+  constructor(
+    public simpleDataService: SimpleDataService,
+    public sortService: SortService,
+    private listService: ShoppingListService,
+    private activatedRoute: ActivatedRoute,
+    private router: Router
+  ) {  
 
-  constructor(private cd: ChangeDetectorRef, 
-              private snackBar: MatSnackBar, 
-              private poe: PoeService,
-              public simpleDataService: SimpleDataService,
-              public currentSort: CurrentsortService) {  
-  }
-
-  ngAfterViewInit() {
-    this.itemNameInput.changes.subscribe(() => {        //focus name input element after processed by ngIf
-      
-      if (this.editName) {
-        this.itemNameInput.first.nativeElement.focus();
-        this.cd.detectChanges();
-      }
-    });
   }
 
   ngOnInit(): void {
-    this.currentSortSub = this.currentSort.currentSort.pipe(
-      skip(1)
-    ).subscribe((val: currentSortProperties) => {
-      if (!val) return;
-      let sortValue = this.itemForm.setSortBy(val.sortKey, val.sortValue);
-      if (sortValue) val.sortValue = sortValue;
-      this.queryIDs();
+
+    let itemReference: number;
+
+    this.listService.getItems().pipe(takeUntil(this.unsubscribe)).subscribe(items => {
+      if (items.length === 0) this.router.navigate(['..']);
+      else if (itemReference + 1 > items.length) this.router.navigate(['..', items.length], {relativeTo: this.activatedRoute, replaceUrl: true});
     });
-  }
 
-  ngOnDestroy(): void {
-    this.currentSortSub.unsubscribe();
-  }
+    this.activatedRoute.paramMap.pipe(takeUntil(this.unsubscribe)).subscribe(map => {
+      if (!map.has('itemID')) this.router.navigateByUrl('list');
 
-  /**
-   * Fetches item IDs from the POE API using the query form data
-   */
-  public queryIDs() {
-    let data = this.itemForm.getDataForQuery();
+      itemReference = parseInt(map.get('itemID')) - 1;
+      
+      this.listService.getItems().pipe(take(1)).subscribe(items => {
+        this.itemForm = items[itemReference];
 
-    this.poe.search(data, this.league).pipe(
-      take(1)
-    ).subscribe(
-      (fetch: FetchedProperties) => {                             //Fetch items based on data
-
-        if (fetch.result != null && fetch.result.length > 0) {    //If there are results set the result data
-          this.itemForm.results = new Results(fetch);
-          this.itemForm.results.fetchedResults.pseudos = this.getPseudoParams(data); 
-
-          //Show results and close sub
-          this.showResults = true;
-        } else {
-          this.displayErrorSnackBar('No results found. Please widen parameters');
-        }
-    },
-    (error) => {    //Handle http error
-      this.displayErrorSnackBar(error);
-    }
-    );
-  }
-
-  /**
-   * Displays error message
-   * 
-   * @param err 
-   *        string: error message
-   */
-  private displayErrorSnackBar(err: string) {
-    this.snackBar.open(err, 'close', {
-      panelClass: 'error-snack-bar',
-      duration: 3000
-    });
-  }
-
-  /**
-   * Returns the pseudo query param data
-   * 
-   * @param data
-   *        PoeAPISearchProperties
-   */
-  private getPseudoParams(data: PoeAPISearchProperties): string {
-    let pseudos: string = "";                                             //Pseudo mod params
-
-    data.query.stats?.forEach(statGroup => {                              //Add pseudo mods
-      statGroup.filters?.forEach((filter, i) => {
-        if (this.poe.getStatByID(filter.id)?.type == 'pseudo') 
-          pseudos = pseudos.concat("pseudos[]=" + filter.id + (statGroup.filters[i + 1] ? '&' : ''));
+        this.itemName = this.itemForm.itemForm.controls.itemName as FormControl;
       });
     });
+  }
 
-    return pseudos;
+  ngOnDestroy() {
+    this.unsubscribe.next();
+    this.unsubscribe.complete();
+  }
+
+  /**
+   * Navigates to results page
+   */
+  public search() {
+    this.sortService.newSort('price', 'asc');
+    this.router.navigate([`results`], {relativeTo: this.activatedRoute});
   }
 
   /**
@@ -147,13 +99,12 @@ export class ItemFormComponent implements OnInit, OnDestroy, AfterViewInit {
    */
   public clear() {
     this.itemForm.clear();
-    this.showResults = false;
   }
 
   /**
    * Deletes the item
    */
   public remove() {
-    this.deleteItem.emit(this.itemForm);
+    this.listService.deleteItem(this.itemForm);
   }
 }

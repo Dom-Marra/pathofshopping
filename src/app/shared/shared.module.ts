@@ -2,9 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-//Directives
-import { EqualflexDirective } from './directives/equalflex.directive';
-
 //Components
 import { SearchSelectComponent } from './components/searchselect/searchselect.component';
 
@@ -13,11 +10,12 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { EditableFieldComponent } from './components/editable-field/editable-field.component';
 
 @NgModule({
   declarations: [ 
     SearchSelectComponent,
-    EqualflexDirective
+    EditableFieldComponent
   ],
   imports: [
     CommonModule,
@@ -30,10 +28,10 @@ import { MatButtonModule } from '@angular/material/button';
   ],
   exports: [
     SearchSelectComponent,
-    EqualflexDirective,
     FormsModule,
     ReactiveFormsModule,
-    CommonModule
+    CommonModule,
+    EditableFieldComponent
   ]
 })
 export class SharedModule { }

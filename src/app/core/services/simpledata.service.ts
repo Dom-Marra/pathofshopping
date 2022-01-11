@@ -1,16 +1,10 @@
 import { Injectable } from '@angular/core';
-import { simpleData } from '../models/simpleData';
+import { SimpleData } from '../models/simple-data.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SimpleDataService {
-
-  public readonly simpleTrueFalse: Array<simpleData> = [
-    {id: '', text: 'All'},
-    {id: 'true', text: 'Yes'},
-    {id: 'false', text: 'No'}
-  ];
 
   /**
    * Filters object keys based on search text
@@ -21,7 +15,7 @@ export class SimpleDataService {
    * @returns
    *         Array<simpleData>: list of filtered object keys
    */
-  public filterSimpleData(searchText: string, values: Array<simpleData>): Array<simpleData> {
+  public filterSimpleData(searchText: string, values: Array<SimpleData>): Array<SimpleData> {
     const text = searchText.toLowerCase();
 
     return values.filter(value => value.text.toLowerCase().indexOf(text.toLocaleLowerCase()) != -1);
@@ -33,7 +27,7 @@ export class SimpleDataService {
    * @param value
    *        simple data object 
    */
-  public displayByText(value: simpleData): string {
+  public displayByText(value: SimpleData): string {
     return value.text;
   }
 
@@ -50,7 +44,8 @@ export class SimpleDataService {
    * @returns
    *         simpleData
    */
-  public getSelectedValue(id: string, values: Array<simpleData>): simpleData {
+  public getSelectedValue(id: string, values: Array<SimpleData>): SimpleData {
+    if (id === null || id === undefined) console.log(values);
     return values.find(value => value.id === id);
   }
 }

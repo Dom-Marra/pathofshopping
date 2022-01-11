@@ -1,37 +1,156 @@
-import { Component, ElementRef, Input, OnInit, QueryList, ViewChildren } from '@angular/core';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { Results } from '../core/classes/results';
+import { Component, OnInit } from '@angular/core';
+import { PageEvent } from '@angular/material/paginator';
 import { PoeService } from 'src/app/core/services/poe.service';
-import { poeAPIResult } from '../core/models/poeAPIResult';
+import { PoeAPIResult } from '../core/models/poe-api-result.model';
+import { ItemForm } from '../item-form/classes/item-form';
+import { ShoppingListService } from '../core/services/shopping-list.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { skip, take, takeUntil } from 'rxjs/operators';
+import { Results } from './results.model';
+import { PoeAPISearchProperties } from '../core/models/poe-api-search-properties.model';
+import { SortService } from '../core/services/currentsort.service';
+import { Observable, Subject } from 'rxjs';
+import { SortProperties } from '../core/models/sort-properties';
 
 @Component({
   selector: 'pos-results',
   templateUrl: './results.component.html',
   styleUrls: ['./results.component.scss']
 })
-export class ResultsComponent implements OnInit {
+export class ResultsComponent implements OnInit {  
 
-  @ViewChildren('itemsPaginator') itemsPaginators: QueryList<MatPaginator>;                         //Paginator
-  @ViewChildren('itemsPaginator', { read: ElementRef }) itemsPaginatorsRef: QueryList<ElementRef>;  //results container
+  /** Query Result Data */
+  public results: Results;
 
-  @Input() set results(results: Results) {         //Setter function for the results
-    this._results = results;
-    this.getItems();
-  }              
+  /** Saved search results */
+  private cachedResults: Array<Array<string>> = [];
 
-  public _results: Results;                        //Data pertaining to results
-  public inProgress: boolean = false;              //Whether the query is in progress or not
+  /** Current result index */
+  private index: number = 0;
+  
+  /** Search Pseudos */
+  public pseudos: string = "";
 
-  constructor(private poeAPI: PoeService) { }
+  /** Retrieved items */
+  public items: Array<Array<any>> = [];
 
-  ngOnInit(): void { 
+  /** Whether queries are in progress */
+  public inProgress: boolean;
+
+  /** The parent Item Form */
+  public itemForm: ItemForm;
+
+  /** The league to search in */
+  private league: string;
+
+  /** Query errors */
+  public errMsg: string;
+
+  /** Unsubber */
+  private readonly unsubscribe: Subject<void> = new Subject();
+
+  public currentSort: Observable<SortProperties>;
+
+  constructor(
+    private poe: PoeService, 
+    private listService: ShoppingListService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private sortService: SortService
+  ) { 
+    this.currentSort = this.sortService.getSort();
   }
 
-  ngAfterViewInit() {
-    if (this.itemsPaginatorsRef.first) this.itemsPaginatorsRef.first.nativeElement.scrollIntoView();    //Scroll to first paginator
+  ngOnInit(): void { 
+    let itemReference: number;
 
-    this.itemsPaginatorsRef.changes.subscribe(paginators => {                       //When paginators become visible scroll to first 
-      if (paginators.length > 0) paginators.first.nativeElement.scrollIntoView();
+    this.activatedRoute.paramMap.pipe(takeUntil(this.unsubscribe)).subscribe(map => {
+      if (!map.has('itemID')) this.router.navigate(['..'], {relativeTo: this.activatedRoute, replaceUrl: true});
+
+      itemReference = parseInt(map.get('itemID')) - 1;
+      
+      this.listService.getItems().pipe(take(1)).subscribe(items => {
+        this.itemForm = items[itemReference];
+      });
+    });
+
+    this.listService.getItems().pipe(takeUntil(this.unsubscribe)).subscribe(items => {
+      if (isNaN(itemReference) || items.length === 0) this.router.navigate(['..'], {relativeTo: this.activatedRoute,replaceUrl: true});
+      else if (itemReference + 1 > items.length) this.router.navigate(['..', items.length, {replaceUrl: true}]);
+    });
+
+    this.currentSort.pipe(take(1), takeUntil(this.unsubscribe)).subscribe(val => {
+      this.itemForm.setSortBy(val)
+    });
+
+    this.listService.getLeague().pipe(takeUntil(this.unsubscribe)).subscribe(league => {
+      this.league = league;
+      this.query();
+    });
+    
+    this.currentSort.pipe(skip(1), takeUntil(this.unsubscribe)).subscribe((val) => {
+      this.itemForm.setSortBy(val)
+      this.query();
+    });
+  }
+
+  ngOnDestroy() {
+    this.unsubscribe.next();
+    this.unsubscribe.complete();
+  }
+
+  /**
+   * Fetches item IDs from the POE API using the query form data
+   */
+   public query(): void {
+    this.results = null;
+    this.cachedResults = [];
+    this.index = 0;
+    this.pseudos = "";
+    this.items = [];
+
+    let data = this.itemForm.exportForQuery();
+
+    this.inProgress = true; 
+  
+    this.poe.search(data, this.league).pipe(
+      take(1),
+    ).subscribe(
+      (fetch: Results) => {
+
+        if (fetch.error) {
+          this.errMsg = 'Sorry, we could not make the request at this time.';
+          this.inProgress = false;
+          return;
+        }
+
+        if (fetch.total > 0) { 
+          this.results = fetch;
+          this.setPseudos(data); 
+          this.getItems();
+        } else {
+          this.errMsg = 'No results found. Please widen parameters';
+          this.inProgress = false;
+        }
+    },
+    (error) => {    //Handle http error
+      this.errMsg = error;
+    }
+    );
+  }
+
+  /**
+   * Returns the pseudo query param data
+   * 
+   * @param data
+   *        PoeAPISearchProperties
+   */
+  private setPseudos(data: PoeAPISearchProperties): void {
+    data.query.stats?.forEach(statGroup => {                              //Add pseudo mods
+      statGroup.filters?.forEach((filter, i) => {
+        if (this.poe.getStatByID(filter.id)?.type == 'pseudo') 
+          this.pseudos += `${this.pseudos.length > 0 ? '%26' : ''}pseudos[]=${filter.id}`;
+      });
     });
   }
 
@@ -40,21 +159,18 @@ export class ResultsComponent implements OnInit {
    */
   public getItems() {
 
-    let results = this._results.fetchedResults.result
-                  .slice(this._results.pageData.startIndex, this._results.pageData.endIndex);   //Get the IDs to retrive items for
+    let results = this.results.result.slice(this.index * 10, (this.index + 1) * 10);   //Get the IDs to retrive items for
 
-    for (let item of results) {                            //Already have the information so return
-      if (this._results.retrievedItems.find(retrievedItem => retrievedItem?.id == item)) return;
-    }
+    if (this.cachedResults.includes(results)) return;     //Already have the information so return
 
     if (results.length < 1) return;
 
-    this.inProgress = true;                               //Set in progress
-
     //Get items
-    this.poeAPI.fetch(results, "?query=" + this._results.fetchedResults.id + "&" + this._results.fetchedResults.pseudos)
-    .subscribe((items: poeAPIResult) => {  
-      this._results.addRetrievedItems(items.result);
+    this.poe.fetch(results, "?query=" + this.results.id + "%26" + this.pseudos)
+    .subscribe((items: PoeAPIResult) => {  
+      this.cachedResults.push(results);
+
+      this.items.push(items.result);
 
       //Out of progress unsub
       this.inProgress = false;
@@ -68,7 +184,7 @@ export class ResultsComponent implements OnInit {
    *        PageEvent
    */
   public changeIndices(pageData: PageEvent) {
-    this._results.setPageData(pageData.pageIndex);
+    this.index = pageData.pageIndex;
     this.getItems();
   }
 }

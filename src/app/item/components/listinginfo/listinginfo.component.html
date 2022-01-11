@@ -1,31 +1,47 @@
-<div class="item-listing-info">
-    <div class="listing-info mat-small">
-        <mat-icon class="online-status {{listing.account.online ? listing.account.online.status : 'offline'}}">
-            {{listing.account.online ? 'person' : 'person_off'}}
-        </mat-icon>
-        &nbsp;{{ listing.account.lastCharacterName}}
-    </div>
-    <div *ngIf="listing.price" 
-        class="listing-info mat-small sortable" 
-        (click)="currentSort.currentSort.next({sortKey: 'price'})">
-        <span>x{{listing.price.amount}}&nbsp;</span>
-        <img class="currency-icon" src="{{this.getCurrencyImage(listing.price.currency)}}">
-        <item-sortarrow *ngIf="currentSort.currentSort.value.sortKey == 'price'" 
-                        [sortValue]="currentSort.currentSort.value.sortValue">
-        </item-sortarrow>
-    </div>
-    <div class="listing-info mat-small sortable" (click)="currentSort.currentSort.next({sortKey: 'indexed'})">
-        <mat-icon class="time-icon">access_time</mat-icon>&nbsp;
-        <span>{{subtractDate(listing.indexed)}}</span>
-        <item-sortarrow *ngIf="currentSort.currentSort.value.sortKey == 'indexed'" 
-                        [sortValue]="currentSort.currentSort.value.sortValue">
-        </item-sortarrow>
-    </div>
-    <button mat-icon-button
-            class="whisper-button listing-info mat-small" 
-            [class.copied]="listing.copied" 
-            [cdkCopyToClipboard]="listing.whisper" 
-            (cdkCopyToClipboardCopied)="listing['copied'] = true">
-        <mat-icon>{{listing.copied ? 'check_circle' : 'message'}}</mat-icon>
-    </button>
-</div>
+<p class="listing-info">
+    <mat-icon 
+        [color]="listing.account.online ? 'accent' : 'warn'" 
+        class="online-status {{listing.account.online ? listing.account.online.status : 'offline'}}"
+        [attr.title]="listing.account.online ? 'Account online' : 'Account offline'"
+    >
+        {{listing.account.online ? 'person' : 'person_off'}}
+    </mat-icon> {{ listing.account.lastCharacterName }}
+</p>
+<button 
+    class="listing-info sortable" 
+    (click)="sortService.newSort('indexed')"
+    aria-label="Sort by listed date"
+>
+    Listed {{subtractDate(listing.indexed)}}
+    <pos-item-sortarrow 
+        *ngIf="(currentSort | async).sortKey === 'indexed'" 
+        [sortValue]="(currentSort | async).sortValue"
+    >
+    </pos-item-sortarrow>
+</button>
+<button 
+    *ngIf="listing.price"
+    class="listing-info sortable primary-light" 
+    (click)="sortService.newSort('price')"
+    aria-label="Sort by currency"
+>
+    {{listing.price.amount}} x
+    <img 
+        class="currency-icon" 
+        [attr.src]="'http://pathofexile.com' + this.getCurrency(listing.price.currency).image" 
+        [attr.alt]="this.getCurrency(listing.price.currency).text"
+    >
+    <pos-item-sortarrow *ngIf="(currentSort | async).sortKey === 'price'" 
+                    [sortValue]="(currentSort | async).sortValue">
+    </pos-item-sortarrow>
+</button>
+<button 
+        mat-icon-button
+        [class]="!listing['copied'] ? 'color-transparent-to-accent' : ''"
+        [color]="listing['copied'] ? 'accent' : ''"
+        [cdkCopyToClipboard]="listing.whisper" 
+        (cdkCopyToClipboardCopied)="listing['copied'] = true"
+        aria-label="Copy whisper message"
+>
+    <mat-icon>{{listing.copied ? 'check_circle' : 'message'}}</mat-icon>
+</button>
