@@ -1,11 +1,17 @@
-<div matAutocompleteOrigin #autoCompleteHost="matAutocompleteOrigin" class="stat-select">
+<div matAutocompleteOrigin #autoCompleteHost="matAutocompleteOrigin" class="stat-select primary-light">
 
     <div class="stat-selector-wrapper">
-        <div class="stat-selector-buttons">
-            <itemForm-filteractionbuttons disableClear="true" includeDelete="true" (remove)="deleteStatFilter()" [formGroup]="this.statGroup" (disableChange)="this.statGroup.controls.disabled.patchValue(this.statGroup.disabled, {emitEvent: false, onlySelf: true})"></itemForm-filteractionbuttons>
-        </div>
+        <pos-filteractionbuttons 
+            class="stat-selector-buttons"
+            disableClear="true" 
+            includeDelete="true" 
+            (remove)="deleteStatFilter()" 
+            [formGroup]="this.statGroup" 
+            (disableChange)="this.statGroup.controls.disabled.patchValue(this.statGroup.disabled, {emitEvent: false, onlySelf: true})"
+        >
+        </pos-filteractionbuttons>
 
-        <app-searchselect class="stat-selector mat-input-500" [placeholder]="'Add Stat'" 
+        <pos-searchselect class="stat-selector mat-input-500" [placeholder]="'Add Stat'" 
                         [values]="statsToSearch"
                         [groupOptions]="{groupedBy: 'label', groupedInto: 'entries'}"
                         [filterBy]="filterStats"
@@ -14,21 +20,19 @@
                         [autoCompleteClass]="'autocomplete-panel-300'"
                         [autoCompleteHost]='autoCompleteHost'
                         [setValue]="this.statGroup.controls.selectedStat.value"
-                        (selected)="setStat($event)"></app-searchselect>
+                        (selected)="setStat($event)"></pos-searchselect>
     </div>
     
-    <div *ngIf="this.statGroup.controls.selectedStat.value" class="stat-inputs">
-        <div *ngIf="isWeight" class="stat-weight flexed-inputs mat-input-600">
-            <mat-form-field>
-                <mat-label>Weight</mat-label>
-                <input digitsonly matInput type="text" autocomplete="off" [formControl]="this.statGroup['controls'].value['controls'].weight">
-            </mat-form-field>
-        </div>
+    <ng-container *ngIf="this.statGroup.controls.selectedStat.value">
+        <mat-form-field appearance="fill" color="accent" *ngIf="isWeight" class="stat-weight no-padding">
+            <mat-label>Weight</mat-label>
+            <input digitsonly matInput type="text" autocomplete="off" [formControl]="this.statGroup['controls'].value['controls'].weight">
+        </mat-form-field>
     
-        <itemForm-minmaxinput *ngIf="this.statGroup.controls.selectedStat.value.option == null && !isWeight" class="stat-min-max-fields mat-input-600" [group]="this.statGroup['controls'].value"></itemForm-minmaxinput>
+        <pos-minmaxinput *ngIf="this.statGroup.controls.selectedStat.value.option == null" class="stat-min-max-fields mat-input-600" [group]="this.statGroup['controls'].value"></pos-minmaxinput>
     
-        <app-searchselect *ngIf="this.statGroup.controls.selectedStat.value.option != null" 
-                        class="stat-option-select flexed-inputs mat-input-600" 
+        <pos-searchselect *ngIf="this.statGroup.controls.selectedStat.value.option != null" 
+                        class="stat-option-select" 
                         [placeholder]="'Add Option'" 
                         [values]="this.statGroup.controls.selectedStat.value.option.options"
                         [filterBy]="filterStatOptions"
@@ -37,6 +41,6 @@
                         [autoCompleteClass]="'autocomplete-panel-300'"
                         [autoCompleteHost]='autoCompleteHost'
                         [setValue]="this.statGroup.controls.selectedStatOption.value"
-                        (selected)="setStatOption($event)"></app-searchselect>
-    </div>
+                        (selected)="setStatOption($event)"></pos-searchselect>
+    </ng-container>
 </div>

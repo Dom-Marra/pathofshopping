@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
 import { BehaviorSubject, throwError } from 'rxjs';
-import { poeCategorizedItems } from '../models/poeAPIItems';
-import { poeCategorizedStats, poeStat } from '../models/poeAPIStats';
-import { simpleData } from '../models/simpleData';
-import { poeCategorizedStatic } from '../models/poeAPIStatic';
-import { poeAPIResult } from '../models/poeAPIResult';
+import { PoeCategorizedItems } from '../models/poe-api-item.model';
+import { PoeCategorizedStats, PoeStat } from '../models/poe-api-stat.model';
+import { SimpleData } from '../models/simple-data.model';
+import { PoeCategorizedStatic } from '../models/poe-api-static.model';
+import { PoeAPIResult } from '../models/poe-api-result.model';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +14,7 @@ import { poeAPIResult } from '../models/poeAPIResult';
 export class PoeService {
 
   //POE Base API
-  private readonly POE_API: string = 'https://www.dominicmarra.com/pos/api.php?query=';
+  private readonly POE_API: string = 'https://www.dominicmarra.com/pos/api.php?q=';
 
   //POE API end points
   private readonly POE_ITEMS: string = this.POE_API + 'data/items';
@@ -24,18 +24,14 @@ export class PoeService {
   private readonly POE_FETCH: string = this.POE_API + 'fetch/';
   private readonly POE_SEARCH: string = this.POE_API + 'search/';
 
-  private readonly POE_API_HEADERS: HttpHeaders = new HttpHeaders({
-
-  })
-
   //POE API Data
-  private leagueData: Array<simpleData>;
-  private poeItems: Array<poeCategorizedItems>; 
-  private poeStats: Array<poeCategorizedStats>; 
-  private poeStatic: Array<poeCategorizedStatic>;
+  private leagueData: Array<SimpleData>;
+  private poeItems: Array<PoeCategorizedItems>; 
+  private poeStats: Array<PoeCategorizedStats>; 
+  private poeStatic: Array<PoeCategorizedStatic>;
 
   //Whether the data has been loaded or not
-  public loaded: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  public loaded: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(null);
 
   constructor(private http: HttpClient) { 
     this.setLeagues();
@@ -48,17 +44,16 @@ export class PoeService {
    * Sets the searchable item data
    */
   private setItems() {
-    let poeItemsSetter = this.http.get(this.POE_ITEMS).pipe(
-      map((result: poeAPIResult) => {
+    this.http.get(this.POE_ITEMS).pipe(
+      map((result: PoeAPIResult) => {
         return result.result;
       }),
       catchError((err) => {
         return throwError('Unable to connect to the service.');
       })
-    ).subscribe((items: Array<poeCategorizedItems>) => {
+    ).subscribe((items: Array<PoeCategorizedItems>) => {
       this.poeItems = items;
         if (this.leagueData && this.poeStats && this.poeStatic) this.loaded.next(true);
-        poeItemsSetter.unsubscribe();
       },
       (error) => {
         this.loaded.error(error);
@@ -69,7 +64,7 @@ export class PoeService {
   /**
    * Returns the item data from the poe API
    */
-  public getItems(): Array<poeCategorizedItems> {
+  public getItems(): Array<PoeCategorizedItems> {
     return this.poeItems;
   }
 
@@ -77,18 +72,17 @@ export class PoeService {
    * Sets the stat data
    */
   private setStats() {
-    let poeStatsSetter = this.http.get(this.POE_STATS).pipe(
-      map((result: poeAPIResult) => {
+    this.http.get(this.POE_STATS).pipe(
+      map((result: PoeAPIResult) => {
         return result.result;
       }),
       catchError((err) => {
         return throwError('Unable to connect to the service.');
       })
     ).subscribe(
-      (stats: Array<poeCategorizedStats>) => {
+      (stats: Array<PoeCategorizedStats>) => {
         this.poeStats = stats;
         if (this.leagueData && this.poeItems && this.poeStatic) this.loaded.next(true);
-        poeStatsSetter.unsubscribe();
       },
       (error) => {
         this.loaded.error(error);
@@ -99,7 +93,7 @@ export class PoeService {
   /**
    * Returns the stats from the poe API
    */
-  public getStats(): Array<poeCategorizedStats> {
+  public getStats(): Array<PoeCategorizedStats> {
     return this.poeStats;
   }
 
@@ -111,11 +105,11 @@ export class PoeService {
    * @returns 
    *        poeStat
    */
-  public getStatByID(id: string): poeStat {
-    let statToReturn: poeStat;
+  public getStatByID(id: string): PoeStat {
+    let statToReturn: PoeStat;
 
-    this.poeStats.forEach((statCategory: poeCategorizedStats) => {
-      statCategory.entries.forEach((stat: poeStat) => {
+    this.poeStats.forEach((statCategory: PoeCategorizedStats) => {
+      statCategory.entries.forEach((stat: PoeStat) => {
         if (stat.id == id) statToReturn = stat;
       });
     });
@@ -127,18 +121,17 @@ export class PoeService {
    * Sets the league data
    */
   private setLeagues() {
-    let poeLeaguesSetter = this.http.get(this.POE_LEAGUES).pipe(
-      map((result: poeAPIResult) => {
+    this.http.get(this.POE_LEAGUES).pipe(
+      map((result: PoeAPIResult) => {
         return result.result;
       }),
       catchError((err) => {
         return throwError('Unable to connect to the service.');
       })
     ).subscribe(
-      (leagues: Array<simpleData>) => {
+      (leagues: Array<SimpleData>) => {
         this.leagueData = leagues;
         if (this.poeItems && this.poeStats && this.poeStatic) this.loaded.next(true);
-        poeLeaguesSetter.unsubscribe();
       },
       (error) => {
         this.loaded.error(error);
@@ -149,7 +142,7 @@ export class PoeService {
   /**
    * Returns the leagues from the poe API
    */
-  public getLeagues(): Array<simpleData> {
+  public getLeagues(): Array<SimpleData> {
     return this.leagueData;
   }
 
@@ -157,19 +150,18 @@ export class PoeService {
    * Sets the poe static data
    */
   private setStatic() {
-    let poeStaticSetter = this.http.get(this.POE_STATIC)
+    this.http.get(this.POE_STATIC)
     .pipe(
-      map((data: poeAPIResult) => {
+      map((data: PoeAPIResult) => {
         return data.result;
       }),
       catchError((err) => {
         return throwError('Unable to connect to the service.');
       })
     ).subscribe(
-      (poeStatic: Array<poeCategorizedStatic>) => {
+      (poeStatic: Array<PoeCategorizedStatic>) => {
         this.poeStatic = poeStatic;
         if (this.poeItems && this.poeStats && this.leagueData) this.loaded.next(true);
-        poeStaticSetter.unsubscribe();
       },
       (error) => {
         this.loaded.error(error);
@@ -180,7 +172,7 @@ export class PoeService {
   /**
    * returns the static data
    */
-  public getPoeStatic(): Array<poeCategorizedStatic> {
+  public getPoeStatic(): Array<PoeCategorizedStatic> {
     return this.poeStatic;
   }
 

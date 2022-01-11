@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { parsedModData } from '../models/parsedModData';
+import { ParsedModData } from '../models/parsed-mod-data';
 
 
 @Pipe({
@@ -10,16 +10,16 @@ export class ParseModsPipePipe implements PipeTransform {
 
   transform(item: any, modPropString: string, extendedPropName: string) : any {
 
-    let mods: Array<parsedModData> = [];                  //Stores mod data                                  
+    let mods: Array<ParsedModData> = [];                  //Stores mod data                                  
 
     if (item[modPropString] == null || item[modPropString].length == 0) return null;    //Return null if no mod data
 
     item[modPropString].forEach((mod, i) => {                                   //cycle through mods
       let hashIndices = item.extended?.hashes?.[extendedPropName]?.[i][1];        //Indices of the mod for its extended data
 
-      let parsedModData: parsedModData = {                                      //Set data
+      let parsedModData: ParsedModData = {                                      //Set data
         text: (mod as string).replace(/\n/, '<br>'),                //Add break when there is a new line
-        name: item.extended?.mods?.[extendedPropName]?.[hashIndices?.[0]]?.name,
+        names: [],
         tiers: [],
         hash: item.extended?.hashes?.[item.extended.hashes?.hasOwnProperty('delve') ? 'delve' : extendedPropName]
               ?.[i]?.[0]  //If it is a delve item use delve property
@@ -27,6 +27,9 @@ export class ParseModsPipePipe implements PipeTransform {
 
       if (hashIndices) {
         for (let hashIndex of hashIndices) {
+
+          parsedModData.names.push(item.extended.mods?.[extendedPropName]?.[hashIndex]?.name)
+
           let tierData = {                                                        //Init data for tier
             tier: item.extended.mods?.[extendedPropName]?.[hashIndex]?.tier,
             ranges: [],

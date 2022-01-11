@@ -1,0 +1,110 @@
+<mat-expansion-panel
+    *ngIf="!noExpansion"
+    class="filter-expansion-panel" 
+    #expansionPanel 
+    [disabled]="group.formGroup.disabled"
+>
+    <mat-expansion-panel-header>
+        <pos-filteractionbuttons 
+            [formGroup]="group.formGroup" 
+            (disableChange)="group.formGroup.disabled ? expansionPanel.close() : ''"
+        >
+        </pos-filteractionbuttons>
+        <h3>{{ group.filterGroup.label }}</h3>
+    </mat-expansion-panel-header>
+    <ng-template matExpansionPanelContent>
+        <ng-container *ngTemplateOutlet="filters"></ng-container>
+    </ng-template>
+</mat-expansion-panel>
+
+<ng-container *ngTemplateOutlet="noExpansion ? filters : null"></ng-container>
+
+<ng-template #filters>
+    <div class="field-wrapper" >
+        <ng-container *ngFor="let filter of group.filterGroup.filters" >
+            <pos-inputwrapper *ngIf="wrapInputs !== false && (filter.type === 'minmax' || filter.type === 'socket')" class="field"  >
+                <span label>{{ filter.label }}</span>
+                <ng-container *ngTemplateOutlet="input"></ng-container>
+            </pos-inputwrapper>
+            
+            <ng-container *ngTemplateOutlet="wrapInputs !== false && (filter.type === 'minmax' || filter.type === 'socket')  ? null : input"></ng-container>
+            
+            <ng-template #input>
+                <div class="inputs" matAutocompleteOrigin #wrapper="matAutocompleteOrigin">
+                    <pos-searchselect 
+                        *ngIf="filter.type === 'option' || filter.type === 'minmax_option'"
+                        [inputName]="wrapInputs === true ? null : filter.label"
+                        [values]="filter.options"
+                        class="search"
+                        [autoCompleteHost]='wrapInputs ? wrapper : null' 
+                        [filterBy]="simpleDataService.filterSimpleData"
+                        [displayBy]="simpleDataService.displayByText"
+                        [disabled]="group.formGroup.disabled"   
+                        [setValue]="simpleDataService.getSelectedValue(group.formGroup['controls'][filter.name].controls.option.value, filter.options)"
+                        (selected)="group.formGroup['controls'][filter.name].controls.option.patchValue($event.id)">
+                    </pos-searchselect> 
+            
+                    <mat-form-field 
+                        *ngIf="filter.type === 'default'"  
+                        floatLabel='never' 
+                        color="accent" 
+                        class="default no-padding"
+                        appearance="fill"
+                    >
+                        <mat-label>{{ filter.label }}</mat-label>
+                        <input matInput [formControl]="group.formGroup['controls'][filter.name].controls.input" autocomplete="off" [placeholder]="filter.label">
+                    </mat-form-field>
+
+                    <mat-form-field 
+                        *ngIf="filter.type === 'socket'"  
+                        floatLabel='never' 
+                        color="accent" 
+                        class="socket no-padding"
+                        appearance="fill"
+                    >
+                        <mat-label>R</mat-label>
+                        <input matInput digitsonly [formControl]="group.formGroup['controls'][filter.name].controls.r" autocomplete="off">
+                    </mat-form-field>
+                    <mat-form-field 
+                        *ngIf="filter.type === 'socket'"
+                        color="accent" 
+                        class="socket no-padding"
+                        appearance="fill"
+                    >
+                        <mat-label>G</mat-label>
+                        <input matInput digitsonly [formControl]="group.formGroup['controls'][filter.name].controls.g" autocomplete="off" >
+                    </mat-form-field>
+                    <mat-form-field 
+                        *ngIf="filter.type === 'socket'"
+                        color="accent" 
+                        class="socket no-padding"
+                        appearance="fill"
+                    >
+                        <mat-label>B</mat-label>
+                        <input matInput digitsonly [formControl]="group.formGroup['controls'][filter.name].controls.b" autocomplete="off">
+                    </mat-form-field>
+                    <mat-form-field 
+                        *ngIf="filter.type === 'socket'"
+                        color="accent" 
+                        class="socket no-padding"
+                        appearance="fill"
+                    >
+                        <mat-label>W</mat-label>
+                        <input matInput digitsonly [formControl]="group.formGroup['controls'][filter.name].controls.w" autocomplete="off">
+                    </mat-form-field>
+
+                    <pos-minmaxinput 
+                        *ngIf="filter.type === 'minmax' || filter.type === 'minmax_option' || filter.type === 'socket'"
+                        [group]="group.formGroup['controls'][filter.name]"
+                        class="minmax"
+                    >
+                    </pos-minmaxinput>
+                </div>
+            </ng-template>
+
+        </ng-container>
+        
+        <ng-content></ng-content>
+
+    </div>
+</ng-template>

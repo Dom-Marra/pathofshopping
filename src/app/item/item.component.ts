@@ -1,6 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { modProperties } from 'src/app/item/models/modProperties';
-import { FetchedProperties } from '../core/models/fetchedproperties.model';
+import { Component, HostBinding, Input, OnInit } from '@angular/core';
 import { PoeService } from '../core/services/poe.service';
 
 @Component({
@@ -9,48 +7,13 @@ import { PoeService } from '../core/services/poe.service';
   styleUrls: ['./item.component.scss']
 })
 export class ItemComponent implements OnInit {
-  @Input() item: any;                         //Full item object
-  @Input() queryProps: FetchedProperties;     //Properties relating to the item query
 
-  public readonly enchantModProperties: Array<modProperties> = [{
-    modPropString: 'enchantMods',
-    extendedPropName: 'enchant',
-    specialClass: 'enchant'
-  }];
+  @HostBinding('class.gone') gone: boolean = false;
+  @Input() item: any;
+  @Input() pseudos: string;
+  @Input() searchID: string;
 
-  public readonly implicitModProperties: Array<modProperties> = [{
-    modPropString: 'implicitMods',
-    extendedPropName: 'implicit'
-  }];
-
-  public readonly explicitModProperties: Array<modProperties> = [
-    {
-        modPropString: 'fracturedMods',
-        extendedPropName: 'fractured',
-        specialClass: 'fractured'
-    },
-    {
-        modPropString: 'explicitMods',
-        extendedPropName: 'explicit'
-    },
-    {
-        modPropString: 'craftedMods',
-        extendedPropName: 'crafted',
-        specialClass: 'crafted'
-    },
-    {
-        modPropString: 'veiledMods',
-        extendedPropName: 'veiled',
-        specialClass: 'veiled'
-    },
-    {
-        modPropString: 'pseudoMods',
-        extendedPropName: 'pseudo',
-        specialClass: 'pseudo'
-    }
-  ];
-
-  public refreshing: boolean = false;           //Status of item refresh
+  public refreshing: boolean = false;
 
   constructor(private poeService: PoeService) { }
 
@@ -61,19 +24,18 @@ export class ItemComponent implements OnInit {
    * Re-fetches the item using the Poe Service
    */
   public refresh(): void {
-    if (!this.queryProps) return;     //If the queryProps are null then don't fecth
 
-    this.refreshing = true;           //Init fetch status
+    if (!this.searchID) return;
 
-    let queryParams = "?query=" + this.queryProps.id + "&" + this.queryProps.pseudos;   //Set params for the fetch
+    let queryParams = `?query=${this.searchID}&${this.pseudos}`;   //Set params for the fetch
+    this.refreshing = true;
 
-    this.poeService.fetch([this.item.id], queryParams).subscribe(                       //Get the item
-      (res: any) => {                                   //Re-assign the item properties and update refresh status
-        if (this.item.listing?.copied) res.result[0].listing.copied = true;
-        this.item = Object.assign({}, res.result[0]);
+    this.poeService.fetch([this.item.id], queryParams).subscribe(
+      (res: any) => {
+        this.gone = res.result[0].gone;
         this.refreshing = false;
       },
-      () => {                                           //Error while fetching, reset refresh status                                    
+      () => {                                  
         this.refreshing = false;
       }
     );

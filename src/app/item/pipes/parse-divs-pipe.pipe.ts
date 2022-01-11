@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { parsedDivData } from '../models/parsedDivData';
+import { ParsedDivData } from '../models/parsed-div-data';
 
 @Pipe({
   name: 'parseDivs',
@@ -14,13 +14,13 @@ export class ParseDivsPipePipe implements PipeTransform {
    *        explicit mods from the div item 
    */
   transform(mods: any) {
-    let parsedDivData: Array<parsedDivData> = [];                 //Stores all the div data
+    let parsedDivData: Array<ParsedDivData> = [];                 //Stores all the div data
 
     mods.forEach(mod => {                 
       let subMods = (mod as String).split(/\n/);      //Every new line is another mod
 
       subMods.forEach(subMod => {                             //Cycle submods of the mod
-        let divModData: parsedDivData = {values: []};               //Stores the div data for the current mod   
+        let divModData: ParsedDivData = {values: []};               //Stores the div data for the current mod   
         let modPairs = subMod.match(/<(.*?)>{(.*?)}/gi);      //Split the different parts of the text
 
         modPairs.forEach((modPair, i) => {                    //Cycle the split parts

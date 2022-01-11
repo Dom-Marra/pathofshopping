@@ -1,62 +1,59 @@
 @import '../../styles/shared.scss';
 
-.item-div-mods {
+.mod {
+    padding: 0.3em;
+    display: flex;
+    justify-content: center;
+}
 
-    .mod {
-        padding: 0.3em;
-        display: flex;
-        justify-content: center;
-    }
+.prophecy {
+    color: rgb(181,73,249);
+}
 
-    .prophecy {
-        color: rgb(181,73,249);
-    }
+.uniqueitem {
+    color: rgb(201, 106, 24);
+}
 
-    .uniqueitem {
-        color: rgb(201, 106, 24);
-    }
+.default {
+    color: map-get($poe-property-colors, unmodified);
+}
 
-    .default {
-        color: map-get($poe-property-colors, unmodified);
-    }
+.normal {
+    color: white
+}
 
-    .normal {
-        color: white
-    }
+.currencyitem {
+    color: rgb(173, 160, 115);
+}
 
-    .currencyitem {
-        color: rgb(173, 160, 115);
-    }
+.corrupted {
+    color: map-get($poe-property-colors, corrupted);
+}
 
-    .corrupted {
-        color: map-get($poe-property-colors, corrupted);
-    }
+.rareitem {
+    color: rgb(236,235,109);
+}
 
-    .rareitem {
-        color: rgb(236,235,109);
-    }
+.whiteitem {
+    color: white;
+}
 
-    .whiteitem {
-        color: white;
-    }
+.gemitem {
+    color: rgb(17, 185, 177);
+}
 
-    .gemitem {
-       color: rgb(17, 185, 177);
-    }
+.augmented {
+    color: map-get($poe-property-colors, modified);
+}
 
-    .augmented {
-        color: map-get($poe-property-colors, modified);
-    }
+.magicitem {
+    color: rgb(131, 132, 190);
+}
 
-    .magicitem {
-        color: rgb(131, 132, 190);
-    }
+.enchanted {
+    color: map-get($poe-property-colors, enchanted);
+}
 
-    .enchanted {
-        color: map-get($poe-property-colors, enchanted);
-    }
-
-    .divination {
-        color: #0ebaff;
-    }
+.divination {
+    color: #0ebaff;
 }

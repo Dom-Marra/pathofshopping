@@ -24,8 +24,10 @@ $poe-property-colors: (
     corrupted: #d20000,
     enchanted: #b4b4ff,
     fractured: #a29162,
-    suffix: #ec7676,
-    prefix: #7aaff1
+    prefix: #ec7676,
+    suffix: #7aaff1,
+    scourge: #ff6e25,
+    exp: #c9a154
 );
 
 @mixin frame-0 {

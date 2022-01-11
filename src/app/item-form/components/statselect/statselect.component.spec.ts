@@ -10,7 +10,7 @@ import { MatInputHarness } from '@angular/material/input/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { StatForm } from 'src/app/core/classes/stat-form';
-import { poeCategorizedStats, poeStat, poeStatOption } from 'src/app/core/models/poeAPIStats';
+import { poeCategorizedStats, poeStat, poeStatOption } from 'src/app/core/models/poe-api-stat.model';
 import { PoeService } from 'src/app/core/services/poe.service';
 import { DigitsonlyDirective } from '../../directives/digitsonly.directive';
 import { FilteractionbuttonsComponent } from '../filteractionbuttons/filteractionbuttons.component';

@@ -1,22 +1,51 @@
-<div *ngIf="!inProgress" class="results-container">
-    <div class="item-paginator-container">
-        <div class="toolbar-text">
-            <span class="mat-small">Total Items found: {{this._results.fetchedResults.total}}</span>
-            <span class="mat-small inexact" *ngIf="this._results.fetchedResults.inexact">&nbsp; (Inexact Search)</span>
+<mat-progress-bar 
+    *ngIf="inProgress" 
+    class="item-fetch-progress-bar" 
+    mode="indeterminate"
+    color="accent">
+</mat-progress-bar>
+
+<section *ngIf="inProgress === false" class="results-section">
+    <div class="result-section-header primary-light">
+        <div class="back">
+            <a 
+                mat-icon-button
+                routerLink=".."
+                class="color-transparent-to-accent"
+            >
+                <mat-icon>arrow_back</mat-icon>
+            </a>
         </div>
-        <h3 class="results-header">Results</h3>
-        <mat-paginator #itemsPaginator [pageIndex]="this._results.pageData.pageIndex" [disabled]="inProgress"
-            class="items-paginator" [length]="this._results.fetchedResults.result.length" hidePageSize="true" [pageSize]="10"
+        <h2>
+            <button 
+                *ngIf="results?.inexact"
+                mat-icon-button 
+                matTooltip="Inexact Results" 
+                color="warn" 
+                matTooltipClass="warn-default"
+                aria-label="Your results are inexact"
+            >
+                <mat-icon>info</mat-icon>
+            </button>
+            {{itemForm.itemForm.value.itemName}} Results
+        </h2>
+        <mat-paginator 
+            [disabled]="inProgress || errMsg" 
+            class="items-paginator primary-light" 
+            [length]="results?.result.length" 
+            hidePageSize="true"
+            [pageSize]="10"
             (page)="changeIndices($event)">
         </mat-paginator>
     </div>
-    <div appEqualflex class="query-results-container">
-        <pos-item *ngFor="let item of this._results.retrievedItems | slice:this._results.pageData.startIndex:this._results.pageData.endIndex"
-            class="query-item" [item]='item' [queryProps]="this._results.fetchedResults">
-        </pos-item>
+    <div class="items-wrapper" *ngIf="!errMsg">
+        <pos-item 
+            *ngFor="let item of items[index]" 
+            class="item primary-light" 
+            [item]='item' 
+            [searchID]="results.id" 
+            [pseudos]="pseudos"
+        ></pos-item>
     </div>
-    <mat-paginator #itemsPaginator [pageIndex]="this._results.pageData.pageIndex" [disabled]="inProgress"
-        class="items-paginator" [length]="this._results.fetchedResults.result.length" hidePageSize="true" [pageSize]="10"
-        (page)="changeIndices($event)"></mat-paginator>
-</div>
-<mat-progress-bar *ngIf="inProgress" class="item-fetch-progress-bar" mode="indeterminate"></mat-progress-bar>
+    <p class="error-message" *ngIf="errMsg">{{errMsg}}</p>
+</section>

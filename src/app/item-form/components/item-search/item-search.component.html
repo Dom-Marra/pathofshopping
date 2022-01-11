@@ -1,0 +1,18 @@
+<pos-searchselect 
+    inputName='Search Items'
+    [values]="itemsToSearch"
+    [filterBy]="filterGroups.bind(this)"
+    [displayBy]="displayItemBy"   
+    [setValue]="{
+        name:  this.queryForm.controls.name.value,
+        type:  this.queryForm.controls.type.value,
+        text:  this.queryForm.controls.term.value ? this.queryForm.controls.term.value : 
+                (this.queryForm.controls.name.value ? this.queryForm.controls.name.value + ' ' : '') + 
+                (this.queryForm.controls.type.value ? this.queryForm.controls.type.value : '')
+        }"
+    [clearOnFocus]='false'
+    [groupOptions]="{groupedBy: 'label', groupedInto: 'entries'}"
+    (selected)="setNTT($event.name, $event.type, $event.text)"
+    [clearable]="true"
+    (cleared)="setNTT('', '', '')">
+</pos-searchselect>

@@ -1,9 +1,36 @@
-<ng-container *ngFor="let prop of modProperties">
-    <item-mod *ngFor="let mod of item | parseMods:prop.modPropString:prop.extendedPropName" 
-        [mod]='mod'
-        class="{{prop.specialClass}}">
-    </item-mod>
+<ng-container *ngFor="let modProperty of modProperties">
+    <ul class="item-parsed-list" *ngIf="item[modProperty.modPropString]">
+        <li 
+            *ngFor="let mod of item | parseMods:modProperty.modPropString:modProperty.extendedPropName" 
+            class="mod-container {{mod.hash ? 'sortable' : ''}} {{modProperty.extendedPropName}}" 
+            (click)="mod.hash ? sortService.newSort('stat.' + mod.hash) : ''"
+        >
+            <!-- Mod Text -->
+            <span class="mod-text" [innerHTML]="mod.text"></span>
+    
+            <!-- Sort Arrow -->
+            <pos-item-sortarrow *ngIf="(currentSort | async).sortKey === 'stat.' + mod.hash"
+                            [sortValue]="(currentSort | async).sortValue">
+            </pos-item-sortarrow>
+    
+            <!-- Mod Value Ranges && Tier -->
+            <div class="mod-details type-{{mod.tiers[0]?.tier}}">
+                <p class="mod-detail tiers" class="magnitudes">
+                    <ng-container *ngFor="let tier of mod.tiers; let i = index">
+                        <span *ngIf="i > 0"> + </span>
+                        <span>{{tier.tier}}</span>
+                        <span *ngFor="let range of tier.ranges; let i = index; let last = last">
+                            {{i > 0 ? ',' : '['}}{{range.min}}{{(range.max != range.min ? ' - ' + range.max : '')}}{{last ? ']' : ''}}
+                        </span>
+                    </ng-container>
+                </p>
+    
+                <p class="mod-names">
+                    <span *ngFor="let modName of mod.names; let i = index" class="mod-detail">{{i > 0 ? ' + ' : '' }}{{modName}}</span>
+                </p>
+            </div>
+    
+        </li>
+        <ng-content></ng-content>
+    </ul>
 </ng-container>
-<div class="projected-mod">
-    <ng-content></ng-content>
-</div>

@@ -1,0 +1,52 @@
+h3 {
+    margin: 0;
+    font-size: 1em;
+}
+
+.field-wrapper {
+
+  .inputs {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    font-size: 0.85em;
+
+    .search {
+      flex-grow: 3;
+    }
+  
+    .default {
+      flex-grow: 2;
+    }
+
+    .socket {
+      flex: 1;
+    }
+  
+    .minmax {
+      flex: 1;
+    }
+  }
+
+  > * {
+    margin-bottom: 1em;
+    display: block;
+  }
+
+  @media screen and (min-width: 30em) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 1em;
+    row-gap: 1em;
+
+    > * {
+      margin-bottom: 0;
+    }
+  
+  }
+
+  @media screen and (min-width: 65em) {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+}

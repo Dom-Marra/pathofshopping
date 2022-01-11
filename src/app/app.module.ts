@@ -6,23 +6,30 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 //Components
 import { AppComponent } from './app.component';
-
-import { ShoppinglistModule } from './shoppinglist/shoppinglist.module';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 //Angular Fire
-import { AngularFireModule } from '@angular/fire';
+import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
+import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+
+
 import { environment } from 'src/environments/environment';
+import { AngularFireModule } from '@angular/fire/compat';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    NotFoundComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    ShoppinglistModule,
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideFirestore(() => getFirestore()),
+    AngularFirestoreModule,
     AngularFireModule.initializeApp(environment.firebase)
   ],
   exports: [ ],

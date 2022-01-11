@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { parsedPropData } from '../models/parsedPropData';
+import { ParsedPropData } from '../models/parsed-prop-data';
 
 @Pipe({
   name: 'parseProps',
@@ -8,7 +8,7 @@ import { parsedPropData } from '../models/parsedPropData';
 export class ParsePropsPipePipe implements PipeTransform {
 
   transform(props: any): any {
-    let parsedPropData: Array<parsedPropData> = [];                                             
+    let parsedPropData: Array<ParsedPropData> = [];                                             
 
     props.forEach(prop => {            
       if (prop.displayMode == 3) {
@@ -31,7 +31,7 @@ export class ParsePropsPipePipe implements PipeTransform {
    * @param prop 
    *        property to parse
    */
-  private parseDisplay3(prop: any): parsedPropData {
+  private parseDisplay3(prop: any): ParsedPropData {
     let parsedPropData = {values: [], type: prop.type};     //Prop Data
     let name: string = prop.name;                     //name of the property
     let regex = new RegExp(/({\d*})/);                //Reg exp to find value positions in the name
@@ -60,7 +60,7 @@ export class ParsePropsPipePipe implements PipeTransform {
    * @param prop 
    *        property to parse
    */
-  private parseDisplay0(prop: any): parsedPropData {
+  private parseDisplay0(prop: any): ParsedPropData {
     let parsedPropData = {values: [], type: prop.type};                         //Prop Data
     let propStrs = (prop.name as string).split(/(<.+?>{.+?})+/g);         //Split the array keep the delimiter (should look like <value>{othervalue})
 
@@ -86,7 +86,7 @@ export class ParsePropsPipePipe implements PipeTransform {
    * @param prop 
    *        property to parse
    */
-  private parseDisplay1and2(prop: any): parsedPropData {
+  private parseDisplay1and2(prop: any): ParsedPropData {
     let parsedPropData = {values: [], type: prop.type};                     //Prop Data
     let name = prop.name;                                             //name of the property
 

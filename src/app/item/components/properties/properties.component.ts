@@ -1,9 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { CurrentsortService } from 'src/app/core/services/currentsort.service';
+import { Observable } from 'rxjs';
+import { SortProperties } from 'src/app/core/models/sort-properties';
+import { SortService } from 'src/app/core/services/currentsort.service';
 import { propertyValues } from '../../constants/properties';
 
 @Component({
-  selector: 'item-properties',
+  selector: 'pos-item-properties',
   templateUrl: './properties.component.html',
   styleUrls: ['./properties.component.scss', '../../styles/parsedlist.scss',  '../../styles/shared.scss']
 })
@@ -12,7 +14,11 @@ export class PropertiesComponent implements OnInit {
 
   @Input() item: any;                                  //Item Values
 
-  constructor(public currentSort: CurrentsortService) { }
+  public currentSort: Observable<SortProperties>;
+
+  constructor(public sortService: SortService) { 
+    this.currentSort = this.sortService.getSort();
+  }
 
   ngOnInit(): void {
   }

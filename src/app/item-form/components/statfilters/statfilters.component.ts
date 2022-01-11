@@ -1,17 +1,17 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormGroup } from '@angular/forms';
-import { StatForm } from 'src/app/core/classes/stat-form';
-import { simpleData } from 'src/app/core/models/simpleData';
+import { SimpleData } from 'src/app/core/models/simple-data.model';
 import { SimpleDataService } from 'src/app/core/services/simpledata.service';
+import { StatForm } from '../../classes/stat-form';
 
 @Component({
-  selector: 'itemForm-statfilters',
+  selector: 'pos-statfilters',
   templateUrl: './statfilters.component.html',
   styleUrls: ['./statfilters.component.scss']
 })
 export class StatfiltersComponent implements OnInit {
 
-  public filterTypes: Array<simpleData> = [
+  public filterTypes: Array<SimpleData> = [
       {id: 'and', text: 'And'},
       {id: 'if', text: 'If'},
       {id: 'not', text: 'Not'},

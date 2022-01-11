@@ -1,0 +1,62 @@
+:host {
+    font-size: inherit;
+    display: flex;
+    align-items: center;
+    position: relative;
+
+    .mat-icon-button {
+        grid-area: close;
+        margin-left: auto;
+        height: 2.86em;
+        width: 2.86em;
+        font-size: 0.5em;
+        line-height: 2.86em;
+
+        .mat-icon {
+            font-size: 1.75em;
+            width: 1em;
+            height: 1em;
+            line-height: 1em;
+        }
+    }
+
+    &:hover {
+        cursor: pointer;
+
+        .mat-icon {
+            opacity: 1;
+        }
+    }
+
+    input {
+        border: none;
+        border-radius: 0;
+        transition: background-color 0.3s ease-in-out;
+        font: inherit;
+        padding: 0rem 0.25em;
+        color: inherit;
+        background-color: inherit;
+        min-width: 50px;
+        position: absolute;
+        width: calc(100% - 1.25em);
+        box-sizing: border-box;
+    
+        &:focus,
+        &:focus-visible {
+            border-radius: 0;
+            background-color: rgba(0, 0, 0, 0.25);
+            outline: none;
+            width: 100%;
+        }
+    }
+
+    .size-span {
+        padding: 0rem 0.25em;
+        height: 0px;
+        color: transparent;
+        background-color: transparent;
+        min-width: 50px;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+}

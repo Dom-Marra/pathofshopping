@@ -1,8 +1,6 @@
 @use '@angular/material' as mat;
 
-@include mat.core();
-
-$pathofshopping-primary: mat.define-palette($palette: (
+$pathofshopping-primary: mat.define-palette((
   50: #FAFAFA,
   100: #F5F5F5,
   200: #EEEEEE,
@@ -20,12 +18,12 @@ $pathofshopping-primary: mat.define-palette($palette: (
       300 : #242424,
       400 : #242424,
       500 : #242424,
-      600 : #ffffff,
+      600 : #242424,
       700 : #ffffff,
       800 : #ffffff,
       900 : #ffffff,
     )
-), 500, 300, 900);
+), 400, 200, 900);
 
 $pathofshopping-accent: mat.define-palette((
   50: #e7f8e9,
@@ -44,8 +42,8 @@ $pathofshopping-accent: mat.define-palette((
     200 : #000000,
     300 : #000000,
     400 : #000000,
-    500 : #000000,
-    600 : #000000,
+    500 : #ffffff,
+    600 : #ffffff,
     700 : #ffffff,
     800 : #ffffff,
     900 : #ffffff,
@@ -56,12 +54,11 @@ $pathofshopping-warn: mat.define-palette(mat.$red-palette);
 
 $pathofshopping-typography: mat.define-typography-config(
   $font-family: 'Inter',
-  $headline: mat.define-typography-level(2.3rem, 1.6, 300),
-  $title: mat.define-typography-level(1.8rem, 1.6, 300),
-  $subheading-2: mat.define-typography-level(1.3px, 1.6, 300),
+  $headline: mat.define-typography-level(1.8rem, 1.6, 300),
+  $title: mat.define-typography-level(1.5rem, 1.6, 300),
+  $subheading-2: mat.define-typography-level(1.2rem, 1.6, 300),
   $body-1: mat.define-typography-level(1rem, 1.6, 300),
   $caption: mat.define-typography-level(0.75rem, 1.6, 300),
-  $button: mat.define-typography-level(1rem, 1.6, 300),
   $input: mat.define-typography-level(1rem, 1.6, 300),
 );
 
@@ -74,8 +71,189 @@ $pathofshopping-theme: mat.define-light-theme((
   typography: $pathofshopping-typography
 ));
 
-@include mat.core-theme($pathofshopping-theme);
+@include mat.core($pathofshopping-typography);
 
 //Component Mixins
-@include mat.button-theme($pathofshopping-theme);
-@include mat.button-typography($kids-typography);
+@include mat.all-component-themes($pathofshopping-theme);
+
+//Form field
+
+.mat-form-field {
+  width: 100%;
+  font-size: inherit;
+  border-radius: 0;
+
+  &.no-padding {
+    margin-bottom: -1.7em;
+  }
+
+  .mat-form-field-wrapper {
+    height: 100%;
+
+    .mat-form-field-flex {
+      border-radius: 0;
+
+      .mat-form-field-infix {
+        width: 5em;
+      }
+  
+      .mat-form-field-suffix {
+        line-height: 1;
+  
+        .mat-icon {
+          transition: transform 0.2s ease-in-out;
+          line-height: inherit;
+      
+          &.rotate {
+            transform: rotate(180deg);
+          }
+        }
+      }
+    }
+  }
+
+  &.minmax,
+  &.socket {
+    .mat-form-field-wrapper .mat-form-field-flex  .mat-form-field-infix {
+      width: 2em;
+    }
+  }
+}
+
+//Auto Complete
+
+.mat-autocomplete-panel.search-select {
+  border-radius: 0 !important;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  background-color: mat.get-color-from-palette($pathofshopping-primary, 'lighter');
+  color: mat.get-color-from-palette($pathofshopping-primary, 'lighter-contrast');
+
+  .mat-option {
+    @include mat.typography-level($pathofshopping-typography, 'body-1');
+    
+    &.mat-option.mat-selected:not(.mat-active):not(:hover):not(.mat-option-disabled) {
+      background: mat.get-color-from-palette($pathofshopping-primary, 'default');
+      color: mat.get-color-from-palette($pathofshopping-primary, 'default-contrast');
+    }
+  }
+}
+
+//Expansion Panel
+
+.mat-expansion-panel {
+  border-radius: 0 !important;
+  box-shadow: none !important;
+
+  .mat-expansion-panel-header {
+    background: mat.get-color-from-palette($pathofshopping-primary, 'default') !important;
+    color: mat.get-color-from-palette($pathofshopping-primary, 'default-contrast') !important;
+    padding: 0 1.5em 0 0.5em;
+
+    .mat-content {
+      align-items: center;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+  }
+
+  &:not(.stat-filter) .mat-expansion-panel-header {
+    height: 3.75em;
+  }
+
+  &.stat-filter {
+    .mat-expansion-panel-header {
+      height: auto;
+      min-height: 3.75em;
+
+      .mat-content {
+        flex-wrap: wrap;
+        padding: 0.25em 0;
+      }
+    }
+  }
+
+  .mat-expansion-panel-body {
+    padding: 1em 1em 0 1em;
+  }
+
+  .mat-expansion-panel-header[aria-disabled=true] {
+    opacity: 0.5;
+  }
+}
+
+// Mat Pagination
+
+.mat-paginator {
+  .mat-paginator-range-label {
+    margin: 0;
+  }
+}
+
+//Save Dialog
+
+.save-dialog {
+
+  .mat-dialog-container {
+    padding: 0;
+    border-radius: 0;
+
+    .mat-dialog-content {
+      padding: 1em 2em 0;
+      box-sizing: border-box;
+      margin: 0;
+    }
+  }
+}
+
+
+//Theme Colors
+
+.primary-dark {
+  background: mat.get-color-from-palette($pathofshopping-primary, 'darker');
+  color: mat.get-color-from-palette($pathofshopping-primary, 'darker-contrast');
+}
+
+.primary-default {
+  background: mat.get-color-from-palette($pathofshopping-primary, 'default');
+  color: mat.get-color-from-palette($pathofshopping-primary, 'default-contrast');
+}
+
+.primary-light {
+  background: mat.get-color-from-palette($pathofshopping-primary, 'lighter');
+  color: mat.get-color-from-palette($pathofshopping-primary, 'lighter-contrast');
+}
+
+.accent-default {
+  background: mat.get-color-from-palette($pathofshopping-accent, 'default');
+  color: mat.get-color-from-palette($pathofshopping-accent, 'default-contrast');
+}
+
+.warn-default {
+  background: mat.get-color-from-palette($pathofshopping-warn, 'default');
+  color: mat.get-color-from-palette($pathofshopping-warn, 'default-contrast');
+}
+
+.color-transparent-to-accent {
+  opacity: 0.5;
+
+  &:hover {
+    opacity: 1;
+    color: mat.get-color-from-palette($pathofshopping-accent, 'default');
+  }
+}
+
+.color-transparent-to-warn {
+  opacity: 0.5;
+
+  &:hover {
+    opacity: 1;
+    color: mat.get-color-from-palette($pathofshopping-warn, 'default');
+  }
+}
+
+//Buttons
+
+button.mat-button {
+  border-radius: 0;
+}

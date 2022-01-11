@@ -1,14 +1,8 @@
 @import '../../styles/shared.scss';
 
-.item-header {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    font-weight: 300;
-    min-height: 45px;
+:host {
+    display: block;
+    box-sizing: border-box;
 
     &.rarity-0 {
         @include frame-0;
@@ -37,10 +31,25 @@
     &.rarity-9 {
         @include frame-9;
     }
+}
 
-    .item-name, .item-type, .item-hybrid-name {
+.item-header {
+    position: relative;
+    text-align: center;
+    font-weight: 300;
+    padding: 0.5em calc(27px + 0.5em);
+
+    .item-name {
+        font-size: 1em;
+    }
+
+    .item-type {
+        font-size: 0.95em;
+    }
+
+    .item-name, .item-type {
+        padding: 0.25em 0;
         margin: 0;
-        padding-top: 0.1em;
     }
 
     .influence-icon-container {
@@ -49,15 +58,17 @@
         position: absolute;
         display: flex;
         align-items: center;
+        top: 0;
+        left: 0;
 
         .influence-icon-left {
             margin-right: auto;
-            padding-left: 0.15em;
+            padding-left: 0.5em;
         }
 
         .influence-icon-right {
             margin-left: auto;
-            padding-right: 0.15em;
+            padding-right: 0.5em;
         }
     }
 } 

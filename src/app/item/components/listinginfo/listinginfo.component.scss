@@ -1,47 +1,22 @@
-@use '~@angular/material' as mat;
-@import '../../../../theme.scss';
+:host {
+    font-size: 0.9em;
 
-.item-listing-info {
-    margin-top: 1em;
-    display: flex;
-    flex-wrap: wrap;
-    width: 100%;
-    color: mat.get-color-from-palette($pathofshopping-accent, 50);
-    justify-content: space-around;
-    align-items: center;
-    min-height: 40px;
-    border-radius: 4px;
-    background-color: rgba(0, 0, 0, 0.65);
+    .listing-info.sortable {
+        border: none;
+        background-color: transparent;
+        border-radius: 0;
+        color: inherit;
+        font: inherit;
+
+        .currency-icon {
+            height: 2em;
+            width: 2em;
+        }
+    }
 
     .listing-info {
         display: flex;
         align-items: center;
-        justify-content: center;
-        padding: 0.75em;
-
-        .online-status {
-            color: #309630;
-
-            &.afk {
-                color: #ff8512;
-            }
-
-            &.offline {
-                color:rgb(173, 0, 0);
-            }
-        }
-
-        .currency-icon {
-            max-height: 30px;
-            width: auto;
-        }
-    }
-
-    .whisper-button {
-        transition: color 0.5s linear;
-
-        &.copied {
-            color: #309630;
-        }
+        margin: 0;
     }
 }

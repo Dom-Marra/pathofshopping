@@ -1,0 +1,14 @@
+<input
+    #input
+    type="text" 
+    [formControl]="control"
+    [placeholder]="label"
+    autocomplete="off"
+    [attr.aria-label]="label"
+    (focus)="focused = true; $event.target.select()"
+    (blur)="focused = false"
+>
+<span #sizeSpan class="size-span" aria-hidden="true">{{control.value.replaceAll(' ', '&nbsp;')}}</span>
+<button mat-icon-button class="color-transparent-to-accent" *ngIf="!focused" (click)="input.focus()" aria-label="Edit the previous text">
+    <mat-icon>edit</mat-icon>
+</button>

@@ -1,9 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { CurrentsortService } from 'src/app/core/services/currentsort.service';
+import { Observable } from 'rxjs';
+import { SortProperties } from 'src/app/core/models/sort-properties';
+import { SortService } from 'src/app/core/services/currentsort.service';
 import { PoeService } from 'src/app/core/services/poe.service';
 
 @Component({
-  selector: 'item-listinginfo',
+  selector: 'pos-item-listinginfo',
   templateUrl: './listinginfo.component.html',
   styleUrls: ['./listinginfo.component.scss',  '../../styles/shared.scss']
 })
@@ -11,7 +13,11 @@ export class ListinginfoComponent implements OnInit {
 
   @Input() listing: any;                  //Item listing values
 
-  constructor(private poeAPI: PoeService, public currentSort: CurrentsortService) { }
+  public currentSort: Observable<SortProperties>;
+
+  constructor(private poeAPI: PoeService, public sortService: SortService) { 
+    this.currentSort = sortService.getSort();
+  }
 
   ngOnInit(): void {
   }
@@ -44,13 +50,13 @@ export class ListinginfoComponent implements OnInit {
    * @param currencyID 
    *        string: currency id
    */
-  public getCurrencyImage(currencyID: string): string {
+  public getCurrency(currencyID: string): {id: string, text: string, image: string} {
     if (!currencyID) return null;
 
     let currencies = this.poeAPI.getPoeStatic().find(category => { return category.id == 'Currency'});
 
     let currency = currencies.entries.find(currency => { return currency.id == currencyID});
 
-    return 'http://pathofexile.com' + currency.image;
+    return currency;
   }
 }

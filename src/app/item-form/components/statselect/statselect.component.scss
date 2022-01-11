@@ -1,85 +1,53 @@
-@use '~@angular/material' as mat;
-@import '../../../../theme.scss';
-
 .stat-select {
     display: flex;
-    align-items: stretch;
-    border-radius: 4px;
-    overflow: hidden;
-    min-width: 150px;
-    background-color: mat.get-color-from-palette($pathofshopping-primary, 500);
-    width: 100%;
-    max-width: 100%;
+    flex-wrap: wrap;
+    font-size: 0.85em;
+    align-items: flex-end;
+
+    .stat-selector-buttons {
+        padding: 0 0.5em;
+        font-size: 1em;
+    }
 
     .stat-selector-wrapper {
-        display: flex;
-        align-items: stretch;
-        flex: 3;
+        width: 100%;
+    }
 
-        .stat-selector-buttons {
+    .stat-weight {
+        flex: 1;
+    }
+
+    .stat-min-max-fields {
+        flex: 1;
+    }
+    
+    .stat-option-select {
+        width: 100%;
+    }
+    @media screen and (min-width: 38em) {
+        .stat-selector-wrapper {
             display: flex;
             align-items: center;
-        }
 
-        .stat-selector {
-            display: flex;
-            min-width: 150px;
-            flex: 1;
-        }
-    }
-
-    .stat-inputs {
-        flex: 2;
-        display: flex;
-
-        .stat-weight {
-            flex: 1;
-            min-width: 50px;
-        }
-
-        .stat-option-select {
-            min-width: 150px;
-        }
-
-        .stat-option-select, .stat-min-max-fields {
-            flex: 4;
-        }
-
-        .stat-weight, .stat-option-select, .stat-min-max-fields {
-            background-color: mat.get-color-from-palette($pathofshopping-primary, 600);
-            z-index: 100;
-        }
-
-        .stat-weight, .stat-option-select {
-            display: flex;
-
-            .mat-form-field {
-                flex: 1;
-                min-width: 50px;
+            .stat-selector-buttons {
+                align-self: stretch;
+                display: flex;
+                align-items: center;
             }
-        }
-    
-    }
-}
 
-@media only screen and (max-width: 975px) {
-    .stat-select {
-        flex-wrap: wrap;
-
-        .stat-selector-wrapper, .stat-inputs { 
-            flex: 1 1 100%;
-            max-width: 100%;
-            flex-wrap: wrap;
-        }
-    }
-}
-
-@media only screen and (max-width: 490px) {
-    .stat-select {
-        .stat-selector-wrapper, .stat-inputs { 
-            .stat-option-select {
-                flex-basis: 100%;
+            .stat-selector {
+                flex-grow: 1;
             }
         }
     }
+
+    @media screen and (min-width: 58em) {
+
+        .stat-selector-wrapper {
+            flex-grow: 4;
+            width: auto;
+        }
+
+    }
+
 }

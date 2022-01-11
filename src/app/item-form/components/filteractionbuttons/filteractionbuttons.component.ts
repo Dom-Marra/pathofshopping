@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 @Component({
-  selector: 'itemForm-filteractionbuttons',
+  selector: 'pos-filteractionbuttons',
   templateUrl: './filteractionbuttons.component.html',
   styleUrls: ['./filteractionbuttons.component.scss']
 })

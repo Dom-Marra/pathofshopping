@@ -1,44 +1,31 @@
-@use '~@angular/material' as mat;
-@import '../../../../theme.scss';
-
-.stat-filter {
-    .item-contents {
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
-
-        .field-wrapper {
-            width: 100%;
-
-            .field {
-                flex: 1 1 100% !important;
-            }
-        }
-
-        .transparent-mat-button {
-            margin: 0.5em;
-        }
-    }
-}
-
 .type-selector {
     display: flex;
-    flex-wrap: wrap;
     margin-left: auto;
-    flex: 0 1 auto;
-    max-width: 100%;
-    justify-content: flex-end;
-    @include mat.typography-level($pathofshopping-typography, body-1);
+    padding-right: 1em;
+    font-size: 0.8em;
+    height: auto;
+    width: 100%;
+
+    .selector-input {
+        flex-grow: 1;
+    }
+
+    @media screen and (min-width: 58em) {
+        max-width: 30em;
+    }
 }
 
-@media only screen and (max-width: 1110px) {
-    .type-selector {
-        margin-top: 0.15em;
-        flex: 1 1 100%;
+.field:first-of-type {
+    display: block;
+    margin-bottom: 1em;
+}
 
-        .selector-input {
-            flex: 1 1 100%;
-            max-width: 100%;
-        }
-    }
+.field:not(:first-of-type) {
+    margin: 1em 0;
+    display: block;
+}
+
+button.mat-button {
+    display: block;
+    margin: auto;
 }

@@ -1,107 +1,99 @@
-@use '~@angular/material' as mat;
-@import '../../theme.scss';
-
-.query-results-container {
+.results-section {
+    height: 100%;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    flex-direction: column;
 
-    .query-item {
-        flex: 1 1 550px;
-        
-        &:nth-child(4n + 1) {
-            background-color: rgba(0, 0, 0, 0.1);
-        }
-
-        &:nth-child(4n + 2) {
-            background-color: rgba(0, 0, 0, 0.15);
-        }
-
-        &:nth-child(4n + 3) {
-            background-color: rgba(0, 0, 0, 0.2);
-        }
-
-        &:nth-child(4n + 4) {
-            background-color: rgba(0, 0, 0, 0.25);
-        }
-    }
-}
-
-.item-paginator-container {
-    background-color: transparent;
-    border-top: 1px solid mat.get-color-from-palette($pathofshopping-primary, 600);
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    height: auto;
-
-    .toolbar-text {
-        padding: 0.5em;
+    .result-section-header {
         display: flex;
         flex-wrap: wrap;
+        padding: 0 1em;
         align-items: center;
-        flex: 1 1 0px;
-        flex-basis: 0px;
-        color: mat.get-color-from-palette($pathofshopping-accent, 50);
+        padding: 0.55em 1em;
+        box-sizing: border-box;
+        overflow: hidden;
+        position: relative;
 
-        * {
+        h2 {
             margin: 0;
-            padding: 0;
-        }
-
-        .inexact {
-            color: rgb(223, 126, 0);
-        }
-    }
-
-    .results-header {
-        flex: 1 1 0px;
-        flex-basis: 0px;
-        margin: 0 !important;
-        padding: 0.25em !important;
-        text-align: center;
-    }
-
-    .items-paginator {
-        flex: 1 1 0px;
-        flex-basis: 0px;
-    }    
-}
-
-.items-paginator {
-    background-color: transparent;
-}
-
-@media only screen and (max-width: 791px) {
-    .item-paginator-container {
-        justify-content: space-between;
-
-        .results-header { 
-            flex: 1 0 100%;
-        }
-
-        .toolbar-text {
-            flex: 0 0 auto;
-            text-align: center;
-            justify-content: center;
+            font-size: 1.1em;
+            min-width: 5em;
+            white-space: nowrap;
+            overflow: hidden;
+            width: 100%;
             order: 1;
+            text-align: center;
         }
 
         .items-paginator {
-            flex: 0 0 auto;
-            order: 2;
+            min-width: fit-content;
+        }
+
+        > *:not(h2) {
+            order: 0;
+        }
+
+        &::after {
+            position: absolute;
+            height: 1px;
+            content: '';
+            width: 100%;
+            bottom: 0;
+            left: 0;
+            background: rgba($color: #000000, $alpha: 0.42);
+        }
+
+        @media screen and (min-width: 25em) {
+            flex-wrap: nowrap;
+            height: 3.75em;
+
+            h2 {
+                width: auto;
+                order: 0;
+                flex: 1;
+            }
+
+            > * {
+                order: 0;
+                flex-grow: 1;
+            }
         }
     }
-}
 
-@media only screen and (max-width: 529px) { 
-    .item-paginator-container {
-        .toolbar-text {
-            flex: 1 0 100%;
-        }
+    .error-message,
+    .items-wrapper {
+        flex: 1;
+        overflow: auto;
+    }
+    
+    .error-message {
+        margin: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 
-        .items-paginator { 
-            flex: 1 0 100%;
+    .items-wrapper {
+
+        .item {
+            max-width: 70em;
+            box-sizing: border-box;
+            width: 95%;
+            margin: 1em auto;
+            grid-template-areas: 
+            'refresh item-image'
+            'details details'
+            'listing-info listing-info';
+            grid-template-columns: auto 1fr;
+            grid-template-rows: auto auto auto;
+
+            @media screen and (min-width: 40em) {
+                grid-template-areas: 
+                'refresh details'
+                'item-image details'
+                'listing-info listing-info';
+                grid-template-columns: minmax(30%, 1fr) minmax(auto, 40em);
+                grid-template-rows: auto 1fr auto;
+            }
         }
     }
 }

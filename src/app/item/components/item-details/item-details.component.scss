@@ -1,0 +1,151 @@
+@import '../../styles/shared';
+
+:host {
+    background-color: rgba(#000000, 0.85);
+}
+
+.item-details {
+
+    .item-detail {
+        display: block;
+        position: relative;
+        box-sizing: border-box;
+        padding: 1em 0;
+        max-width: 95%;
+        margin: auto;
+        font-size: 0.8em;
+        color: white;
+
+        &:not(:last-child)::before{
+            content: '';
+            position: absolute;
+            height: 0;
+            width: 100%;
+            bottom: 0;
+            left: 0;
+        }
+
+        &.desc-text {
+            text-align: center;
+        }
+    }
+
+    &.rarity-0 {
+        .item-detail::before {
+            box-shadow: 0px 0px 0px 1px map-get($poe-frame-colors, normal);
+        }
+
+        .desc-text { 
+            color: lighten(map-get($poe-frame-colors, normal), 40%);
+        }
+    }
+    &.rarity-1 {
+        .item-detail::before { 
+            box-shadow: 0px 0px 0px 1px map-get($poe-frame-colors, magic);
+        }
+
+        .desc-text { 
+            color: lighten(map-get($poe-frame-colors, magic), 40%);
+        }
+    }
+    &.rarity-2 {
+        .item-detail::before { 
+            box-shadow: 0px 0px 0px 1px map-get($poe-frame-colors, rare);
+        }
+
+        .desc-text { 
+            color: lighten(map-get($poe-frame-colors, rare), 40%);
+        }
+    }
+    &.rarity-3 {
+        .item-detail::before { 
+            box-shadow: 0px 0px 0px 1px map-get($poe-frame-colors, unique);
+        }
+
+        .desc-text { 
+            color: lighten(map-get($poe-frame-colors, unique), 40%);
+        }
+    }
+    &.rarity-4 {
+        .item-detail::before { 
+            box-shadow: 0px 0px 0px 1px map-get($poe-frame-colors, gem);
+        }
+
+        .desc-text { 
+            color: lighten(map-get($poe-frame-colors, gem), 40%);
+        }
+    }
+    &.rarity-5 {
+        .item-detail::before {
+            box-shadow: 0px 0px 0px 1px map-get($poe-frame-colors, currency);
+        }
+
+        .desc-text { 
+            color: lighten(map-get($poe-frame-colors, currency), 40%);
+        }
+    }
+    &.rarity-6 {
+        .item-detail::before {
+            box-shadow: 0px 0px 0px 1px map-get($poe-frame-colors, div-card);
+        }
+
+        .desc-text { 
+            color: lighten(map-get($poe-frame-colors, div-card), 40%);
+        }
+    }
+    &.rarity-8 {
+        .item-detail::before {
+            box-shadow: 0px 0px 0px 1px map-get($poe-frame-colors, prophecy);
+        }
+
+        .desc-text { 
+            color: lighten(map-get($poe-frame-colors, prophecy), 40%);
+        }
+    }
+    &.rarity-9 {
+        .item-detail::before {
+            box-shadow: 0px 0px 0px 1px map-get($poe-frame-colors, relic)
+        }
+
+        .desc-text { 
+            color: lighten(map-get($poe-frame-colors, relic), 40%);
+        }
+    }
+}
+
+.corrupted {
+    color: map-get($poe-property-colors, corrupted);
+}
+
+.modified {
+    color: map-get($poe-property-colors, modified)
+}
+
+.progress-bar {
+    text-align: center;
+
+    p {
+        margin: 0;
+    }
+
+    .bar {
+        margin: 0.25em;
+    }
+
+    .scourge-progress {
+        background-color: map-get($poe-property-colors, scourge);
+    }
+
+    .incubator-progress {
+        background-color: map-get($poe-property-colors, exp);
+    }
+}
+
+
+.enchant {
+    color: map-get($poe-property-colors, enchanted);
+}
+
+.scourge {
+    color: map-get($poe-property-colors, scourge);
+}
