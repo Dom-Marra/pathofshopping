@@ -91,9 +91,16 @@ export class ShoppinglistComponent implements OnInit {
 
     this.servicesLoading.pipe(takeWhile(val => val === true && !this.errMsg, true))
     .subscribe(val => {
-      console.log(val);
+
       if (val === true) return;
-      console.log('here')
+
+      this.league.valueChanges.subscribe(val => {
+        this.listService.setLeague(val);
+      });
+
+      this.listName.valueChanges.subscribe(val => {
+        this.listService.setName(val);
+      });
 
       if (!this.league.value) this.league.patchValue(this.leagues[0].id);
       if (!this.listName.value) this.listName.patchValue('Your List');
@@ -136,14 +143,6 @@ export class ShoppinglistComponent implements OnInit {
           else if (items.length > 0 && this.activatedRoute.children.length === 0)
             this.router.navigate(['form', '1'], {relativeTo: this.activatedRoute, replaceUrl: true})
         });
-      });
-
-      this.league.valueChanges.subscribe(val => {
-        this.listService.setLeague(val);
-      });
-
-      this.listName.valueChanges.subscribe(val => {
-        this.listService.setName(val);
       });
 
       this.sideNavMQ.addEventListener('change', this.detectChanges);
