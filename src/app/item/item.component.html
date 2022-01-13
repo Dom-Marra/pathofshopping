@@ -3,6 +3,7 @@
     mat-icon-button 
     (click)="this.refresh()"
     *ngIf="!gone"
+    aria-label="Refresh the items status"
 >
     <mat-icon [class.refreshing]="refreshing">refresh</mat-icon>
 </button>

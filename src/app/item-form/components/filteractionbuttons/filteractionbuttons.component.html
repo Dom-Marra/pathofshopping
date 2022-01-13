@@ -4,6 +4,7 @@
     *ngIf="includeDelete && formGroup" 
     class="color-transparent-to-warn" 
     (click)="$event.stopImmediatePropagation(); this.emitRemove()"
+    aria-label="Delete this form group"
 >
     <mat-icon>delete</mat-icon>
 </button>
@@ -12,7 +13,8 @@
     *ngIf="!disableClear && !this.formGroup.pristine && formGroup" 
     class="color-transparent-to-warn" 
     (click)="$event.stopImmediatePropagation(); this.reset()"
-    >
+    aria-label="Clear this form group"
+>
     <mat-icon>clear</mat-icon>
 </button>  
 <button 
@@ -25,6 +27,7 @@
         $event.stopImmediatePropagation(); 
         this.formGroup.disabled ? this.formGroup.enable({emitEvent: false}) : this.formGroup.disable({emitEvent: false}); 
         this.disableChange.emit()"
-    >
+    aria-label="Disable this form group"
+>
     <mat-icon>block</mat-icon>
 </button>
