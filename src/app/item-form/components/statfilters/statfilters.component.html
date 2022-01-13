@@ -24,11 +24,14 @@
                                 [statGroup]="stat" 
                                 [isWeight]="this.statFilter.controls.type.value == 'weight'">
             </pos-statselect>
-            <button mat-button 
-                    type="button" 
-                    class="color-transparent-to-accent" 
-                    (click)="addStatFilter()" 
-                    [disabled]="this.statFilter.disabled">
+            <button 
+                mat-button 
+                type="button" 
+                class="color-transparent-to-accent" 
+                (click)="addStatFilter()" 
+                [disabled]="this.statFilter.disabled"
+                aria-label="Add a stat filter"
+            >
                 <mat-icon>add_box</mat-icon> Add Stat
             </button>
         </div>

@@ -16,7 +16,8 @@
                 type="button" 
                 *ngIf="this.search.value && clearable" 
                 (mousedown)="clear()" 
-                aria-label="Clear">
+                aria-label="Clear the previous input"
+            >
             <mat-icon class="icon-light">clear</mat-icon>
         </button>
         <mat-icon class="icon-dark" [class.rotate]="selectInputAutoComplete.isOpen">arrow_drop_down</mat-icon>

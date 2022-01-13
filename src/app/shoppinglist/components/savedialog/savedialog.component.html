@@ -5,6 +5,7 @@
         (click)="this.close()" 
         tabindex="-1"
         class="custom-size-icon-button"
+        aria-label="Close the save dialog"
     >
         <mat-icon>close</mat-icon>
     </button>
@@ -13,7 +14,7 @@
     <mat-form-field class="url" *ngIf="url" appearance="fill" color="accent">
         <mat-label>Your List URL</mat-label>
         <input matInput [value]="url" type="text" autocomplete="off">
-        <button mat-icon-button matSuffix [cdkCopyToClipboard]="url" (cdkCopyToClipboardCopied)="this.copied = true"><mat-icon>content_copy</mat-icon></button>
+        <button mat-icon-button matSuffix [cdkCopyToClipboard]="url" (cdkCopyToClipboardCopied)="this.copied = true" aria-label="Copy the save link"><mat-icon>content_copy</mat-icon></button>
         <mat-hint *ngIf="copied">Copied!</mat-hint>
     </mat-form-field>
     <p class="error" *ngIf="errMessage">{{errMessage}}</p>

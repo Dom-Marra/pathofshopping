@@ -12,7 +12,7 @@
         <h1>
             <pos-editable-field label="List Name" [control]="listName" class="primary-dark"></pos-editable-field>
         </h1>
-        <button mat-icon-button (click)="save()" class="color-transparent-to-accent">
+        <button mat-icon-button (click)="save()" class="color-transparent-to-accent" aria-label="Save this list">
             <mat-icon>save</mat-icon>
         </button>
     </header>
@@ -41,7 +41,7 @@
                         mat-icon-button 
                         (click)="addItem()" 
                         id="add-item" 
-                        aria-label="Add item"
+                        aria-label="Add an item"
                         class="color-transparent-to-accent"
                     >
                         <mat-icon>add_box</mat-icon>
@@ -57,7 +57,7 @@
                     <button 
                         mat-button 
                         (click)="addItem()" 
-                        aria-label="Add item"
+                        aria-label="Add an item"
                         class="color-transparent-to-accent"
                     >
                         Add an item
